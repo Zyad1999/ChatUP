@@ -1,0 +1,237 @@
+* {
+	-fx-text-color1: #041014;
+	-fx-text-color2: #9f9f9f;
+	-fx-text-color3: #c4c4c4;
+	-fx-background-color-1: #F1F1F1;
+	-fx-background-and-text: #fffffe;
+	-fx-primary-color-teal: #041014;
+	-fx-primary-color-lighterTeal: #0F3D3E;
+	-fx-primary-color3: #a09ef9;
+}
+
+/*padding*/
+.padding-All-10 {
+	-fx-padding: 10;
+}
+
+.margin-All-20 {
+	-fx-margin: 20 0 0 0;
+}
+
+.space-10 {
+
+	-fx-spacing: 10;
+}
+
+.space-20 {
+
+	-fx-spacing: 20;
+}
+
+.space-30 {
+
+	-fx-spacing: 30;
+}
+
+.container {
+	-fx-background-color: -fx-background-color-1;
+
+}
+
+.user-profile-container {
+	-fx-background-color: -fx-primary-color-teal;
+	-fx-background-radius: 100;
+}
+
+/*side bar */
+.side-bar-container {
+	-fx-background-color: Linear-gradient(to bottom right, -fx-primary-color-lighterTeal, -fx-primary-color-teal);
+	-fx-background-radius: 0 20 20 0;
+
+}
+
+/*buttons */
+.button {
+	-fx-background-color: none;
+	-fx-background-radius: 10;
+	-fx-padding: 10;
+}
+
+.log_out_btn {
+
+	-fx-padding: 60 10 10 10;
+}
+
+.inner-said-bar {
+	-fx-background-radius: 0;
+	-fx-background-color: none;
+}
+
+.hbox-chat-information {
+	-fx-cursor: hand;
+}
+
+.hbox-chat-information:pressed {
+	-fx-scale-y: 0.9;
+	-fx-scale-x: 0.9;
+}
+
+.name-font {
+	-fx-font-family: Arial;
+	-fx-font-size: 15;
+	-fx-font-weight: bold;
+	-fx-text-fill: -fx-primary-color-teal;
+}
+
+.status-font {
+	-fx-font-family: Arial;
+	-fx-font-size: 12;
+	-fx-font-weight: regular;
+	-fx-text-fill: #c9c9c9;
+}
+
+.status-circle {
+	-fx-radius: 20;
+	-fx-background-color: rgb(23, 228, 23);
+}
+
+.send-messages-chat-text-flow {
+	-fx-background-color: #0F3D3E;
+	/* top-left top-right bottom-right bottom-left */
+	-fx-background-radius: 30 0 40 30;
+	-fx-min-width: 250;
+	-fx-max-width: 300;
+	-fx-effect: dropshadow(two-pass-box, -fx-primary-color-teal, 4, 0.0, 0.0, 2.0);
+	-fx-padding: 15 15 15 15;
+}
+
+
+.receive-messages-chat-text-flow {
+	-fx-background-color: -fx-background-color-1;
+	/* top-left top-right bottom-right bottom-left */
+	-fx-background-radius: 0 30 30 40;
+	-fx-min-width: 250;
+	-fx-max-width: 300;
+	-fx-effect: dropshadow(one-pass-box, -fx-primary-color-teal, 4, 0.0, 0.0, 1.0);
+	-fx-padding: 15 15 15 15;
+
+}
+
+.recieve-messages-chat-text {
+	-fx-fill: -fx-primary-color-teal;
+	-fx-font-size: 13;
+	-fx-font-weight: regular;
+	-fx-padding: 8 10 8 10;
+	-fx-text-alignment: LEFT;
+	-fx-cursor: text;
+}
+
+.send-messages-chat-text {
+	-fx-fill: white;
+	-fx-font-size: 13;
+	-fx-font-weight: regular;
+	-fx-padding: 8 10 8 10;
+	-fx-text-alignment: LEFT;
+	-fx-cursor: text;
+}
+
+.hbox-message-card {
+	-fx-background-color: #F1F1F1;
+
+}
+
+.vbox-message-card {
+	-fx-background-color: transparent;
+	-fx-spacing: 25;
+}
+
+.scrol-pane {
+	-fx-background-color: #F1F1F1;
+	-fx-vbar-policy: never;
+	-fx-hbar-policy: never;
+	-fx-pannable: true;
+	/* -fx-fit-to-height: true; */
+	/* -fx-fit-to-width: true; */
+}
+
+.hbox-send-message {
+	-fx-padding: 10 10 10 10;
+}
+
+.message-text-field {
+	/* -fx-pref-width: 30;
+	-fx-pref-height: 30; */
+	-fx-border-color: -fx-primary-color-teal;
+	-fx-border-radius: 10;
+	-fx-border-width: 1;
+
+}
+
+.message-text-field:focused {
+	/* -fx-pref-width: 30;
+	-fx-pref-height: 30; */
+	-fx-border-color: -fx-primary-color-teal;
+	-fx-border-radius: 10;
+	-fx-border-width: 2;
+}
+
+.button-send {
+	-fx-font-size: 13;
+	-fx-font-weight: regular;
+	-fx-background-color: transparent;
+	-fx-border-color: -fx-primary-color-teal;
+	-fx-border-radius: 10;
+	-fx-border-width: 1;
+	-fx-cursor: hand;
+}
+
+.button-send:hover {
+	-fx-background-color: -fx-primary-color-teal;
+	-fx-text-fill: white;
+	-fx-font-weight: bold;
+	-fx-scale-y: 1.0;
+}
+
+.button-send:pressed {
+	-fx-scale-y: 0.9;
+	-fx-scale-x: 0.9;
+}
+
+.normal-font {
+	-fx-font-family: Arial;
+	-fx-font-size: 12;
+	-fx-font-weight: regular;
+	-fx-text-fill: -fx-primary-color-teal;
+}
+
+.attachment-icon:pressed {
+	-fx-scale-y: 0.9;
+	-fx-scale-x: 0.9;
+}
+
+/* to put in java code */
+/*margin in code for each card 10 in each side*/
+.users_menu_card{
+	-fx-padding: 10;
+
+	-fx-background-color : #ffffff;
+	-fx-background-radius:20 20 20 20;
+
+}
+.user_name_menu{
+
+ 	-fx-font: 100px Tahoma;
+    	-fx-fill: linear-gradient(from 0% 0% to 100% 200%, repeat, aqua 0%, red 50%);
+    	-fx-stroke: black;
+    	-fx-stroke-width: 1;
+
+}
+
+.user-data-menu{
+	-fx-padding: 10;
+
+}
+
+.textflow_menu{
+ 	
+}

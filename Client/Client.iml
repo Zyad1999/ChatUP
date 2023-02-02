@@ -18,5 +18,8 @@
     <orderEntry type="library" name="Maven: org.openjfx:javafx-fxml:win:20-ea+11" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-base:20-ea+11" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-base:win:20-ea+11" level="project" />
+    <orderEntry type="library" name="Maven: org.glavo.materialfx:materialfx:11.13.5" level="project" />
+    <orderEntry type="library" name="Maven: org.glavo.materialfx:virtualizedfx:11.2.6.1" level="project" />
+    <orderEntry type="library" name="Maven: org.glavo.materialfx:adapter:0.2.0" level="project" />
   </component>
 </module>

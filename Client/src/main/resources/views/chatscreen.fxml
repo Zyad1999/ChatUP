@@ -499,7 +499,7 @@
                                     </TextFlow>
                                  </children>
                               </HBox>
-                              <HBox alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: transparent;" styleClass="hbox-message-card">
+                              <HBox alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: transparent; -fx-background-image: &quot;..\images\HD-wallpaper-whatsapp-background-cool-dark-green-new-theme-whatsapp.&quot;;" styleClass="hbox-message-card">
                                  <children>
                                     <TextFlow maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="send-messages-chat-text-flow">
                                        <children>

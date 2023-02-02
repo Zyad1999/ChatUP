@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXPasswordField?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="850.0" stylesheets="@../style/LoginStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane layoutX="334.0" layoutY="100.0" prefHeight="552.0" prefWidth="438.0" styleClass="sidepar" AnchorPane.bottomAnchor="-1.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="-1.0">
+         <effect>
+            <DropShadow blurType="TWO_PASS_BOX" radius="68.5" width="255.0">
+               <color>
+                  <Color red="0.24705882370471954" green="0.38823530077934265" blue="0.3921568691730499" />
+               </color>
+            </DropShadow>
+         </effect>
+         <children>
+            <MFXTextField fx:id="SignIN_PN" floatMode="BORDER" layoutX="117.0" layoutY="302.0" prefHeight="35.0" prefWidth="197.0" promptText="01XXXXXXXXX" styleClass="textfield" />
+            <MFXPasswordField fx:id="SignIN_PSS" floatMode="BORDER" layoutX="117.0" layoutY="352.0" prefHeight="35.0" prefWidth="197.0" promptText="Password" style="-fx-border-color: #0F3D3E;" styleClass="textfield" />
+            <MFXButton fx:id="SignIN" buttonType="RAISED" depthLevel="LEVEL4" layoutX="160.0" layoutY="421.0"  prefHeight="17.0" prefWidth="111.0" rippleColor="#0f3d3e" styleClass="sign_in_btn" text="Sign In" textAlignment="CENTER" textFill="#0f3d3e" wrapText="true">
+               <font>
+                  <Font name="Javanese Text" size="18.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </MFXButton>
+            <Label fx:id="Login" layoutX="118.0" layoutY="476.0" text="Login" textFill="WHITE" underline="true">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="166.0" layoutY="466.0" prefHeight="37.0" prefWidth="132.0" text="with another account" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Circle fx:id="SignUp_img" fill="WHITE" layoutX="216.0" layoutY="195.0" radius="81.0" stroke="#949494" strokeType="INSIDE" strokeWidth="2.0" />
+         </children>
+      </AnchorPane>
+      <ImageView fitHeight="91.0" fitWidth="217.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/logo.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

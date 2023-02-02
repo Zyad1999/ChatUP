@@ -25,6 +25,12 @@
       <artifactId>javafx-base</artifactId>
       <version>20-ea+11</version>
     </dependency>
+    <dependency>
+      <groupId>org.glavo.materialfx</groupId>
+      <artifactId>materialfx</artifactId>
+      <version>11.13.5</version>
+    </dependency>
+
   </dependencies>
   <build>
     <plugins>

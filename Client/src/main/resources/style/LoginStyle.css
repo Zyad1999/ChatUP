@@ -1,0 +1,21 @@
+.textfield{
+ 
+	-fx-border-color:#0F3D3E;
+}
+.sidepar{
+
+	-fx-background-color: #3F6364;
+
+}
+.sign_in_btn{
+
+	-fx-border-color: #0F3D3E;	
+	-fx-border-radius: 30;
+	-fx-background-radius: 30;
+}
+.lable{
+
+  -fx-font-family: "Noto Sans SC Bold";
+    -fx-text-fill: crimson;
+    -fx-font-size: 32pt;
+}

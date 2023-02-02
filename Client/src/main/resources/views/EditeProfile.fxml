@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="500.0" stylesheets="@EditeProfileStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <BorderPane prefHeight="20.0" prefWidth="500.0" BorderPane.alignment="CENTER">
+         <right>
+            <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+               <image>
+                  <Image url="@icons8-macos-close-90.png" />
+               </image>
+               <BorderPane.margin>
+                  <Insets right="10.0" top="3.0" />
+               </BorderPane.margin>
+            </ImageView>
+         </right>
+         <left>
+            <Label text="User Info" textFill="#0f3d3e" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets left="25.0" top="3.0" />
+               </BorderPane.margin>
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+         </left>
+      </BorderPane>
+   </top>
+   <center>
+      <VBox alignment="TOP_CENTER" blendMode="DARKEN" prefHeight="200.0" prefWidth="500.0" BorderPane.alignment="CENTER">
+         <children>
+            <Circle fill="#1f93ff00" radius="60.0" stroke="#0f3d3e" strokeType="INSIDE">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Circle>
+            <Label text="Ziad Yasser" textFill="#0f3d3e">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Label>
+            <TextArea cacheShape="false" centerShape="false" depthTest="DISABLE" focusTraversable="false" maxHeight="100.0" maxWidth="350.0" pickOnBounds="false" prefRowCount="3" promptText="Bio" scaleShape="false" styleClass="bio-area" wrapText="true" VBox.vgrow="NEVER">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </TextArea>
+            <Separator maxWidth="-Infinity" prefWidth="500.0" />
+         </children>
+      </VBox>
+   </center>
+   <bottom>
+      <VBox prefHeight="266.0" prefWidth="494.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="BOTTOM_LEFT" minHeight="35.0" prefWidth="350.0" styleClass="edite-card" VBox.vgrow="NEVER">
+               <VBox.margin>
+                  <Insets bottom="3.0" top="3.0" />
+               </VBox.margin>
+               <children>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <HBox.margin>
+                        <Insets left="80.0" />
+                     </HBox.margin>
+                     <image>
+                        <Image url="@../../../Downloads/icons8-name-100.png" />
+                     </image>
+                  </ImageView>
+                  <Label text="Name" textFill="#0f3d3e">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="30.0" />
+                     </HBox.margin>
+                  </Label>
+                  <HBox alignment="CENTER_RIGHT" minHeight="30.0" prefWidth="249.0">
+                     <children>
+                        <Label alignment="CENTER_RIGHT" prefWidth="240.0" style="-fx-background-color: transparent;" text="Ziad Yasser">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                           <padding>
+                              <Insets right="10.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </HBox>
+            <Separator maxWidth="-Infinity" prefWidth="500.0">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Separator>
+            <HBox alignment="BOTTOM_LEFT" minHeight="35.0" prefWidth="350.0" styleClass="edite-card">
+               <children>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <HBox.margin>
+                        <Insets left="80.0" />
+                     </HBox.margin>
+                     <image>
+                        <Image url="@../../../Downloads/icons8-mail-100%20(1).png" />
+                     </image>
+                  </ImageView>
+                  <Label text="Email" textFill="#0f3d3e">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="30.0" />
+                     </HBox.margin>
+                  </Label>
+                  <HBox alignment="CENTER_RIGHT" minHeight="30.0" prefHeight="35.0" prefWidth="258.0">
+                     <children>
+                        <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="243.0" style="-fx-background-color: transparent;" text="zyadyassr17@gmail.com">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                           <padding>
+                              <Insets right="10.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <VBox.margin>
+                  <Insets bottom="3.0" top="3.0" />
+               </VBox.margin>
+            </HBox>
+            <Separator maxWidth="-Infinity" prefWidth="500.0" />
+            <HBox alignment="CENTER_LEFT" minHeight="30.0" prefWidth="350.0" styleClass="edite-card">
+               <children>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <HBox.margin>
+                        <Insets left="80.0" />
+                     </HBox.margin>
+                     <image>
+                        <Image url="@../../../Downloads/icons8-gender-64.png" />
+                     </image>
+                  </ImageView>
+                  <Label style="-fx-background-color: transparent;" text="Gender" textFill="#0f3d3e">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="30.0" />
+                     </HBox.margin>
+                  </Label>
+                  <HBox alignment="CENTER_RIGHT" minHeight="35.0" prefHeight="35.0" prefWidth="240.0">
+                     <children>
+                        <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="218.0" style="-fx-background-color: transparent;" text="Male">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                           <padding>
+                              <Insets right="10.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <VBox.margin>
+                  <Insets bottom="3.0" top="3.0" />
+               </VBox.margin>
+            </HBox>
+            <Separator maxWidth="-Infinity" prefWidth="500.0" />
+            <HBox alignment="CENTER_LEFT" minHeight="30.0" prefWidth="350.0" styleClass="edite-card">
+               <children>
+                  <ImageView fitHeight="34.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                     <HBox.margin>
+                        <Insets left="80.0" />
+                     </HBox.margin>
+                     <image>
+                        <Image url="@../../../Downloads/icons8-country-48.png" />
+                     </image>
+                  </ImageView>
+                  <Label style="-fx-background-color: transparent;" text="Country" textFill="#0f3d3e">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="30.0" />
+                     </HBox.margin>
+                  </Label>
+                  <HBox alignment="CENTER_RIGHT" minHeight="35.0" prefHeight="35.0" prefWidth="230.0">
+                     <children>
+                        <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="218.0" style="-fx-background-color: transparent;" text="Male">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                           <padding>
+                              <Insets right="10.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <VBox.margin>
+                  <Insets bottom="3.0" top="3.0" />
+               </VBox.margin>
+            </HBox>
+            <Separator maxWidth="-Infinity" prefWidth="500.0" />
+            <HBox alignment="CENTER_LEFT" minHeight="30.0" prefWidth="350.0" styleClass="edite-card">
+               <children>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <HBox.margin>
+                        <Insets left="80.0" />
+                     </HBox.margin>
+                     <image>
+                        <Image url="@../../../Downloads/icons8-birth-date-100.png" />
+                     </image>
+                  </ImageView>
+                  <Label style="-fx-background-color: transparent;" text="Date of Birth" textFill="#0f3d3e">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="30.0" />
+                     </HBox.margin>
+                  </Label>
+                  <HBox alignment="CENTER_RIGHT" minHeight="35.0" prefHeight="35.0" prefWidth="199.0">
+                     <children>
+                        <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="218.0" style="-fx-background-color: transparent;" text="15/9/1999">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                           <padding>
+                              <Insets right="10.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <VBox.margin>
+                  <Insets bottom="3.0" top="3.0" />
+               </VBox.margin>
+            </HBox>
+            <Separator maxWidth="-Infinity" prefWidth="500.0" />
+            <HBox alignment="CENTER_LEFT" minHeight="35.0" prefWidth="350.0" styleClass="edite-card">
+               <children>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <HBox.margin>
+                        <Insets left="80.0" />
+                     </HBox.margin>
+                     <image>
+                        <Image url="@../../../Downloads/icons8-validation-100.png" />
+                     </image>
+                  </ImageView>
+                  <Label style="-fx-background-color: transparent;" text="Password" textFill="#0f3d3e">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="30.0" />
+                     </HBox.margin>
+                  </Label>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="216.0">
+                     <children>
+                        <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="2016.0" style="-fx-background-color: transparent;">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                           <padding>
+                              <Insets right="10.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <VBox.margin>
+                  <Insets top="3.0" />
+               </VBox.margin>
+            </HBox>
+         </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+      </VBox>
+   </bottom>
+   <padding>
+      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+   </padding>
+</BorderPane>

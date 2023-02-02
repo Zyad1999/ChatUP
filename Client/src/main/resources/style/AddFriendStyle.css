@@ -1,0 +1,36 @@
+.root{
+    -fx-background-color: white;
+    -fx-border-color: #0F3D3E;
+    -fx-border-width:3;
+    -fx-border-radius:20;
+    -fx-border-radius:20;
+}
+
+.number-textfield{
+    -fx-border-radius:10;
+    -fx-padding:8;
+    -fx-background-radius:25;
+    -fx-border-color: #0F3D3E;
+    -fx-border-width:2;
+    -fx-background-color: white;
+}
+
+.add-button{
+    -fx-background-radius:25;
+    -fx-background-color:#0F3D3E;
+}
+
+.send-button{
+    -fx-background-radius:25;
+    -fx-background-color:#0F3D3E;
+}
+
+.numbers-scroll-pane{
+    -fx-border-color: white;
+    -fx-background-color:white;
+}
+
+.number-card{
+    -fx-background-color: #F1F1F1;
+    -fx-background-radius:20;
+}

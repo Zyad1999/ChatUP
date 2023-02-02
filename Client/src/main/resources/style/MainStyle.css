@@ -4,7 +4,7 @@
 	-fx-text-color3: #c4c4c4;
 	-fx-background-color-1: #F1F1F1;
 	-fx-background-and-text: #fffffe;
-	-fx-primary-color-teal: #041014;
+	-fx-primary-color-teal: #0F3D3E;
 	-fx-primary-color-lighterTeal: #0F3D3E;
 	-fx-primary-color3: #a09ef9;
 }
@@ -51,10 +51,10 @@
 }
 
 /*buttons */
-.button {
-	-fx-background-color: none;
+.MFXButton {
+	-fx-background-color: transparent;
 	-fx-background-radius: 10;
-	-fx-padding: 10;
+
 }
 
 .log_out_btn {

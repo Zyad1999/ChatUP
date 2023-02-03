@@ -48,22 +48,22 @@ public class SignInSecondSceneController {
     @FXML
     void Login_Clicked(MouseEvent event) throws IOException {
         ActionEvent e = new ActionEvent(event.getSource(), event.getTarget());
-        SwitchScenes.switchToSignInFirst(e);
+        SwitchScenes.getInstance().switchToSignInFirst(e);
     }
 
     @FXML
     void SignIn_Clicked(ActionEvent event) throws IOException {
-        SwitchScenes.switchToChatScreen(event);
+        SwitchScenes.getInstance().switchToChatScreen(event);
     }
 
     @FXML
     void Sign_In_Clicked(ActionEvent event) throws IOException {
-        SwitchScenes.switchToSignInFirst(event);
+        SwitchScenes.getInstance().switchToSignInFirst(event);
     }
 
     @FXML
     void Sign_Up_Clicked(ActionEvent event) throws IOException {
-        SwitchScenes.switchToSignUpFirst(event);
+        SwitchScenes.getInstance().switchToSignUpFirst(event);
     }
 
 }

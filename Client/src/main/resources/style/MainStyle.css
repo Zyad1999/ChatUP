@@ -213,9 +213,13 @@
 /*margin in code for each card 10 in each side*/
 .users_menu_card{
 	-fx-padding: 10;
-
 	-fx-background-color : #ffffff;
 	-fx-background-radius:20 20 20 20;
+
+}
+.users_menu_card:hover{
+	-fx-background-color : #d0d5db;
+	-fx-padding: 2;
 
 }
 .user_name_menu{

@@ -9,35 +9,6 @@
 .right-side {
     -fx-background-color: -fx-background-color-green;
 }
-.button {
-
-}
-
-.button:pressed {
-    -fx-scale-y: 0.9;
-    -fx-scale-x: 0.9;
-}
-
-.text-field {
-	/*-fx-accent: -fx-background-color-green;*/
-	-fx-background-color: -fx-gray-color;
-	/*-fx-background-insets: 0, 0 0 10 0;*/
-	-fx-background-radius: 20;
-    -fx-border-radius: 20;
-	-fx-text-fill: -fx-background-color-green;
-
-}
-
-.text-field:focused {
-	-fx-background-color: -fx-primary-color, white;
-}
-
-.close-button:pressed {
-    -fx-background-color: -fx-gray-color;
-    -fx-text-fill: -fx-background-color-green;
-	-fx-scale-y: 0.9;
-	-fx-scale-x: 0.9;
-}
 
 .signIn-button {
     -fx-text-fill: -fx-gray-color;
@@ -81,3 +52,32 @@
 	-fx-scale-x: 0.9;
 }
 
+.text-field {
+	/*-fx-accent: -fx-background-color-green;*/
+	-fx-background-color: -fx-gray-color;
+	/*-fx-background-insets: 0, 0 0 10 0;*/
+	-fx-background-radius: 20;
+    -fx-border-radius: 20;
+	-fx-text-fill: -fx-background-color-green;
+
+}
+
+.text-field:focused {
+	-fx-background-color: -fx-gray-color;
+}
+
+.close-button:pressed {
+    -fx-background-color: -fx-gray-color;
+    -fx-text-fill: -fx-background-color-green;
+	-fx-scale-y: 0.9;
+	-fx-scale-x: 0.9;
+}
+
+.button {
+
+}
+
+.button:pressed {
+    -fx-scale-y: 0.9;
+    -fx-scale-x: 0.9;
+}

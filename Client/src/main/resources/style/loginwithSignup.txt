@@ -1,8 +1,0 @@
-.parent {
--fx-background-color:transparent;
-
-}
-.pane{
--fx-background-color:#333333;
-
-}

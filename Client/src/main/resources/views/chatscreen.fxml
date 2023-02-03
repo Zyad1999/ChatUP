@@ -143,7 +143,7 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
                   </HBox>
-                  <ScrollPane hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="250.0" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
+                  <ScrollPane focusTraversable="false" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="250.0" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
                      <content>
                         <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="826.0" prefWidth="248.0" style="-fx-background-color: non;">
                            <children>

@@ -12,8 +12,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="850.0" stylesheets="@../style/SignUpFirstScene.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="850.0" stylesheets="@../style/SignUpFirstScene.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chatup.controllers.FXMLcontrollers.SignUpSecondSceneController">
    <center>
       <Pane styleClass="right-side">
          <children>
@@ -29,7 +28,7 @@
                </cursor>
             </MFXButton>
             <Circle fx:id="SignUp_img" fill="WHITE" layoutX="267.0" layoutY="151.0" radius="75.0" stroke="#949494" strokeType="INSIDE" strokeWidth="2.0" />
-            <ImageView fitHeight="30.0" fitWidth="50.0" layoutX="492.0" layoutY="15.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" styleClass="close-button">
+            <ImageView fx:id="Exit" fitHeight="30.0" fitWidth="50.0" layoutX="492.0" layoutY="15.0" nodeOrientation="INHERIT" onMouseClicked="#Exit_Clicked" pickOnBounds="true" preserveRatio="true" styleClass="close-button">
                <image>
                   <Image url="@../images/close-window.png" />
                </image>
@@ -37,8 +36,8 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <Button layoutX="14.0" layoutY="17.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="70.0" mnemonicParsing="false" styleClass="signIn-button" text="Back" />
-            <TextArea layoutX="92.0" layoutY="274.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="170.0" prefWidth="350.0" promptText="Write your about information" wrapText="true">
+            <Button fx:id="Back" layoutX="14.0" layoutY="17.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="70.0" mnemonicParsing="false" onAction="#Back_Clicked" styleClass="signIn-button" text="Back" />
+            <TextArea layoutX="92.0" layoutY="274.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="170.0" prefWidth="350.0" promptText="Write your about information" style="-fx-border-color: #FFFFE0;" wrapText="true">
                <font>
                   <Font size="14.0" />
                </font>

@@ -10,12 +10,12 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="850.0" styleClass="left-side" stylesheets="@../style/LoginStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="850.0" styleClass="left-side" stylesheets="@../style/LoginStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chatup.controllers.FXMLcontrollers.SignInFirstSceneController">
    <children>
       <AnchorPane layoutX="334.0" layoutY="100.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="534.0" styleClass="right-side" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <MFXTextField fx:id="SignIN_PN" floatMode="BORDER" layoutX="157.0" layoutY="219.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0" prefWidth="221.0" promptText="Enter you phone number" styleClass="text-field" />
-            <MFXButton fx:id="SignIN" buttonType="RAISED" depthLevel="LEVEL4" layoutX="176.0" layoutY="315.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="182.0" rippleColor="#0f3d3e" style="-fx-border-color: #0F3D3E; -fx-border-radius: 30; -fx-background-radius: 30; -fx-background-size: 1;" text="Next" textAlignment="CENTER" textFill="#0f3d3e" wrapText="true">
+            <MFXButton fx:id="Next" buttonType="RAISED" depthLevel="LEVEL4" layoutX="176.0" layoutY="315.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#Next_Clicked" prefHeight="50.0" prefWidth="182.0" rippleColor="#0f3d3e" style="-fx-border-color: #0F3D3E; -fx-border-radius: 30; -fx-background-radius: 30; -fx-background-size: 1;" text="Next" textAlignment="CENTER" textFill="#0f3d3e" wrapText="true">
                <font>
                   <Font name="Javanese Text" size="18.0" />
                </font>
@@ -26,7 +26,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </MFXButton>
-            <ImageView fitHeight="30.0" fitWidth="50.0" layoutX="492.0" layoutY="15.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" styleClass="close-button">
+            <ImageView fx:id="Exit" fitHeight="30.0" fitWidth="50.0" layoutX="492.0" layoutY="15.0" nodeOrientation="INHERIT" onMouseClicked="#Exit_Clicked" pickOnBounds="true" preserveRatio="true" styleClass="close-button">
                <image>
                   <Image url="@../images/close-window.png" />
                </image>
@@ -34,8 +34,8 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <Button layoutX="198.0" layoutY="76.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="70.0" mnemonicParsing="false" styleClass="signIn-button" text="Sign In" />
-            <Button layoutX="268.0" layoutY="76.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="70.0" mnemonicParsing="false" styleClass="signUp-button" text="Sign Up" />
+            <Button fx:id="SignIn" layoutX="198.0" layoutY="76.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="70.0" mnemonicParsing="false" onAction="#SignIn_Clicked" styleClass="signIn-button" text="Sign In" />
+            <Button fx:id="SignUp" layoutX="268.0" layoutY="76.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="70.0" mnemonicParsing="false" onAction="#SignUp_Clicked" styleClass="signUp-button" text="Sign Up" />
          </children>
       </AnchorPane>
       <ImageView fitHeight="77.0" fitWidth="280.0" layoutX="17.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true">

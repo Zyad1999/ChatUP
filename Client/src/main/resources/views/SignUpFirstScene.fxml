@@ -18,7 +18,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="850.0" stylesheets="@../style/SignUpFirstScene.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="850.0" stylesheets="@../style/SignUpFirstScene.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chatup.controllers.FXMLcontrollers.SignUpFirstSceneController">
    <center>
       <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="534.0" styleClass="right-side" BorderPane.alignment="CENTER">
          <center>
@@ -50,7 +50,7 @@
                   <Insets />
                </BorderPane.margin>
                <children>
-                  <ImageView fitHeight="30.0" fitWidth="50.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" styleClass="close-button">
+                  <ImageView fx:id="Exit" fitHeight="30.0" fitWidth="50.0" nodeOrientation="INHERIT" onMouseClicked="#Exit_Clicked" pickOnBounds="true" preserveRatio="true" styleClass="close-button">
                      <image>
                         <Image url="@../images/close-window.png" />
                      </image>
@@ -63,8 +63,8 @@
                   </ImageView>
                   <HBox alignment="TOP_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="330.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="70.0" mnemonicParsing="false" styleClass="signIn-button" text="Sign In" />
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="70.0" mnemonicParsing="false" styleClass="signUp-button" text="Sign Up" />
+                        <Button fx:id="SignIn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="70.0" mnemonicParsing="false" onAction="#SignIn_Clicked" styleClass="signIn-button" text="Sign In" />
+                        <Button fx:id="SignUp" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="70.0" mnemonicParsing="false" onAction="#SignUp_Clicked" styleClass="signUp-button" text="Sign Up" />
                      </children>
                   </HBox>
                </children>
@@ -76,7 +76,7 @@
          <bottom>
             <Pane prefHeight="139.0" prefWidth="534.0" BorderPane.alignment="CENTER">
                <children>
-                  <MFXButton fx:id="Sign_Up" buttonType="RAISED" computeRadiusMultiplier="false" defaultButton="true" depthLevel="LEVEL1" layoutX="176.0" layoutY="3.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="182.0" rippleAnimateShadow="true" rippleColor="#0f3d3e" rippleRadius="30.0" rippleRadiusMultiplier="30.0" style="-fx-border-color: #0F3D3E; -fx-border-radius: 30; -fx-background-radius: 30; -fx-background-size: 1;" text="Sign Up" textAlignment="CENTER" textFill="#0f3d3e" wrapText="true">
+                  <MFXButton fx:id="Sign_Up" buttonType="RAISED" computeRadiusMultiplier="false" defaultButton="true" depthLevel="LEVEL1" layoutX="176.0" layoutY="3.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#Sign_Up_Clicked" prefHeight="50.0" prefWidth="182.0" rippleAnimateShadow="true" rippleColor="#0f3d3e" rippleRadius="30.0" rippleRadiusMultiplier="30.0" style="-fx-border-color: #0F3D3E; -fx-border-radius: 30; -fx-background-radius: 30; -fx-background-size: 1;" text="Sign Up" textAlignment="CENTER" textFill="#0f3d3e" wrapText="true">
                      <font>
                         <Font name="Javanese Text" size="23.0" />
                      </font>

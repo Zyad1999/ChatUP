@@ -47,8 +47,14 @@
                                  <image>
                                     <Image url="@../images/inboxicon.png" />
                                  </image>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
                               </ImageView>
                            </graphic>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </MFXButton>
                         <MFXButton buttonType="RAISED" contentDisplay="CENTER" prefHeight="55.0" prefWidth="59.0" styleClass="MFXButton" text=" " textFill="#041014">
                            <graphic>
@@ -58,6 +64,9 @@
                                  </image>
                               </ImageView>
                            </graphic>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </MFXButton>
                         <MFXButton buttonType="RAISED" contentDisplay="CENTER" prefHeight="55.0" prefWidth="59.0" styleClass="MFXButton" text=" " textFill="#041014">
                            <graphic>
@@ -67,6 +76,9 @@
                                  </image>
                               </ImageView>
                            </graphic>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </MFXButton>
                         <MFXButton buttonType="RAISED" contentDisplay="CENTER" prefHeight="55.0" prefWidth="59.0" styleClass="MFXButton" text=" " textFill="#041014">
                            <graphic>
@@ -76,6 +88,9 @@
                                  </image>
                               </ImageView>
                            </graphic>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </MFXButton>
                         <MFXButton buttonType="RAISED" contentDisplay="CENTER" prefHeight="55.0" prefWidth="59.0" styleClass="MFXButton" text=" " textFill="WHITE">
                            <graphic>
@@ -85,6 +100,9 @@
                                  </image>
                               </ImageView>
                            </graphic>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </MFXButton>
                      </children>
                      <styleClass>
@@ -95,12 +113,18 @@
                   <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: none;" styleClass="space-20" />
                   <MFXButton buttonType="RAISED" contentDisplay="CENTER" prefHeight="55.0" prefWidth="59.0" styleClass="MFXButton" text=" " textFill="#979797">
                      <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" style="-fx-rotate: 180; -fx-opacity: 0.7;">
                            <image>
-                              <Image url="@../../../../../../icons8-logout-100%201.png" />
+                              <Image url="@../images/logout.png" />
                            </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </ImageView>
                      </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </MFXButton>
                </children>
             </VBox>
@@ -121,6 +145,9 @@
                                  </cursor>
                               </ImageView>
                            </graphic>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </MFXButton>
                         <Group>
                            <children>
@@ -181,6 +208,9 @@
                                        </color>
                                     </DropShadow>
                                  </effect>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
                               </HBox>
                               <HBox prefHeight="88.0" prefWidth="234.0" styleClass="users_menu_card">
                                  <children>

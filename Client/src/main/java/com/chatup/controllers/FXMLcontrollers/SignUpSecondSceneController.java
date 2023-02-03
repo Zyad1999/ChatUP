@@ -20,7 +20,7 @@ public class SignUpSecondSceneController {
     @FXML
     void SignUp_Finish(ActionEvent event) throws IOException {
 
-        SwitchScenes.switchToSignInFirst(event);
+        SwitchScenes.getInstance().switchToSignInFirst(event);
 
     }
 
@@ -31,7 +31,7 @@ public class SignUpSecondSceneController {
 
     @FXML
     void Back_Clicked(ActionEvent event) throws IOException {
-        SwitchScenes.switchToSignUpFirst(event);
+        SwitchScenes.getInstance().switchToSignUpFirst(event);
     }
 
 

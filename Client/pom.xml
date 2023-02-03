@@ -52,16 +52,6 @@
       </plugin>
     </plugins>
 
-    <resources>
-      <resource>
-        <directory>images</directory>
-      </resource>
-      <resource>
-        <directory>style</directory>
-      </resource>
-      <resource>
-        <directory>views</directory>
-      </resource>
-    </resources>
+
   </build>
 </project>

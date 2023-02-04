@@ -1,5 +1,158 @@
 package com.chatup.controllers.reposotories.implementations;
 
-public class UserRepoImpl {
-    
+import com.chatup.controllers.reposotories.interfaces.UserRepo;
+import com.chatup.models.entities.User;
+import com.chatup.models.enums.Gender;
+import com.chatup.models.enums.UserMode;
+import com.chatup.models.enums.UserStatus;
+import com.chatup.utils.DBConnection;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+public class UserRepoImpl implements UserRepo {
+
+    private static UserRepo userRepo;
+
+    private UserRepoImpl(){}
+
+    public static UserRepo getUserRepo(){
+        if(userRepo == null)
+            userRepo = new UserRepoImpl();
+        return userRepo;
+    }
+
+    @Override
+    public int createUser(User user) {
+        String query = "INSERT INTO chat_user(phone_number,user_name,email,user_password,gender,country,birth_date,bio,"+
+                        "user_status,user_mode) VALUES(?,?,?,?,?,?,?,?,?,?)";
+        try(PreparedStatement stmnt = DBConnection.getConnection().prepareStatement(query,Statement.RETURN_GENERATED_KEYS)){
+            stmnt.setString(1, user.getPhoneNumber());
+            stmnt.setString(2, user.getUserName());
+            stmnt.setString(3, user.getEmail());
+            stmnt.setString(4, user.getPassword());
+            stmnt.setString(5, (user.getGender() != null) ? (user.getGender().toString()) : null);
+            stmnt.setString(6, user.getCountry());
+            stmnt.setDate(7, (user.getBirthDate() != null) ? (new java.sql.Date(user.getBirthDate().getTime())) : null);
+            stmnt.setString(8, user.getBio());
+            stmnt.setString(9, (user.getStatus() != null) ? (user.getStatus().toString()) : null);
+            stmnt.setString(10, (user.getMode() != null) ? (user.getMode().toString()) : null);
+            if(stmnt.executeUpdate() == 0){
+                System.out.println("User was not insrted");
+                return -1;
+            }else{
+                ResultSet res = stmnt.getGeneratedKeys();
+                if(res.next()){
+                    return res.getInt(1);
+                }else{
+                    System.out.println("User was not insrted no ID returned");
+                    return -1;
+                }
+            }
+        }catch (SQLException e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
+    @Override
+    public boolean deleteUser(int userID) {
+        String query = "DELETE FROM chat_user WHERE user_id = ?";
+        try(PreparedStatement stmnt = DBConnection.getConnection().prepareStatement(query)){
+            stmnt.setInt(1,userID);
+            if(stmnt.executeUpdate() == 0){
+                System.out.println("User was not deleted");
+                return false;
+            }else{
+                return true;
+            }
+        }catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean updateUser(User user) {
+        String query = "UPDATE chat_user SET user_name=?, email=?, user_password=?, gender=?, "+
+                        "country=?, birth_date=?, bio=?, user_status=?, user_mode=? WHERE user_id=?";
+        try(PreparedStatement stmnt = DBConnection.getConnection().prepareStatement(query)){
+            stmnt.setString(1, user.getUserName());
+            stmnt.setString(2, user.getEmail());
+            stmnt.setString(3, user.getPassword());
+            stmnt.setString(4, (user.getGender() != null) ? (user.getGender().toString()) : null);
+            stmnt.setString(5, user.getCountry());
+            stmnt.setDate(6, (user.getBirthDate() != null) ? (new java.sql.Date(user.getBirthDate().getTime())) : null);
+            stmnt.setString(7, user.getBio());
+            stmnt.setString(8, (user.getStatus() != null) ? (user.getStatus().toString()) : null);
+            stmnt.setString(9, (user.getMode() != null) ? (user.getMode().toString()) : null);
+            stmnt.setInt(10,user.getId());
+            if(stmnt.executeUpdate() == 0){
+                System.out.println("User was not updated");
+                return false;
+            }else{
+                return true;
+            }
+        }catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public User getUser(int userID) {
+        String query = "SELECT * FROM chat_user WHERE user_id = ?";
+        try(PreparedStatement stmnt = DBConnection.getConnection().prepareStatement(query)){
+            stmnt.setInt(1,userID);
+            ResultSet res = stmnt.executeQuery();
+            if(res.next()){
+                return resultSetToUser(res);
+            }else{
+                System.out.println("User not found");
+                return null;
+            }
+        }catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        String query = "SELECT * FROM chat_user";
+        try(PreparedStatement stmnt = DBConnection.getConnection().prepareStatement(query)){
+            ResultSet res = stmnt.executeQuery();
+            List<User> users = new ArrayList<User>();
+            while(res.next()){
+                users.add(resultSetToUser(res));
+            }
+            return users;
+        }catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private static User resultSetToUser(ResultSet res){
+        try {
+            User user = new User.Builder(res.getString("phone_number"), res.getString("user_name"), res.getString("user_password"))
+            .bio(res.getString("bio"))
+            .birthDate(res.getDate("birth_date"))
+            .country(res.getString("country"))
+            .email(res.getString("email"))
+            .gnder((res.getString("gender")==null) ? null : Gender.valueOf(res.getString("gender")))
+            .id(res.getInt("user_id"))
+            .mode((res.getString("user_mode")==null) ? null : UserMode.valueOf(res.getString("user_mode")))
+            .status((res.getString("user_status")==null) ? null : UserStatus.valueOf(res.getString("user_status")))
+            .build();
+            return user;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

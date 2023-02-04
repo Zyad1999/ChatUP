@@ -28,6 +28,10 @@ public class UserRepoImpl implements UserRepo {
 
     @Override
     public int createUser(User user) {
+        if(UserRepoImpl.getUserRepo().getUser(user.getPhoneNumber()) != null){
+            System.out.println("User with the same number exist");
+            return -1;
+        }
         String query = "INSERT INTO chat_user(phone_number,user_name,email,user_password,gender,country,birth_date,bio,"+
                         "user_status,user_mode) VALUES(?,?,?,?,?,?,?,?,?,?)";
         try(PreparedStatement stmnt = DBConnection.getConnection().prepareStatement(query,Statement.RETURN_GENERATED_KEYS)){
@@ -42,14 +46,14 @@ public class UserRepoImpl implements UserRepo {
             stmnt.setString(9, (user.getStatus() != null) ? (user.getStatus().toString()) : null);
             stmnt.setString(10, (user.getMode() != null) ? (user.getMode().toString()) : null);
             if(stmnt.executeUpdate() == 0){
-                System.out.println("User was not insrted");
+                System.out.println("User was not inserted");
                 return -1;
             }else{
                 ResultSet res = stmnt.getGeneratedKeys();
                 if(res.next()){
                     return res.getInt(1);
                 }else{
-                    System.out.println("User was not insrted no ID returned");
+                    System.out.println("User was not inserted no ID returned");
                     return -1;
                 }
             }
@@ -108,6 +112,24 @@ public class UserRepoImpl implements UserRepo {
         String query = "SELECT * FROM chat_user WHERE user_id = ?";
         try(PreparedStatement stmnt = DBConnection.getConnection().prepareStatement(query)){
             stmnt.setInt(1,userID);
+            ResultSet res = stmnt.executeQuery();
+            if(res.next()){
+                return resultSetToUser(res);
+            }else{
+                System.out.println("User not found");
+                return null;
+            }
+        }catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public User getUser(String userPhone) {
+        String query = "SELECT * FROM chat_user WHERE phone_number = ?";
+        try(PreparedStatement stmnt = DBConnection.getConnection().prepareStatement(query)){
+            stmnt.setString(1,userPhone);
             ResultSet res = stmnt.executeQuery();
             if(res.next()){
                 return resultSetToUser(res);

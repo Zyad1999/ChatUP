@@ -13,5 +13,7 @@ public interface UserRepo {
 
     public User getUser(int userID);
 
+    public User getUser(String userPhone);
+
     public List<User> getAllUsers();
 }

@@ -53,7 +53,7 @@ public class ChatRepoImpl  implements ChatRepo {
     public Chat getSingleChat(int singleChatId) {
         Chat singleChat = null;
         String sql = "select chat_id, first_user_id, second_user_id from chat where chat_id= ? ";
-        try (PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)) {
+        try (PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql)) {
             ps.setInt(1, singleChatId);
             ResultSet rs = ps.executeQuery();
             if (rs.first()) {
@@ -69,7 +69,7 @@ public class ChatRepoImpl  implements ChatRepo {
     public List<User> getSingleChatUsers(int singleChatId) {
         List<User> users = new ArrayList<>();
         String sql = "select first_user_id, second_user_id from chat where chat_id= ?";
-        try (PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)) {
+        try (PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql)) {
             ps.setInt(1, singleChatId);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {

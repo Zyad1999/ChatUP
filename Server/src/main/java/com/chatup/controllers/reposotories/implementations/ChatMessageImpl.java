@@ -23,11 +23,13 @@ public class ChatMessageImpl implements ChatMessageRepo {
 
     @Override
     public int createSingleChatMessage(ChatMessage singleChatMessage)  {
-        String query = "INSERT INTO chat_message(sender_id,content,message_date,chat_id,attachment_id) VALUES(?,?)";
+        String query = "INSERT INTO chat_message(sender_id,content,message_date,chat_id,attachment_id) VALUES(?,?,?,?,?)";
         try(PreparedStatement stmnt = DBConnection.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS)){
             stmnt.setInt(1, singleChatMessage.getSenderId());
             stmnt.setString(2, singleChatMessage.getContent());
             stmnt.setTimestamp(3, Timestamp.valueOf(singleChatMessage.getMessageDateTime()));
+            stmnt.setInt(4,singleChatMessage.getChatId());
+            stmnt.setInt(5,singleChatMessage.getAttachment_Id());
             if(stmnt.executeUpdate() == 0){
                 System.out.println("ChatMessage was not Created");
                 return -1;
@@ -50,7 +52,7 @@ public class ChatMessageImpl implements ChatMessageRepo {
     public ChatMessage getSingleChatMessage(int singleChatMessageId)  {
         ChatMessage singleChatMessage = null;
         String sql = "select chat_id, sender_id,content,message_date,chat_id,attachment_id from chat_message where message_id= ? ";
-        try (PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)) {
+        try (PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql)) {
             ps.setInt(1, singleChatMessageId);
             ResultSet rs = ps.executeQuery();
             if (rs.first()) {

@@ -4,10 +4,7 @@ import com.chatup.controllers.reposotories.interfaces.GroupMessageRepo;
 import com.chatup.models.entities.GroupMessage;
 import com.chatup.utils.DBConnection;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
+import java.sql.*;
 
 public class GroupMessageRepoImp implements GroupMessageRepo {
     private static GroupMessageRepoImp instance;
@@ -23,19 +20,28 @@ public class GroupMessageRepoImp implements GroupMessageRepo {
     @Override
     public int createGroupMessage(GroupMessage groupMessage) {
         String sql = "INSERT INTO group_message (sender_id, content, message_date, group_chat_id, attachment_id) " + "VALUES (?, ?, ?, ?, ?)";
-        try (PreparedStatement statement = DBConnection.getConnection().prepareStatement(sql)) {
+        try (PreparedStatement statement = DBConnection.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             statement.setInt(1, groupMessage.getSenderId());
             statement.setString(2, groupMessage.getContent());
             statement.setTimestamp(3, Timestamp.valueOf(groupMessage.getMessageDate()));
             statement.setInt(4, groupMessage.getGroupChatId());
             statement.setInt(5, groupMessage.getAttachmentID());
             if (statement.executeUpdate() > 0) {
-                return groupMessage.getGroupMessageId();
+                ResultSet resultSet = statement.getGeneratedKeys();
+                if (resultSet.next()) {
+                    return resultSet.getInt(1);
+                } else {
+                    System.out.println("Not added a new message");
+                    return -1;
+                }
+            } else {
+                System.out.println("Not added a new message");
+                return -1;
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            return -1;
         }
-        return 0;
     }
 
     @Override

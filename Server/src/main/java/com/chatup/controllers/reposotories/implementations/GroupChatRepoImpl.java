@@ -8,6 +8,7 @@ import com.chatup.utils.DBConnection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,16 +38,25 @@ public class GroupChatRepoImpl implements GroupChatRepo {
     @Override
     public int createGroupChat(GroupChat groupChat) {
         String sql = "INSERT INTO group_chat (group_title, group_image) VALUES (?, ?)";
-        try (PreparedStatement statement = DBConnection.getConnection().prepareStatement(sql)) {
+        try (PreparedStatement statement = DBConnection.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, groupChat.getGroupTitle());
             statement.setString(2, groupChat.getGroupImage());
             if (statement.executeUpdate() > 0) {
-                return groupChat.getGroupChatID();
+                ResultSet resultSet = statement.getGeneratedKeys();
+                if (resultSet.next()) {
+                    return resultSet.getInt(1);
+                } else {
+                    System.out.println("Not create a group");
+                    return -1;
+                }
+            } else {
+                System.out.println("Not create a group");
+                return -1;
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            return -1;
         }
-        return 0;
     }
 
     @Override

@@ -1,15 +1,15 @@
 package com.chatup.controllers.reposotories.implementations;
 
 import com.chatup.controllers.reposotories.interfaces.ChatRepo;
-import com.chatup.controllers.reposotories.interfaces.UserRepo;
 import com.chatup.models.entities.Chat;
 import com.chatup.models.entities.ChatMessage;
 import com.chatup.models.entities.User;
 import com.chatup.utils.DBConnection;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
+
 
 public class ChatRepoImpl  implements ChatRepo {
 
@@ -53,7 +53,7 @@ public class ChatRepoImpl  implements ChatRepo {
     public Chat getSingleChat(int singleChatId) {
         Chat singleChat = null;
         String sql = "select chat_id, first_user_id, second_user_id from chat where chat_id= ? ";
-        try (PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql)) {
+        try (PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql,ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)) {
             ps.setInt(1, singleChatId);
             ResultSet rs = ps.executeQuery();
             if (rs.first()) {
@@ -72,8 +72,10 @@ public class ChatRepoImpl  implements ChatRepo {
         try (PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql)) {
             ps.setInt(1, singleChatId);
             ResultSet rs = ps.executeQuery();
+
             while (rs.next()) {
-//                users.add(resultSetToUser(rs));
+               users.add(UserRepoImpl.getUserRepo().getUser(rs.getInt("first_user_id")));
+                users.add(UserRepoImpl.getUserRepo().getUser(rs.getInt("second_user_id")));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -122,4 +124,6 @@ public class ChatRepoImpl  implements ChatRepo {
             sqe.printStackTrace();
         }
     }
+
+
 }

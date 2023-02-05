@@ -2,3 +2,4 @@
 Client/target
 Server/target
 /Server/src/main/resources/db.properties
+.vscode

@@ -1,11 +1,9 @@
 package com.chatup.controllers.reposotories.implementations;
 
 import com.chatup.controllers.reposotories.interfaces.ChatMessageRepo;
-import com.chatup.models.entities.Chat;
 import com.chatup.models.entities.ChatMessage;
 import com.chatup.utils.DBConnection;
 
-import java.rmi.RemoteException;
 import java.sql.*;
 
 
@@ -24,11 +22,16 @@ public class ChatMessageImpl implements ChatMessageRepo {
     @Override
     public int createSingleChatMessage(ChatMessage singleChatMessage)  {
         String query = "INSERT INTO chat_message(sender_id,content,message_date,chat_id,attachment_id) VALUES(?,?,?,?,?)";
+        String query2 = "INSERT INTO chat_message(sender_id,content,message_date,chat_id) VALUES(?,?,?,?)";
+        if(singleChatMessage.getAttachment_Id()==0){
+            query=query2;
+        }
         try(PreparedStatement stmnt = DBConnection.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS)){
             stmnt.setInt(1, singleChatMessage.getSenderId());
             stmnt.setString(2, singleChatMessage.getContent());
             stmnt.setTimestamp(3, Timestamp.valueOf(singleChatMessage.getMessageDateTime()));
             stmnt.setInt(4,singleChatMessage.getChatId());
+            if(singleChatMessage.getAttachment_Id()!=0)
             stmnt.setInt(5,singleChatMessage.getAttachment_Id());
             if(stmnt.executeUpdate() == 0){
                 System.out.println("ChatMessage was not Created");
@@ -52,12 +55,12 @@ public class ChatMessageImpl implements ChatMessageRepo {
     public ChatMessage getSingleChatMessage(int singleChatMessageId)  {
         ChatMessage singleChatMessage = null;
         String sql = "select chat_id, sender_id,content,message_date,chat_id,attachment_id from chat_message where message_id= ? ";
-        try (PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql)) {
+        try (PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql,ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)) {
             ps.setInt(1, singleChatMessageId);
             ResultSet rs = ps.executeQuery();
             if (rs.first()) {
-                singleChatMessage = new ChatMessage(rs.getInt(1), rs.getInt(2), rs.getInt(3),rs.getString(4),
-                        rs.getTimestamp(5).toLocalDateTime(),rs.getInt(6));
+                singleChatMessage = new ChatMessage(rs.getInt(1), rs.getInt(2), rs.getString(3),
+                        rs.getTimestamp(4).toLocalDateTime(),rs.getInt(5));
             }
         } catch (SQLException sqe) {
             sqe.printStackTrace();

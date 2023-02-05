@@ -7,14 +7,14 @@ import com.chatup.utils.DBConnection;
 import java.sql.*;
 
 
-public class ChatMessageImpl implements ChatMessageRepo {
-    private static ChatMessageImpl instance;
-    protected ChatMessageImpl()  {
+public class ChatMessageRepoImpl implements ChatMessageRepo {
+    private static ChatMessageRepoImpl instance;
+    protected ChatMessageRepoImpl()  {
     }
 
     public static ChatMessageRepo getInstance() {
         if (instance == null) {
-                instance = new ChatMessageImpl();
+                instance = new ChatMessageRepoImpl();
         }
         return instance;
     }
@@ -54,7 +54,7 @@ public class ChatMessageImpl implements ChatMessageRepo {
     @Override
     public ChatMessage getSingleChatMessage(int singleChatMessageId)  {
         ChatMessage singleChatMessage = null;
-        String sql = "select chat_id, sender_id,content,message_date,chat_id,attachment_id from chat_message where message_id= ? ";
+        String sql = "select chat_id, sender_id,content,message_date,attachment_id from chat_message where message_id= ? ";
         try (PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql,ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)) {
             ps.setInt(1, singleChatMessageId);
             ResultSet rs = ps.executeQuery();

@@ -4,7 +4,7 @@ import com.chatup.models.entities.Announcement;
 
 import java.util.List;
 
-public interface AnnouncementRepoInt {
+public interface AnnouncementRepo {
     public boolean deleteAnnouncement(int id) ;
     public int createAnnouncement(Announcement announcement);
     public Announcement getAnnouncement(int id );

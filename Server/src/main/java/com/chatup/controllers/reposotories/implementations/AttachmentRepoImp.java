@@ -1,6 +1,6 @@
 package com.chatup.controllers.reposotories.implementations;
 
-import com.chatup.controllers.reposotories.interfaces.AttachmentRepoInl;
+import com.chatup.controllers.reposotories.interfaces.AttachmentRepo;
 import com.chatup.models.entities.Attachment;
 import com.chatup.utils.DBConnection;
 
@@ -11,7 +11,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AttachmentRepoImp  implements AttachmentRepoInl {
+public class AttachmentRepoImp  implements AttachmentRepo {
     private static AttachmentRepoImp attachmentRepoImp ;
     protected AttachmentRepoImp() {
     }

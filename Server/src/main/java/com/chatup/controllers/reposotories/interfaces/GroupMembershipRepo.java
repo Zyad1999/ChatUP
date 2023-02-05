@@ -4,7 +4,7 @@ import com.chatup.models.entities.GroupMembership;
 
 import java.util.List;
 
-public interface GroupMembershipRepoInt {
+public interface GroupMembershipRepo {
     public boolean deleteGroupMembership(int id) ;
     public int createGroupMembership(GroupMembership groupMembership);
     public List<GroupMembership> getAllGroupMembership(int userId );

@@ -5,7 +5,7 @@ import com.chatup.models.entities.Attachment;
 
 import java.util.List;
 
-public interface AttachmentRepoInl {
+public interface AttachmentRepo {
     public boolean deleteAttachment(int id) ;
     public int addAttachment(Attachment attachment);
     public Attachment getAttachment(int id );

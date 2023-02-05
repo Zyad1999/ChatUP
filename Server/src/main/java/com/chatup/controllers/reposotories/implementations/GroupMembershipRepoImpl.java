@@ -1,6 +1,6 @@
 package com.chatup.controllers.reposotories.implementations;
 
-import com.chatup.controllers.reposotories.interfaces.GroupMembershipRepoInt;
+import com.chatup.controllers.reposotories.interfaces.GroupMembershipRepo;
 import com.chatup.models.entities.GroupMembership;
 import com.chatup.utils.DBConnection;
 
@@ -9,7 +9,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GroupMembershipRepoImpl  implements GroupMembershipRepoInt {
+public class GroupMembershipRepoImpl  implements GroupMembershipRepo {
     private static GroupMembershipRepoImpl groupMembership ;
     protected GroupMembershipRepoImpl() throws RemoteException {
         super();

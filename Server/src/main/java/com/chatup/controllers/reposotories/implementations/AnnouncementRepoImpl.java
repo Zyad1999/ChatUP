@@ -1,6 +1,6 @@
 package com.chatup.controllers.reposotories.implementations;
 
-import com.chatup.controllers.reposotories.interfaces.AnnouncementRepoInt;
+import com.chatup.controllers.reposotories.interfaces.AnnouncementRepo;
 import com.chatup.models.entities.Announcement;
 import com.chatup.utils.DBConnection;
 
@@ -8,7 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AnnouncementRepoImpl implements AnnouncementRepoInt {
+public class AnnouncementRepoImpl implements AnnouncementRepo {
     private static AnnouncementRepoImpl announcementInstance;
     protected AnnouncementRepoImpl() {
     }

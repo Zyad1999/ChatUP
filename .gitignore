@@ -3,3 +3,5 @@ Client/target
 Server/target
 /Server/src/main/resources/db.properties
 .vscode
+Server/Server.iml
+Client/Client.iml

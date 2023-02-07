@@ -2,7 +2,9 @@ package com.chatup.models.entities;
 
 import com.chatup.models.enums.FriendRequestStatus;
 
-public class FriendRequest {
+import java.io.Serializable;
+
+public class FriendRequest implements Serializable {
 
     private int requestID;
     private int senderID;

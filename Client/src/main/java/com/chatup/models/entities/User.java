@@ -4,9 +4,10 @@ import com.chatup.models.enums.Gender;
 import com.chatup.models.enums.UserMode;
 import com.chatup.models.enums.UserStatus;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class User {
+public class User implements Serializable {
 
     private int id ;
     private String userName;

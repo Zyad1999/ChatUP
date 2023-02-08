@@ -3,9 +3,14 @@ package com.chatup.controllers.reposotories.implementations;
 import com.chatup.controllers.reposotories.interfaces.ChatRepo;
 import com.chatup.models.entities.Chat;
 import com.chatup.models.entities.ChatMessage;
+import com.chatup.models.entities.GroupMembership;
 import com.chatup.models.entities.User;
 import com.chatup.utils.DBConnection;
-import java.sql.*;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -123,6 +128,42 @@ public class ChatRepoImpl  implements ChatRepo {
         } catch (SQLException sqe) {
             sqe.printStackTrace();
         }
+    }
+
+    @Override
+    public List<Chat> getAllUserChats(int userId) {
+        List<Chat> userChats = null;
+        String selectQuerey = "select * from chat where ? in (first_user_id,second_user_id)";
+        try (PreparedStatement ps = DBConnection.getConnection().prepareStatement(selectQuerey, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)) {
+            Chat chat =null;
+            ps.setInt(1, userId);
+            ResultSet resultSet = ps.executeQuery();
+            while (resultSet.next()) {
+                chat = new Chat(resultSet.getInt("chat_id"),resultSet.getInt("first_user_id"),resultSet.getInt("second_user_id"));
+                userChats.add(chat);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return userChats;
+    }
+
+    @Override
+    public ChatMessage getLastMessage(int chatid) {
+        ChatMessage chatMessage = null;
+        String selectQuerey = "select * from chat where ? in (first_user_id,second_user_id)";
+        try (PreparedStatement ps = DBConnection.getConnection().prepareStatement(selectQuerey, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)) {
+            ps.setInt(1, chatid);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                chatMessage = new ChatMessage();
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return chatMessage;
     }
 
 

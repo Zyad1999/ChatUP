@@ -3,7 +3,6 @@ package com.chatup.controllers.reposotories.implementations;
 import com.chatup.controllers.reposotories.interfaces.ChatRepo;
 import com.chatup.models.entities.Chat;
 import com.chatup.models.entities.ChatMessage;
-import com.chatup.models.entities.GroupMembership;
 import com.chatup.models.entities.User;
 import com.chatup.utils.DBConnection;
 
@@ -132,7 +131,7 @@ public class ChatRepoImpl  implements ChatRepo {
 
     @Override
     public List<Chat> getAllUserChats(int userId) {
-        List<Chat> userChats = null;
+        List<Chat> userChats = new ArrayList<>();
         String selectQuerey = "select * from chat where ? in (first_user_id,second_user_id)";
         try (PreparedStatement ps = DBConnection.getConnection().prepareStatement(selectQuerey, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)) {
             Chat chat =null;
@@ -152,12 +151,13 @@ public class ChatRepoImpl  implements ChatRepo {
     @Override
     public ChatMessage getLastMessage(int chatid) {
         ChatMessage chatMessage = null;
-        String selectQuerey = "select * from chat where ? in (first_user_id,second_user_id)";
+        String selectQuerey = "select message_id,sender_id,content,message_date,chat_id,attachment_id from chat_message where chat_id=? and time(message_date) = (select max(time(message_date)) from chat_message where chat_id =?) ";
         try (PreparedStatement ps = DBConnection.getConnection().prepareStatement(selectQuerey, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)) {
             ps.setInt(1, chatid);
+            ps.setInt(2, chatid);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                chatMessage = new ChatMessage();
+               chatMessage = new ChatMessage(rs.getInt("message_id"),rs.getInt("chat_id"),rs.getInt("sender_id"),rs.getString("content"),rs.getTimestamp("message_date").toLocalDateTime(),rs.getInt("attachment_id"));
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -165,6 +165,7 @@ public class ChatRepoImpl  implements ChatRepo {
 
         return chatMessage;
     }
+
 
 
 }

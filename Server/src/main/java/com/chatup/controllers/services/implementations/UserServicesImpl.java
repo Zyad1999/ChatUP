@@ -1,27 +1,47 @@
 package com.chatup.controllers.services.implementations;
 
 import com.chatup.controllers.reposotories.implementations.ChatRepoImpl;
+import com.chatup.controllers.reposotories.implementations.UserRepoImpl;
 import com.chatup.controllers.services.interfaces.UserServices;
 import com.chatup.models.entities.Chat;
 import com.chatup.models.entities.ChatMessage;
 import com.chatup.models.entities.User;
 
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class UserServicesImpl implements UserServices {
 
     @Override
     public User getUserInfo(int userId) {
-        return null;
+       User user= UserRepoImpl.getUserRepo().getUser(userId);
+       user.setPassword(null);
+        return user;
     }
 
     @Override
-    public List<Chat> getUserchats(int userId) {
-        return ChatRepoImpl.getInstance().getAllUserChats(userId);
+    public Map<Chat,ChatMessage> getUserchats(int userId) {
+        Map <Chat,ChatMessage> userMessages = new HashMap<>();
+        ChatMessage chatMessage;
+        for ( Chat chat:  ChatRepoImpl.getInstance().getAllUserChats(userId) ) {
+            System.out.println( chat.getId());
+           chatMessage= ChatRepoImpl.getInstance().getLastMessage(chat.getId());
+            userMessages.put(chat, chatMessage);
+            System.out.println( chatMessage.getContent());
+        }
+        Map<Chat,ChatMessage> resultSet = userMessages.entrySet()
+                .stream()
+                .sorted(Comparator.comparing(e -> e.getValue().getMessageDateTime()))
+                .collect(Collectors.toMap(Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (left, right) -> left,
+                        LinkedHashMap::new));
+
+         return resultSet;
     }
 
     @Override
     public List<ChatMessage> getChatMsg(int chatId) {
-        return null;
+        return ChatRepoImpl.getInstance().getSingleChatMessages(chatId);
     }
 }

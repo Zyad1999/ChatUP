@@ -14,8 +14,8 @@
    <children>
       <AnchorPane layoutX="334.0" layoutY="100.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="534.0" styleClass="right-side" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <MFXTextField fx:id="SignIN_PN" floatMode="BORDER" layoutX="157.0" layoutY="219.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0" prefWidth="221.0" promptText="Enter you phone number" styleClass="text-field" />
-            <MFXButton fx:id="Next" buttonType="RAISED" depthLevel="LEVEL4" layoutX="176.0" layoutY="315.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#Next_Clicked" prefHeight="50.0" prefWidth="182.0" rippleColor="#0f3d3e" style="-fx-border-color: #0F3D3E; -fx-border-radius: 30; -fx-background-radius: 30; -fx-background-size: 1;" text="Next" textAlignment="CENTER" textFill="#0f3d3e" wrapText="true">
+            <MFXTextField fx:id="SignIN_PN" floatMode="BORDER" layoutX="158.0" layoutY="245.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0" prefWidth="221.0" promptText="Enter your phone number" styleClass="text-field" />
+            <MFXButton fx:id="Next" buttonType="RAISED" depthLevel="LEVEL4" layoutX="177.0" layoutY="341.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#Next_Clicked" prefHeight="50.0" prefWidth="182.0" rippleColor="#0f3d3e" style="-fx-border-color: #0F3D3E; -fx-border-radius: 30; -fx-background-radius: 30; -fx-background-size: 1;" text="Next" textAlignment="CENTER" textFill="#0f3d3e" wrapText="true">
                <font>
                   <Font name="Javanese Text" size="18.0" />
                </font>

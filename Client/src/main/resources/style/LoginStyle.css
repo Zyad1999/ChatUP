@@ -21,8 +21,9 @@
 	/*-fx-accent: -fx-background-color-green;*/
 	-fx-background-color: -fx-gray-color;
 	/*-fx-background-insets: 0, 0 0 10 0;*/
+	-fx-border-color: -fx-gray-color;
 	-fx-background-radius: 20;
-    -fx-border-color: #FFFFE0;
+    /*-fx-border-color: #FFFFE0;*/
     -fx-border-radius: 30;
 	-fx-text-fill: -fx-background-color-green;
 

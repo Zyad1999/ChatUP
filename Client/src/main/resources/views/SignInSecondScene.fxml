@@ -18,7 +18,10 @@
         <AnchorPane layoutX="334.0" layoutY="100.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="534.0" styleClass="right-side" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <MFXTextField fx:id="SignIN_PN" allowEdit="false" floatMode="BORDER" layoutX="158.0" layoutY="321.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0" prefWidth="221.0" promptText="01XXXXXXXXX" selectable="false" style="-fx-border-color: #FFFFE0;" styleClass="text-field" />
-                <MFXPasswordField fx:id="SignIN_PSS" floatMode="BORDER" layoutX="157.0" layoutY="376.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0" prefWidth="221.0" promptText="Password" style="-fx-border-color: #FFFFE0;" styleClass="text-field" />
+                <MFXPasswordField fx:id="SignIN_PSS" floatMode="BORDER" layoutX="157.0" layoutY="376.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0" prefWidth="221.0" promptText="Password" style="-fx-border-color: #FFFFE0;" styleClass="text-field">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></MFXPasswordField>
                 <MFXButton fx:id="SignIn" buttonType="RAISED" depthLevel="LEVEL4" layoutX="176.0" layoutY="441.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#SignIn_Clicked" prefHeight="50.0" prefWidth="182.0" rippleColor="#0f3d3e" style="-fx-border-color: #0F3D3E; -fx-border-radius: 30; -fx-background-radius: 30; -fx-background-size: 1;" text="Sign In" textAlignment="CENTER" textFill="#0f3d3e" wrapText="true">
                     <font>
                         <Font name="Javanese Text" size="18.0" />
@@ -41,15 +44,13 @@
                 </ImageView>
                 <Button fx:id="Sign_In" layoutX="198.0" layoutY="76.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="70.0" mnemonicParsing="false" onAction="#Sign_In_Clicked" styleClass="signIn-button" text="Sign In" />
                 <Button fx:id="Sign_Up" layoutX="268.0" layoutY="76.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="70.0" mnemonicParsing="false" onAction="#Sign_Up_Clicked" styleClass="signUp-button" text="Sign Up" />
-            <Label fx:id="Login" layoutX="180.0" layoutY="512.0" onMouseClicked="#Login_Clicked" text="Login" textFill="WHITE" underline="true">
+            <Label fx:id="Login" layoutX="181.0" layoutY="509.0" onMouseClicked="#Login_Clicked" text="Login using another mobile" textFill="WHITE" underline="true">
                <font>
                   <Font name="Arial Bold" size="13.0" />
                </font>
-            </Label>
-            <Label layoutX="230.0" layoutY="501.0" prefHeight="37.0" prefWidth="132.0" text="with another account" textFill="WHITE">
-               <font>
-                  <Font name="Arial Bold" size="13.0" />
-               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Label>
             </children>
         </AnchorPane>

@@ -14,8 +14,8 @@ public class UserServicesImpl implements UserServices {
 
     @Override
     public User getUserInfo(int userId) {
-       User user= UserRepoImpl.getUserRepo().getUser(userId);
-       user.setPassword(null);
+        User user= UserRepoImpl.getUserRepo().getUser(userId);
+        user.setPassword(null);
         return user;
     }
 
@@ -25,7 +25,7 @@ public class UserServicesImpl implements UserServices {
         ChatMessage chatMessage;
         for ( Chat chat:  ChatRepoImpl.getInstance().getAllUserChats(userId) ) {
             System.out.println( chat.getId());
-           chatMessage= ChatRepoImpl.getInstance().getLastMessage(chat.getId());
+            chatMessage= ChatRepoImpl.getInstance().getLastMessage(chat.getId());
             userMessages.put(chat, chatMessage);
             System.out.println( chatMessage.getContent());
         }

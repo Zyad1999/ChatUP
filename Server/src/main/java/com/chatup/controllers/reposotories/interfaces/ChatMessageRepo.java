@@ -13,8 +13,8 @@ public interface ChatMessageRepo {
     ChatMessage getSingleChatMessage(int singleChatMessageId);
 
     // Update
-    void updateSingleChatMessage(ChatMessage singleChatMessage);
+    boolean updateSingleChatMessage(ChatMessage singleChatMessage);
 
     // Delete
-    void deleteSingleChatMessage(int singleChatMessageId);
+    boolean deleteSingleChatMessage(int singleChatMessageId);
 }

@@ -1,12 +1,13 @@
 package com.chatup.utils;
 
+import com.mysql.cj.jdbc.MysqlDataSource;
+
 import javax.sql.DataSource;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Properties;
-
-import com.mysql.cj.jdbc.MysqlDataSource;
 
 public class DBConnection{
 
@@ -47,6 +48,8 @@ public class DBConnection{
         MysqlDataSource mysqlDS = null;
         try {
             fis = new FileInputStream(DBConnection.class.getClassLoader().getResource("db.properties").toString().substring(6));
+            //fis = new FileInputStream("D:\\Java Track\\JavaProject\\ChatUP\\Server\\src\\main\\resources\\db.properties");
+
             props.load(fis);
             mysqlDS = new MysqlDataSource();
             mysqlDS.setURL(props.getProperty("MYSQL_DB_URL"));

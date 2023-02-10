@@ -5,7 +5,11 @@ import com.chatup.models.entities.Chat;
 import com.chatup.models.entities.ChatMessage;
 import com.chatup.models.entities.User;
 import com.chatup.utils.DBConnection;
-import java.sql.*;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -102,28 +106,72 @@ public class ChatRepoImpl  implements ChatRepo {
     }
 
     @Override
-    public void updateSingleChat(Chat singleChat) {
+    public boolean updateSingleChat(Chat singleChat) {
         String sql = "UPDATE chat SET first_user_id = ? , second_user_id = ? where chat_id= ? ";
         try (PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql)) {
             ps.setInt(1, singleChat.getFirstUserId());
             ps.setInt(2, singleChat.getSecondUserId());
             ps.setInt(3, singleChat.getId());
-            ps.executeUpdate();
+            if(ps.executeUpdate()!=0){
+                return true;
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return false;
     }
 
     @Override
-    public void deleteSingleChat(int singleChatId) {
+    public boolean deleteSingleChat(int singleChatId) {
         String sql = "delete from chat where chat_id= ?";
         try (PreparedStatement stmt = DBConnection.getConnection().prepareStatement(sql)) {
             stmt.setInt(1, singleChatId);
-            stmt.executeUpdate();
+            if(stmt.executeUpdate()!=0){
+                return true;
+            }
         } catch (SQLException sqe) {
             sqe.printStackTrace();
         }
+        return false;
     }
+
+    @Override
+    public List<Chat> getAllUserChats(int userId) {
+        List<Chat> userChats = new ArrayList<>();
+        String selectQuerey = "select * from chat where ? in (first_user_id,second_user_id)";
+        try (PreparedStatement ps = DBConnection.getConnection().prepareStatement(selectQuerey, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)) {
+            Chat chat =null;
+            ps.setInt(1, userId);
+            ResultSet resultSet = ps.executeQuery();
+            while (resultSet.next()) {
+                chat = new Chat(resultSet.getInt("chat_id"),resultSet.getInt("first_user_id"),resultSet.getInt("second_user_id"));
+                userChats.add(chat);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return userChats;
+    }
+
+    @Override
+    public ChatMessage getLastMessage(int chatid) {
+        ChatMessage chatMessage = null;
+        String selectQuerey = "select message_id,sender_id,content,message_date,chat_id,attachment_id from chat_message where chat_id=? and time(message_date) = (select max(time(message_date)) from chat_message where chat_id =?) ";
+        try (PreparedStatement ps = DBConnection.getConnection().prepareStatement(selectQuerey, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)) {
+            ps.setInt(1, chatid);
+            ps.setInt(2, chatid);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+               chatMessage = new ChatMessage(rs.getInt("message_id"),rs.getInt("chat_id"),rs.getInt("sender_id"),rs.getString("content"),rs.getTimestamp("message_date").toLocalDateTime(),rs.getInt("attachment_id"));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return chatMessage;
+    }
+
 
 
 }

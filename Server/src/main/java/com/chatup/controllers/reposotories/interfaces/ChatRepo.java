@@ -20,9 +20,12 @@ public interface ChatRepo {
     List<ChatMessage> getSingleChatMessages(int singleChatId);
 
     // Update
-    void updateSingleChat(Chat singleChat);
+    boolean updateSingleChat(Chat singleChat);
 
     // Delete
-    void deleteSingleChat(int singleChatId);
+    boolean deleteSingleChat(int singleChatId);
 
+    public List<Chat> getAllUserChats (int userId);
+
+    public ChatMessage getLastMessage(int cahtId);
 }

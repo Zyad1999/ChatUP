@@ -90,6 +90,7 @@
 	-fx-background-color: rgb(23, 228, 23);
 }
 
+
 .send-messages-chat-text-flow {
 	-fx-background-color: #0F3D3E;
 	/* top-left top-right bottom-right bottom-left */
@@ -98,6 +99,10 @@
 	-fx-max-width: 300;
 	-fx-effect: dropshadow(two-pass-box, -fx-primary-color-teal, 4, 0.0, 0.0, 2.0);
 	-fx-padding: 15 15 15 15;
+}
+
+.sender-name-text {
+
 }
 
 .receive-messages-chat-text-flow {
@@ -109,12 +114,11 @@
 	-fx-effect: dropshadow(one-pass-box, -fx-primary-color-teal, 4, 0.0, 0.0, 1.0);
 	-fx-padding: 15 15 15 15;
 }
-
 .recieve-messages-chat-text {
 	-fx-fill: -fx-primary-color-teal;
 	-fx-font-size: 13;
 	-fx-font-weight: regular;
-	-fx-padding: 8 10 8 10;
+	-fx-padding: 4 0 4 0;
 	-fx-text-alignment: LEFT;
 	-fx-cursor: text;
 }

@@ -43,7 +43,7 @@
 .signIn-button {
     -fx-text-fill: -fx-gray-color;
 	-fx-font-size: 13;
-	-fx-font-weight: regular;
+	-fx-font-weight: 400;
 	-fx-background-color: #577777;
 	-fx-background-radius: 30 0 0 30;
 	-fx-border-width: 1;
@@ -64,7 +64,7 @@
     -fx-width: 30;
     -fx-text-fill: -fx-gray-color;
 	-fx-font-size: 13;
-	-fx-font-weight: regular;
+	-fx-font-weight: 400;
 	-fx-background-color: #577777;
 	-fx-background-radius: 0 30 30 0;
 	-fx-border-width: 1;

@@ -22,6 +22,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
@@ -151,7 +152,7 @@
                         </MFXButton>
                         <Group>
                            <children>
-                              <TextField fx:id="txt_ld_search" layoutX="-22.0" layoutY="-10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="197.0" promptText="Search" styleClass="search-text-field" text="sadsadafdsafdsafadsfdsafdsafdasfadsfsadfasdfsafsd" />
+                              <TextField fx:id="txt_ld_search" layoutX="-22.0" layoutY="-10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="197.0" promptText="Search" styleClass="search-text-field" />
                               <ImageView fitHeight="20.0" fitWidth="56.0" layoutX="148.0" layoutY="-1.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../images/searchgray.png" />
@@ -513,11 +514,24 @@
                            <children>
                               <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: transparent;" styleClass="hbox-message-card">
                                  <children>
-                                    <TextFlow maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="receive-messages-chat-text-flow">
+                                    <VBox prefWidth="300.0" styleClass="receive-messages-chat-text-flow">
                                        <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="recieve-messages-chat-text" text="Lorem Ipsum is not simply random" />
+                                          <TextFlow maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity">
+                                             <children>
+                                                <Text fill="#116f61" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sender-name-text" text="Karim Taha">
+                                                   <font>
+                                                      <Font name="Calibri Bold" size="14.0" />
+                                                   </font>
+                                                </Text>
+                                             </children>
+                                          </TextFlow>
+                                          <TextFlow styleClass="recieve-messages-chat-text">
+                                             <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="recieve-messages-chat-text" text="Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old." />
+                                             </children>
+                                          </TextFlow>
                                        </children>
-                                    </TextFlow>
+                                    </VBox>
                                  </children>
                               </HBox>
                               <HBox alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: transparent;" styleClass="hbox-message-card">

@@ -7,6 +7,15 @@ import com.chatup.models.entities.Announcement;
 import java.util.List;
 
 public class AnnouncementServiceImp implements AnnouncementService {
+
+    private static AnnouncementService announcementService;
+    private AnnouncementServiceImp(){}
+
+    public static AnnouncementService getAnnouncementService(){
+        if(announcementService == null)
+            announcementService = new AnnouncementServiceImp();
+        return announcementService;
+    }
     @Override
     public Announcement getAnnouncement(int announcement_id) {
         return AnnouncementRepoImpl.getInstance().getAnnouncement(announcement_id);

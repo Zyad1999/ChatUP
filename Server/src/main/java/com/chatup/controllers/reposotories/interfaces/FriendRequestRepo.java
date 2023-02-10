@@ -21,6 +21,8 @@ public interface FriendRequestRepo {
 
     public FriendRequest getFriendRequest(int senderID, int receiverID);
 
-    public List<FriendRequest> getUserFriendRequests(int userID);
-    public List<FriendRequest> getUserSentFriendRequests(int userID);
+    public List<FriendRequest> getAllUserFriendRequests(int userID, FriendRequestStatus status);
+
+    public List<FriendRequest> getUserFriendRequests(int userID, FriendRequestStatus status);
+    public List<FriendRequest> getUserSentFriendRequests(int userID, FriendRequestStatus status);
 }

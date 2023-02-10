@@ -75,6 +75,24 @@ public class GroupChatRepoImpl implements GroupChatRepo {
         return groupChat;
     }
 
+    @Override
+    public GroupMessage getLastMessage(int groupID) {
+        GroupMessage chatMessage = null;
+        String selectQuerey = "select * from group_message where group_chat_id=? and time(message_date) = (select max(time(message_date)) from group_message where group_chat_id =?) ";
+        try (PreparedStatement ps = DBConnection.getConnection().prepareStatement(selectQuerey, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)) {
+            ps.setInt(1, groupID);
+            ps.setInt(2, groupID);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                chatMessage = new GroupMessage(rs.getInt("group_message_id"), rs.getInt("sender_id"), rs.getString("content"), rs.getTimestamp("message_date").toLocalDateTime(), rs.getInt("chat_id"), rs.getInt("attachment_id"));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return chatMessage;
+    }
+
     // get all messages in chat
     @Override
     public List<GroupMessage> getGroupMessages(int groupChatId) {

@@ -2,6 +2,7 @@ package com.chatup.controllers.services.implementations;
 
 import com.chatup.controllers.reposotories.implementations.ChatRepoImpl;
 import com.chatup.controllers.reposotories.implementations.UserRepoImpl;
+import com.chatup.controllers.services.interfaces.UserGroupsService;
 import com.chatup.controllers.services.interfaces.UserServices;
 import com.chatup.models.entities.Chat;
 import com.chatup.models.entities.ChatMessage;
@@ -11,6 +12,16 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class UserServicesImpl implements UserServices {
+
+    private static UserServices userServices;
+
+    private UserServicesImpl(){}
+
+    public static UserServices getUserServices(){
+        if(userServices == null)
+            userServices = new UserServicesImpl();
+        return userServices;
+    }
 
     @Override
     public User getUserInfo(int userId) {

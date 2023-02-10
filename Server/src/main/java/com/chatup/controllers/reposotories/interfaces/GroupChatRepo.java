@@ -10,6 +10,8 @@ public interface GroupChatRepo {
 
     GroupChat getGroupChat(int groupChatId);
 
+    GroupMessage getLastMessage(int groupID);
+
     List<GroupMessage> getGroupMessages(int groupChatId);
 
     boolean updateGroupChat(GroupChat groupChat);

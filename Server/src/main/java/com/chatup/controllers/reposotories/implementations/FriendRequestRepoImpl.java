@@ -32,7 +32,7 @@ public class FriendRequestRepoImpl implements FriendRequestRepo {
             return -1;
         }
 
-        String query = "INSERT INTO friend_request(sender_id,receiver_id,request_status) VALUES(?,?,?)";
+        String query = "INSERT INTO friend_request(sender_id,reciver_id,request_status) VALUES(?,?,?)";
         try(PreparedStatement stmnt = DBConnection.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS)){
             stmnt.setInt(1,request.getSenderID());
             stmnt.setInt(2,request.getReceiverID());
@@ -74,7 +74,7 @@ public class FriendRequestRepoImpl implements FriendRequestRepo {
 
     @Override
     public boolean deleteFriendRequest(int senderID, int receiverID) {
-        String query = "DELETE FROM friend_request WHERE sender_id = ? AND receiver_id = ?";
+        String query = "DELETE FROM friend_request WHERE sender_id = ? AND reciver_id = ?";
         try(PreparedStatement stmnt = DBConnection.getConnection().prepareStatement(query)){
             stmnt.setInt(1, senderID);
             stmnt.setInt(2, receiverID);
@@ -110,7 +110,7 @@ public class FriendRequestRepoImpl implements FriendRequestRepo {
 
     @Override
     public boolean updateFriendRequestStatus(int senderID, int receiverID, FriendRequestStatus newStatus) {
-        String query = "UPDATE friend_request SET request_status = ? WHERE sender_id = ? AND receiver_id = ?";
+        String query = "UPDATE friend_request SET request_status = ? WHERE sender_id = ? AND reciver_id = ?";
         try(PreparedStatement stmnt = DBConnection.getConnection().prepareStatement(query)){
             stmnt.setString(1, (newStatus != null) ? newStatus.toString() : null);
             stmnt.setInt(2,senderID);
@@ -165,10 +165,12 @@ public class FriendRequestRepoImpl implements FriendRequestRepo {
     }
 
     @Override
-    public List<FriendRequest> getUserFriendRequests(int userID) {
-        String query = "SELECT * FROM friend_request WHERE receiver_id = ?";
+    public List<FriendRequest> getAllUserFriendRequests(int userID, FriendRequestStatus status) {
+        String query = "SELECT * FROM friend_request WHERE (reciver_id = ? OR sender_id = ?) AND request_status = ?";
         try(PreparedStatement stmnt = DBConnection.getConnection().prepareStatement(query)){
             stmnt.setInt(1,userID);
+            stmnt.setInt(2,userID);
+            stmnt.setString(3, status.toString());
             ResultSet res = stmnt.executeQuery();
             List<FriendRequest> requests = new ArrayList<FriendRequest>();
             while(res.next()){
@@ -182,10 +184,29 @@ public class FriendRequestRepoImpl implements FriendRequestRepo {
     }
 
     @Override
-    public List<FriendRequest> getUserSentFriendRequests(int userID) {
-        String query = "SELECT * FROM friend_request WHERE sender_id = ?";
+    public List<FriendRequest> getUserFriendRequests(int userID, FriendRequestStatus status) {
+        String query = "SELECT * FROM friend_request WHERE reciver_id = ? AND request_status = ?";
+        try(PreparedStatement stmnt = DBConnection.getConnection().prepareStatement(query)){
+            stmnt.setInt(1,userID);
+            stmnt.setString(2, status.toString());
+            ResultSet res = stmnt.executeQuery();
+            List<FriendRequest> requests = new ArrayList<FriendRequest>();
+            while(res.next()){
+                requests.add(resultSetToFriendRequest(res));
+            }
+            return requests;
+        }catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public List<FriendRequest> getUserSentFriendRequests(int userID, FriendRequestStatus status) {
+        String query = "SELECT * FROM friend_request WHERE sender_id = ? AND request_status = ?";
         try(PreparedStatement stmnt = DBConnection.getConnection().prepareStatement(query)){
             stmnt.setInt(1, userID);
+            stmnt.setString(2, status.toString());
             ResultSet res = stmnt.executeQuery();
             List<FriendRequest> requests = new ArrayList<FriendRequest>();
             while(res.next()){

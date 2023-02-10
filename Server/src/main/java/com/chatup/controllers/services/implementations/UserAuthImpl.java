@@ -3,14 +3,28 @@ package com.chatup.controllers.services.implementations;
 import com.chatup.controllers.reposotories.implementations.UserRepoImpl;
 import com.chatup.controllers.services.interfaces.UserAuth;
 import com.chatup.models.entities.User;
+import com.chatup.models.enums.UserStatus;
 
 public class UserAuthImpl implements UserAuth {
+
+    private static UserAuth userAuth;
+
+    private UserAuthImpl(){}
+
+    public static UserAuth getUserAuth(){
+        if(userAuth == null)
+            userAuth = new UserAuthImpl();
+        return userAuth;
+    }
+
     @Override
     public User sign_In(String phone_Num, String pass) {
         User user = UserRepoImpl.getUserRepo().getUser(phone_Num);
         if(user!=null){
             if(user.getPassword().equals(pass)){
                 System.out.println("Login Successfully");
+                user.setStatus(UserStatus.ONLINE);
+                UserRepoImpl.getUserRepo().updateUser(user);
                 return user;
             }
             else{
@@ -23,6 +37,19 @@ public class UserAuthImpl implements UserAuth {
             return null;
         }
 
+    }
+
+    @Override
+    public boolean logout(int userID){
+        User user = UserRepoImpl.getUserRepo().getUser(userID);
+        if(user != null){
+            user.setStatus(UserStatus.OFFLINE);
+            UserRepoImpl.getUserRepo().updateUser(user);
+            return true;
+        }else {
+            System.out.println("User Not Found");
+            return false;
+        }
     }
     @Override
     public int sign_Up(User user) {

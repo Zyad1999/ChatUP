@@ -22,16 +22,11 @@ public class ChatMessageRepoImpl implements ChatMessageRepo {
     @Override
     public int createSingleChatMessage(ChatMessage singleChatMessage)  {
         String query = "INSERT INTO chat_message(sender_id,content,message_date,chat_id,attachment_id) VALUES(?,?,?,?,?)";
-        String query2 = "INSERT INTO chat_message(sender_id,content,message_date,chat_id) VALUES(?,?,?,?)";
-        if(singleChatMessage.getAttachment_Id()==0){
-            query=query2;
-        }
         try(PreparedStatement stmnt = DBConnection.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS)){
             stmnt.setInt(1, singleChatMessage.getSenderId());
             stmnt.setString(2, singleChatMessage.getContent());
             stmnt.setTimestamp(3, Timestamp.valueOf(singleChatMessage.getMessageDateTime()));
             stmnt.setInt(4,singleChatMessage.getChatId());
-            if(singleChatMessage.getAttachment_Id()!=0)
             stmnt.setInt(5,singleChatMessage.getAttachment_Id());
             if(stmnt.executeUpdate() == 0){
                 System.out.println("ChatMessage was not Created");
@@ -69,7 +64,7 @@ public class ChatMessageRepoImpl implements ChatMessageRepo {
     }
 
     @Override
-    public void updateSingleChatMessage(ChatMessage singleChatMessage)  {
+    public boolean updateSingleChatMessage(ChatMessage singleChatMessage)  {
         String sql = "UPDATE CHAT_MESSAGE SET sender_ID = ?, CONTENT= ?, MESSAGE_DATE=?,chat_id=?,attachment_id=? where message_id=?";
         try (PreparedStatement preparedStatement = DBConnection.getConnection().prepareStatement(sql)) {
             preparedStatement.setInt(1, singleChatMessage.getSenderId());
@@ -78,21 +73,26 @@ public class ChatMessageRepoImpl implements ChatMessageRepo {
             preparedStatement.setInt(4, singleChatMessage.getChatId());
             preparedStatement.setInt(5, singleChatMessage.getAttachment_Id());
             preparedStatement.setInt(6, singleChatMessage.getId());
-            preparedStatement.executeUpdate();
+            if(preparedStatement.executeUpdate()!=0){
+                return true;
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
+                return false;
     }
 
     @Override
-    public void deleteSingleChatMessage(int singleChatMessageId)  {
+    public boolean deleteSingleChatMessage(int singleChatMessageId)  {
         String sql = "delete from CHAT_MESSAGE where message_id = ?";
         try (PreparedStatement stmt = DBConnection.getConnection().prepareStatement(sql)) {
             stmt.setInt(1, singleChatMessageId);
-            stmt.executeUpdate();
+            if(stmt.executeUpdate()!=0){
+                return true;
+            }
         } catch (SQLException sqe) {
             sqe.printStackTrace();
         }
+        return false;
     }
 }

@@ -106,27 +106,33 @@ public class ChatRepoImpl  implements ChatRepo {
     }
 
     @Override
-    public void updateSingleChat(Chat singleChat) {
+    public boolean updateSingleChat(Chat singleChat) {
         String sql = "UPDATE chat SET first_user_id = ? , second_user_id = ? where chat_id= ? ";
         try (PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql)) {
             ps.setInt(1, singleChat.getFirstUserId());
             ps.setInt(2, singleChat.getSecondUserId());
             ps.setInt(3, singleChat.getId());
-            ps.executeUpdate();
+            if(ps.executeUpdate()!=0){
+                return true;
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return false;
     }
 
     @Override
-    public void deleteSingleChat(int singleChatId) {
+    public boolean deleteSingleChat(int singleChatId) {
         String sql = "delete from chat where chat_id= ?";
         try (PreparedStatement stmt = DBConnection.getConnection().prepareStatement(sql)) {
             stmt.setInt(1, singleChatId);
-            stmt.executeUpdate();
+            if(stmt.executeUpdate()!=0){
+                return true;
+            }
         } catch (SQLException sqe) {
             sqe.printStackTrace();
         }
+        return false;
     }
 
     @Override

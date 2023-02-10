@@ -4,6 +4,7 @@
 <?import io.github.palexdev.materialfx.controls.MFXPasswordField?>
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import io.github.palexdev.materialfx.controls.legacy.MFXLegacyComboBox?>
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -24,22 +25,52 @@
          <center>
             <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" BorderPane.alignment="CENTER">
                <children>
-                  <MFXLegacyComboBox fx:id="SignUp_Gender" editable="true" layoutX="255.0" layoutY="66.0" lineStrokeCap="SQUARE" lineStrokeWidth="0.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#SignUp_Gender_Select" prefHeight="38.0" prefWidth="215.0" promptText="Gender" styleClass="text-field" unfocusedLineColor="#0f3d3e" validated="true" />
+                  <MFXLegacyComboBox fx:id="SignUp_Gender" layoutX="250.0" layoutY="66.0" lineStrokeCap="SQUARE" lineStrokeWidth="0.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#SignUp_Gender_Select" prefHeight="38.0" prefWidth="221.0" promptText="Gender" unfocusedLineColor="#0f3d3e" validated="true">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <styleClass>
+                        <String fx:value="text-field" />
+                        <String fx:value="mfx-date-picker" />
+                     </styleClass></MFXLegacyComboBox>
                   <MFXTextField fx:id="SignUp_Name" borderGap="50.0" floatMode="DISABLED" layoutY="8.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0" prefWidth="221.0" promptText="Name" styleClass="text-field">
                      <textFill>
                         <Color red="1.0" green="1.0" blue="1.0" opacity="0.8700000047683716" />
                      </textFill>
+                     <cursor>
+                        <Cursor fx:constant="TEXT" />
+                     </cursor>
                   </MFXTextField>
-                  <MFXTextField fx:id="SignUp_PN" floatMode="BORDER" layoutX="250.0" layoutY="7.650000095367432" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0" prefWidth="221.0" promptText="Phone Number" styleClass="text-field" />
-                  <MFXTextField fx:id="SignUp_Email" floatMode="BORDER" layoutY="65.65000009536743" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0" prefWidth="221.0" promptText="Email" styleClass="text-field" />
-                  <MFXTextField fx:id="SignUp_Country" floatMode="BORDER" layoutX="250.0" layoutY="181.65000009536743" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0" prefWidth="221.0" promptText="Country" styleClass="text-field" />
+                  <MFXTextField fx:id="SignUp_PN" floatMode="BORDER" layoutX="250.0" layoutY="7.650000095367432" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0" prefWidth="221.0" promptText="Phone Number" styleClass="text-field">
+                     <cursor>
+                        <Cursor fx:constant="TEXT" />
+                     </cursor></MFXTextField>
+                  <MFXTextField fx:id="SignUp_Email" floatMode="BORDER" layoutY="65.65000009536743" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0" prefWidth="221.0" promptText="Email" styleClass="text-field">
+                     <cursor>
+                        <Cursor fx:constant="TEXT" />
+                     </cursor></MFXTextField>
+                  <MFXTextField fx:id="SignUp_Country" floatMode="BORDER" layoutX="250.0" layoutY="181.65000009536743" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0" prefWidth="221.0" promptText="Country" styleClass="text-field">
+                     <cursor>
+                        <Cursor fx:constant="TEXT" />
+                     </cursor></MFXTextField>
                   <MFXPasswordField fx:id="SignUp_PSS" floatMode="BORDER" layoutY="123.65000009536743" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0" prefWidth="221.0" promptText="Password" styleClass="text-field">
                      <cursor>
                         <Cursor fx:constant="TEXT" />
                      </cursor>
                   </MFXPasswordField>
-                  <DatePicker fx:id="SignUp_DOB" depthTest="ENABLE" layoutX="250.0" layoutY="123.65000009536743" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0" prefWidth="221.0" promptText="Date Of Birth" styleClass="text-field" />
-                  <MFXPasswordField fx:id="SignUp_Confirm_PSS" floatMode="BORDER" layoutY="181.65000009536743" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0" prefWidth="221.0" promptText="Confirmation Password" styleClass="text-field" />
+                  <DatePicker fx:id="SignUp_DOB" depthTest="ENABLE" editable="false" layoutX="250.0" layoutY="123.65000009536743" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0" prefWidth="221.0" promptText="Date Of Birth">
+                     <styleClass>
+                        <String fx:value="text-field" />
+                        <String fx:value="mfx-date-picker" />
+                        <String fx:value="mfx-icon-wrapper" />
+                     </styleClass>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></DatePicker>
+                  <MFXPasswordField fx:id="SignUp_Confirm_PSS" floatMode="BORDER" layoutY="181.65000009536743" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0" prefWidth="221.0" promptText="Confirmation Password" styleClass="text-field">
+                     <cursor>
+                        <Cursor fx:constant="TEXT" />
+                     </cursor></MFXPasswordField>
                   <Separator layoutX="233.0" layoutY="14.0" opacity="0.33" orientation="VERTICAL" prefHeight="200.0" prefWidth="1.0" />
                </children>
             </Pane>
@@ -76,7 +107,7 @@
          <bottom>
             <Pane prefHeight="139.0" prefWidth="534.0" BorderPane.alignment="CENTER">
                <children>
-                  <MFXButton fx:id="Sign_Up" buttonType="RAISED" computeRadiusMultiplier="false" defaultButton="true" depthLevel="LEVEL1" layoutX="176.0" layoutY="3.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#Sign_Up_Clicked" prefHeight="50.0" prefWidth="182.0" rippleAnimateShadow="true" rippleColor="#0f3d3e" rippleRadius="30.0" rippleRadiusMultiplier="30.0" style="-fx-border-color: #0F3D3E; -fx-border-radius: 30; -fx-background-radius: 30; -fx-background-size: 1;" text="Sign Up" textAlignment="CENTER" textFill="#0f3d3e" wrapText="true">
+                  <MFXButton fx:id="Sign_Up" buttonType="RAISED" computeRadiusMultiplier="false" defaultButton="true" depthLevel="LEVEL1" layoutX="176.0" layoutY="3.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#Sign_Up_Clicked" prefHeight="50.0" prefWidth="182.0" rippleAnimateShadow="true" rippleColor="#0f3d3e" rippleRadius="30.0" rippleRadiusMultiplier="30.0" style="-fx-border-color: #0F3D3E; -fx-border-radius: 30; -fx-background-radius: 30; -fx-background-size: 1;" text="Next" textAlignment="CENTER" textFill="#0f3d3e" wrapText="true">
                      <font>
                         <Font name="Javanese Text" size="23.0" />
                      </font>

@@ -6,6 +6,7 @@
 .left-side {
     -fx-background-color: -fx-gray-color;
 }
+
 .right-side {
     -fx-background-color: -fx-background-color-green;
 }
@@ -13,38 +14,43 @@
 .signIn-button {
     -fx-text-fill: -fx-gray-color;
 	-fx-font-size: 13;
-	-fx-font-weight: regular;
+	-fx-font-weight: 400;
 	-fx-background-color: #577777;
 	-fx-background-radius: 30 0 0 30;
 	-fx-border-width: 1;
 	-fx-cursor: hand;
 }
+
 .signIn-button:hover {
 	-fx-border-style: solid none solid solid;
 	-fx-border-color: -fx-gray-color;
     -fx-border-radius: 30 0 0 30;
 }
+
 .signIn-button:pressed {
     -fx-background-color: -fx-background-color-green;
     -fx-text-fill: -fx-gray-color;
 	-fx-scale-y: 0.9;
 	-fx-scale-x: 0.9;
 }
+
 .signUp-button {
     -fx-width: 30;
     -fx-text-fill: -fx-gray-color;
 	-fx-font-size: 13;
-	-fx-font-weight: regular;
+	-fx-font-weight: 400;
 	-fx-background-color: #577777;
 	-fx-background-radius: 0 30 30 0;
 	-fx-border-width: 1;
 	-fx-cursor: hand;
 }
+
 .signUp-button:hover {
     -fx-border-style: solid solid solid none;
 	-fx-border-color: #F2F2F2;
     -fx-border-radius: 0 30 30 0;
 }
+
 .signUp-button:pressed {
     -fx-background-color: -fx-background-color-green;
     -fx-text-fill: -fx-gray-color;
@@ -53,15 +59,11 @@
 }
 
 .text-field {
-	/*-fx-accent: -fx-background-color-green;*/
 	-fx-background-color: -fx-gray-color;
-	/*-fx-background-insets: 0, 0 0 10 0;*/
+	-fx-border-color: -fx-gray-color;
 	-fx-background-radius: 20;
 	-fx-text-fill: -fx-background-color-green;
-	-fx-border-color: #FFFFE0;
     -fx-border-radius: 30;
-
-
 }
 
 .text-field:focused {
@@ -82,4 +84,14 @@
 .button:pressed {
     -fx-scale-y: 0.9;
     -fx-scale-x: 0.9;
+}
+
+.mfx-date-picker {
+	-fx-padding: 3 5 3 0;
+	-fx-ripple-radius: 10px;
+}
+
+.textarea {
+    -fx-background-color: white;
+    -fx-padding: 2px;
 }

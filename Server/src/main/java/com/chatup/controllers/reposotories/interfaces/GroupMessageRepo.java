@@ -2,6 +2,8 @@ package com.chatup.controllers.reposotories.interfaces;
 
 import com.chatup.models.entities.GroupMessage;
 
+import java.util.List;
+
 public interface GroupMessageRepo {
     // create a message - return groupMessageId
     int createGroupMessage(GroupMessage groupMessage);

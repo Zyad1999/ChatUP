@@ -19,23 +19,19 @@
 }
 
 .space-10 {
-
 	-fx-spacing: 10;
 }
 
 .space-20 {
-
 	-fx-spacing: 20;
 }
 
 .space-30 {
-
 	-fx-spacing: 30;
 }
 
 .container {
 	-fx-background-color: -fx-background-color-1;
-
 }
 
 .user-profile-container {
@@ -45,9 +41,9 @@
 
 /*side bar */
 .side-bar-container {
-	-fx-background-color: Linear-gradient(to bottom right, -fx-primary-color-lighterTeal, -fx-primary-color-teal);
+	/*-fx-background-color: Linear-gradient(to bottom right, -fx-primary-color-lighterTeal, -fx-primary-color-teal);*/
+	-fx-background-color: linear-gradient(to bottom right, rgba(16,15,15,1) 0%, rgba(15,61,62,1) 35%, rgba(241,241,241,1) 100%);
 	-fx-background-radius: 0 20 20 0;
-
 }
 
 /*buttons */
@@ -58,7 +54,6 @@
 }
 
 .log_out_btn {
-
 	-fx-padding: 60 10 10 10;
 }
 
@@ -105,7 +100,6 @@
 	-fx-padding: 15 15 15 15;
 }
 
-
 .receive-messages-chat-text-flow {
 	-fx-background-color: -fx-background-color-1;
 	/* top-left top-right bottom-right bottom-left */
@@ -114,7 +108,6 @@
 	-fx-max-width: 300;
 	-fx-effect: dropshadow(one-pass-box, -fx-primary-color-teal, 4, 0.0, 0.0, 1.0);
 	-fx-padding: 15 15 15 15;
-
 }
 
 .recieve-messages-chat-text {
@@ -137,7 +130,6 @@
 
 .hbox-message-card {
 	-fx-background-color: #F1F1F1;
-
 }
 
 .vbox-message-card {
@@ -162,12 +154,32 @@
 	/* -fx-pref-width: 30;
 	-fx-pref-height: 30; */
 	-fx-border-color: -fx-primary-color-teal;
+    -fx-padding: 3 45 3 7;
 	-fx-border-radius: 10;
 	-fx-border-width: 1;
     -fx-background-radius: 10;
 }
 
 .message-text-field:focused {
+	/* -fx-pref-width: 30;
+	-fx-pref-height: 30; */
+/*	-fx-border-color: -fx-primary-color-teal;*/
+	-fx-border-radius: 10;
+	-fx-border-width: 2;
+    -fx-border-color: #FFFFE0;
+
+}
+.search-text-field {
+	/* -fx-pref-width: 30;
+	-fx-pref-height: 30; */
+	-fx-border-color: -fx-primary-color-teal;
+    -fx-padding: 3 33 3 7;
+	-fx-border-radius: 10;
+	-fx-border-width: 1;
+    -fx-background-radius: 10;
+}
+
+.search-text-field:focused {
 	/* -fx-pref-width: 30;
 	-fx-pref-height: 30; */
 /*	-fx-border-color: -fx-primary-color-teal;*/
@@ -235,9 +247,7 @@
 
 .user-data-menu{
 	-fx-padding: 10;
-
 }
 
 .textflow_menu{
- 	
 }

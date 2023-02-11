@@ -4,6 +4,9 @@ import com.chatup.controllers.services.interfaces.ListCoordinator;
 import com.chatup.models.entities.Card;
 import com.chatup.models.enums.UserStatus;
 import javafx.collections.ObservableList;
+import javafx.scene.layout.VBox;
+
+import java.util.HashMap;
 
 public class ListCoordinatorImpl implements ListCoordinator {
 
@@ -12,6 +15,11 @@ public class ListCoordinatorImpl implements ListCoordinator {
     private static ObservableList<Card> userGroups;
     private static ObservableList<Card> userOnlineFriends;
     private static ObservableList<Card> userOfflineFriends;
+
+    private static HashMap<Integer, VBox> singleChatMap = new HashMap<>();
+
+    private static HashMap<Integer, VBox> groupChatMap = new HashMap<>();
+
 
     private ListCoordinatorImpl(){}
 
@@ -47,5 +55,27 @@ public class ListCoordinatorImpl implements ListCoordinator {
         if(userOfflineFriends==null)
             userOfflineFriends = UserListsImpl.getUserLists().getUserFriends(UserStatus.OFFLINE);
         return userOfflineFriends;
+    }
+    @Override
+    public VBox getSingleChatVbox(int chatId){
+        if(singleChatMap.containsKey(chatId)){
+            return singleChatMap.get(chatId);
+        }
+        else{
+            VBox box = ChatServicesImpl.getChatService().getSingleChatVbox(chatId);
+            singleChatMap.put(chatId,box);
+            return box;
+        }
+    }
+    @Override
+    public VBox getGroupChatVbox(int chatId){
+        if(groupChatMap.containsKey(chatId)){
+            return groupChatMap.get(chatId);
+        }
+        else{
+            VBox box = ChatServicesImpl.getChatService().getGroupChatVbox(chatId);
+            groupChatMap.put(chatId,box);
+            return box;
+        }
     }
 }

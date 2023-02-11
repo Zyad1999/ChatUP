@@ -1,10 +1,12 @@
 package com.chatup.models.entities;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 public class Announcement implements Serializable {
-
+    @Serial
+    private static final long serialVersionUID = -558553967080513792L;
     private int id;
     private String title;
     private String content ;

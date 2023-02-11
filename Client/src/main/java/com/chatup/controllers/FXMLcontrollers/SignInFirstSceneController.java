@@ -5,28 +5,34 @@ import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class SignInFirstSceneController {
-
+public class SignInFirstSceneController implements Initializable {
     @FXML
-    private ImageView Exit;
-
+    public MFXTextField phoneNumberTF;
     @FXML
-    private MFXButton Next;
-
+    public MFXButton NextButton;
     @FXML
-    private MFXTextField SignIN_PN;
-
+    public ImageView Exit;
     @FXML
-    private Button SignIn;
-
+    public Button SignIn;
     @FXML
-    private Button SignUp;
+    public Button SignUp;
+    private boolean valid;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        SignIn.setDisable(true);
+    }
 
     @FXML
     void Exit_Clicked(MouseEvent event) {
@@ -34,18 +40,65 @@ public class SignInFirstSceneController {
     }
 
     @FXML
-    void Next_Clicked(ActionEvent event) throws IOException {
-        SwitchScenes.getInstance().switchToSignInSecond(event);
+    void Next_Clicked(ActionEvent event) {
+        validatePhoneNumber();
+        if (valid) {
+            try {
+                SwitchScenes.getInstance().switchToSignInSecond(event);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @FXML
-    void SignIn_Clicked(ActionEvent event) throws IOException {
-        SwitchScenes.getInstance().switchToSignInFirst(event);
+    void SignIn_Clicked(ActionEvent event) {
+        try {
+            SwitchScenes.getInstance().switchToSignInFirst(event);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
-    void SignUp_Clicked(ActionEvent event) throws IOException {
-        SwitchScenes.getInstance().switchToSignUpFirst(event);
+    void SignUp_Clicked(ActionEvent event) {
+        try {
+            SwitchScenes.getInstance().switchToSignUpFirst(event);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
+    private ImageView errorImage(String pathImage) {
+        ImageView imageView = new ImageView(new Image(getClass().getResourceAsStream(pathImage)));
+        imageView.setFitWidth(25);
+        imageView.setFitHeight(25);
+        return imageView;
+    }
+
+    private Tooltip hintText(String text, ImageView image) {
+        Tooltip tooltip = new Tooltip();
+        tooltip.setStyle("-fx-border-color: black; -fx-border-width: 1px; -fx-font: normal reqular 11pt 'Times New Roman'; -fx-background-color: rgba(241,241,241,1); -fx-text-fill: black; -fx-background-radius: 4; -fx-border-radius: 4; -fx-opacity: 1.0;");
+        tooltip.setAutoHide(false);
+        tooltip.setMaxWidth(300);
+        tooltip.setWrapText(true);
+        tooltip.setText(text);
+        tooltip.setGraphic(image);
+        return tooltip;
+    }
+
+    private void validatePhoneNumber() {
+        if (phoneNumberTF.getText().length() == 0) {
+            phoneNumberTF.setStyle("-fx-border-color: red; -fx-border-width: 1px");
+            phoneNumberTF.setTooltip(hintText("Phone Number is required", errorImage("/images/question-mark.png")));
+            valid = false;
+        } else if (!phoneNumberTF.getText().matches("^01[0125][0-9]{8}$")) {
+            phoneNumberTF.setStyle("-fx-border-color: red; -fx-border-width: 1px");
+            phoneNumberTF.setTooltip(hintText("Invalid Phone Number\nExample: 01xxxxxxxxx", errorImage("/images/error.png")));
+            valid = false;
+        } else {
+            phoneNumberTF.setStyle("-fx-border-color: -fx-gray-color;");
+            valid = true;
+        }
+    }
 }

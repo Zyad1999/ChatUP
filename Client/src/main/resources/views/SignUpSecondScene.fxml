@@ -27,7 +27,10 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </MFXButton>
-            <Circle fx:id="SignUp_img" fill="WHITE" layoutX="267.0" layoutY="151.0" radius="75.0" stroke="#949494" strokeType="INSIDE" strokeWidth="2.0" />
+            <Circle fx:id="profileImage" fill="WHITE" layoutX="267.0" layoutY="151.0" onMouseClicked="#profileImageHandler" radius="75.0" stroke="#949494" strokeType="INSIDE" strokeWidth="2.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Circle>
             <ImageView fx:id="Exit" fitHeight="30.0" fitWidth="50.0" layoutX="492.0" layoutY="15.0" nodeOrientation="INHERIT" onMouseClicked="#Exit_Clicked" pickOnBounds="true" preserveRatio="true" styleClass="close-button">
                <image>
                   <Image url="@../images/close-window.png" />

@@ -222,7 +222,7 @@ public class FriendRequestRepoImpl implements FriendRequestRepo {
     private FriendRequest resultSetToFriendRequest(ResultSet res){
         try {
             return new FriendRequest(res.getInt("request_id"),res.getInt("sender_id"),
-                    res.getInt("receiver_id"),FriendRequestStatus.valueOf(res.getString("request_status")));
+                    res.getInt("reciver_id"),FriendRequestStatus.valueOf(res.getString("request_status")));
         } catch (SQLException e) {
             e.printStackTrace();
             return null;

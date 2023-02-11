@@ -5,6 +5,8 @@ import com.chatup.models.entities.Card;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -39,13 +41,45 @@ public class ChatScreenController implements Initializable {
     private Circle user_image_side_bar;
     @FXML
     private ListView cardsListView;
-
+    private ObservableList<Card> currentList;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         prepareListView(cardsListView);
         cardsListView.setItems(ListCoordinatorImpl.getListCoordinator().getUserChats());
     }
+    @FXML
+    void setChats(ActionEvent event) {
 
+        cardsListView.setItems(ListCoordinatorImpl.getListCoordinator().getUserChats());
+    }
+
+    @FXML
+    void setFriends(ActionEvent event) {
+
+        cardsListView.setItems(ListCoordinatorImpl.getListCoordinator().getUserOnlineFriends());
+    }
+
+    @FXML
+    void setGroups(ActionEvent event) {
+
+
+        cardsListView.setItems(ListCoordinatorImpl.getListCoordinator().getUserGroups());
+    }
+
+    @FXML
+    void signOut(ActionEvent event) {
+
+    }
+
+    @FXML
+    void userNotifications(ActionEvent event) {
+
+    }
+
+    @FXML
+    void userSettings(ActionEvent event) {
+
+    }
     private static void prepareListView(ListView cardsListView){
         cardsListView.setCellFactory(new Callback<ListView<Card>, ListCell<Card>>() {
             public ListCell<Card> call(ListView<Card> param) {
@@ -54,22 +88,28 @@ public class ChatScreenController implements Initializable {
                     @Override
                     public void updateItem(Card item, boolean empty) {
                         super.updateItem(item, empty);
-                        if (item != null) {
-                            Image userImage = new Image(new ByteArrayInputStream(item.getCardImg()), 30, 30, false, true);
-                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/card.fxml"));
-                            cardController cardController = new cardController(userImage,item.getCardContent(),item.getCardName());
-                            loader.setController(cardController);
-                            try {
-                                setGraphic(loader.load());
-                            } catch (IOException e) {
-                                throw new RuntimeException(e);
+                        if(!empty) {
+                            if (item != null) {
+                                Image userImage = new Image(new ByteArrayInputStream(item.getCardImg()), 30, 30, false, true);
+                                FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/card.fxml"));
+                                cardController cardController = new cardController(userImage,item.getCardContent(),item.getCardName());
+                                loader.setController(cardController);
+                                try {
+                                    setGraphic(loader.load());
+                                } catch (IOException e) {
+                                    throw new RuntimeException(e);
+                                }
+                                tooltip.setText(item.getCardContent());
+                                setTooltip(tooltip);
                             }
-                            tooltip.setText(item.getCardContent());
-                            setTooltip(tooltip);
+                        } else {
+                            setText(null);
+                            setGraphic(null);
                         }
+
                     }
                 };
-                cell.setStyle("-fx-background-color: #F4F4F4;");
+               cell.setStyle("-fx-background-color: #F4F4F4;");
                 return cell;
             }
         });

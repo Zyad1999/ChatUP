@@ -8,6 +8,7 @@ import com.chatup.utils.DBConnection;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -72,11 +73,13 @@ public class GroupChatRepoImpl implements GroupChatRepo {
             statement.setInt(1, groupChatId);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.first()) {
-                groupChat = new GroupChat(resultSet.getString("group_title"), Files.readAllBytes(new File(resultSet.getString("group_image")).toPath()));
+                groupChat = new GroupChat(groupChatId,resultSet.getString("group_title"), Files.readAllBytes((resultSet.getString("group_image")==null)? new File(UserRepoImpl.class.getResource("/Images/default_profile_pic.jpg").toURI()).toPath() :new File(resultSet.getString("group_image")).toPath()));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
         return groupChat;
@@ -91,7 +94,7 @@ public class GroupChatRepoImpl implements GroupChatRepo {
             ps.setInt(2, groupID);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                chatMessage = new GroupMessage(rs.getInt("group_message_id"), rs.getInt("sender_id"), rs.getString("content"), rs.getTimestamp("message_date").toLocalDateTime(), rs.getInt("chat_id"), rs.getInt("attachment_id"));
+                chatMessage = new GroupMessage(rs.getInt("group_message_id"), rs.getInt("sender_id"), rs.getString("content"), rs.getTimestamp("message_date").toLocalDateTime(), rs.getInt("group_chat_id"), rs.getInt("attachment_id"));
             }
         } catch (SQLException ex) {
             ex.printStackTrace();

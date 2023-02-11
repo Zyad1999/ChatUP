@@ -55,6 +55,7 @@ public class UserListsImpl implements UserLists {
             for (Map.Entry<GroupChat, GroupMessage> set : userGroups.entrySet()) {
                 card = CardMapper.getCard(set.getKey(), set.getValue());
                 cardList.add(card);
+
             }
             return  cardList;
         } catch (RemoteException e) {

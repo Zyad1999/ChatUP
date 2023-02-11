@@ -5,6 +5,7 @@ import com.chatup.models.entities.Card;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -39,13 +40,48 @@ public class ChatScreenController implements Initializable {
     private Circle user_image_side_bar;
     @FXML
     private ListView cardsListView;
-
+    //private ObservableList<Card> currentList;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         prepareListView(cardsListView);
-        cardsListView.setItems(ListCoordinatorImpl.getListCoordinator().getUserChats());
+       // cardsListView.refresh();
+        cardsListView.setItems( ListCoordinatorImpl.getListCoordinator().getUserChats());
+
+    }
+    @FXML
+    void setChats(ActionEvent event) {
+
+        cardsListView.setItems( ListCoordinatorImpl.getListCoordinator().getUserChats());
+        cardsListView.refresh();
     }
 
+    @FXML
+    void setFriends(ActionEvent event) {
+        cardsListView.setItems( ListCoordinatorImpl.getListCoordinator().getUserOnlineFriends());
+        cardsListView.refresh();
+    }
+
+    @FXML
+    void setGroups(ActionEvent event) {
+        cardsListView.setItems( ListCoordinatorImpl.getListCoordinator().getUserGroups());
+        cardsListView.refresh();
+    }
+
+    @FXML
+    void signOut(ActionEvent event) {
+
+    }
+
+    @FXML
+    void userNotifications(ActionEvent event) {
+
+    }
+
+    @FXML
+    void userSettings(ActionEvent event) {
+
+    }
     private static void prepareListView(ListView cardsListView){
         cardsListView.setCellFactory(new Callback<ListView<Card>, ListCell<Card>>() {
             public ListCell<Card> call(ListView<Card> param) {
@@ -69,7 +105,7 @@ public class ChatScreenController implements Initializable {
                         }
                     }
                 };
-                cell.setStyle("-fx-background-color: #F4F4F4;");
+               cell.setStyle("-fx-background-color: #F4F4F4;");
                 return cell;
             }
         });

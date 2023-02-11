@@ -1,0 +1,18 @@
+* {
+	-fx-text-color1: #041014;
+	-fx-text-color2: #9f9f9f;
+	-fx-text-color3: #c4c4c4;
+	-fx-background-color-1: #F1F1F1;
+	-fx-background-and-text: #fffffe;
+	-fx-primary-color-teal: #0F3D3E;
+	-fx-primary-color-lighterTeal: #0F3D3E;
+	-fx-primary-color3: #a09ef9;
+}
+.parent{
+    -fx-background-color:#ffff;
+
+}
+.sidebar{
+    -fx-background-color:linear-gradient(to bottom right, rgba(16,15,15,1) 0%, rgba(15,61,62,1) 35%, rgba(241,241,241,1) 100%);
+   	-fx-background-radius: 0 20 20 0;
+}

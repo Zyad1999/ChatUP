@@ -2,15 +2,18 @@ package com.chatup.models.entities;
 
 import com.chatup.network.ServerConnection;
 import com.chatup.network.interfaces.Server;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.rmi.RemoteException;
+import java.util.Map;
 
 public class Card {
     private int cardID;
     private String cardName;
     private String cardContent;
     private byte[] cardImg;
-
+    public Card(){}
     public Card(User user){
         this.cardID = user.getId();
         this.cardContent = user.getBio();
@@ -67,5 +70,16 @@ public class Card {
 
     public void setCardImg(byte[] cardImg) {
         this.cardImg = cardImg;
+    }
+    public ObservableList<Card> AlluserChats() throws RemoteException {
+        Server server = ServerConnection.getServer();
+        Map<Chat, ChatMessage> userChats = server.getUserChats(1);
+        ObservableList<Card> cardList = FXCollections.<Card>observableArrayList();
+        Card card = null;
+        for (Map.Entry<Chat, ChatMessage> set : userChats.entrySet()) {
+            card = new Card(set.getKey(), set.getValue());
+            cardList.add(card);
+        }
+        return  cardList;
     }
 }

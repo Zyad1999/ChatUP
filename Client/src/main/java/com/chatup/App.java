@@ -22,6 +22,7 @@ public class App extends Application
     public void start(Stage stage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/views/SignUpFirstScene.fxml"));
         Scene scene = null;
+
         try {
             scene = new Scene(fxmlLoader.load());
             stage.setTitle("Hello!");

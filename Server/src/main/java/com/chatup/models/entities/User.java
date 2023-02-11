@@ -4,10 +4,13 @@ import com.chatup.models.enums.Gender;
 import com.chatup.models.enums.UserMode;
 import com.chatup.models.enums.UserStatus;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
 
 public class User implements Serializable {
+    @Serial
+    private static final long serialVersionUID = -558553967080513791L;
 
     private int id ;
     private byte[] img;

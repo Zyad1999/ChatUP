@@ -1,5 +1,6 @@
 package com.chatup.models.entities;
 
+import com.chatup.models.enums.CardType;
 import com.chatup.network.ServerConnection;
 import com.chatup.network.interfaces.Server;
 import javafx.collections.FXCollections;
@@ -12,6 +13,8 @@ public class Card {
     private int cardID;
     private String cardName;
     private String cardContent;
+
+    private CardType cardType;
     private byte[] cardImg;
     public Card(){}
     public Card(User user){
@@ -19,11 +22,13 @@ public class Card {
         this.cardContent = user.getBio();
         this.cardName = user.getUserName();
         this.cardImg = user.getImg();
+        this.cardType = CardType.FRIEND;
     }
 
     public Card(Chat chat,ChatMessage message){
         this.cardID = chat.getId();
         this.cardContent = message.getContent();
+        this.cardType = CardType.CHAT;
         try {
             User user = ServerConnection.getServer().getUser(message.getSenderId());
             this.cardName = user.getUserName();
@@ -38,6 +43,7 @@ public class Card {
         this.cardContent = message.getContent();
         this.cardImg = group.getGroupImage();
         this.cardName = group.getGroupTitle();
+        this.cardType = CardType.GROUP;
     }
 
     public int getCardID() {
@@ -73,7 +79,7 @@ public class Card {
     }
     public ObservableList<Card> AlluserChats() throws RemoteException {
         Server server = ServerConnection.getServer();
-        Map<Chat, ChatMessage> userChats = server.getUserChats(1);
+        Map<Chat, ChatMessage> userChats = server.getUserChats(3);
         ObservableList<Card> cardList = FXCollections.<Card>observableArrayList();
         Card card = null;
         for (Map.Entry<Chat, ChatMessage> set : userChats.entrySet()) {

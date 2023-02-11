@@ -31,6 +31,13 @@ public class UserServicesImpl implements UserServices {
     }
 
     @Override
+    public User getUserInfo(String phone) {
+        User user= UserRepoImpl.getUserRepo().getUser(phone);
+        user.setPassword(null);
+        return user;
+    }
+
+    @Override
     public Map<Chat,ChatMessage> getUserchats(int userId) {
         Map <Chat,ChatMessage> userMessages = new HashMap<>();
         ChatMessage chatMessage;
@@ -55,4 +62,6 @@ public class UserServicesImpl implements UserServices {
     public List<ChatMessage> getChatMsg(int chatId) {
         return ChatRepoImpl.getInstance().getSingleChatMessages(chatId);
     }
+
+
 }

@@ -26,4 +26,13 @@ public class UserServicesImpl implements UserServices {
             return null;
         }
     }
+    @Override
+    public User getUser(String phoneNumber) {
+        try {
+            return ServerConnection.getServer().getUser(phoneNumber);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

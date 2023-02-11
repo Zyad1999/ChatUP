@@ -1,10 +1,13 @@
 package com.chatup.controllers.FXMLcontrollers;
 
+import com.chatup.controllers.services.implementations.CurrentUserImp;
+import com.chatup.network.ServerConnection;
 import com.chatup.utils.SwitchScenes;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.ImagePattern;
@@ -15,6 +18,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.Files;
 import java.util.ResourceBundle;
 
 public class SignUpSecondSceneController implements Initializable {
@@ -24,11 +28,14 @@ public class SignUpSecondSceneController implements Initializable {
 
     @FXML
     private Circle profileImage;
+
+    @FXML
+    private TextArea bioTextArea;
     private Image userImage;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        userImage = new Image(getClass().getResourceAsStream("/images/avatar1.png"));
+        userImage = new Image(getClass().getResourceAsStream("/images/default_profile_pic.jpg"));
         profileImage.setFill(new ImagePattern(userImage));
     }
 
@@ -39,13 +46,17 @@ public class SignUpSecondSceneController implements Initializable {
         File file = fileChooser.showOpenDialog(null);
         if (file != null) {
             try {
+                byte[] fileContent = Files.readAllBytes(file.toPath());
+                CurrentUserImp.getCurrentUser().setImg(fileContent);
                 userImage = new Image(file.toURI().toURL().toString());
                 System.out.println("image loaded -> " + file.toPath());
             } catch (MalformedURLException e) {
                 e.printStackTrace();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         } else {
-            userImage = new Image("/images/avatar1.png");
+            userImage = new Image(SignInSecondSceneController.class.getResourceAsStream("/images/default_profile_pic.jpg"));
         }
         profileImage.setFill(new ImagePattern(userImage));
     }
@@ -53,6 +64,8 @@ public class SignUpSecondSceneController implements Initializable {
     @FXML
     void SignUp_Finish(ActionEvent event) {
         try {
+            CurrentUserImp.getCurrentUser().setBio(bioTextArea.getText());
+            ServerConnection.getServer().signup(CurrentUserImp.getCurrentUser());
             SwitchScenes.getInstance().switchToSignInFirst(event);
         } catch (IOException e) {
             e.printStackTrace();

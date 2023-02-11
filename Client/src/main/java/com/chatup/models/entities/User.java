@@ -7,6 +7,7 @@ import com.chatup.models.enums.UserStatus;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Date;
 
 public class User implements Serializable {
     @Serial
@@ -20,7 +21,7 @@ public class User implements Serializable {
     private String password;
     private Gender gender;
     private String country;
-    private LocalDate birthDate;
+    private Date birthDate;
     private String bio;
     private UserStatus status;
     private UserMode mode;
@@ -76,11 +77,11 @@ public class User implements Serializable {
         this.country = country;
     }
 
-    public LocalDate getBirthDate() {
+    public Date getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(LocalDate birthDate) {
+    public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
     }
 
@@ -138,16 +139,6 @@ public class User implements Serializable {
             user.password = password;
         }
 
-        public Builder(String phoneNumber, String username, String email, String password, String gender, String country, LocalDate dateOfBirth) {
-            user.phoneNumber = phoneNumber;
-            user.userName = username;
-            user.email = email;
-            user.password = password;
-            user.gender = Gender.valueOf(gender);
-            user.country = country;
-            user.birthDate = dateOfBirth;
-        }
-
         public Builder id(int id) {
             user.id = id;
             return this;
@@ -168,7 +159,7 @@ public class User implements Serializable {
             return this;
         }
 
-        public Builder birthDate(LocalDate birthDate) {
+        public Builder birthDate(Date birthDate) {
             user.birthDate = birthDate;
             return this;
         }

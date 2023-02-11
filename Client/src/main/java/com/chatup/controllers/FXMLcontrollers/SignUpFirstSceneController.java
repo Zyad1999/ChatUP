@@ -1,6 +1,14 @@
 package com.chatup.controllers.FXMLcontrollers;
 
+import com.chatup.controllers.services.implementations.CurrentUserImp;
+import com.chatup.controllers.services.implementations.UserServicesImpl;
 import com.chatup.models.entities.User;
+import com.chatup.models.enums.Gender;
+import com.chatup.models.enums.UserMode;
+import com.chatup.models.enums.UserStatus;
+import com.chatup.network.ServerConnection;
+import com.chatup.network.implementations.ClientImpl;
+import com.chatup.network.interfaces.Client;
 import com.chatup.utils.SwitchScenes;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXPasswordField;
@@ -18,7 +26,10 @@ import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 public class SignUpFirstSceneController implements Initializable {
@@ -84,8 +95,7 @@ public class SignUpFirstSceneController implements Initializable {
             try {
                 User user = getUserData();
                 System.out.println("successfully register: " + user.toString());
-
-
+                CurrentUserImp.setCurrentUser(user);
                 SwitchScenes.getInstance().switchToSignUpSecond(event);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -117,9 +127,9 @@ public class SignUpFirstSceneController implements Initializable {
         String email = emailTF.getText();
         String gender = genderComboBox.getValue();
         String password = passwordPF.getText();
-        LocalDate dateOfBirth = dateOfBirthDP.getValue();
+        Date dateOfBirth = Date.from((dateOfBirthDP.getValue()).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
         String country = countryComboBox1.getValue();
-        return new User.Builder(phoneNumber, username, email, password, gender, country, dateOfBirth).build();
+        return new User.Builder(phoneNumber, username, password).email(email).gnder(Gender.valueOf(gender)).birthDate(dateOfBirth).country(country).mode(UserMode.AVAILABLE).status(UserStatus.OFFLINE).build();
     }
 
     private void validateSignUp() {
@@ -175,7 +185,13 @@ public class SignUpFirstSceneController implements Initializable {
             phoneNumberTF.setStyle("-fx-border-color: red; -fx-border-width: 1px");
             phoneNumberTF.setTooltip(hintText("Invalid Phone Number\nExample: 01xxxxxxxxx", errorImage("/images/error.png")));
             valid = false;
-        } else {
+        }
+//        else if (UserServicesImpl.getUserServices().getUser(phoneNumberTF.getText()) != null) {
+//            phoneNumberTF.setStyle("-fx-border-color: red; -fx-border-width: 1px");
+//            phoneNumberTF.setTooltip(hintText("Phone already exist", errorImage("/images/error.png")));
+//            valid = false;
+//        }
+        else {
             phoneNumberTF.setStyle("-fx-border-color: -fx-gray-color;");
             valid = true;
         }

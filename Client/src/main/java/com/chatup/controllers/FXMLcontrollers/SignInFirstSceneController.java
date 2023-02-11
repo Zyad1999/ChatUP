@@ -1,5 +1,9 @@
 package com.chatup.controllers.FXMLcontrollers;
 
+import com.chatup.controllers.services.implementations.CurrentUserImp;
+import com.chatup.controllers.services.implementations.UserServicesImpl;
+import com.chatup.models.entities.User;
+import com.chatup.network.ServerConnection;
 import com.chatup.utils.SwitchScenes;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
@@ -44,7 +48,14 @@ public class SignInFirstSceneController implements Initializable {
         validatePhoneNumber();
         if (valid) {
             try {
-                SwitchScenes.getInstance().switchToSignInSecond(event);
+                User user = ServerConnection.getServer().getUser(phoneNumberTF.getText());
+                if (user != null) {
+                    System.out.println("found user");
+                    CurrentUserImp.setCurrentUser(UserServicesImpl.getUserServices().getUser(phoneNumberTF.getText()));
+                    SwitchScenes.getInstance().switchToSignInSecond(event);
+                } else {
+                    System.out.println("not found");
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -101,4 +112,5 @@ public class SignInFirstSceneController implements Initializable {
             valid = true;
         }
     }
+
 }

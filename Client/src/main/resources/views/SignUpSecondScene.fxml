@@ -40,7 +40,7 @@
                </cursor>
             </ImageView>
             <Button fx:id="Back" layoutX="14.0" layoutY="17.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="70.0" mnemonicParsing="false" onAction="#Back_Clicked" styleClass="signIn-button" text="Back" />
-            <TextArea layoutX="108.0" layoutY="248.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="206.0" prefWidth="318.0" promptText="Write your about information" styleClass="textarea" wrapText="true">
+            <TextArea fx:id="bioTextArea" layoutX="108.0" layoutY="248.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="206.0" prefWidth="318.0" promptText="Write your about information" styleClass="textarea" wrapText="true">
                <font>
                   <Font size="14.0" />
                </font>

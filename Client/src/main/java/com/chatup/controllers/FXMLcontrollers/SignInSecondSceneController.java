@@ -1,12 +1,16 @@
 package com.chatup.controllers.FXMLcontrollers;
 
+import com.chatup.controllers.services.implementations.CurrentUserImp;
+import com.chatup.controllers.services.implementations.UserAuthImp;
 import com.chatup.utils.SwitchScenes;
+import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXPasswordField;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -14,11 +18,16 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class SignInSecondSceneController implements Initializable {
+    public Hyperlink LoginButton;
+    public MFXButton SignInButton;
+    public Button Sign_Up;
+    public ImageView Exit;
     @FXML
     private Circle SignUp_img;
     @FXML
@@ -32,26 +41,29 @@ public class SignInSecondSceneController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Image userImage = new Image(getClass().getResourceAsStream("/images/avatar1.png"));
+        Image userImage = new Image(new ByteArrayInputStream(CurrentUserImp.getCurrentUser().getImg()));
+
         SignUp_img.setFill(new ImagePattern(userImage));
         Sign_In.setDisable(true);
+        phoneNumberTF.setText(CurrentUserImp.getCurrentUser().getPhoneNumber());
     }
 
     @FXML
-    void Exit_Clicked(MouseEvent event) {
+    void exitClicked(MouseEvent event) {
         System.exit(0);
     }
 
     @FXML
-    void Login_Clicked(ActionEvent event) {
-    }
-
-    @FXML
-    void SignIn_Clicked(ActionEvent event) {
+    void signInClicked(ActionEvent event) {
         validatePassword();
         if (valid) {
             try {
-                SwitchScenes.getInstance().switchToChatScreen(event);
+                if (UserAuthImp.getUserAuth().loginAuth(phoneNumberTF.getText(), passwordTF.getText()) != null) {
+                    System.out.println("corrected information");
+                    SwitchScenes.getInstance().switchToChatScreen(event);
+                } else {
+                    System.out.println("wrong information");
+                }
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
@@ -59,16 +71,7 @@ public class SignInSecondSceneController implements Initializable {
     }
 
     @FXML
-    void Sign_In_Clicked(ActionEvent event) {
-        try {
-            SwitchScenes.getInstance().switchToSignInFirst(event);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    void Sign_Up_Clicked(ActionEvent event) {
+    void signUpClicked(ActionEvent event) {
         try {
             SwitchScenes.getInstance().switchToSignUpFirst(event);
         } catch (IOException e) {
@@ -77,10 +80,9 @@ public class SignInSecondSceneController implements Initializable {
     }
 
     @FXML
-    void Login_Clicked(MouseEvent event) {
-        ActionEvent e = new ActionEvent(event.getSource(), event.getTarget());
+    void loginHyperlinkClicked(ActionEvent event) {
         try {
-            SwitchScenes.getInstance().switchToSignInFirst(e);
+            SwitchScenes.getInstance().switchToSignInFirst(event);
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -117,5 +119,9 @@ public class SignInSecondSceneController implements Initializable {
             passwordTF.setStyle("-fx-border-color: -fx-gray-color;");
             valid = true;
         }
+    }
+
+    public void setPhoneNumberTF(String phone) {
+        phoneNumberTF.setText(phone);
     }
 }

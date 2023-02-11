@@ -88,4 +88,9 @@ public class ServerImpl extends UnicastRemoteObject implements Server {
     public User getUser(int userID) throws RemoteException {
         return UserServicesImpl.getUserServices().getUserInfo(userID);
     }
+
+    @Override
+    public User getUser(String phoneNumber) throws RemoteException {
+        return UserServicesImpl.getUserServices().getUserInfo(phoneNumber);
+    }
 }

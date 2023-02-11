@@ -4,12 +4,10 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
-/**
- * Hello world!
- */
 public class App extends Application {
     public static void main(String[] args) {
         launch();
@@ -20,7 +18,6 @@ public class App extends Application {
         stage.initStyle(StageStyle.UNDECORATED);
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/views/SignInFirstScene.fxml"));
         Scene scene = null;
-
         try {
             scene = new Scene(fxmlLoader.load());
             stage.setTitle("Hello!");
@@ -29,6 +26,5 @@ public class App extends Application {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-
     }
 }

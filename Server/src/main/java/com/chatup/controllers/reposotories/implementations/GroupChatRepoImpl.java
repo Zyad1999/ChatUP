@@ -30,9 +30,15 @@ public class GroupChatRepoImpl implements GroupChatRepo {
 
     public static List<GroupMessage> setToGroupMessageList(ResultSet resultSet) {
         List<GroupMessage> groupMessageList = new ArrayList<>();
+        System.out.println("from setgroupmessage function ");
         try {
             while (resultSet.next()) {
-                GroupMessage groupMessage = new GroupMessage(resultSet.getInt("group_message_id"), resultSet.getInt("sender_id"), resultSet.getString("content"), resultSet.getTimestamp("message_date").toLocalDateTime(), resultSet.getInt("chat_id"), resultSet.getInt("attachment_id"));
+                System.out.println("from setgroupmessage WHile ");
+                System.out.println(resultSet.getString("content"));
+                GroupMessage groupMessage = new GroupMessage(resultSet.getInt("group_message_id"), resultSet.getInt("sender_id"),
+                        resultSet.getString("content"),
+                        resultSet.getTimestamp("message_date").toLocalDateTime(),
+                        resultSet.getInt("group_chat_id"), resultSet.getInt("attachment_id"));
                 groupMessageList.add(groupMessage);
             }
         } catch (SQLException e) {
@@ -105,11 +111,12 @@ public class GroupChatRepoImpl implements GroupChatRepo {
 
     // get all messages in chat
     @Override
-    public List<GroupMessage> getGroupMessages(int groupChatId) {
+    public List<GroupMessage> getGroupMessages(int ChatId) {
+        System.out.println(ChatId+ "groupchatid");
         List<GroupMessage> groupMessageList = new ArrayList<GroupMessage>();
-        String sql = "SELECT sender_id, content, message_date, group_chat_id, attachment_id FROM group_message WHERE group_message_id = ?";
+        String sql = "SELECT * FROM group_message WHERE group_chat_id = ?";
         try (PreparedStatement statement = DBConnection.getConnection().prepareStatement(sql)) {
-            statement.setInt(1, groupChatId);
+            statement.setInt(1, ChatId);
             ResultSet resultSet = statement.executeQuery();
             groupMessageList = setToGroupMessageList(resultSet);
         } catch (SQLException e) {

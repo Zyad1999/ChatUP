@@ -2,6 +2,7 @@ package com.chatup.controllers.FXMLcontrollers;
 
 import com.chatup.controllers.services.implementations.ListCoordinatorImpl;
 import com.chatup.models.entities.Card;
+import com.chatup.models.enums.CardType;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -10,11 +11,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Tooltip;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.util.Callback;
 
@@ -41,11 +40,15 @@ public class ChatScreenController implements Initializable {
     private Circle user_image_side_bar;
     @FXML
     private ListView cardsListView;
+
+    @FXML
+    private  ScrollPane scrollPane;
     private ObservableList<Card> currentList;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        prepareListView(cardsListView);
+        prepareListView(cardsListView,scrollPane);
         cardsListView.setItems(ListCoordinatorImpl.getListCoordinator().getUserChats());
+
     }
     @FXML
     void setChats(ActionEvent event) {
@@ -80,7 +83,7 @@ public class ChatScreenController implements Initializable {
     void userSettings(ActionEvent event) {
 
     }
-    private static void prepareListView(ListView cardsListView){
+    private static void prepareListView(ListView cardsListView, ScrollPane scrollPane){
         cardsListView.setCellFactory(new Callback<ListView<Card>, ListCell<Card>>() {
             public ListCell<Card> call(ListView<Card> param) {
                 final Tooltip tooltip = new Tooltip();
@@ -119,6 +122,13 @@ public class ChatScreenController implements Initializable {
                 System.out.println(newValue);
                 if (observable != null && observable.getValue() != null) {
                     System.out.println(newValue.getCardID());
+                    if(newValue.getCardType()== CardType.CHAT){
+                        VBox box = ListCoordinatorImpl.getListCoordinator().getSingleChatVbox(newValue.getCardID());
+                        scrollPane.setContent(box);
+                    } else if (newValue.getCardType()==CardType.GROUP) {
+                        VBox box = ListCoordinatorImpl.getListCoordinator().getGroupChatVbox(newValue.getCardID());
+                        scrollPane.setContent(box);
+                    }
                 }
             }
         });

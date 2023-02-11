@@ -6,13 +6,17 @@ import com.chatup.models.enums.Gender;
 import com.chatup.models.enums.UserMode;
 import com.chatup.models.enums.UserStatus;
 import com.chatup.utils.DBConnection;
-
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class UserRepoImpl implements UserRepo {
 
@@ -33,7 +37,7 @@ public class UserRepoImpl implements UserRepo {
             return -1;
         }
         String query = "INSERT INTO chat_user(phone_number,user_name,email,user_password,gender,country,birth_date,bio,"+
-                        "user_status,user_mode) VALUES(?,?,?,?,?,?,?,?,?,?)";
+                        "user_status,user_mode,img) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
         try(PreparedStatement stmnt = DBConnection.getConnection().prepareStatement(query,Statement.RETURN_GENERATED_KEYS)){
             stmnt.setString(1, user.getPhoneNumber());
             stmnt.setString(2, user.getUserName());
@@ -45,6 +49,7 @@ public class UserRepoImpl implements UserRepo {
             stmnt.setString(8, user.getBio());
             stmnt.setString(9, (user.getStatus() != null) ? (user.getStatus().toString()) : null);
             stmnt.setString(10, (user.getMode() != null) ? (user.getMode().toString()) : null);
+            stmnt.setString(11,saveImg(user.getImg(),user.getPhoneNumber()));
             if(stmnt.executeUpdate() == 0){
                 System.out.println("User was not inserted");
                 return -1;
@@ -83,7 +88,7 @@ public class UserRepoImpl implements UserRepo {
     @Override
     public boolean updateUser(User user) {
         String query = "UPDATE chat_user SET user_name=?, email=?, user_password=?, gender=?, "+
-                        "country=?, birth_date=?, bio=?, user_status=?, user_mode=? WHERE user_id=?";
+                        "country=?, birth_date=?, bio=?, user_status=?, user_mode=?, img=? WHERE user_id=?";
         try(PreparedStatement stmnt = DBConnection.getConnection().prepareStatement(query)){
             stmnt.setString(1, user.getUserName());
             stmnt.setString(2, user.getEmail());
@@ -95,6 +100,7 @@ public class UserRepoImpl implements UserRepo {
             stmnt.setString(8, (user.getStatus() != null) ? (user.getStatus().toString()) : null);
             stmnt.setString(9, (user.getMode() != null) ? (user.getMode().toString()) : null);
             stmnt.setInt(10,user.getId());
+            stmnt.setString(11,saveImg(user.getImg(), user.getPhoneNumber()));
             if(stmnt.executeUpdate() == 0){
                 System.out.println("User was not updated");
                 return false;
@@ -169,12 +175,38 @@ public class UserRepoImpl implements UserRepo {
             .gnder((res.getString("gender")==null) ? null : Gender.valueOf(res.getString("gender")))
             .id(res.getInt("user_id"))
             .mode((res.getString("user_mode")==null) ? null : UserMode.valueOf(res.getString("user_mode")))
+            .img(Files.readAllBytes(new File(res.getString("img")).toPath()))
             .status((res.getString("user_status")==null) ? null : UserStatus.valueOf(res.getString("user_status")))
             .build();
             return user;
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
+    }
+
+    public static String saveImg(byte[] img,String phoneNumber){
+        FileOutputStream fos = null;
+        String imgID = UUID.randomUUID().toString();
+        String path = "./src/main/resources/files/imgs/"+phoneNumber;
+        try {
+            File theDir = new File(path);
+            if (!theDir.exists()){
+                theDir.mkdirs();
+            }
+            fos = new FileOutputStream(path+"/"+imgID+".jpg");
+            fos.write(img);
+        }catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                fos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return path+"/"+imgID+".jpg";
     }
 }

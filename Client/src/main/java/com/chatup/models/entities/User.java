@@ -10,6 +10,7 @@ import java.util.Date;
 public class User implements Serializable {
 
     private int id ;
+    private byte[] img;
     private String userName;
     private String email;
     private String phoneNumber;
@@ -69,6 +70,11 @@ public class User implements Serializable {
 
         public Builder mode(UserMode mode){
             user.mode = mode;
+            return this;
+        }
+
+        public Builder img(byte[] img){
+            user.img = img;
             return this;
         }
 
@@ -156,4 +162,8 @@ public class User implements Serializable {
     public void setMode(UserMode mode) {
         this.mode = mode;
     }
+
+    public byte[] getImg() { return img; }
+
+    public void setImg(byte[] img) { this.img = img; }
 }

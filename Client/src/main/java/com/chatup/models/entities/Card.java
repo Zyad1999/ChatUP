@@ -1,13 +1,7 @@
 package com.chatup.models.entities;
 
+import com.chatup.controllers.services.implementations.UserServicesImpl;
 import com.chatup.models.enums.CardType;
-import com.chatup.network.ServerConnection;
-import com.chatup.network.interfaces.Server;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
-import java.rmi.RemoteException;
-import java.util.Map;
 
 public class Card {
     private int cardID;
@@ -17,33 +11,13 @@ public class Card {
     private CardType cardType;
     private byte[] cardImg;
     public Card(){}
-    public Card(User user){
-        this.cardID = user.getId();
-        this.cardContent = user.getBio();
-        this.cardName = user.getUserName();
-        this.cardImg = user.getImg();
-        this.cardType = CardType.FRIEND;
-    }
 
-    public Card(Chat chat,ChatMessage message){
-        this.cardID = chat.getId();
-        this.cardContent = message.getContent();
-        this.cardType = CardType.CHAT;
-        try {
-            User user = ServerConnection.getServer().getUser(message.getSenderId());
-            this.cardName = user.getUserName();
-            this.cardImg = user.getImg();
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public Card(GroupChat group,GroupMessage message){
-        this.cardID = group.getGroupChatID();
-        this.cardContent = message.getContent();
-        this.cardImg = group.getGroupImage();
-        this.cardName = group.getGroupTitle();
-        this.cardType = CardType.GROUP;
+    public Card(int cardID, String cardName, String cardContent, CardType cardType, byte[] cardImg) {
+        this.cardID = cardID;
+        this.cardName = cardName;
+        this.cardContent = cardContent;
+        this.cardType = cardType;
+        this.cardImg = cardImg;
     }
 
     public int getCardID() {
@@ -77,15 +51,8 @@ public class Card {
     public void setCardImg(byte[] cardImg) {
         this.cardImg = cardImg;
     }
-    public ObservableList<Card> AlluserChats() throws RemoteException {
-        Server server = ServerConnection.getServer();
-        Map<Chat, ChatMessage> userChats = server.getUserChats(3);
-        ObservableList<Card> cardList = FXCollections.<Card>observableArrayList();
-        Card card = null;
-        for (Map.Entry<Chat, ChatMessage> set : userChats.entrySet()) {
-            card = new Card(set.getKey(), set.getValue());
-            cardList.add(card);
-        }
-        return  cardList;
-    }
+
+    public CardType getCardType() { return cardType; }
+
+    public void setCardType(CardType cardType) { this.cardType = cardType; }
 }

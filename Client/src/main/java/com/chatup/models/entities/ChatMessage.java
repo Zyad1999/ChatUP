@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 public class ChatMessage implements Serializable {
-
+    private static final long serialVersionUID = -2990434115553845364L;
     private int id;
     private int chatId;
     private int senderId;

@@ -248,6 +248,9 @@
     	-fx-stroke-width: 1;
 
 }
+.cardsListView{
+-fx-background-color :  #F1F1F1;
+}
 
 .user-data-menu{
 	-fx-padding: 10;

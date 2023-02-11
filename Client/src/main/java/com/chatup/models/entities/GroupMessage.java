@@ -1,9 +1,12 @@
 package com.chatup.models.entities;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 public class GroupMessage implements Serializable {
+    @Serial
+    private static final long serialVersionUID = -558553967080513797L;
     private int groupMessageId;
     private int senderId;
     private String content;

@@ -2,10 +2,12 @@ package com.chatup.models.entities;
 
 import com.chatup.models.enums.FriendRequestStatus;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 public class FriendRequest implements Serializable {
-
+    @Serial
+    private static final long serialVersionUID = -558553967080513794L;
     private int requestID;
     private int senderID;
     private int receiverID;

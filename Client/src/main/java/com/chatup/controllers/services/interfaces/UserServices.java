@@ -1,5 +1,8 @@
 package com.chatup.controllers.services.interfaces;
-public class UserServices {
 
+import com.chatup.models.entities.User;
 
+public interface UserServices {
+
+    public User getUser(int userID);
 }

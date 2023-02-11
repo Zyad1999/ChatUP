@@ -1,8 +1,11 @@
 package com.chatup.models.entities;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 public class Attachment implements Serializable {
+    @Serial
+    private static final long serialVersionUID = -558553967080513793L;
     private int id;
     private String attachmentType;
     private String extension;

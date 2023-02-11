@@ -1,40 +1,23 @@
 package com.chatup.models.entities;
 
-import com.chatup.network.ServerConnection;
-import com.chatup.network.interfaces.Server;
-
-import java.rmi.RemoteException;
+import com.chatup.controllers.services.implementations.UserServicesImpl;
+import com.chatup.models.enums.CardType;
 
 public class Card {
     private int cardID;
     private String cardName;
     private String cardContent;
+
+    private CardType cardType;
     private byte[] cardImg;
+    public Card(){}
 
-    public Card(User user){
-        this.cardID = user.getId();
-        this.cardContent = user.getBio();
-        this.cardName = user.getUserName();
-        this.cardImg = user.getImg();
-    }
-
-    public Card(Chat chat,ChatMessage message){
-        this.cardID = chat.getId();
-        this.cardContent = message.getContent();
-        try {
-            User user = ServerConnection.getServer().getUser(message.getSenderId());
-            this.cardName = user.getUserName();
-            this.cardImg = user.getImg();
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public Card(GroupChat group,GroupMessage message){
-        this.cardID = group.getGroupChatID();
-        this.cardContent = message.getContent();
-        this.cardImg = group.getGroupImage();
-        this.cardName = group.getGroupTitle();
+    public Card(int cardID, String cardName, String cardContent, CardType cardType, byte[] cardImg) {
+        this.cardID = cardID;
+        this.cardName = cardName;
+        this.cardContent = cardContent;
+        this.cardType = cardType;
+        this.cardImg = cardImg;
     }
 
     public int getCardID() {
@@ -68,4 +51,8 @@ public class Card {
     public void setCardImg(byte[] cardImg) {
         this.cardImg = cardImg;
     }
+
+    public CardType getCardType() { return cardType; }
+
+    public void setCardType(CardType cardType) { this.cardType = cardType; }
 }

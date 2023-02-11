@@ -6,10 +6,10 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -20,7 +20,6 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.paint.Color?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -42,7 +41,7 @@
                               <Insets top="20.0" />
                            </VBox.margin>
                         </Circle>
-                        <MFXButton buttonType="RAISED" contentDisplay="CENTER" prefHeight="55.0" prefWidth="59.0" styleClass="MFXButton" text=" " textFill="#041014">
+                        <MFXButton fx:id="user_chats_btn" buttonType="RAISED" contentDisplay="CENTER" prefHeight="55.0" prefWidth="59.0" styleClass="MFXButton" text=" " textFill="#041014">
                            <graphic>
                               <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -57,7 +56,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </MFXButton>
-                        <MFXButton buttonType="RAISED" contentDisplay="CENTER" prefHeight="55.0" prefWidth="59.0" styleClass="MFXButton" text=" " textFill="#041014">
+                        <MFXButton fx:id="friends_btn" buttonType="RAISED" contentDisplay="CENTER" prefHeight="55.0" prefWidth="59.0" styleClass="MFXButton" text=" " textFill="#041014">
                            <graphic>
                               <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -135,9 +134,9 @@
                <children>
                   <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="84.0" prefWidth="287.0" style="-fx-background-color: non;" styleClass="space-20">
                      <children>
-                        <MFXButton buttonType="RAISED" contentDisplay="CENTER" prefHeight="17.0" prefWidth="46.0" styleClass="MFXButton" text=" " textFill="#979797" HBox.hgrow="ALWAYS">
+                        <MFXButton fx:id="extract_menu_id" buttonType="RAISED" contentDisplay="CENTER" prefHeight="17.0" prefWidth="46.0" styleClass="MFXButton" text=" " textFill="#979797" HBox.hgrow="ALWAYS">
                            <graphic>
-                              <ImageView fx:id="extract_menu_id" fitHeight="40.0" fitWidth="25.0" onMouseClicked="#Extract_Menu" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="40.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../images/menu.png" />
                                  </image>
@@ -173,326 +172,11 @@
                   </HBox>
                   <ScrollPane focusTraversable="false" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="250.0" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
                      <content>
-                        <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="826.0" prefWidth="248.0" style="-fx-background-color: non;">
+                        <AnchorPane prefHeight="567.0" prefWidth="289.0">
                            <children>
-                              <HBox styleClass="users_menu_card">
-                                 <children>
-                                    <ImageView fx:id="friend_image_menu" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" styleClass="user-image-menu">
-                                       <image>
-                                          <Image url="@../images/user.png" />
-                                       </image>
-                                       <HBox.margin>
-                                          <Insets top="10.0" />
-                                       </HBox.margin>
-                                    </ImageView>
-                                    <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="user-data-menu" HBox.hgrow="ALWAYS">
-                                       <children>
-                                          <Text fx:id="User_name_imenu" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-search-container" text="Mohga Yasser" />
-                                          <TextFlow prefHeight="0.0" prefWidth="190.0" styleClass="textflow_menu">
-                                             <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Hello every one that is a dome datat for the example...">
-                                                   <cursor>
-                                                      <Cursor fx:constant="TEXT" />
-                                                   </cursor></Text>
-                                             </children>
-                                          </TextFlow>
-                                       </children>
-                                    </VBox>
-                                 </children>
-                                 <VBox.margin>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </VBox.margin>
-                                 <effect>
-                                    <DropShadow blurType="ONE_PASS_BOX" height="18.07" radius="8.535" width="18.07">
-                                       <color>
-                                          <Color red="0.658823549747467" green="0.6352941393852234" blue="0.6352941393852234" />
-                                       </color>
-                                    </DropShadow>
-                                 </effect>
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                              </HBox>
-                              <HBox prefHeight="88.0" prefWidth="234.0" styleClass="users_menu_card">
-                                 <children>
-                                    <ImageView fx:id="friend_image_menu1" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" styleClass="user-image-menu">
-                                       <image>
-                                          <Image url="@../images/user.png" />
-                                       </image>
-                                       <HBox.margin>
-                                          <Insets top="10.0" />
-                                       </HBox.margin>
-                                    </ImageView>
-                                    <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="user-data-menu" HBox.hgrow="ALWAYS">
-                                       <children>
-                                          <Text fx:id="User_name_imenu1" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-search-container" text="Mohga Yasser" />
-                                          <TextFlow prefHeight="0.0" prefWidth="100.0" styleClass="textflow_menu">
-                                             <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Hello every one that is a dome datat for the example...">
-                                                   <cursor>
-                                                      <Cursor fx:constant="HAND" />
-                                                   </cursor></Text>
-                                             </children>
-                                          </TextFlow>
-                                       </children>
-                                    </VBox>
-                                 </children>
-                                 <VBox.margin>
-                                    <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
-                                 </VBox.margin>
-                                 <effect>
-                                    <DropShadow blurType="ONE_PASS_BOX" height="18.81" radius="8.719999999999999" width="18.07">
-                                       <color>
-                                          <Color red="0.658823549747467" green="0.6352941393852234" blue="0.6352941393852234" />
-                                       </color>
-                                    </DropShadow>
-                                 </effect>
-                              </HBox>
-                              <HBox prefHeight="88.0" prefWidth="234.0" styleClass="users_menu_card">
-                                 <children>
-                                    <ImageView fx:id="friend_image_menu11" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" styleClass="user-image-menu">
-                                       <image>
-                                          <Image url="@../images/user.png" />
-                                       </image>
-                                       <HBox.margin>
-                                          <Insets top="10.0" />
-                                       </HBox.margin>
-                                    </ImageView>
-                                    <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="user-data-menu" HBox.hgrow="ALWAYS">
-                                       <children>
-                                          <Text fx:id="User_name_imenu11" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-search-container" text="Mohga Yasser" />
-                                          <TextFlow prefHeight="0.0" prefWidth="100.0" styleClass="textflow_menu">
-                                             <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Hello every one that is a dome datat for the example...">
-                                                   <cursor>
-                                                      <Cursor fx:constant="HAND" />
-                                                   </cursor>
-                                                </Text>
-                                             </children>
-                                          </TextFlow>
-                                       </children>
-                                    </VBox>
-                                 </children>
-                                 <effect>
-                                    <DropShadow blurType="ONE_PASS_BOX" height="18.81" radius="8.719999999999999" width="18.07">
-                                       <color>
-                                          <Color red="0.658823549747467" green="0.6352941393852234" blue="0.6352941393852234" />
-                                       </color>
-                                    </DropShadow>
-                                 </effect>
-                                 <VBox.margin>
-                                    <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
-                                 </VBox.margin>
-                              </HBox>
-                              <HBox prefHeight="88.0" prefWidth="234.0" styleClass="users_menu_card">
-                                 <children>
-                                    <ImageView fx:id="friend_image_menu12" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" styleClass="user-image-menu">
-                                       <image>
-                                          <Image url="@../images/user.png" />
-                                       </image>
-                                       <HBox.margin>
-                                          <Insets top="10.0" />
-                                       </HBox.margin>
-                                    </ImageView>
-                                    <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="user-data-menu" HBox.hgrow="ALWAYS">
-                                       <children>
-                                          <Text fx:id="User_name_imenu12" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-search-container" text="Mohga Yasser" />
-                                          <TextFlow prefHeight="0.0" prefWidth="100.0" styleClass="textflow_menu">
-                                             <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Hello every one that is a dome datat for the example...">
-                                                   <cursor>
-                                                      <Cursor fx:constant="HAND" />
-                                                   </cursor>
-                                                </Text>
-                                             </children>
-                                          </TextFlow>
-                                       </children>
-                                    </VBox>
-                                 </children>
-                                 <effect>
-                                    <DropShadow blurType="ONE_PASS_BOX" height="18.81" radius="8.719999999999999" width="18.07">
-                                       <color>
-                                          <Color red="0.658823549747467" green="0.6352941393852234" blue="0.6352941393852234" />
-                                       </color>
-                                    </DropShadow>
-                                 </effect>
-                                 <VBox.margin>
-                                    <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
-                                 </VBox.margin>
-                              </HBox>
-                              <HBox prefHeight="88.0" prefWidth="234.0" styleClass="users_menu_card">
-                                 <children>
-                                    <ImageView fx:id="friend_image_menu13" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" styleClass="user-image-menu">
-                                       <image>
-                                          <Image url="@../images/user.png" />
-                                       </image>
-                                       <HBox.margin>
-                                          <Insets top="10.0" />
-                                       </HBox.margin>
-                                    </ImageView>
-                                    <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="user-data-menu" HBox.hgrow="ALWAYS">
-                                       <children>
-                                          <Text fx:id="User_name_imenu13" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-search-container" text="Mohga Yasser" />
-                                          <TextFlow prefHeight="0.0" prefWidth="100.0" styleClass="textflow_menu">
-                                             <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Hello every one that is a dome datat for the example...">
-                                                   <cursor>
-                                                      <Cursor fx:constant="HAND" />
-                                                   </cursor>
-                                                </Text>
-                                             </children>
-                                          </TextFlow>
-                                       </children>
-                                    </VBox>
-                                 </children>
-                                 <effect>
-                                    <DropShadow blurType="ONE_PASS_BOX" height="18.81" radius="8.719999999999999" width="18.07">
-                                       <color>
-                                          <Color red="0.658823549747467" green="0.6352941393852234" blue="0.6352941393852234" />
-                                       </color>
-                                    </DropShadow>
-                                 </effect>
-                                 <VBox.margin>
-                                    <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
-                                 </VBox.margin>
-                              </HBox>
-                              <HBox prefHeight="88.0" prefWidth="270.0" styleClass="users_menu_card">
-                                 <children>
-                                    <ImageView fx:id="friend_image_menu14" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" styleClass="user-image-menu">
-                                       <image>
-                                          <Image url="@../images/user.png" />
-                                       </image>
-                                       <HBox.margin>
-                                          <Insets top="10.0" />
-                                       </HBox.margin>
-                                    </ImageView>
-                                    <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="user-data-menu" HBox.hgrow="ALWAYS">
-                                       <children>
-                                          <Text fx:id="User_name_imenu14" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-search-container" text="Mohga Yasser" />
-                                          <TextFlow prefHeight="0.0" prefWidth="100.0" styleClass="textflow_menu">
-                                             <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Hello every one that is a dome datat for the example...">
-                                                   <cursor>
-                                                      <Cursor fx:constant="HAND" />
-                                                   </cursor>
-                                                </Text>
-                                             </children>
-                                          </TextFlow>
-                                       </children>
-                                    </VBox>
-                                 </children>
-                                 <effect>
-                                    <DropShadow blurType="ONE_PASS_BOX" height="18.81" radius="8.719999999999999" width="18.07">
-                                       <color>
-                                          <Color red="0.658823549747467" green="0.6352941393852234" blue="0.6352941393852234" />
-                                       </color>
-                                    </DropShadow>
-                                 </effect>
-                                 <VBox.margin>
-                                    <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
-                                 </VBox.margin>
-                              </HBox>
-                              <HBox prefHeight="88.0" prefWidth="234.0" styleClass="users_menu_card">
-                                 <children>
-                                    <ImageView fx:id="friend_image_menu15" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" styleClass="user-image-menu">
-                                       <image>
-                                          <Image url="@../images/user.png" />
-                                       </image>
-                                       <HBox.margin>
-                                          <Insets top="10.0" />
-                                       </HBox.margin>
-                                    </ImageView>
-                                    <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="user-data-menu" HBox.hgrow="ALWAYS">
-                                       <children>
-                                          <Text fx:id="User_name_imenu15" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-search-container" text="Mohga Yasser" />
-                                          <TextFlow prefHeight="0.0" prefWidth="100.0" styleClass="textflow_menu">
-                                             <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Hello every one that is a dome datat for the example...">
-                                                   <cursor>
-                                                      <Cursor fx:constant="HAND" />
-                                                   </cursor>
-                                                </Text>
-                                             </children>
-                                          </TextFlow>
-                                       </children>
-                                    </VBox>
-                                 </children>
-                                 <effect>
-                                    <DropShadow blurType="ONE_PASS_BOX" height="18.81" radius="8.719999999999999" width="18.07">
-                                       <color>
-                                          <Color red="0.658823549747467" green="0.6352941393852234" blue="0.6352941393852234" />
-                                       </color>
-                                    </DropShadow>
-                                 </effect>
-                              </HBox>
-                              <HBox prefHeight="88.0" prefWidth="234.0" styleClass="users_menu_card">
-                                 <children>
-                                    <ImageView fx:id="friend_image_menu16" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" styleClass="user-image-menu">
-                                       <image>
-                                          <Image url="@../images/user.png" />
-                                       </image>
-                                       <HBox.margin>
-                                          <Insets top="10.0" />
-                                       </HBox.margin>
-                                    </ImageView>
-                                    <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="user-data-menu" HBox.hgrow="ALWAYS">
-                                       <children>
-                                          <Text fx:id="User_name_imenu16" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-search-container" text="Mohga Yasser" />
-                                          <TextFlow prefHeight="0.0" prefWidth="100.0" styleClass="textflow_menu">
-                                             <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Hello every one that is a dome datat for the example...">
-                                                   <cursor>
-                                                      <Cursor fx:constant="HAND" />
-                                                   </cursor>
-                                                </Text>
-                                             </children>
-                                          </TextFlow>
-                                       </children>
-                                    </VBox>
-                                 </children>
-                                 <effect>
-                                    <DropShadow blurType="ONE_PASS_BOX" height="18.81" radius="8.719999999999999" width="18.07">
-                                       <color>
-                                          <Color red="0.658823549747467" green="0.6352941393852234" blue="0.6352941393852234" />
-                                       </color>
-                                    </DropShadow>
-                                 </effect>
-                              </HBox>
-                              <HBox prefHeight="88.0" prefWidth="234.0" styleClass="users_menu_card">
-                                 <children>
-                                    <ImageView fx:id="friend_image_menu17" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" styleClass="user-image-menu">
-                                       <image>
-                                          <Image url="@../images/user.png" />
-                                       </image>
-                                       <HBox.margin>
-                                          <Insets top="10.0" />
-                                       </HBox.margin>
-                                    </ImageView>
-                                    <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="user-data-menu" HBox.hgrow="ALWAYS">
-                                       <children>
-                                          <Text fx:id="User_name_imenu17" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-search-container" text="Mohga Yasser" />
-                                          <TextFlow prefHeight="0.0" prefWidth="100.0" styleClass="textflow_menu">
-                                             <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Hello every one that is a dome datat for the example...">
-                                                   <cursor>
-                                                      <Cursor fx:constant="HAND" />
-                                                   </cursor>
-                                                </Text>
-                                             </children>
-                                          </TextFlow>
-                                       </children>
-                                    </VBox>
-                                 </children>
-                                 <effect>
-                                    <DropShadow blurType="ONE_PASS_BOX" height="18.81" radius="8.719999999999999" width="18.07">
-                                       <color>
-                                          <Color red="0.658823549747467" green="0.6352941393852234" blue="0.6352941393852234" />
-                                       </color>
-                                    </DropShadow>
-                                 </effect>
-                              </HBox>
+                              <ListView fx:id="cardsListView" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                            </children>
-                        </VBox>
+                        </AnchorPane>
                      </content>
                   </ScrollPane>
                </children>

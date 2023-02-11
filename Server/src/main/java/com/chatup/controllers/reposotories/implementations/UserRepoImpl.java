@@ -6,9 +6,11 @@ import com.chatup.models.enums.Gender;
 import com.chatup.models.enums.UserMode;
 import com.chatup.models.enums.UserStatus;
 import com.chatup.utils.DBConnection;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -167,6 +169,7 @@ public class UserRepoImpl implements UserRepo {
 
     private static User resultSetToUser(ResultSet res){
         try {
+            //System.out.println(new File(UserRepoImpl.class.getResource("/Images/default_profile_pic.jpg").toURI()).toPath());
             User user = new User.Builder(res.getString("phone_number"), res.getString("user_name"), res.getString("user_password"))
             .bio(res.getString("bio"))
             .birthDate(res.getDate("birth_date"))
@@ -175,7 +178,7 @@ public class UserRepoImpl implements UserRepo {
             .gnder((res.getString("gender")==null) ? null : Gender.valueOf(res.getString("gender")))
             .id(res.getInt("user_id"))
             .mode((res.getString("user_mode")==null) ? null : UserMode.valueOf(res.getString("user_mode")))
-            .img(Files.readAllBytes(new File(res.getString("img")).toPath()))
+            .img(Files.readAllBytes((res.getString("img")==null)? new File(UserRepoImpl.class.getResource("/Images/default_profile_pic.jpg").toURI()).toPath() : new File(res.getString("img")).toPath()))
             .status((res.getString("user_status")==null) ? null : UserStatus.valueOf(res.getString("user_status")))
             .build();
             return user;
@@ -184,7 +187,10 @@ public class UserRepoImpl implements UserRepo {
             return null;
         } catch (IOException e) {
             throw new RuntimeException(e);
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
         }
+
     }
 
     public String saveImg(byte[] img,String phoneNumber){

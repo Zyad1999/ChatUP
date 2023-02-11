@@ -5,12 +5,17 @@ import com.chatup.models.entities.GroupChat;
 import com.chatup.models.entities.GroupMessage;
 import com.chatup.utils.DBConnection;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class GroupChatRepoImpl implements GroupChatRepo {
     private static GroupChatRepoImpl instance;
@@ -40,7 +45,7 @@ public class GroupChatRepoImpl implements GroupChatRepo {
         String sql = "INSERT INTO group_chat (group_title, group_image) VALUES (?, ?)";
         try (PreparedStatement statement = DBConnection.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, groupChat.getGroupTitle());
-            statement.setString(2, groupChat.getGroupImage());
+            statement.setString(2,saveImg(groupChat.getGroupImage(),groupChat.getGroupTitle()));
             if (statement.executeUpdate() > 0) {
                 ResultSet resultSet = statement.getGeneratedKeys();
                 if (resultSet.next()) {
@@ -67,10 +72,12 @@ public class GroupChatRepoImpl implements GroupChatRepo {
             statement.setInt(1, groupChatId);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.first()) {
-                groupChat = new GroupChat(resultSet.getString("group_title"), resultSet.getString("group_image"));
+                groupChat = new GroupChat(resultSet.getString("group_title"), Files.readAllBytes(new File(resultSet.getString("group_image")).toPath()));
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
         return groupChat;
     }
@@ -113,7 +120,7 @@ public class GroupChatRepoImpl implements GroupChatRepo {
         String sql = "UPDATE group_chat SET group_title = ?, group_image = ? WHERE group_chat_id = ?";
         try (PreparedStatement statement = DBConnection.getConnection().prepareStatement(sql)) {
             statement.setString(1, groupChat.getGroupTitle());
-            statement.setString(2, groupChat.getGroupImage());
+            statement.setString(2,saveImg(groupChat.getGroupImage(),groupChat.getGroupTitle()));
             statement.setInt(3, groupChat.getGroupChatID());
             if (statement.executeUpdate() > 0) {
                 return true;
@@ -137,5 +144,28 @@ public class GroupChatRepoImpl implements GroupChatRepo {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public String saveImg(byte[] img,String groupName){
+        FileOutputStream fos = null;
+        String imgID = UUID.randomUUID().toString();
+        String path = "./src/main/resources/files/imgs/"+groupName;
+        try {
+            File theDir = new File(path);
+            if (!theDir.exists()){
+                theDir.mkdirs();
+            }
+            fos = new FileOutputStream(path+"/"+imgID+".jpg");
+            fos.write(img);
+        }catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                fos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return path+"/"+imgID+".jpg";
     }
 }

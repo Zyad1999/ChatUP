@@ -6,10 +6,10 @@ import java.time.LocalDateTime;
 public class GroupChat implements Serializable {
     private int groupChatID;
     private String groupTitle;
-    private String groupImage;
+    private byte[] groupImage;
     private LocalDateTime localDateTime;
 
-    public GroupChat(int groupChatID, String groupTitle, String groupImage) {
+    public GroupChat(int groupChatID, String groupTitle, byte[] groupImage) {
         this.groupChatID = groupChatID;
         this.groupTitle = groupTitle;
         this.groupImage = groupImage;
@@ -20,7 +20,7 @@ public class GroupChat implements Serializable {
         this.localDateTime = LocalDateTime.now();
     }
 
-    public GroupChat(String groupTitle, String groupImage) {
+    public GroupChat(String groupTitle, byte[] groupImage) {
         this.groupTitle = groupTitle;
         this.groupImage = groupImage;
         this.localDateTime = LocalDateTime.now();
@@ -38,11 +38,11 @@ public class GroupChat implements Serializable {
         this.groupTitle = groupTitle;
     }
 
-    public String getGroupImage() {
+    public byte[] getGroupImage() {
         return groupImage;
     }
 
-    public void setGroupImage(String groupImage) {
+    public void setGroupImage(byte[] groupImage) {
         this.groupImage = groupImage;
     }
 

@@ -187,7 +187,7 @@ public class UserRepoImpl implements UserRepo {
         }
     }
 
-    public static String saveImg(byte[] img,String phoneNumber){
+    public String saveImg(byte[] img,String phoneNumber){
         FileOutputStream fos = null;
         String imgID = UUID.randomUUID().toString();
         String path = "./src/main/resources/files/imgs/"+phoneNumber;

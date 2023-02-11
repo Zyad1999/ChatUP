@@ -18,4 +18,5 @@ public interface Server extends Remote {
     public List<GroupMessage> getGroupMessages(int groupID) throws RemoteException;
     public List<User> getUserFriends(int userID) throws RemoteException;
     public List<User> getUserFriendRequests(int userID) throws RemoteException;
+    public User getUser(int userID) throws RemoteException;
 }

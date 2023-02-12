@@ -58,6 +58,8 @@ public class SwitchScenes {
     public  void switchToChatScreen(ActionEvent e) throws IOException {
         Parent root = FXMLLoader.load(e.getClass().getResource("/views/chatscreen.fxml"));
         Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+        stage.setX(10);
+        stage.setY(10);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();

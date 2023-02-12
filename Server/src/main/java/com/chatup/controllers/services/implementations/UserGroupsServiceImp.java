@@ -5,6 +5,7 @@ import com.chatup.controllers.reposotories.implementations.GroupMembershipRepoIm
 import com.chatup.controllers.services.interfaces.UserGroupsService;
 import com.chatup.models.entities.*;
 
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -49,4 +50,21 @@ public class UserGroupsServiceImp implements UserGroupsService {
                         LinkedHashMap::new));
         return resultSet;
     }
+
+    @Override
+    public int createGroupChat(GroupChat groupChat , List<User> userList) {
+       int groupChatId= GroupChatRepoImpl.getInstance().createGroupChat(groupChat);
+       addUsersToGroup(groupChatId,userList);
+       return groupChatId;
+    }
+
+    @Override
+    public void addUsersToGroup(int groupChatId,List<User> userList) {
+        for(User user: userList) {
+            GroupMembershipRepoImpl.getInstance().createGroupMembership(new GroupMembership(groupChatId,user.getId(), LocalDateTime.now() ));
+            System.out.println("User "+ user.getUserName() + " added to group "+ groupChatId);
+        }
+    }
+
+
 }

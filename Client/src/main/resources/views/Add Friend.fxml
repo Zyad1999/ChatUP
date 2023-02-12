@@ -4,15 +4,16 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="500.0" stylesheets="@../style/AddFriendStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
@@ -28,11 +29,11 @@
    <children>
       <HBox alignment="CENTER" prefHeight="75.0" prefWidth="558.0" GridPane.rowIndex="1">
          <children>
-            <TextField prefHeight="40.0" prefWidth="337.0" promptText="User Number" styleClass="number-textfield">
+            <TextField fx:id="friendNumberTxt" prefHeight="40.0" prefWidth="337.0" promptText="User Number" styleClass="number-textfield">
                <font>
                   <Font size="13.0" />
                </font></TextField>
-            <MFXButton alignment="CENTER" prefHeight="40.0" prefWidth="98.0" rippleColor="WHITE" styleClass="add-button" text="Add" textFill="WHITE">
+            <MFXButton alignment="CENTER" onAction="#addInListView" prefHeight="40.0" prefWidth="98.0" rippleColor="WHITE" styleClass="add-button" text="Add" textFill="WHITE">
                <HBox.margin>
                   <Insets left="15.0" />
                </HBox.margin>
@@ -45,7 +46,7 @@
             </MFXButton>
          </children>
       </HBox>
-      <MFXButton alignment="CENTER" prefHeight="40.0" prefWidth="444.0" rippleColor="WHITE" styleClass="send-button" text="Send Invite" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+      <MFXButton alignment="CENTER" onAction="#sendInvitation" prefHeight="40.0" prefWidth="444.0" rippleColor="WHITE" styleClass="send-button" text="Send Invite" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="3">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
@@ -76,73 +77,19 @@
          </children>
       </HBox>
       <ScrollPane hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="269.0" prefWidth="458.0" styleClass="numbers-scroll-pane" vbarPolicy="NEVER" GridPane.halignment="CENTER" GridPane.rowIndex="2">
-         <content>
-            <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="448.0" styleClass="numbers-scroll-pane">
-               <children>
-                  <HBox alignment="CENTER" prefHeight="81.0" prefWidth="448.0" styleClass="number-card">
-                     <children>
-                        <ImageView fx:id="sender3" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                           <HBox.margin>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </HBox.margin>
-                           <image>
-                              <Image url="@../images/avatar1.png" />
-                           </image>
-                        </ImageView>
-                        <VBox prefHeight="90.0" prefWidth="300.0">
-                           <children>
-                              <Label text="Ziad Yasser" textFill="#041014">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets bottom="5.0" left="15.0" right="10.0" top="23.0" />
-                                 </VBox.margin>
-                                 <cursor>
-                                    <Cursor fx:constant="TEXT" />
-                                 </cursor>
-                              </Label>
-                              <Label text="010000000056" textFill="#040f1280">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets left="15.0" />
-                                 </VBox.margin>
-                                 <cursor>
-                                    <Cursor fx:constant="TEXT" />
-                                 </cursor>
-                              </Label>
-                           </children>
-                           <HBox.margin>
-                              <Insets bottom="5.0" />
-                           </HBox.margin>
-                        </VBox>
-                        <ImageView fitHeight="40.0" fitWidth="25.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/Delete-Bin-Trash-PNG-Clipart.png" />
-                           </image>
-                           <HBox.margin>
-                              <Insets left="20.0" right="10.0" />
-                           </HBox.margin>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </ImageView>
-                     </children>
-                     <VBox.margin>
-                        <Insets bottom="6.0" />
-                     </VBox.margin>
-                  </HBox>
-               </children>
-            </VBox>
-         </content>
          <GridPane.margin>
             <Insets left="85.0" right="85.0" />
          </GridPane.margin>
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
+         <content>
+            <AnchorPane prefHeight="374.0" prefWidth="452.0">
+               <children>
+                  <ListView fx:id="listview" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               </children>
+            </AnchorPane>
+         </content>
       </ScrollPane>
    </children>
 </GridPane>

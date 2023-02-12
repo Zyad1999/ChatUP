@@ -39,7 +39,14 @@ public class FriendsServicesImpl implements FriendsServices {
         List<User> requesters = new ArrayList<>();
         for (FriendRequest request : requests) {
             requesters.add(UserRepoImpl.getUserRepo().getUser(request.getSenderID()));
+
         }
         return requesters;
+    }
+
+    @Override
+    public Boolean updateFriendsRequestStatus(FriendRequest friendRequest) {
+         return FriendRequestRepoImpl.getFriendRequestRepo().updateFriendRequestStatus(friendRequest.getSenderID(),friendRequest.getReceiverID(),friendRequest.getRequestStatus());
+
     }
 }

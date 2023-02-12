@@ -1,10 +1,10 @@
 package com.chatup.controllers.services.interfaces;
 
 import com.chatup.models.entities.Card;
+import com.chatup.models.entities.FriendRequest;
+import com.chatup.models.entities.User;
 import com.chatup.models.enums.UserStatus;
 import javafx.collections.ObservableList;
-
-import java.rmi.RemoteException;
 
 public interface UserLists {
 
@@ -13,4 +13,6 @@ public interface UserLists {
     ObservableList<Card> getAllUserGroups();
 
     ObservableList<Card> getUserFriends(UserStatus status);
+    ObservableList<User> getAllUserFriendRequests();
+    Boolean updatesUserFriendRequests(FriendRequest friendRequestList);
 }

@@ -174,7 +174,7 @@
                      <content>
                         <AnchorPane prefHeight="567.0" prefWidth="289.0">
                            <children>
-                              <ListView fx:id="cardsListView" prefHeight="578.0" prefWidth="289.0" style="-fx-background-color: #fffffe;" AnchorPane.bottomAnchor="-51.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                              <ListView fx:id="cardsListView" prefHeight="572.0" prefWidth="289.0" style="-fx-background-color: #fffffe;" AnchorPane.bottomAnchor="-51.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                               <HBox alignment="TOP_RIGHT" layoutX="62.0" layoutY="65.0" prefHeight="41.0" prefWidth="289.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
                                     <MFXButton depthLevel="LEVEL5" prefHeight="41.0" prefWidth="59.0" style="-fx-background-color: none;" text=" " HBox.hgrow="ALWAYS">
@@ -201,7 +201,7 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </MFXButton>
-                                    <MFXButton depthLevel="LEVEL5" prefHeight="41.0" prefWidth="77.0" style="-fx-background-color: none;" text=" " HBox.hgrow="ALWAYS">
+                                    <MFXButton fx:id="FriendRequests_id" depthLevel="LEVEL5" onAction="#getAllFriendRequests" prefHeight="41.0" prefWidth="77.0" style="-fx-background-color: none;" text=" " HBox.hgrow="ALWAYS">
                                        <graphic>
                                           <ImageView fitHeight="26.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                                              <image>

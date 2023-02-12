@@ -10,11 +10,13 @@ import com.chatup.utils.SwitchScenes;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
@@ -27,6 +29,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class ChatScreenController implements Initializable {
@@ -48,9 +51,10 @@ public class ChatScreenController implements Initializable {
     @FXML
     private ListView cardsListView;
 
+
     @FXML
     private ScrollPane scrollPane;
-    private ObservableList<Card> currentList;
+    public static ObservableList<Card> currentList;
     private double lastX = 0.0d;
     private double lastY = 0.0d;
     private double lastWidth = 0.0d;
@@ -110,27 +114,30 @@ public class ChatScreenController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         prepareListView(cardsListView, scrollPane);
-        cardsListView.setItems(ListCoordinatorImpl.getListCoordinator().getUserChats());
+        currentList = FXCollections.observableArrayList();
+        currentList.addAll(ListCoordinatorImpl.getListCoordinator().getUserChats());
+        cardsListView.setItems(currentList);
 
     }
 
     @FXML
     void setChats(ActionEvent event) {
-
-        cardsListView.setItems(ListCoordinatorImpl.getListCoordinator().getUserChats());
+        currentList.clear();
+        currentList.addAll(ListCoordinatorImpl.getListCoordinator().getUserChats());
     }
 
     @FXML
     void setFriends(ActionEvent event) {
+        currentList.clear();
+        currentList.addAll(ListCoordinatorImpl.getListCoordinator().getUserOnlineFriends());
 
-        cardsListView.setItems(ListCoordinatorImpl.getListCoordinator().getUserOnlineFriends());
     }
 
     @FXML
     void setGroups(ActionEvent event) {
 
-
-        cardsListView.setItems(ListCoordinatorImpl.getListCoordinator().getUserGroups());
+        currentList.clear();
+        currentList.addAll(ListCoordinatorImpl.getListCoordinator().getUserGroups());
     }
 
     @FXML
@@ -191,4 +198,24 @@ public class ChatScreenController implements Initializable {
         Stage stage = (Stage) ((Circle) event.getSource()).getScene().getWindow();
         stage.setIconified(true);
     }
+    @FXML
+    void getAllFriendRequests(ActionEvent event) {
+        FXMLLoader friendRequestFXML;
+        try {
+            friendRequestFXML =new FXMLLoader(Objects.requireNonNull(ChatScreenController.class.getResource("/views/FriendRequests.fxml")));
+            FriendRequestsController friendRequestsController = new FriendRequestsController();
+            friendRequestFXML.setController(friendRequestsController);
+            Scene scene =new Scene(friendRequestFXML.load(),550, 550);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.show();
+
+            //((Node)(event.getSource())).getScene().getRoot().setDisable(true);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 }

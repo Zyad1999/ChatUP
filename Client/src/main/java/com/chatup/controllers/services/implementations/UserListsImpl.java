@@ -80,4 +80,29 @@ public class UserListsImpl implements UserLists {
         }
     }
 
+    @Override
+    public ObservableList<User> getAllUserFriendRequests(){
+        try {
+            List<User> friends = ServerConnection.getServer().getUserFriendRequests(CurrentUserImp.getCurrentUser().getId());
+            ObservableList<User> friendRequestList = FXCollections.<User>observableArrayList(friends);
+            return friendRequestList;
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public Boolean updatesUserFriendRequests( FriendRequest friendRequestList) {
+
+        Boolean operationResult = null;
+        try {
+            operationResult = ServerConnection.getServer().updateFriendsRequestStatus(friendRequestList);
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+
+        return operationResult;
+
+    }
+
 }

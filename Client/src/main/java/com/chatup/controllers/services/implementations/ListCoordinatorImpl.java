@@ -2,11 +2,15 @@ package com.chatup.controllers.services.implementations;
 
 import com.chatup.controllers.services.interfaces.ListCoordinator;
 import com.chatup.models.entities.Card;
+import com.chatup.models.entities.FriendRequest;
+import com.chatup.models.entities.User;
 import com.chatup.models.enums.UserStatus;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.VBox;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class ListCoordinatorImpl implements ListCoordinator {
 
@@ -16,10 +20,13 @@ public class ListCoordinatorImpl implements ListCoordinator {
     private static ObservableList<Card> userOnlineFriends;
     private static ObservableList<Card> userOfflineFriends;
 
+    private static ObservableList<User> userFriendRequests;
+
     private static HashMap<Integer, VBox> singleChatMap = new HashMap<>();
 
     private static HashMap<Integer, VBox> groupChatMap = new HashMap<>();
 
+    private static List<Boolean> requests = new ArrayList<>();
 
     private ListCoordinatorImpl(){}
 
@@ -42,7 +49,15 @@ public class ListCoordinatorImpl implements ListCoordinator {
             userGroups = UserListsImpl.getUserLists().getAllUserGroups();
         return userGroups;
     }
+    public ObservableList<User> getAllUserFriendRequests() {
+        if(userFriendRequests==null)
+            userFriendRequests = UserListsImpl.getUserLists().getAllUserFriendRequests();
+        return userFriendRequests;
+    }
+    public Boolean updatesUserFriendRequests(FriendRequest friendRequests) {
+        return UserListsImpl.getUserLists().updatesUserFriendRequests(friendRequests);
 
+    }
     @Override
     public ObservableList<Card> getUserOnlineFriends() {
         if(userOnlineFriends==null)
@@ -56,6 +71,17 @@ public class ListCoordinatorImpl implements ListCoordinator {
             userOfflineFriends = UserListsImpl.getUserLists().getUserFriends(UserStatus.OFFLINE);
         return userOfflineFriends;
     }
+
+    @Override
+    public void updateOnlineFriends() {
+            userOnlineFriends= UserListsImpl.getUserLists().getUserFriends(UserStatus.ONLINE);
+    }
+
+    @Override
+    public void updateFriendRequests() {
+        userFriendRequests = UserListsImpl.getUserLists().getAllUserFriendRequests();
+    }
+
     @Override
     public VBox getSingleChatVbox(int chatId){
         if(singleChatMap.containsKey(chatId)){

@@ -90,7 +90,7 @@ public class UserRepoImpl implements UserRepo {
     @Override
     public boolean updateUser(User user) {
         String query = "UPDATE chat_user SET user_name=?, email=?, user_password=?, gender=?, "+
-                        "country=?, birth_date=?, bio=?, user_status=?, user_mode=?, img=? WHERE user_id=?";
+                        "country=?, birth_date=?, bio=?, user_status=?, user_mode=? WHERE user_id=?";
         try(PreparedStatement stmnt = DBConnection.getConnection().prepareStatement(query)){
             stmnt.setString(1, user.getUserName());
             stmnt.setString(2, user.getEmail());
@@ -102,7 +102,24 @@ public class UserRepoImpl implements UserRepo {
             stmnt.setString(8, (user.getStatus() != null) ? (user.getStatus().toString()) : null);
             stmnt.setString(9, (user.getMode() != null) ? (user.getMode().toString()) : null);
             stmnt.setInt(10,user.getId());
-            stmnt.setString(11,saveImg(user.getImg(), user.getPhoneNumber()));
+            if(stmnt.executeUpdate() == 0){
+                System.out.println("User was not updated");
+                return false;
+            }else{
+                return true;
+            }
+        }catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean updateUserImg(int userID, String phone, byte[] img) {
+        String query = "UPDATE chat_user SET img=? WHERE user_id=?";
+        try(PreparedStatement stmnt = DBConnection.getConnection().prepareStatement(query)){
+            stmnt.setString(1,saveImg(img, phone));
+            stmnt.setInt(2,userID);
             if(stmnt.executeUpdate() == 0){
                 System.out.println("User was not updated");
                 return false;

@@ -14,6 +14,7 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
+import java.util.Currency;
 import java.util.List;
 
 public class ChatServicesImpl implements ChatService {
@@ -54,8 +55,7 @@ public class ChatServicesImpl implements ChatService {
         FXMLLoader loader;
         VBox messages = new VBox();
         for(ChatMessage message: messagesList ){
-            // TODO change currentUserID
-            if(message.getSenderId()==1){
+            if(message.getSenderId()== CurrentUserImp.getCurrentUser().getId()){
                 loader = new FXMLLoader(ChatServicesImpl.class.getResource("/views/sentMessage.fxml"));
                 sentMessageController sentController = new sentMessageController(message.getContent());
                 loader.setController(sentController);
@@ -84,7 +84,7 @@ public class ChatServicesImpl implements ChatService {
             System.out.println("hi group");
             System.out.println("group message content"+message.getContent());
             // TODO change currentUserID
-            if(message.getSenderId()==1){
+            if(message.getSenderId()==CurrentUserImp.getCurrentUser().getId()){
                 loader = new FXMLLoader(ChatServicesImpl.class.getResource("/views/sentMessage.fxml"));
                 sentMessageController sentController = new sentMessageController(message.getContent());
                 loader.setController(sentController);

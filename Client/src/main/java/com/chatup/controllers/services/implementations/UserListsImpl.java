@@ -30,7 +30,7 @@ public class UserListsImpl implements UserLists {
         try {
             Server server = ServerConnection.getServer();
             Map<Chat, ChatMessage> userChats = null;
-            userChats = server.getUserChats(3);
+            userChats = server.getUserChats(CurrentUserImp.getCurrentUser().getId());
             ObservableList<Card> cardList = FXCollections.<Card>observableArrayList();
             Card card = null;
             for (Map.Entry<Chat, ChatMessage> set : userChats.entrySet()) {
@@ -49,7 +49,7 @@ public class UserListsImpl implements UserLists {
         try {
             Server server = ServerConnection.getServer();
             Map<GroupChat, GroupMessage> userGroups = null;
-            userGroups = server.getUserGroups(3);
+            userGroups = server.getUserGroups(CurrentUserImp.getCurrentUser().getId());
             ObservableList<Card> cardList = FXCollections.<Card>observableArrayList();
             Card card = null;
             for (Map.Entry<GroupChat, GroupMessage> set : userGroups.entrySet()) {
@@ -68,7 +68,7 @@ public class UserListsImpl implements UserLists {
     public ObservableList<Card> getUserFriends(UserStatus status){
         try {
             ObservableList<Card> cardList = FXCollections.<Card>observableArrayList();
-            List<User> friends = ServerConnection.getServer().getUserFriends(3);
+            List<User> friends = ServerConnection.getServer().getUserFriends(CurrentUserImp.getCurrentUser().getId());
             for(User friend:friends){
                 if(friend.getStatus()== status){
                     cardList.add(CardMapper.getCard(friend));

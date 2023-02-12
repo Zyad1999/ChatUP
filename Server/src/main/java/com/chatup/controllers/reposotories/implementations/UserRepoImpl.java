@@ -195,7 +195,7 @@ public class UserRepoImpl implements UserRepo {
             .gnder((res.getString("gender")==null) ? null : Gender.valueOf(res.getString("gender")))
             .id(res.getInt("user_id"))
             .mode((res.getString("user_mode")==null) ? null : UserMode.valueOf(res.getString("user_mode")))
-            .img(Files.readAllBytes((res.getString("img")==null)? new File(UserRepoImpl.class.getResource("/Images/default_profile_pic.jpg").toURI()).toPath() : new File(res.getString("img")).toPath()))
+            .img(Files.readAllBytes((res.getString("img")==null)? new File(UserRepoImpl.class.getResource("/images/default_profile_pic.jpg").toURI()).toPath() : new File(res.getString("img")).toPath()))
             .status((res.getString("user_status")==null) ? null : UserStatus.valueOf(res.getString("user_status")))
             .build();
             return user;
@@ -213,7 +213,7 @@ public class UserRepoImpl implements UserRepo {
     public String saveImg(byte[] img,String phoneNumber){
         FileOutputStream fos = null;
         String imgID = UUID.randomUUID().toString();
-        String path = "./src/main/resources/files/imgs/"+phoneNumber;
+        String path = "./files/imgs/"+phoneNumber;
         try {
             File theDir = new File(path);
             if (!theDir.exists()){

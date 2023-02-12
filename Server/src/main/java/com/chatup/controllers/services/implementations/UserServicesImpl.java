@@ -26,6 +26,9 @@ public class UserServicesImpl implements UserServices {
     @Override
     public User getUserInfo(int userId) {
         User user= UserRepoImpl.getUserRepo().getUser(userId);
+        if(user == null){
+            return null;
+        }
         user.setPassword(null);
         return user;
     }
@@ -33,6 +36,9 @@ public class UserServicesImpl implements UserServices {
     @Override
     public User getUserInfo(String phone) {
         User user= UserRepoImpl.getUserRepo().getUser(phone);
+        if(user == null){
+            return null;
+        }
         user.setPassword(null);
         return user;
     }

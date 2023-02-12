@@ -94,6 +94,12 @@ public class ServerImpl extends UnicastRemoteObject implements Server {
     public User getUser(String phoneNumber) throws RemoteException {
         return UserServicesImpl.getUserServices().getUserInfo(phoneNumber);
     }
+
+    @Override
+    public Boolean sendFriendRequest(List<FriendRequest> addRequests) throws RemoteException {
+        return FriendsServicesImpl.getFriendsServices().sendFriendRequest(addRequests);
+    }
+
     @Override
     public Boolean updateFriendsRequestStatus (FriendRequest friendRequests) throws RemoteException {
        return FriendsServicesImpl.getFriendsServices().updateFriendsRequestStatus(friendRequests);

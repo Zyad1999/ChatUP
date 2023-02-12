@@ -10,7 +10,6 @@ import com.chatup.utils.SwitchScenes;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -114,30 +113,27 @@ public class ChatScreenController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         prepareListView(cardsListView, scrollPane);
-        currentList = FXCollections.observableArrayList();
-        currentList.addAll(ListCoordinatorImpl.getListCoordinator().getUserChats());
-        cardsListView.setItems(currentList);
+        cardsListView.setItems(ListCoordinatorImpl.getListCoordinator().getUserChats());
 
     }
 
     @FXML
     void setChats(ActionEvent event) {
-        currentList.clear();
-        currentList.addAll(ListCoordinatorImpl.getListCoordinator().getUserChats());
+        cardsListView.setItems(ListCoordinatorImpl.getListCoordinator().getUserChats());
     }
 
     @FXML
     void setFriends(ActionEvent event) {
-        currentList.clear();
-        currentList.addAll(ListCoordinatorImpl.getListCoordinator().getUserOnlineFriends());
 
+        cardsListView.setItems(ListCoordinatorImpl.getListCoordinator().getUserOnlineFriends());
     }
 
     @FXML
     void setGroups(ActionEvent event) {
 
-        currentList.clear();
-        currentList.addAll(ListCoordinatorImpl.getListCoordinator().getUserGroups());
+        //currentList.clear();
+        //currentList.addAll(ListCoordinatorImpl.getListCoordinator().getUserGroups());
+        cardsListView.setItems(ListCoordinatorImpl.getListCoordinator().getUserGroups());
     }
 
     @FXML
@@ -216,6 +212,24 @@ public class ChatScreenController implements Initializable {
             e.printStackTrace();
         }
 
+    }
+    @FXML
+    void sendInvitation(ActionEvent event) {
+        FXMLLoader friendRequestFXML;
+        try {
+            friendRequestFXML =new FXMLLoader(Objects.requireNonNull(ChatScreenController.class.getResource("/views/AddFriend.fxml")));
+            AddFriendRequestController addFriendRequestController = new AddFriendRequestController();
+            friendRequestFXML.setController(addFriendRequestController);
+            Scene scene =new Scene(friendRequestFXML.load(),550, 550);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.show();
+
+            //((Node)(event.getSource())).getScene().getRoot().setDisable(true);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

@@ -1,10 +1,12 @@
 package com.chatup.controllers.services.implementations;
 
 import com.chatup.controllers.services.interfaces.UserServices;
+import com.chatup.models.entities.FriendRequest;
 import com.chatup.models.entities.User;
 import com.chatup.network.ServerConnection;
 
 import java.rmi.RemoteException;
+import java.util.List;
 
 public class UserServicesImpl implements UserServices {
 
@@ -35,4 +37,24 @@ public class UserServicesImpl implements UserServices {
             return null;
         }
     }
+
+    @Override
+    public User getFiendData(String userPhone) {
+        try {
+            return ServerConnection.getServer().getUser(userPhone);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    @Override
+    public Boolean createFriendRequests(List<FriendRequest> friendRequestList) {
+        try {
+            return ServerConnection.getServer().sendFriendRequest(friendRequestList);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 }

@@ -213,7 +213,7 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </MFXButton>
-                                    <MFXButton depthLevel="LEVEL5" prefHeight="46.0" prefWidth="73.0" style="-fx-background-color: none;" text=" " HBox.hgrow="ALWAYS">
+                                    <MFXButton depthLevel="LEVEL5" onAction="#sendInvitation" prefHeight="46.0" prefWidth="73.0" style="-fx-background-color: none;" text=" " HBox.hgrow="ALWAYS">
                                        <graphic>
                                           <ImageView fitHeight="29.0" fitWidth="62.0" pickOnBounds="true" preserveRatio="true">
                                              <image>

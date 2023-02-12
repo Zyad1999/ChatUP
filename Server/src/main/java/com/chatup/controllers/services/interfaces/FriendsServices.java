@@ -10,4 +10,5 @@ public interface FriendsServices {
     public List<User> getUserFriends(int userID);
     public List<User> getUserFriendRequests(int userID);
     public Boolean updateFriendsRequestStatus( FriendRequest updatedRequests);
+    public Boolean sendFriendRequest( List<FriendRequest> addRequests);
 }

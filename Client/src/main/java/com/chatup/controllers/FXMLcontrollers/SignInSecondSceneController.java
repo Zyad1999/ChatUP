@@ -7,6 +7,7 @@ import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXPasswordField;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -15,6 +16,8 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
@@ -58,22 +61,7 @@ public class SignInSecondSceneController implements Initializable {
 
     @FXML
     void signInClicked(ActionEvent event) {
-        validatePassword();
-        if (valid) {
-            try {
-                if (UserAuthImp.getUserAuth().loginAuth(phoneNumberTF.getText(), passwordTF.getText()) != null) {
-                    System.out.println("corrected information");
-                    SwitchScenes.getInstance().switchToChatScreen(event);
-                } else {
-                    Alert alert = new Alert(Alert.AlertType.ERROR, "Password is incorrect!");
-                    alert.setHeaderText(null);
-                    alert.showAndWait();
-                    System.out.println("wrong information");
-                }
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-        }
+       signIn(event);
     }
 
     @FXML
@@ -91,6 +79,12 @@ public class SignInSecondSceneController implements Initializable {
             SwitchScenes.getInstance().switchToSignInFirst(event);
         } catch (IOException ex) {
             ex.printStackTrace();
+        }
+    }
+    @FXML
+    void passwordEnterPressed(KeyEvent event) {
+        if(event.getCode()== KeyCode.ENTER){
+            signIn(event);
         }
     }
 
@@ -125,5 +119,24 @@ public class SignInSecondSceneController implements Initializable {
 
     public void setPhoneNumberTF(String phone) {
         phoneNumberTF.setText(phone);
+    }
+
+    public void signIn(Event event){
+        validatePassword();
+        if (valid) {
+            try {
+                if (UserAuthImp.getUserAuth().loginAuth(phoneNumberTF.getText(), passwordTF.getText()) != null) {
+                    System.out.println("corrected information");
+                    SwitchScenes.getInstance().switchToChatScreen(event);
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "Password is incorrect!");
+                    alert.setHeaderText(null);
+                    alert.showAndWait();
+                    System.out.println("wrong information");
+                }
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 }

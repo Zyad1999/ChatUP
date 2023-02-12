@@ -6,20 +6,19 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.control.Hyperlink?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="850.0" styleClass="left-side" stylesheets="@../style/LoginStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chatup.controllers.FXMLcontrollers.SignInSecondSceneController">
     <children>
         <AnchorPane layoutX="334.0" layoutY="100.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="534.0" styleClass="right-side" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <MFXTextField fx:id="phoneNumberTF" allowEdit="false" floatMode="BORDER" layoutX="158.0" layoutY="321.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0" prefWidth="221.0" promptText="01XXXXXXXXX" selectable="false" style="-fx-border-color: #FFFFE0;" styleClass="text-field" />
-                <MFXPasswordField fx:id="passwordTF" floatMode="BORDER" layoutX="157.0" layoutY="376.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0" prefWidth="221.0" promptText="Password" style="-fx-border-color: #FFFFE0;" styleClass="text-field">
+                <MFXPasswordField fx:id="passwordTF" floatMode="BORDER" layoutX="157.0" layoutY="376.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#passwordEnterPressed" prefHeight="38.0" prefWidth="221.0" promptText="Password" style="-fx-border-color: #FFFFE0;" styleClass="text-field">
                     <cursor>
                         <Cursor fx:constant="HAND" />
                     </cursor>
@@ -53,7 +52,7 @@
                     <cursor>
                         <Cursor fx:constant="HAND" />
                     </cursor>
-                </Hyperlink >
+                </Hyperlink>
             </children>
         </AnchorPane>
         <ImageView fitHeight="77.0" fitWidth="280.0" layoutX="17.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true">

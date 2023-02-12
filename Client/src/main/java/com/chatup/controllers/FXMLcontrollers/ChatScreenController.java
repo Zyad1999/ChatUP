@@ -179,10 +179,10 @@ public class ChatScreenController implements Initializable {
     @FXML
     void maximizeDecoratedButtonHandler(MouseEvent event) {
         Stage stage = (Stage) ((Circle) event.getSource()).getScene().getWindow();
-        if (stage.isFullScreen()) {
-            stage.setFullScreen(false);
+        if (stage.isMaximized()) {
+            stage.setMaximized(false);
         } else {
-            stage.setFullScreen(true);
+            stage.setMaximized(true);
         }
     }
 

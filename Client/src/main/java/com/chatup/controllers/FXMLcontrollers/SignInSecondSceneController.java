@@ -9,6 +9,7 @@ import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Tooltip;
@@ -24,15 +25,18 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class SignInSecondSceneController implements Initializable {
+    @FXML
     public Hyperlink LoginButton;
+    @FXML
     public MFXButton SignInButton;
+    @FXML
     public Button Sign_Up;
+    @FXML
     public ImageView Exit;
     @FXML
     private Circle SignUp_img;
     @FXML
     private Button Sign_In;
-
     @FXML
     private MFXPasswordField passwordTF;
     @FXML
@@ -42,7 +46,6 @@ public class SignInSecondSceneController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Image userImage = new Image(new ByteArrayInputStream(CurrentUserImp.getCurrentUser().getImg()));
-
         SignUp_img.setFill(new ImagePattern(userImage));
         Sign_In.setDisable(true);
         phoneNumberTF.setText(CurrentUserImp.getCurrentUser().getPhoneNumber());
@@ -62,6 +65,9 @@ public class SignInSecondSceneController implements Initializable {
                     System.out.println("corrected information");
                     SwitchScenes.getInstance().switchToChatScreen(event);
                 } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "Password is incorrect!");
+                    alert.setHeaderText(null);
+                    alert.showAndWait();
                     System.out.println("wrong information");
                 }
             } catch (IOException ex) {
@@ -110,10 +116,6 @@ public class SignInSecondSceneController implements Initializable {
         if (passwordTF.getText().length() == 0) {
             passwordTF.setStyle("-fx-border-color: red; -fx-border-width: 1px");
             passwordTF.setTooltip(hintText("Password is required", errorImage("/images/question-mark.png")));
-            valid = false;
-        } else if (passwordTF.getText().length() < 8) {
-            passwordTF.setStyle("-fx-border-color: red; -fx-border-width: 1px");
-            passwordTF.setTooltip(hintText("The phone number or password is incorrect.", errorImage("/images/error.png")));
             valid = false;
         } else {
             passwordTF.setStyle("-fx-border-color: -fx-gray-color;");

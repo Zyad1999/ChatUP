@@ -10,6 +10,7 @@ import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
@@ -50,13 +51,17 @@ public class SignInFirstSceneController implements Initializable {
             try {
                 User user = ServerConnection.getServer().getUser(phoneNumberTF.getText());
                 if (user != null) {
-                    System.out.println("found user");
+                    System.out.println("phone number is correct");
                     CurrentUserImp.setCurrentUser(UserServicesImpl.getUserServices().getUser(phoneNumberTF.getText()));
                     SwitchScenes.getInstance().switchToSignInSecond(event);
                 } else {
-                    System.out.println("not found");
+                    System.out.println("not found phone number");
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "Phone number is incorrect!");
+                    alert.setHeaderText(null);
+                    alert.showAndWait();
                 }
             } catch (IOException e) {
+                System.out.println("problem ya karim");
                 e.printStackTrace();
             }
         }
@@ -112,5 +117,4 @@ public class SignInFirstSceneController implements Initializable {
             valid = true;
         }
     }
-
 }

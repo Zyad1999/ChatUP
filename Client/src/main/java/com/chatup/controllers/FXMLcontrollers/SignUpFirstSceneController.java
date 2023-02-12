@@ -1,14 +1,10 @@
 package com.chatup.controllers.FXMLcontrollers;
 
 import com.chatup.controllers.services.implementations.CurrentUserImp;
-import com.chatup.controllers.services.implementations.UserServicesImpl;
 import com.chatup.models.entities.User;
 import com.chatup.models.enums.Gender;
 import com.chatup.models.enums.UserMode;
 import com.chatup.models.enums.UserStatus;
-import com.chatup.network.ServerConnection;
-import com.chatup.network.implementations.ClientImpl;
-import com.chatup.network.interfaces.Client;
 import com.chatup.utils.SwitchScenes;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXPasswordField;
@@ -26,8 +22,6 @@ import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.Instant;
-import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.ResourceBundle;

@@ -20,4 +20,8 @@ public interface Server extends Remote {
     public List<User> getUserFriendRequests(int userID) throws RemoteException;
     public User getUser(int userID) throws RemoteException;
     public User getUser(String phoneNumber) throws RemoteException;
+
+    int sendChatMessage(ChatMessage message) throws RemoteException;
+
+    int sendGroupChatMessage(GroupMessage message) throws RemoteException;
 }

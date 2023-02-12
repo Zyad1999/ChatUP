@@ -1,9 +1,6 @@
 package com.chatup.network.implementations;
 
-import com.chatup.controllers.services.implementations.FriendsServicesImpl;
-import com.chatup.controllers.services.implementations.UserAuthImpl;
-import com.chatup.controllers.services.implementations.UserGroupsServiceImp;
-import com.chatup.controllers.services.implementations.UserServicesImpl;
+import com.chatup.controllers.services.implementations.*;
 import com.chatup.models.entities.*;
 import com.chatup.network.interfaces.Client;
 import com.chatup.network.interfaces.Server;
@@ -92,5 +89,37 @@ public class ServerImpl extends UnicastRemoteObject implements Server {
     @Override
     public User getUser(String phoneNumber) throws RemoteException {
         return UserServicesImpl.getUserServices().getUserInfo(phoneNumber);
+    }
+
+    @Override
+    public int sendChatMessage(ChatMessage message) throws RemoteException{
+        Chat chat = UserChatServicesImpl.getUserChatServices().getChat(message.getChatId());
+        User receiver = UserServicesImpl.getUserServices().getUserInfo((chat.getFirstUserId() == message.getSenderId())?
+                chat.getSecondUserId():chat.getFirstUserId());
+        if(clients.containsKey(receiver.getId())){
+            try{
+                clients.get(receiver.getId()).sendChatMessage(message);
+            } catch (RemoteException e) {
+                System.out.println("Client Disconnected");
+                clients.remove(receiver.getId());
+            }
+        }
+        return UserChatServicesImpl.getUserChatServices().sendChatMessage(message);
+    }
+
+    @Override
+    public int sendGroupChatMessage(GroupMessage message) throws RemoteException{
+        List<User> groupMembers = UserGroupsServiceImp.getUserGroupsService().getGroupMembers(message.getGroupChatId());
+        for(User member : groupMembers){
+            if(clients.containsKey(member.getId()) && member.getId() != message.getSenderId()){
+                try {
+                    clients.get(member.getId()).sendGroupMessage(message);
+                } catch (RemoteException e) {
+                    System.out.println("Client Disconnected");
+                    clients.remove(member.getId());
+                }
+            }
+        }
+        return UserGroupsServiceImp.getUserGroupsService().sendGroupMessage(message);
     }
 }

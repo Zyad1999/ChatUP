@@ -2,6 +2,7 @@ package com.chatup.controllers.services.implementations;
 
 import com.chatup.controllers.reposotories.implementations.GroupChatRepoImpl;
 import com.chatup.controllers.reposotories.implementations.GroupMembershipRepoImpl;
+import com.chatup.controllers.reposotories.implementations.GroupMessageRepoImp;
 import com.chatup.controllers.services.interfaces.UserGroupsService;
 import com.chatup.models.entities.*;
 
@@ -48,5 +49,23 @@ public class UserGroupsServiceImp implements UserGroupsService {
                         (left, right) -> left,
                         LinkedHashMap::new));
         return resultSet;
+    }
+
+    @Override
+    public List<User> getGroupMembers(int groupID){
+        List<GroupMembership> memberships = GroupMembershipRepoImpl.getInstance().getContactsGroupMembership(groupID);
+        List<User> members = new ArrayList<>();
+        for (GroupMembership membership: memberships){
+            User member = UserServicesImpl.getUserServices().getUserInfo(membership.getUserId());
+            if(member != null){
+                members.add(member);
+            }
+        }
+        return members;
+    }
+
+    @Override
+    public int sendGroupMessage(GroupMessage message){
+        return GroupMessageRepoImp.getInstance().createGroupMessage(message);
     }
 }

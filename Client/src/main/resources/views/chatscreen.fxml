@@ -423,7 +423,7 @@
                   <Insets bottom="10.0" left="8.0" />
                </BorderPane.margin>
                <children>
-                  <TextField maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="41.0" minWidth="333.0" promptText="send message" styleClass="message-text-field" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="70.0">
+                  <TextField fx:id="messageText" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="41.0" minWidth="333.0" promptText="send message" styleClass="message-text-field" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="70.0">
                      <cursor>
                         <Cursor fx:constant="TEXT" />
                      </cursor>
@@ -436,7 +436,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ImageView>
-                  <Button layoutX="530.0" layoutY="1.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="54.0" styleClass="button-send" text="Send" AnchorPane.rightAnchor="14.0" />
+                  <Button fx:id="sendButton" layoutX="530.0" layoutY="1.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#sendMessage" prefHeight="40.0" prefWidth="54.0" styleClass="button-send" text="Send" AnchorPane.rightAnchor="14.0" />
                </children>
             </AnchorPane>
          </bottom>

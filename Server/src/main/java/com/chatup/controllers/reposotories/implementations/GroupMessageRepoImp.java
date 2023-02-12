@@ -25,7 +25,11 @@ public class GroupMessageRepoImp implements GroupMessageRepo {
             statement.setString(2, groupMessage.getContent());
             statement.setTimestamp(3, Timestamp.valueOf(groupMessage.getMessageDate()));
             statement.setInt(4, groupMessage.getGroupChatId());
-            statement.setInt(5, groupMessage.getAttachmentID());
+            if(groupMessage.getAttachmentID()!=0){
+                statement.setInt(5, groupMessage.getAttachmentID());
+            }else {
+                statement.setString(5,null);
+            }
             if (statement.executeUpdate() > 0) {
                 ResultSet resultSet = statement.getGeneratedKeys();
                 if (resultSet.next()) {

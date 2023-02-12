@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Group?>
@@ -29,11 +28,6 @@
                      <graphic>
                         <Group>
                            <children>
-                              <FontAwesomeIconView fill="WHITE" glyphName="DASHBOARD" layoutX="-4.0" layoutY="20.0" selectionFill="#bfa4a4" size="20" wrappingWidth="36.0">
-                                 <font>
-                                    <Font name="Arial Bold" size="36.0" />
-                                 </font>
-                              </FontAwesomeIconView>
                               <Label layoutX="36.0" text="DashBoard" textFill="WHITE">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
@@ -51,11 +45,6 @@
                      <graphic>
                         <Group>
                            <children>
-                              <FontAwesomeIconView fill="WHITE" glyphName="USERS" layoutX="-4.0" layoutY="20.0" selectionFill="#bfa4a4" size="20" wrappingWidth="36.0">
-                                 <font>
-                                    <Font name="Arial Bold" size="36.0" />
-                                 </font>
-                              </FontAwesomeIconView>
                               <Label layoutX="36.0" text="Users" textFill="WHITE">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
@@ -73,11 +62,6 @@
                      <graphic>
                         <Group>
                            <children>
-                              <FontAwesomeIconView fill="WHITE" glyphName="COG" layoutX="-4.0" layoutY="20.0" selectionFill="#bfa4a4" size="20" wrappingWidth="36.0">
-                                 <font>
-                                    <Font name="Arial Bold" size="36.0" />
-                                 </font>
-                              </FontAwesomeIconView>
                               <Label layoutX="36.0" text="Setting" textFill="WHITE">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
@@ -95,11 +79,6 @@
                      <graphic>
                         <Group>
                            <children>
-                              <FontAwesomeIconView fill="WHITE" glyphName="chart-pie" layoutX="-4.0" layoutY="20.0" selectionFill="#bfa4a4" size="20" text="" wrappingWidth="36.0">
-                                 <font>
-                                    <Font name="Arial Bold" size="36.0" />
-                                 </font>
-                              </FontAwesomeIconView>
                               <Label layoutX="36.0" text="Setting" textFill="WHITE">
                                  <font>
                                     <Font name="System Bold" size="18.0" />

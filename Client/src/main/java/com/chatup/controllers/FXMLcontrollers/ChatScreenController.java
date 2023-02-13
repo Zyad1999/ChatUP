@@ -133,7 +133,7 @@ public class ChatScreenController implements Initializable {
 
     @FXML
     void sendMessage(ActionEvent event) {
-        if(CurrentChat.getCurrentChat() != null){
+        if(CurrentChat.getCurrentChat() != null && messageText.getText().length() > 0){
             int id = CurrentChat.getCurrentChat().getCurrentChatID();
             if(CurrentChat.getCurrentChat().getCurrentChatType() == ChatType.SINGLE){
                 ChatMessage message = new ChatMessage(id,CurrentUserImp.getCurrentUser().getId(),

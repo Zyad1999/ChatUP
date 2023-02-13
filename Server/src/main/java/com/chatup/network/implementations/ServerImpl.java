@@ -146,4 +146,9 @@ public class ServerImpl extends UnicastRemoteObject implements Server {
     public int createChat(Chat chat) throws RemoteException{
         return UserChatServicesImpl.getUserChatServices().createChat(chat);
     }
+
+    @Override
+    public Chat getChat(int chatID) throws RemoteException {
+        return UserChatServicesImpl.getUserChatServices().getChat(chatID);
+    }
 }

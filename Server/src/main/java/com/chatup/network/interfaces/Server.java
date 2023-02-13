@@ -22,4 +22,11 @@ public interface Server extends Remote {
     public User getUser(String phoneNumber) throws RemoteException;
     public Boolean sendFriendRequest( List<FriendRequest> addRequests )throws RemoteException;
     public  Boolean updateFriendsRequestStatus (FriendRequest friendRequests)throws RemoteException;
+
+    int sendChatMessage(ChatMessage message) throws RemoteException;
+
+    int sendGroupChatMessage(GroupMessage message) throws RemoteException;
+    public int createGroupChat(GroupChat groupChat , List<User> userList) throws RemoteException;
+
+    void addUsersToGroup(int groupChatId,List<User> userList) throws RemoteException;
 }

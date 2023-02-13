@@ -27,7 +27,11 @@ public class ChatMessageRepoImpl implements ChatMessageRepo {
             stmnt.setString(2, singleChatMessage.getContent());
             stmnt.setTimestamp(3, Timestamp.valueOf(singleChatMessage.getMessageDateTime()));
             stmnt.setInt(4,singleChatMessage.getChatId());
-            stmnt.setInt(5,singleChatMessage.getAttachment_Id());
+            if(singleChatMessage.getAttachment_Id() != 0) {
+                stmnt.setInt(5, singleChatMessage.getAttachment_Id());
+            }else{
+                stmnt.setString(5, null);
+            }
             if(stmnt.executeUpdate() == 0){
                 System.out.println("ChatMessage was not Created");
                 return -1;

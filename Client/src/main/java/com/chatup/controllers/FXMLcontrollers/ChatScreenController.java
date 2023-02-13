@@ -1,16 +1,20 @@
 package com.chatup.controllers.FXMLcontrollers;
 
+import com.chatup.controllers.services.implementations.ChatServicesImpl;
+import com.chatup.controllers.services.implementations.CurrentChat;
 import com.chatup.controllers.services.implementations.CurrentUserImp;
 import com.chatup.controllers.services.implementations.ListCoordinatorImpl;
 import com.chatup.models.entities.Card;
+import com.chatup.models.entities.ChatMessage;
+import com.chatup.models.entities.GroupMessage;
 import com.chatup.models.enums.CardType;
+import com.chatup.models.enums.ChatType;
 import com.chatup.network.ServerConnection;
 import com.chatup.network.implementations.ClientImpl;
 import com.chatup.utils.SwitchScenes;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -29,6 +33,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.Objects;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 public class ChatScreenController implements Initializable {
@@ -50,6 +56,19 @@ public class ChatScreenController implements Initializable {
     @FXML
     private ListView cardsListView;
 
+
+    @FXML
+    private Button sendButton;
+
+    @FXML
+    private TextField messageText;
+
+
+    @FXML
+    private Button sendButton;
+
+    @FXML
+    private TextField messageText;
 
     @FXML
     private ScrollPane scrollPane;
@@ -101,20 +120,38 @@ public class ChatScreenController implements Initializable {
                     if (newValue.getCardType() == CardType.CHAT) {
                         VBox box = ListCoordinatorImpl.getListCoordinator().getSingleChatVbox(newValue.getCardID());
                         scrollPane.setContent(box);
+                        CurrentChat.setCurrentChatSingle(newValue.getCardID());
                     } else if (newValue.getCardType() == CardType.GROUP) {
                         VBox box = ListCoordinatorImpl.getListCoordinator().getGroupChatVbox(newValue.getCardID());
                         scrollPane.setContent(box);
+                        CurrentChat.setCurrentChatGroup(newValue.getCardID());
                     }
                 }
             }
         });
     }
 
+    @FXML
+    void sendMessage(ActionEvent event) {
+        if(CurrentChat.getCurrentChat() != null){
+            int id = CurrentChat.getCurrentChat().getCurrentChatID();
+            if(CurrentChat.getCurrentChat().getCurrentChatType() == ChatType.SINGLE){
+                ChatMessage message = new ChatMessage(id,CurrentUserImp.getCurrentUser().getId(),
+                        messageText.getText(), LocalDateTime.now(),0);
+                ListCoordinatorImpl.getListCoordinator().getSingleChatVbox(id).getChildren().add(ChatServicesImpl.getChatService().sendChatMessage(message));
+            }else if(CurrentChat.getCurrentChat().getCurrentChatType() == ChatType.GROUP){
+                GroupMessage message = new GroupMessage(CurrentUserImp.getCurrentUser().getId(),messageText.getText(),LocalDateTime.now(),
+                        id,0);
+                ListCoordinatorImpl.getListCoordinator().getGroupChatVbox(id).getChildren().add(ChatServicesImpl.getChatService().sendGroupMessage(message));
+            }
+            messageText.clear();
+        }
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         prepareListView(cardsListView, scrollPane);
         cardsListView.setItems(ListCoordinatorImpl.getListCoordinator().getUserChats());
-
     }
 
     @FXML

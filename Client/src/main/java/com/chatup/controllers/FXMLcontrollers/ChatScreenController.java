@@ -1,9 +1,6 @@
 package com.chatup.controllers.FXMLcontrollers;
 
-import com.chatup.controllers.services.implementations.ChatServicesImpl;
-import com.chatup.controllers.services.implementations.CurrentChat;
-import com.chatup.controllers.services.implementations.CurrentUserImp;
-import com.chatup.controllers.services.implementations.ListCoordinatorImpl;
+import com.chatup.controllers.services.implementations.*;
 import com.chatup.models.entities.Card;
 import com.chatup.models.entities.ChatMessage;
 import com.chatup.models.entities.GroupMessage;
@@ -13,9 +10,8 @@ import com.chatup.network.ServerConnection;
 import com.chatup.network.implementations.ClientImpl;
 import com.chatup.utils.SwitchScenes;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -106,20 +102,21 @@ public class ChatScreenController implements Initializable {
                 return cell;
             }
         });
-        cardsListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Card>() {
-            public void changed(ObservableValue<? extends Card> observable, Card oldValue, Card newValue) {
-                System.out.println(oldValue);
-                System.out.println(newValue);
-                if (observable != null && observable.getValue() != null) {
-                    System.out.println(newValue.getCardID());
-                    if (newValue.getCardType() == CardType.CHAT) {
-                        VBox box = ListCoordinatorImpl.getListCoordinator().getSingleChatVbox(newValue.getCardID());
+        cardsListView.setOnMouseClicked(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent mouseEvent)
+            {
+                Card selected = (Card)cardsListView.getSelectionModel().getSelectedItem();
+                if (cardsListView.getSelectionModel().getSelectedItem() != null) {
+                    System.out.println(selected.getCardID());
+                    if (selected.getCardType() == CardType.CHAT) {
+                        VBox box = ListCoordinatorImpl.getListCoordinator().getSingleChatVbox(selected.getCardID());
                         scrollPane.setContent(box);
-                        CurrentChat.setCurrentChatSingle(newValue.getCardID());
-                    } else if (newValue.getCardType() == CardType.GROUP) {
-                        VBox box = ListCoordinatorImpl.getListCoordinator().getGroupChatVbox(newValue.getCardID());
+                        CurrentChat.setCurrentChatSingle(selected.getCardID());
+                    } else if (selected.getCardType() == CardType.GROUP) {
+                        VBox box = ListCoordinatorImpl.getListCoordinator().getGroupChatVbox(selected.getCardID());
                         scrollPane.setContent(box);
-                        CurrentChat.setCurrentChatGroup(newValue.getCardID());
+                        CurrentChat.setCurrentChatGroup(selected.getCardID());
                     }
                 }
             }
@@ -134,10 +131,12 @@ public class ChatScreenController implements Initializable {
                 ChatMessage message = new ChatMessage(id,CurrentUserImp.getCurrentUser().getId(),
                         messageText.getText(), LocalDateTime.now(),0);
                 ListCoordinatorImpl.getListCoordinator().getSingleChatVbox(id).getChildren().add(ChatServicesImpl.getChatService().sendChatMessage(message));
+                ChatServicesImpl.getChatService().updateChatList(id,messageText.getText());
             }else if(CurrentChat.getCurrentChat().getCurrentChatType() == ChatType.GROUP){
                 GroupMessage message = new GroupMessage(CurrentUserImp.getCurrentUser().getId(),messageText.getText(),LocalDateTime.now(),
                         id,0);
                 ListCoordinatorImpl.getListCoordinator().getGroupChatVbox(id).getChildren().add(ChatServicesImpl.getChatService().sendGroupMessage(message));
+                ChatServicesImpl.getChatService().updateGroupChatList(id,messageText.getText());
             }
             messageText.clear();
         }

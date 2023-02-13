@@ -3,11 +3,13 @@ package com.chatup.controllers.services.implementations;
 import com.chatup.controllers.FXMLcontrollers.recievedMessageController;
 import com.chatup.controllers.FXMLcontrollers.sentMessageController;
 import com.chatup.controllers.services.interfaces.ChatService;
+import com.chatup.models.entities.Card;
 import com.chatup.models.entities.ChatMessage;
 import com.chatup.models.entities.GroupMessage;
 import com.chatup.models.entities.User;
 import com.chatup.network.ServerConnection;
 import com.chatup.network.interfaces.Server;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -173,6 +175,38 @@ public class ChatServicesImpl implements ChatService {
         } catch (IOException e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    @Override
+    public void updateChatList(int chatID, String content){
+        ObservableList<Card> chats = ListCoordinatorImpl.getListCoordinator().getUserChats();
+        Card curChat = null;
+        for(Card chat:chats){
+            if(chat.getCardID() == chatID) {
+                curChat = chat;
+            }
+        }
+        if(curChat != null){
+            curChat.setCardContent(content);
+            chats.remove(curChat);
+            chats.add(0, curChat);
+        }
+    }
+
+    @Override
+    public void updateGroupChatList(int groupChatID, String content){
+        ObservableList<Card> chats = ListCoordinatorImpl.getListCoordinator().getUserGroups();
+        Card curChat = null;
+        for(Card chat:chats){
+            if(chat.getCardID() == groupChatID) {
+                curChat = chat;
+            }
+        }
+        if(curChat != null){
+            curChat.setCardContent(content);
+            chats.remove(curChat);
+            chats.add(0, curChat);
         }
     }
 }

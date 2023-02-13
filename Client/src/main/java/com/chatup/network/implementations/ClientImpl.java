@@ -32,6 +32,7 @@ public class ClientImpl extends UnicastRemoteObject implements Client {
         Platform.runLater(()->{
             ListCoordinatorImpl.getListCoordinator().getGroupChatVbox(message.getGroupChatId()).getChildren()
                     .add(ChatServicesImpl.getChatService().recGroupMessage(message));
+            ChatServicesImpl.getChatService().updateGroupChatList(message.getGroupMessageId(),message.getContent());
         });
     }
 
@@ -41,6 +42,7 @@ public class ClientImpl extends UnicastRemoteObject implements Client {
         Platform.runLater(()->{
             ListCoordinatorImpl.getListCoordinator().getSingleChatVbox(message.getChatId()).getChildren()
                     .add(ChatServicesImpl.getChatService().recChatMessage(message));
+            ChatServicesImpl.getChatService().updateChatList(message.getChatId(),message.getContent());
         });
     }
 }

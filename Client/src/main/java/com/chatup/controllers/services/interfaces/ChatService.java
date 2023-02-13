@@ -18,4 +18,8 @@ public interface ChatService {
     HBox sendChatMessage(ChatMessage message);
 
     HBox recChatMessage(ChatMessage message);
+
+    void updateChatList(int chatID, String content);
+
+    void updateGroupChatList(int groupChatID, String content);
 }

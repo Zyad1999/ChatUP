@@ -14,4 +14,7 @@ public interface UserGroupsService {
     List<User> getGroupMembers(int groupID);
 
     int sendGroupMessage(GroupMessage message);
+    int createGroupChat(GroupChat groupChat , List<User> userList);
+
+    void addUsersToGroup(int groupChatId,List<User> userList);
 }

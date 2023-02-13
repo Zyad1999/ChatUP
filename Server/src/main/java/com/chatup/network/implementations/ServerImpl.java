@@ -122,4 +122,12 @@ public class ServerImpl extends UnicastRemoteObject implements Server {
         }
         return UserGroupsServiceImp.getUserGroupsService().sendGroupMessage(message);
     }
+    public int createGroupChat(GroupChat groupChat,List<User> userList) throws RemoteException {
+        return UserGroupsServiceImp.getUserGroupsService().createGroupChat(groupChat,userList);
+    }
+
+    @Override
+    public void addUsersToGroup(int groupChatId, List<User> userList) throws RemoteException {
+         UserGroupsServiceImp.getUserGroupsService().addUsersToGroup(groupChatId,userList);
+    }
 }

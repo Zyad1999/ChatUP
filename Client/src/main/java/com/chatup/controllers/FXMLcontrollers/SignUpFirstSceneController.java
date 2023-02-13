@@ -1,6 +1,7 @@
 package com.chatup.controllers.FXMLcontrollers;
 
 import com.chatup.controllers.services.implementations.CurrentUserImp;
+import com.chatup.controllers.services.implementations.UserServicesImpl;
 import com.chatup.models.entities.User;
 import com.chatup.models.enums.Gender;
 import com.chatup.models.enums.UserMode;
@@ -127,8 +128,9 @@ public class SignUpFirstSceneController implements Initializable {
     }
 
     private void validateSignUp() {
-        validateUserName();
+        valid = true;
         validatePhoneNumber();
+        validateUserName();
         validateEmail();
         validatePassword();
         validateConfirmPassword();
@@ -166,7 +168,7 @@ public class SignUpFirstSceneController implements Initializable {
             valid = false;
         } else {
             userNameTF.setStyle("-fx-border-color: -fx-gray-color;");
-            valid = true;
+//            valid = true;
         }
     }
 
@@ -179,15 +181,13 @@ public class SignUpFirstSceneController implements Initializable {
             phoneNumberTF.setStyle("-fx-border-color: red; -fx-border-width: 1px");
             phoneNumberTF.setTooltip(hintText("Invalid Phone Number\nExample: 01xxxxxxxxx", errorImage("/images/error.png")));
             valid = false;
-        }
-//        else if (UserServicesImpl.getUserServices().getUser(phoneNumberTF.getText()) != null) {
-//            phoneNumberTF.setStyle("-fx-border-color: red; -fx-border-width: 1px");
-//            phoneNumberTF.setTooltip(hintText("Phone already exist", errorImage("/images/error.png")));
-//            valid = false;
-//        }
-        else {
+        } else if (UserServicesImpl.getUserServices().getUser(phoneNumberTF.getText()) != null) {
+            phoneNumberTF.setStyle("-fx-border-color: red; -fx-border-width: 1px");
+            phoneNumberTF.setTooltip(hintText("Phone already exist", errorImage("/images/error.png")));
+            valid = false;
+        } else {
             phoneNumberTF.setStyle("-fx-border-color: -fx-gray-color;");
-            valid = true;
+//            valid = true;
         }
     }
 
@@ -202,7 +202,7 @@ public class SignUpFirstSceneController implements Initializable {
             valid = false;
         } else {
             emailTF.setStyle("-fx-border-color: -fx-gray-color;");
-            valid = true;
+//            valid = true;
         }
     }
 
@@ -217,7 +217,7 @@ public class SignUpFirstSceneController implements Initializable {
             valid = false;
         } else {
             passwordPF.setStyle("-fx-border-color: -fx-gray-color;");
-            valid = true;
+//            valid = true;
         }
     }
 
@@ -232,7 +232,7 @@ public class SignUpFirstSceneController implements Initializable {
             valid = false;
         } else {
             confirmPasswordPF.setStyle("-fx-border-color: -fx-gray-color;");
-            valid = true;
+//            valid = true;
         }
     }
 
@@ -243,7 +243,7 @@ public class SignUpFirstSceneController implements Initializable {
             valid = false;
         } else {
             dateOfBirthDP.setStyle("-fx-border-color: -fx-gray-color;");
-            valid = true;
+//            valid = true;
         }
     }
 
@@ -254,7 +254,7 @@ public class SignUpFirstSceneController implements Initializable {
             valid = false;
         } else {
             genderComboBox.setStyle("-fx-border-color: -fx-gray-color;");
-            valid = true;
+//            valid = true;
         }
     }
 
@@ -265,7 +265,7 @@ public class SignUpFirstSceneController implements Initializable {
             valid = false;
         } else {
             countryComboBox1.setStyle("-fx-border-color: -fx-gray-color;");
-            valid = true;
+//            valid = true;
         }
     }
 }

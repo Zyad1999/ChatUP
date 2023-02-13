@@ -52,7 +52,7 @@ public class GroupChatRepoImpl implements GroupChatRepo {
         String sql = "INSERT INTO group_chat (group_title, group_image) VALUES (?, ?)";
         try (PreparedStatement statement = DBConnection.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, groupChat.getGroupTitle());
-            statement.setString(2,saveImg(groupChat.getGroupImage(),groupChat.getGroupTitle()));
+            statement.setString(2,(groupChat.getGroupImage() != null) ? saveImg(groupChat.getGroupImage(),groupChat.getGroupTitle()) : null );
             if (statement.executeUpdate() > 0) {
                 ResultSet resultSet = statement.getGeneratedKeys();
                 if (resultSet.next()) {

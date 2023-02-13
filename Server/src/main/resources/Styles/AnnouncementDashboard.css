@@ -10,7 +10,14 @@ button {
     -fx-background-color : #100F0F;
     -fx-text-fill : #e7e5e5;
     -fx-scale-y: 0.99;
-
+}
+.announcementButton {
+    -fx-background-color : #0F3D3E;
+    -fx-text-fill : #e7e5e5;
+    -fx-border-color: transparent;
+    -fx-font-size: 19;
+    -fx-font-weight: 700;
+    -fx-cursor: hand;
 }
 
 .scroll-pane {

@@ -2,14 +2,10 @@ package com.chatup;
 
 import com.chatup.network.ServerConnection;
 import com.chatup.models.enums.ServerState;
-import com.chatup.utils.SwitchScenes;
+import com.chatup.utils.StageManager;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -46,17 +42,22 @@ public class App extends Application {
 //        primaryStage.setScene(scene);
 //        primaryStage.show();
 
+//        stage.initStyle(StageStyle.UNDECORATED);
+//        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/views/OverviewDashboard.fxml"));
+//        Scene scene = null;
+//        try {
+//            scene = new Scene(fxmlLoader.load());
+//            stage.setTitle("Hello!");
+//            stage.setScene(scene);
+//            stage.show();
+//        } catch (IOException e) {
+//            System.out.println(e.getMessage());
+//        }
         stage.initStyle(StageStyle.UNDECORATED);
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/views/dashboard.fxml"));
-        Scene scene = null;
-        try {
-            scene = new Scene(fxmlLoader.load());
-            stage.setTitle("Hello!");
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+        StageManager stageManager = StageManager.getInstance();
+        stageManager.initStage(stage);
+        stageManager.switchToOverview();
+        stage.show();
 
     }
 }

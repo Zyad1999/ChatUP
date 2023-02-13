@@ -2,6 +2,7 @@ package com.chatup.controllers.FXMLcontrollers;
 
 import com.chatup.models.enums.ServerState;
 import com.chatup.network.ServerConnection;
+import com.chatup.utils.StageManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -15,7 +16,7 @@ import javafx.scene.shape.Circle;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class Dashboard implements Initializable {
+public class OverviewDashboard implements Initializable {
     private ServerConnection serverConnection;
     private ServerState serverState = ServerState.STOPPED;
     @FXML
@@ -36,12 +37,23 @@ public class Dashboard implements Initializable {
 
     @FXML
     void announcementButtonHandler(ActionEvent event) {
-
+        StageManager.getInstance().switchToAnnouncement();
     }
 
     @FXML
     void closeButtonHandler(MouseEvent event) {
-        closeApp();
+        if (serverState == ServerState.RUNNING) {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Server is running!!!", ButtonType.OK);
+            alert.setHeaderText(null);
+            alert.showAndWait();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to exit?", ButtonType.YES, ButtonType.NO);
+            alert.setHeaderText(null);
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.YES) {
+                System.exit(0);
+            }
+        }
     }
 
     @FXML
@@ -51,7 +63,12 @@ public class Dashboard implements Initializable {
 
     @FXML
     void signoutButtonHandler(ActionEvent event) {
-        closeApp();
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to exit?", ButtonType.YES, ButtonType.NO);
+        alert.setHeaderText(null);
+        alert.showAndWait();
+        if (alert.getResult() == ButtonType.YES) {
+            System.exit(0);
+        }
     }
 
     @FXML
@@ -71,7 +88,7 @@ public class Dashboard implements Initializable {
 
     @FXML
     void statisticsButtonHandler(ActionEvent event) {
-
+        StageManager.getInstance().switchToStatistics();
     }
 
     @FXML
@@ -94,24 +111,7 @@ public class Dashboard implements Initializable {
         if (serverState == ServerState.STOPPED) {
             statisticsButton.setDisable(true);
             announcementButton.setDisable(true);
-            signoutButton.setDisable(true);
             stopServerButton.setDisable(true);
-        }
-    }
-
-    private void closeApp() {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to exit?", ButtonType.YES, ButtonType.NO);
-        alert.setHeaderText(null);
-        alert.showAndWait();
-
-        if (alert.getResult() == ButtonType.YES) {
-            if (serverState == ServerState.RUNNING) {
-                serverConnection.stopConnection();
-                System.out.println("logout successfully");
-                System.exit(0);
-            } else {
-                System.exit(0);
-            }
         }
     }
 }

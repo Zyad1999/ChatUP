@@ -17,7 +17,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="1050.0" styleClass="right-side" stylesheets="@../Styles/dashboard.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chatup.controllers.FXMLcontrollers.Dashboard">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="1050.0" styleClass="right-side" stylesheets="@../Styles/OverviewDashboard.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chatup.controllers.FXMLcontrollers.OverviewDashboard">
     <children>
         <VBox alignment="TOP_CENTER" prefHeight="576.0" prefWidth="256.0" spacing="10.0" styleClass="left-side" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -29,7 +29,7 @@
                         <Insets bottom="80.0" top="90.0" />
                     </VBox.margin>
                 </ImageView>
-                <Button alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#overviewButtonHandler" prefHeight="42.0" prefWidth="259.0" styleClass="increment-button" stylesheets="@../Styles/dashboard.css" text="Overview">
+                <Button alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#overviewButtonHandler" prefHeight="42.0" prefWidth="259.0" styleClass="overviewButton" stylesheets="@../Styles/OverviewDashboard.css" text="Overview">
                     <graphic>
                         <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true" styleClass="icons-left-side">
                             <image>
@@ -47,7 +47,7 @@
                         <Insets left="50.0" />
                     </padding>
                 </Button>
-                <Button fx:id="statisticsButton" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#statisticsButtonHandler" prefHeight="42.0" prefWidth="259.0" styleClass="increment-button" stylesheets="@../Styles/dashboard.css" text="Statistics">
+                <Button fx:id="statisticsButton" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#statisticsButtonHandler" prefHeight="42.0" prefWidth="259.0" styleClass="increment-button" stylesheets="@../Styles/OverviewDashboard.css" text="Statistics">
                     <graphic>
                         <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true" styleClass="icons-left-side">
                             <image>
@@ -59,7 +59,7 @@
                         <Insets left="50.0" />
                     </padding>
                 </Button>
-            <Button fx:id="announcementButton" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#announcementButtonHandler" prefHeight="42.0" prefWidth="259.0" styleClass="increment-button" stylesheets="@../Styles/dashboard.css" text="Announcement">
+            <Button fx:id="announcementButton" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#announcementButtonHandler" prefHeight="42.0" prefWidth="259.0" styleClass="increment-button" stylesheets="@../Styles/OverviewDashboard.css" text="Announcement">
                <graphic>
                   <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true" styleClass="icons-left-side">
                      <image>
@@ -71,7 +71,7 @@
                   <Insets left="50.0" />
                </padding>
             </Button>
-                <Button fx:id="signoutButton" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#signoutButtonHandler" prefHeight="42.0" prefWidth="259.0" styleClass="increment-button" stylesheets="@../Styles/dashboard.css" text="Sign Out">
+                <Button fx:id="signoutButton" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#signoutButtonHandler" prefHeight="42.0" prefWidth="259.0" styleClass="increment-button" stylesheets="@../Styles/OverviewDashboard.css" text="Sign Out">
                     <graphic>
                         <ImageView fitHeight="23.0" fitWidth="27.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true" styleClass="icons-left-side">
                             <image>

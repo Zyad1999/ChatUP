@@ -32,9 +32,8 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
-import java.util.Objects;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class ChatScreenController implements Initializable {
@@ -64,15 +63,11 @@ public class ChatScreenController implements Initializable {
     private TextField messageText;
 
 
-    @FXML
-    private Button sendButton;
 
-    @FXML
-    private TextField messageText;
 
     @FXML
     private ScrollPane scrollPane;
-    public static ObservableList<Card> currentList;
+   // public static ObservableList<Card> currentList;
     private double lastX = 0.0d;
     private double lastY = 0.0d;
     private double lastWidth = 0.0d;

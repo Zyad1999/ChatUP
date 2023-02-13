@@ -8,6 +8,7 @@ import com.chatup.models.enums.CardType;
 import com.chatup.models.enums.ChatType;
 import com.chatup.network.ServerConnection;
 import com.chatup.network.interfaces.Server;
+import com.chatup.utils.CardMapper;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.HBox;
@@ -193,9 +194,10 @@ public class ChatServicesImpl implements ChatService {
             chats.add(0, curChat);
         }else{
             Chat chat = ChatServicesImpl.chatService.getChat(chatID);
-            int friendID = (chat.getFirstUserId() == CurrentUserImp.getCurrentUser().getId()) ? chat.getSecondUserId() : chat.getFirstUserId();
-            User friend = UserServicesImpl.getUserServices().getUser(friendID);
-            chats.add(0,new Card(chatID,friend.getUserName(),content, CardType.CHAT,friend.getImg()));
+            //int friendID = (chat.getFirstUserId() == CurrentUserImp.getCurrentUser().getId()) ? chat.getSecondUserId() : chat.getFirstUserId();
+            //User friend = UserServicesImpl.getUserServices().getUser(friendID);
+            //chats.add(0,new Card(chatID,friend.getUserName(),content, CardType.CHAT,friend.getImg()));
+            chats.add(0, CardMapper.getCard(chat,content));
         }
     }
 

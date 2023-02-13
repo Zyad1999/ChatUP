@@ -19,6 +19,12 @@ public class CardMapper {
         return new Card(chat.getId(),user.getUserName(),message.getContent(),CardType.CHAT,user.getImg());
     }
 
+    public static Card getCard(Chat chat, String message){
+        int userID = (chat.getFirstUserId()== CurrentUserImp.getCurrentUser().getId()) ? chat.getSecondUserId() : chat.getFirstUserId();
+        User user = UserServicesImpl.getUserServices().getUser(userID);
+        return new Card(chat.getId(),user.getUserName(),message,CardType.CHAT,user.getImg());
+    }
+
     public static Card getCard(GroupChat group, GroupMessage message){
         return new Card(group.getGroupChatID(),group.getGroupTitle(),message.getContent(),CardType.GROUP, group.getGroupImage());
     }

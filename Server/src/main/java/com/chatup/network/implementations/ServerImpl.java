@@ -34,9 +34,19 @@ public class ServerImpl extends UnicastRemoteObject implements Server {
     @Override
     public User login(String phone, String password, Client client) throws RemoteException{
         User user = UserAuthImpl.getUserAuth().sign_In(phone, password);
+        List<User> friends = FriendsServicesImpl.getFriendsServices().getUserFriends(user.getId());
         if(user != null){
             clients.put(user.getId(),client);
-            //TODO notify friends
+            for (User friend: friends){
+                if(clients.containsKey(friend.getId())){
+                    try {
+                        clients.get(friend.getId()).friendLoggedIn(user.getId());
+                    } catch (RemoteException e) {
+                        System.out.println("Client Disconnected");
+                        clients.remove(friend.getId());
+                    }
+                }
+            }
             return user;
         }else{
             return null;
@@ -48,7 +58,16 @@ public class ServerImpl extends UnicastRemoteObject implements Server {
         List<User> friends = FriendsServicesImpl.getFriendsServices().getUserFriends(id);
         clients.remove(id, client);
         UserAuthImpl.getUserAuth().logout(id);
-        //TODO notify friends
+        for (User friend: friends){
+            if(clients.containsKey(friend.getId())){
+                try {
+                    clients.get(friend.getId()).friendLoggedOut(id);
+                } catch (RemoteException e) {
+                    System.out.println("Client Disconnected");
+                    clients.remove(friend.getId());
+                }
+            }
+        }
     }
 
     @Override
@@ -100,6 +119,11 @@ public class ServerImpl extends UnicastRemoteObject implements Server {
 
     @Override
     public Boolean updateFriendsRequestStatus (FriendRequest friendRequests) throws RemoteException {
+        System.out.println("int the accepted function");
+        if(clients.containsKey(friendRequests.getSenderID())){
+            System.out.println("Sending accepted to the sender");
+            clients.get(friendRequests.getSenderID()).friendAcceptedRequest(friendRequests.getReceiverID());
+        }
        return FriendsServicesImpl.getFriendsServices().updateFriendsRequestStatus(friendRequests);
     }
     @Override

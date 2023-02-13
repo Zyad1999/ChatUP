@@ -31,7 +31,7 @@ public class AddFriendRequestCardController {
     public  void initialize(){
         friendPhne.setText(phone);
         friendImage.setImage(image);
-        Circle circle = new Circle(20, 20, 20);
+        Circle circle = new Circle(25,25,25);
         friendImage.setClip(circle);
 
         friendNameId.setText(friendName);
@@ -41,7 +41,7 @@ public class AddFriendRequestCardController {
         for(int i=0; i<AddFriendRequestController.invitationList.size();i++) {
             if(AddFriendRequestController.invitationList.get(i).getId()== id) {
                 int deletedId=i;
-               Platform.runLater(() -> AddFriendRequestController.invitationList.remove(deletedId,1) );
+               Platform.runLater(() -> AddFriendRequestController.invitationList.remove(deletedId,deletedId+1) );
             }
         }
 

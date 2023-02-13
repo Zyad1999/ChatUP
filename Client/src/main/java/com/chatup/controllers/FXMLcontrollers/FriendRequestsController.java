@@ -39,7 +39,11 @@ public class FriendRequestsController  implements Initializable {
         listView.setItems(ListCoordinatorImpl.getListCoordinator().getAllUserFriendRequests());
         prepareListView(listView);
         closeFriendRequestsScrene.setOnAction(event ->{
-
+            System.out.println("close");
+            Stage stage =(Stage) ((Node)event.getSource()).getScene().getWindow();
+            ListCoordinatorImpl.getListCoordinator().updateOnlineFriends();
+            ListCoordinatorImpl.getListCoordinator().updateFriendRequests();
+            stage.close();
         } );
     }
     private static void prepareListView(ListView cardsListView) {
@@ -92,4 +96,6 @@ public class FriendRequestsController  implements Initializable {
         ListCoordinatorImpl.getListCoordinator().updateFriendRequests();
         stage.close();
     }
+
+
 }

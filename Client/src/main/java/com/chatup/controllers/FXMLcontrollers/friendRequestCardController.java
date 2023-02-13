@@ -38,7 +38,7 @@ public class friendRequestCardController  {
     public  void initialize(){
         friendName.setText(name);
         friendImage.setImage(image);
-        Circle circle = new Circle(20, 20, 20);
+        Circle circle = new Circle(25, 25, 25);
         friendImage.setClip(circle);
 
         friendPhoneNumber.setText(phone);

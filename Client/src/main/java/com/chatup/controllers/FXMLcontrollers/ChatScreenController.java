@@ -22,6 +22,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Callback;
 
 import java.io.ByteArrayInputStream;
@@ -232,8 +233,9 @@ public class ChatScreenController implements Initializable {
             friendRequestFXML =new FXMLLoader(Objects.requireNonNull(ChatScreenController.class.getResource("/views/FriendRequests.fxml")));
             FriendRequestsController friendRequestsController = new FriendRequestsController();
             friendRequestFXML.setController(friendRequestsController);
-            Scene scene =new Scene(friendRequestFXML.load(),550, 550);
+            Scene scene =new Scene(friendRequestFXML.load());
             Stage stage = new Stage();
+            stage.initStyle(StageStyle.UNDECORATED);
             stage.setScene(scene);
             stage.show();
 
@@ -251,8 +253,9 @@ public class ChatScreenController implements Initializable {
             friendRequestFXML =new FXMLLoader(Objects.requireNonNull(ChatScreenController.class.getResource("/views/AddFriend.fxml")));
             AddFriendRequestController addFriendRequestController = new AddFriendRequestController();
             friendRequestFXML.setController(addFriendRequestController);
-            Scene scene =new Scene(friendRequestFXML.load(),550, 550);
+            Scene scene =new Scene(friendRequestFXML.load());
             Stage stage = new Stage();
+            stage.setMaximized(false);
             stage.setScene(scene);
             stage.show();
 
@@ -261,6 +264,16 @@ public class ChatScreenController implements Initializable {
         catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    void getAllOnlineUsers(ActionEvent event) {
+        cardsListView.setItems(ListCoordinatorImpl.getListCoordinator().getUserOnlineFriends());
+    }
+
+    @FXML
+    void getAllofflineUsedrs(ActionEvent event) {
+        cardsListView.setItems(ListCoordinatorImpl.getListCoordinator().getUserOfflineFriends());
     }
 
 }

@@ -141,4 +141,9 @@ public class ServerImpl extends UnicastRemoteObject implements Server {
     public void addUsersToGroup(int groupChatId, List<User> userList) throws RemoteException {
          UserGroupsServiceImp.getUserGroupsService().addUsersToGroup(groupChatId,userList);
     }
+
+    @Override
+    public int createChat(Chat chat) throws RemoteException{
+        return UserChatServicesImpl.getUserChatServices().createChat(chat);
+    }
 }

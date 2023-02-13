@@ -31,6 +31,13 @@ public class ChatRepoImpl  implements ChatRepo {
 
     @Override
     public int createSingleChat(Chat singleChat) {
+        Chat chat =ChatRepoImpl.getInstance().getSingleChat(singleChat.getFirstUserId(),singleChat.getSecondUserId());
+        if(chat != null) {
+            System.out.println(("found the chat"));
+            System.out.println("chat already exist ");
+            return chat.getId();
+        }
+        System.out.println("Did not find the chat");
         String query = "INSERT INTO chat(first_user_id,second_user_id) VALUES(?,?)";
         try(PreparedStatement stmnt = DBConnection.getConnection().prepareStatement(query,Statement.RETURN_GENERATED_KEYS)){
             stmnt.setInt(1, singleChat.getFirstUserId());
@@ -59,6 +66,25 @@ public class ChatRepoImpl  implements ChatRepo {
         String sql = "select chat_id, first_user_id, second_user_id from chat where chat_id= ? ";
         try (PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql,ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)) {
             ps.setInt(1, singleChatId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.first()) {
+                singleChat = new Chat(rs.getInt(1), rs.getInt(2), rs.getInt(3));
+            }
+        } catch (SQLException sqe) {
+            sqe.printStackTrace();
+        }
+        return singleChat;
+    }
+
+    @Override
+    public Chat getSingleChat(int firstUserId, int secondUserId) {
+        Chat singleChat = null;
+        String sql = "select * from chat where (first_user_id = ? AND second_user_id = ?) OR (first_user_id = ? AND second_user_id = ?)";
+        try (PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql,ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)) {
+            ps.setInt(1, firstUserId);
+            ps.setInt(2, secondUserId);
+            ps.setInt(3, secondUserId);
+            ps.setInt(4, firstUserId);
             ResultSet rs = ps.executeQuery();
             if (rs.first()) {
                 singleChat = new Chat(rs.getInt(1), rs.getInt(2), rs.getInt(3));

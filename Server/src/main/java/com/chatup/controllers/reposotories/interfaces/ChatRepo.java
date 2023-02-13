@@ -15,6 +15,8 @@ public interface ChatRepo {
     // Read
     Chat getSingleChat(int singleChatId);
 
+    Chat getSingleChat(int firstUserId, int secondUserId);
+
     List<User> getSingleChatUsers(int singleChatId);
 
     List<ChatMessage> getSingleChatMessages(int singleChatId);

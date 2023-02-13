@@ -85,9 +85,11 @@ public class ListCoordinatorImpl implements ListCoordinator {
     @Override
     public VBox getSingleChatVbox(int chatId){
         if(singleChatMap.containsKey(chatId)){
+            System.out.println("get old VBOX");
             return singleChatMap.get(chatId);
         }
         else{
+            System.out.println("Create new VBOX");
             VBox box = ChatServicesImpl.getChatService().getSingleChatVbox(chatId);
             singleChatMap.put(chatId,box);
             return box;

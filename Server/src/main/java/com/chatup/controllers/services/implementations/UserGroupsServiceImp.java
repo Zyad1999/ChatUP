@@ -30,17 +30,17 @@ public class UserGroupsServiceImp implements UserGroupsService {
     public Map<GroupChat, GroupMessage> getAllUserGroups(int user_id) {
         Map<GroupChat, GroupMessage> groupsWithMess = new HashMap<>();
         List<GroupChat> groups = new ArrayList<>();
-        System.out.println(user_id);
         List<GroupMembership> groupMemberships = GroupMembershipRepoImpl.getInstance().getAllGroupMembership(user_id);
         for (GroupMembership groupMembership : groupMemberships) {
             groups.add(GroupChatRepoImpl.getInstance().getGroupChat(groupMembership.getGroupChatId()));
-
         }
         for (GroupChat group:  groups) {
             GroupMessage message = GroupChatRepoImpl.getInstance().getLastMessage(group.getGroupChatID());
-            groupsWithMess.put(group, message);
-
-
+            if(message!=null) {
+                groupsWithMess.put(group, message);
+            }else {
+                groupsWithMess.put(group, new GroupMessage(0,null,LocalDateTime.now()));
+            }
         }
         Map<GroupChat, GroupMessage> resultSet = groupsWithMess.entrySet()
                 .stream()

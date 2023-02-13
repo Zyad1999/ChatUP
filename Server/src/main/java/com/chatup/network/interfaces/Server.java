@@ -29,4 +29,6 @@ public interface Server extends Remote {
     public int createGroupChat(GroupChat groupChat , List<User> userList) throws RemoteException;
 
     void addUsersToGroup(int groupChatId,List<User> userList) throws RemoteException;
+
+    int createChat(Chat chat) throws RemoteException;
 }

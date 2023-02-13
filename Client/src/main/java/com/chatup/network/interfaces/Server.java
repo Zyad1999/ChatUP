@@ -20,9 +20,8 @@ public interface Server extends Remote {
     public List<User> getUserFriendRequests(int userID) throws RemoteException;
     public User getUser(int userID) throws RemoteException;
     public User getUser(String phoneNumber) throws RemoteException;
-    public  Boolean updateFriendsRequestStatus (FriendRequest friendRequests)throws RemoteException;
     public Boolean sendFriendRequest( List<FriendRequest> addRequests )throws RemoteException;
-
+    public  Boolean updateFriendsRequestStatus (FriendRequest friendRequests)throws RemoteException;
 
     int sendChatMessage(ChatMessage message) throws RemoteException;
 
@@ -30,4 +29,6 @@ public interface Server extends Remote {
     public int createGroupChat(GroupChat groupChat , List<User> userList) throws RemoteException;
 
     void addUsersToGroup(int groupChatId,List<User> userList) throws RemoteException;
+
+    int createChat(Chat chat) throws RemoteException;
 }

@@ -27,4 +27,9 @@ public class UserChatServicesImpl implements UserChatServices {
     public Chat getChat(int chatID){
         return ChatRepoImpl.getInstance().getSingleChat(chatID);
     }
+
+    @Override
+    public int createChat(Chat chat){
+        return ChatRepoImpl.getInstance().createSingleChat(chat);
+    }
 }

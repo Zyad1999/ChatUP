@@ -1,5 +1,6 @@
 package com.chatup.controllers.services.interfaces;
 
+import com.chatup.models.entities.Chat;
 import com.chatup.models.entities.ChatMessage;
 import com.chatup.models.entities.GroupMessage;
 import javafx.scene.layout.HBox;
@@ -22,4 +23,6 @@ public interface ChatService {
     void updateChatList(int chatID, String content);
 
     void updateGroupChatList(int groupChatID, String content);
+
+    int createChat(Chat chat);
 }

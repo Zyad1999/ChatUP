@@ -2,6 +2,7 @@ package com.chatup.controllers.FXMLcontrollers;
 
 import com.chatup.controllers.services.implementations.*;
 import com.chatup.models.entities.Card;
+import com.chatup.models.entities.Chat;
 import com.chatup.models.entities.ChatMessage;
 import com.chatup.models.entities.GroupMessage;
 import com.chatup.models.enums.CardType;
@@ -118,6 +119,12 @@ public class ChatScreenController implements Initializable {
                         VBox box = ListCoordinatorImpl.getListCoordinator().getGroupChatVbox(selected.getCardID());
                         scrollPane.setContent(box);
                         CurrentChat.setCurrentChatGroup(selected.getCardID());
+                    }else if(selected.getCardType() == CardType.FRIEND){
+                        int chatID = ChatServicesImpl.getChatService().createChat(new Chat(CurrentUserImp.getCurrentUser().getId(), selected.getCardID()));
+                        System.out.println(chatID+"The new Chat ID");
+                        VBox box = ListCoordinatorImpl.getListCoordinator().getSingleChatVbox(chatID);
+                        scrollPane.setContent(box);
+                        CurrentChat.setCurrentChatSingle(chatID);
                     }
                 }
             }

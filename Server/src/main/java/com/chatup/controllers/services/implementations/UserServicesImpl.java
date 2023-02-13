@@ -48,10 +48,9 @@ public class UserServicesImpl implements UserServices {
         Map <Chat,ChatMessage> userMessages = new HashMap<>();
         ChatMessage chatMessage;
         for ( Chat chat:  ChatRepoImpl.getInstance().getAllUserChats(userId) ) {
-            System.out.println( chat.getId());
             chatMessage= ChatRepoImpl.getInstance().getLastMessage(chat.getId());
-            userMessages.put(chat, chatMessage);
-            System.out.println( chatMessage.getContent());
+            if(chatMessage!=null)
+                userMessages.put(chat, chatMessage);
         }
         Map<Chat,ChatMessage> resultSet = userMessages.entrySet()
                 .stream()

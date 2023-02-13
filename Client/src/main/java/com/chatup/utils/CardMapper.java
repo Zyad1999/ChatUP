@@ -1,5 +1,6 @@
 package com.chatup.utils;
 
+import com.chatup.controllers.services.implementations.CurrentUserImp;
 import com.chatup.controllers.services.implementations.UserServicesImpl;
 import com.chatup.models.entities.*;
 import com.chatup.models.enums.CardType;
@@ -13,7 +14,8 @@ public class CardMapper {
     }
 
     public static Card getCard(Chat chat, ChatMessage message){
-        User user = UserServicesImpl.getUserServices().getUser(message.getSenderId());
+        int userID = (chat.getFirstUserId()== CurrentUserImp.getCurrentUser().getId()) ? chat.getSecondUserId() : chat.getFirstUserId();
+        User user = UserServicesImpl.getUserServices().getUser(userID);
         return new Card(chat.getId(),user.getUserName(),message.getContent(),CardType.CHAT,user.getImg());
     }
 

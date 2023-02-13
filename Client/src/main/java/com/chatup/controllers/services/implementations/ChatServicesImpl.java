@@ -3,10 +3,7 @@ package com.chatup.controllers.services.implementations;
 import com.chatup.controllers.FXMLcontrollers.recievedMessageController;
 import com.chatup.controllers.FXMLcontrollers.sentMessageController;
 import com.chatup.controllers.services.interfaces.ChatService;
-import com.chatup.models.entities.Card;
-import com.chatup.models.entities.ChatMessage;
-import com.chatup.models.entities.GroupMessage;
-import com.chatup.models.entities.User;
+import com.chatup.models.entities.*;
 import com.chatup.network.ServerConnection;
 import com.chatup.network.interfaces.Server;
 import javafx.collections.ObservableList;
@@ -34,6 +31,7 @@ public class ChatServicesImpl implements ChatService {
         Server server = ServerConnection.getServer();
         try {
             List<ChatMessage> list = server.getChatMessages(chatId);
+            System.out.println("The lenght of the list is "+list.size());
             return singleMessages(list);
         } catch (RemoteException e) {
             throw new RuntimeException(e);
@@ -208,5 +206,15 @@ public class ChatServicesImpl implements ChatService {
             chats.remove(curChat);
             chats.add(0, curChat);
         }
+    }
+
+    @Override
+    public int createChat(Chat chat){
+        try {
+            return ServerConnection.getServer().createChat(chat);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return -1;
     }
 }

@@ -147,7 +147,7 @@ public class FriendRequestRepoImpl implements FriendRequestRepo {
 
     @Override
     public FriendRequest getFriendRequest(int senderID, int receiverID) {
-        String query = "SELECT * FROM friend_request WHERE sender_id = ? AND receiver_id = ?";
+        String query = "SELECT * FROM friend_request WHERE sender_id = ? AND reciver_id = ?";
         try(PreparedStatement stmnt = DBConnection.getConnection().prepareStatement(query)){
             stmnt.setInt(1, senderID);
             stmnt.setInt(2, receiverID);

@@ -2,6 +2,7 @@ package com.chatup.controllers.FXMLcontrollers;
 
 import com.chatup.controllers.services.implementations.CurrentUserImp;
 import com.chatup.controllers.services.implementations.UserAuthImp;
+import com.chatup.utils.RememberSetting;
 import com.chatup.utils.SwitchScenes;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXPasswordField;
@@ -127,6 +128,7 @@ public class SignInSecondSceneController implements Initializable {
             try {
                 if (UserAuthImp.getUserAuth().loginAuth(phoneNumberTF.getText(), passwordTF.getText()) != null) {
                     System.out.println("corrected information");
+                    RememberSetting.setProperties(phoneNumberTF.getText(), passwordTF.getText());
                     SwitchScenes.getInstance().switchToChatScreen(event);
                 } else {
                     Alert alert = new Alert(Alert.AlertType.ERROR, "Password is incorrect!");

@@ -7,6 +7,7 @@ import com.chatup.models.enums.CardType;
 import com.chatup.models.enums.ChatType;
 import com.chatup.network.ServerConnection;
 import com.chatup.network.implementations.ClientImpl;
+import com.chatup.utils.RememberSetting;
 import com.chatup.utils.SwitchScenes;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.animation.TranslateTransition;
@@ -417,6 +418,9 @@ public class ChatScreenController implements Initializable {
         try {
             ServerConnection.getServer().logout(CurrentUserImp.getCurrentUser().getId(), ClientImpl.getClient());
             System.out.println("logout successfully");
+            System.out.println(RememberSetting.getPhone());
+            System.out.println(RememberSetting.getPassword());
+            RememberSetting.setProperties(CurrentUserImp.getCurrentUser().getPhoneNumber(),"");
             SwitchScenes.getInstance().switchToSignInSecond(event);
         } catch (RemoteException e) {
             e.printStackTrace();

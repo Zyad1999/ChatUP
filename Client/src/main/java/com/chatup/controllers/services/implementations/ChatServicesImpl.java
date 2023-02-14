@@ -4,8 +4,11 @@ import com.chatup.controllers.FXMLcontrollers.recievedMessageController;
 import com.chatup.controllers.FXMLcontrollers.sentMessageController;
 import com.chatup.controllers.services.interfaces.ChatService;
 import com.chatup.models.entities.*;
+import com.chatup.models.enums.CardType;
+import com.chatup.models.enums.ChatType;
 import com.chatup.network.ServerConnection;
 import com.chatup.network.interfaces.Server;
+import com.chatup.utils.CardMapper;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.HBox;
@@ -189,6 +192,12 @@ public class ChatServicesImpl implements ChatService {
             curChat.setCardContent(content);
             chats.remove(curChat);
             chats.add(0, curChat);
+        }else{
+            Chat chat = ChatServicesImpl.chatService.getChat(chatID);
+            //int friendID = (chat.getFirstUserId() == CurrentUserImp.getCurrentUser().getId()) ? chat.getSecondUserId() : chat.getFirstUserId();
+            //User friend = UserServicesImpl.getUserServices().getUser(friendID);
+            //chats.add(0,new Card(chatID,friend.getUserName(),content, CardType.CHAT,friend.getImg()));
+            chats.add(0, CardMapper.getCard(chat,content));
         }
     }
 
@@ -216,5 +225,15 @@ public class ChatServicesImpl implements ChatService {
             e.printStackTrace();
         }
         return -1;
+    }
+
+    @Override
+    public Chat getChat(int chatID){
+        try {
+            return ServerConnection.getServer().getChat(chatID);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

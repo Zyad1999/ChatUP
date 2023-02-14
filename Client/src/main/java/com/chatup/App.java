@@ -1,5 +1,8 @@
 package com.chatup;
 
+import com.chatup.controllers.services.implementations.CurrentUserImp;
+import com.chatup.network.ServerConnection;
+import com.chatup.network.implementations.ClientImpl;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -7,6 +10,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
+import java.rmi.RemoteException;
 
 public class App extends Application {
     public static void main(String[] args) {
@@ -25,6 +29,17 @@ public class App extends Application {
             stage.show();
         } catch (IOException e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+
+    @Override
+    public void stop(){
+        try {
+            ServerConnection.getServer().logout(CurrentUserImp.getCurrentUser().getId(), ClientImpl.getClient());
+        } catch (RemoteException e) {
+            e.printStackTrace();
+            System.out.println("Server Disconnected");
         }
     }
 }

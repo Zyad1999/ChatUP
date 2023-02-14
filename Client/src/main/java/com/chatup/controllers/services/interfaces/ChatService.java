@@ -25,4 +25,6 @@ public interface ChatService {
     void updateGroupChatList(int groupChatID, String content);
 
     int createChat(Chat chat);
+
+    Chat getChat(int chatID);
 }

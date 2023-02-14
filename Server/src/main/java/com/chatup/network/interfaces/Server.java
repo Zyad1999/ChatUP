@@ -23,12 +23,13 @@ public interface Server extends Remote {
     public Boolean sendFriendRequest( List<FriendRequest> addRequests )throws RemoteException;
     public  Boolean updateFriendsRequestStatus (FriendRequest friendRequests)throws RemoteException;
 
-    int sendChatMessage(ChatMessage message) throws RemoteException;
+    public int sendChatMessage(ChatMessage message) throws RemoteException;
 
-    int sendGroupChatMessage(GroupMessage message) throws RemoteException;
+    public int sendGroupChatMessage(GroupMessage message) throws RemoteException;
     public int createGroupChat(GroupChat groupChat , List<User> userList) throws RemoteException;
 
-    void addUsersToGroup(int groupChatId,List<User> userList) throws RemoteException;
+    public void addUsersToGroup(int groupChatId,List<User> userList) throws RemoteException;
 
-    int createChat(Chat chat) throws RemoteException;
+    public int createChat(Chat chat) throws RemoteException;
+    public Chat getChat(int chatID) throws RemoteException;
 }

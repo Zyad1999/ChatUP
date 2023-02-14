@@ -11,6 +11,8 @@ public interface UserRepo {
 
     public boolean updateUser(User user);
 
+    boolean updateUserPassword(int userID, String password);
+
     boolean updateUserImg(int userID, String phone, byte[] img);
 
     public User getUser(int userID);
@@ -18,4 +20,9 @@ public interface UserRepo {
     public User getUser(String userPhone);
 
     public List<User> getAllUsers();
+
+    int getNumbersAllUsersOnSystem();
+    int getNumberAllMaleUsers();
+    int getNumberAllOnlineUsers();
+    int getNumberAllCountryOfUsers(String country);
 }

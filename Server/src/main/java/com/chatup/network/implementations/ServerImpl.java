@@ -1,5 +1,6 @@
 package com.chatup.network.implementations;
 
+import com.chatup.controllers.reposotories.implementations.GroupMembershipRepoImpl;
 import com.chatup.controllers.services.implementations.*;
 import com.chatup.models.entities.*;
 import com.chatup.network.interfaces.Client;
@@ -7,6 +8,7 @@ import com.chatup.network.interfaces.Server;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -177,5 +179,14 @@ public class ServerImpl extends UnicastRemoteObject implements Server {
     @Override
     public Chat getChat(int chatID) throws RemoteException {
         return UserChatServicesImpl.getUserChatServices().getChat(chatID);
+    }
+    @Override
+    public List<User> getGroupMembers(int groupId) throws RemoteException {
+       List <GroupMembership>groupMembershipList = GroupMembershipRepoImpl.getInstance().getContactsGroupMembership(groupId);
+       List<User> userList =new ArrayList<>();
+        for (GroupMembership groupMembership:groupMembershipList  ) {
+            userList.add(UserServicesImpl.getUserServices().getUserInfo(groupMembership.getUserId()));
+        }
+        return userList;
     }
 }

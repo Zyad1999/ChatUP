@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
+
+<HBox fx:id="FriendSildeBar" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Separator maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefWidth="1.0" />
+      <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="250.0" prefHeight="650.0" prefWidth="224.0" spacing="10.0">
+         <children>
+            <BorderPane prefHeight="35.0" prefWidth="250.0">
+               <top>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="34.0" prefWidth="250.0" spacing="7.0" style="-fx-padding: 7 20 0 10;" BorderPane.alignment="CENTER">
+                     <children>
+                        <Circle fill="#26a407" onMouseClicked="#minimizeDecoratedButtonHandler" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Circle>
+                        <Circle fill="#bf9113" onMouseClicked="#maximizeDecoratedButtonHandler" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Circle>
+                        <Circle fill="#ff520d" onMouseClicked="#closeDecoratedButtonHandler" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Circle>
+                     </children>
+                  </HBox>
+               </top>
+            </BorderPane>
+            <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="space-10">
+               <children>
+                  <Circle fx:id="friendShowDataImage" fill="#f0f4f8" radius="75.0" stroke="BLACK" strokeType="INSIDE">
+                     <VBox.margin>
+                        <Insets left="45.0" right="45.0" top="30.0" />
+                     </VBox.margin>
+                  </Circle>
+                  <Text fx:id="friendShowDataName" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="name-font" text="Steve Williams">
+                     <VBox.margin>
+                        <Insets left="70.0" right="70.0" />
+                     </VBox.margin>
+                  </Text>
+                  <Text fx:id="friendShowDataCountry" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="normal-font" text="Paris, France">
+                     <VBox.margin>
+                        <Insets left="85.0" right="80.0" />
+                     </VBox.margin>
+                  </Text>
+                  <TextFlow prefHeight="0.0" prefWidth="190.0" styleClass="textflow_menu" textAlignment="CENTER">
+                     <children>
+                        <Text fx:id="friendShowDatabio" strokeType="OUTSIDE" strokeWidth="0.0" text="Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old." textAlignment="JUSTIFY" wrappingWidth="199.419921875" />
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <padding>
+                        <Insets left="15.0" right="15.0" />
+                     </padding>
+                  </TextFlow>
+               </children>
+            </VBox>
+            <Separator prefWidth="200.0">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Separator>
+            <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0">
+               <children>
+                  <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" spacing="5.0">
+                     <children>
+                        <ImageView fitHeight="31.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/phone.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </ImageView>
+                        <TextFlow maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity">
+                           <children>
+                              <Text fx:id="friendShowDataPhone" strokeType="OUTSIDE" strokeWidth="0.0" text="+201253256558" />
+                           </children>
+                           <HBox.margin>
+                              <Insets top="7.0" />
+                           </HBox.margin>
+                        </TextFlow>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="40.0" right="40.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox layoutX="50.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" spacing="5.0">
+                     <children>
+                        <ImageView fitHeight="31.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/mail.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </ImageView>
+                        <TextFlow maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity">
+                           <children>
+                              <Text fx:id="friendShowDataEmail" strokeType="OUTSIDE" strokeWidth="0.0" text="example@example.com" />
+                           </children>
+                           <HBox.margin>
+                              <Insets top="7.0" />
+                           </HBox.margin>
+                        </TextFlow>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="40.0" right="40.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <Separator prefWidth="200.0" />
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </VBox>
+            <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity">
+               <center>
+                  <GridPane hgap="8.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" vgap="8.0" BorderPane.alignment="CENTER">
+                     <columnConstraints>
+                        <ColumnConstraints maxWidth="1.7976931348623157E308" minWidth="-Infinity" />
+                        <ColumnConstraints maxWidth="1.7976931348623157E308" minWidth="-Infinity" />
+                        <ColumnConstraints maxWidth="1.7976931348623157E308" minWidth="-Infinity" />
+                        <ColumnConstraints maxWidth="1.7976931348623157E308" minWidth="-Infinity" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints maxHeight="1.7976931348623157E308" minHeight="-Infinity" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="1.7976931348623157E308" minHeight="-Infinity" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <ImageView fitHeight="57.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true" styleClass="attachment-icon">
+                           <image>
+                              <Image url="@../images/profile.jpg" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                        <ImageView fitHeight="57.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true" styleClass="attachment-icon" GridPane.columnIndex="1">
+                           <image>
+                              <Image url="@../images/profile.jpg" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                        <ImageView fitHeight="57.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true" styleClass="attachment-icon" GridPane.columnIndex="2">
+                           <image>
+                              <Image url="@../images/profile.jpg" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                        <ImageView fitHeight="57.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true" styleClass="attachment-icon" GridPane.columnIndex="3">
+                           <image>
+                              <Image url="@../images/profile.jpg" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                        <ImageView fitHeight="57.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true" styleClass="attachment-icon" GridPane.rowIndex="1">
+                           <image>
+                              <Image url="@../images/profile.jpg" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                        <ImageView fitHeight="57.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true" styleClass="attachment-icon" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <image>
+                              <Image url="@../images/profile.jpg" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                        <ImageView fitHeight="57.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true" styleClass="attachment-icon" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                           <image>
+                              <Image url="@../images/profile.jpg" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                        <ImageView fitHeight="57.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true" styleClass="attachment-icon" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                           <image>
+                              <Image url="@../images/profile.jpg" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                     </children>
+                     <BorderPane.margin>
+                        <Insets left="30.0" right="40.0" top="7.0" />
+                     </BorderPane.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </GridPane>
+               </center>
+               <top>
+                  <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" BorderPane.alignment="CENTER">
+                     <children>
+                        <TextFlow maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.leftAnchor="30.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Media" />
+                           </children>
+                        </TextFlow>
+                        <TextFlow layoutX="172.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.rightAnchor="44.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="attachment-icon" text="See All" underline="true">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Text>
+                           </children>
+                        </TextFlow>
+                     </children>
+                  </AnchorPane>
+               </top>
+            </BorderPane>
+         </children>
+      </VBox>
+   </children>
+</HBox>

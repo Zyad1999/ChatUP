@@ -6,6 +6,7 @@ import com.chatup.models.enums.Gender;
 import com.chatup.models.enums.UserMode;
 import com.chatup.models.enums.UserStatus;
 import com.chatup.utils.DBConnection;
+import com.chatup.utils.PasswordAuthentication;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -44,7 +45,7 @@ public class UserRepoImpl implements UserRepo {
             stmnt.setString(1, user.getPhoneNumber());
             stmnt.setString(2, user.getUserName());
             stmnt.setString(3, user.getEmail());
-            stmnt.setString(4, user.getPassword());
+            stmnt.setString(4, new PasswordAuthentication().hash(user.getPassword().toCharArray()));
             stmnt.setString(5, (user.getGender() != null) ? (user.getGender().toString()) : null);
             stmnt.setString(6, user.getCountry());
             stmnt.setDate(7, (user.getBirthDate() != null) ? (new java.sql.Date(user.getBirthDate().getTime())) : null);
@@ -89,19 +90,36 @@ public class UserRepoImpl implements UserRepo {
 
     @Override
     public boolean updateUser(User user) {
-        String query = "UPDATE chat_user SET user_name=?, email=?, user_password=?, gender=?, "+
+        String query = "UPDATE chat_user SET user_name=?, email=?, gender=?, "+
                         "country=?, birth_date=?, bio=?, user_status=?, user_mode=? WHERE user_id=?";
         try(PreparedStatement stmnt = DBConnection.getConnection().prepareStatement(query)){
             stmnt.setString(1, user.getUserName());
             stmnt.setString(2, user.getEmail());
-            stmnt.setString(3, user.getPassword());
-            stmnt.setString(4, (user.getGender() != null) ? (user.getGender().toString()) : null);
-            stmnt.setString(5, user.getCountry());
-            stmnt.setDate(6, (user.getBirthDate() != null) ? (new java.sql.Date(user.getBirthDate().getTime())) : null);
-            stmnt.setString(7, user.getBio());
-            stmnt.setString(8, (user.getStatus() != null) ? (user.getStatus().toString()) : null);
-            stmnt.setString(9, (user.getMode() != null) ? (user.getMode().toString()) : null);
-            stmnt.setInt(10,user.getId());
+            stmnt.setString(3, (user.getGender() != null) ? (user.getGender().toString()) : null);
+            stmnt.setString(4, user.getCountry());
+            stmnt.setDate(5, (user.getBirthDate() != null) ? (new java.sql.Date(user.getBirthDate().getTime())) : null);
+            stmnt.setString(6, user.getBio());
+            stmnt.setString(7, (user.getStatus() != null) ? (user.getStatus().toString()) : null);
+            stmnt.setString(8, (user.getMode() != null) ? (user.getMode().toString()) : null);
+            stmnt.setInt(9,user.getId());
+            if(stmnt.executeUpdate() == 0){
+                System.out.println("User was not updated");
+                return false;
+            }else{
+                return true;
+            }
+        }catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean updateUserPassword(int userID, String password) {
+        String query = "UPDATE chat_user SET user_password=? WHERE user_id=?";
+        try(PreparedStatement stmnt = DBConnection.getConnection().prepareStatement(query)){
+            stmnt.setString(1,new PasswordAuthentication().hash(password.toCharArray()));
+            stmnt.setInt(2,userID);
             if(stmnt.executeUpdate() == 0){
                 System.out.println("User was not updated");
                 return false;

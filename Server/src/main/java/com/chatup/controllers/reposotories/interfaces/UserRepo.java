@@ -11,6 +11,8 @@ public interface UserRepo {
 
     public boolean updateUser(User user);
 
+    boolean updateUserPassword(int userID, String password);
+
     boolean updateUserImg(int userID, String phone, byte[] img);
 
     public User getUser(int userID);

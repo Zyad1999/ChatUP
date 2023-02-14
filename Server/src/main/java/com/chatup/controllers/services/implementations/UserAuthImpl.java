@@ -4,6 +4,7 @@ import com.chatup.controllers.reposotories.implementations.UserRepoImpl;
 import com.chatup.controllers.services.interfaces.UserAuth;
 import com.chatup.models.entities.User;
 import com.chatup.models.enums.UserStatus;
+import com.chatup.utils.PasswordAuthentication;
 
 public class UserAuthImpl implements UserAuth {
 
@@ -21,7 +22,7 @@ public class UserAuthImpl implements UserAuth {
     public User sign_In(String phone_Num, String pass) {
         User user = UserRepoImpl.getUserRepo().getUser(phone_Num);
         if(user!=null){
-            if(user.getPassword().equals(pass)){
+            if(new PasswordAuthentication().authenticate(pass.toCharArray(),user.getPassword())){
                 System.out.println("Login Successfully");
                 user.setStatus(UserStatus.ONLINE);
                 UserRepoImpl.getUserRepo().updateUser(user);

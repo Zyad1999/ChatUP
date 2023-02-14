@@ -1,0 +1,18 @@
+.notification-bar > .pane {
+    -fx-background-color: red;
+    -fx-padding: 7 7 7 7;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 5, 0, 5, 5);
+    -fx-background-insets: 0, 1, 2;
+}
+
+.notification-bar > .pane .title {
+    -fx-font-size: 1.166667em; /*15px;*/
+    -fx-text-fill: #292929;
+    -fx-font-weight: bold;
+}
+
+.notification-bar > .pane .label {
+    -fx-font-size: 1.166667em; /*15px;*/
+    -fx-text-fill: #292929;
+    -fx-alignment: top-left;
+}

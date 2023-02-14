@@ -9,6 +9,7 @@ import com.chatup.models.entities.GroupMessage;
 import com.chatup.models.entities.User;
 import com.chatup.network.interfaces.Client;
 import com.chatup.utils.CardMapper;
+import com.chatup.utils.NotificationPopups;
 import javafx.application.Platform;
 
 import java.rmi.RemoteException;
@@ -19,11 +20,12 @@ public class ClientImpl extends UnicastRemoteObject implements Client {
 
     private static Client client;
 
-    private ClientImpl() throws RemoteException {}
+    private ClientImpl() throws RemoteException {
+    }
 
-    public static Client getClient(){
+    public static Client getClient() {
         try {
-            if(client==null)
+            if (client == null)
                 client = new ClientImpl();
             return client;
         } catch (RemoteException e) {
@@ -31,64 +33,76 @@ public class ClientImpl extends UnicastRemoteObject implements Client {
         }
     }
 
+    private static void addFriendToOnlineList(User friend) {
+        Card friendCard = CardMapper.getCard(friend);
+        ListCoordinatorImpl.getListCoordinator().getUserOnlineFriends().add(0, friendCard);
+    }
+
+    private static void addFriendToOfflineList(User friend) {
+        Card friendCard = CardMapper.getCard(friend);
+        ListCoordinatorImpl.getListCoordinator().getUserOfflineFriends().add(0, friendCard);
+    }
+
     @Override
     public void sendGroupMessage(GroupMessage message) throws RemoteException {
         System.out.println("Recived Group Message");
-        Platform.runLater(()->{
+        Platform.runLater(() -> {
             ListCoordinatorImpl.getListCoordinator().getGroupChatVbox(message.getGroupChatId()).getChildren()
                     .add(ChatServicesImpl.getChatService().recGroupMessage(message));
-            ChatServicesImpl.getChatService().updateGroupChatList(message.getGroupMessageId(),message.getContent());
+            ChatServicesImpl.getChatService().updateGroupChatList(message.getGroupMessageId(), message.getContent());
+            NotificationPopups.receiveNotification("New message ✉️\uD83D\uDC68\u200D\uD83D\uDC69\u200D\uD83D\uDC66\u200D\uD83D\uDC66 from " + UserServicesImpl.getUserServices().getUser(message.getSenderId()).getUserName(), message.getContent(), "/images/newMessage.png");
         });
     }
 
     @Override
     public void sendChatMessage(ChatMessage message) throws RemoteException {
         System.out.println("Received Chat message");
-        Platform.runLater(()->{
+        Platform.runLater(() -> {
             ListCoordinatorImpl.getListCoordinator().getSingleChatVbox(message.getChatId()).getChildren()
                     .add(ChatServicesImpl.getChatService().recChatMessage(message));
-            ChatServicesImpl.getChatService().updateChatList(message.getChatId(),message.getContent());
+            ChatServicesImpl.getChatService().updateChatList(message.getChatId(), message.getContent());
+            NotificationPopups.receiveNotification("New message ✉️\uD83E\uDDD1\u200D\uD83E\uDD1D\u200D\uD83E\uDDD1 from " + UserServicesImpl.getUserServices().getUser(message.getSenderId()).getUserName(), message.getContent(), "/images/newMessage.png");
         });
     }
 
     @Override
     public void friendLoggedIn(int friendID) throws RemoteException {
-        Platform.runLater(()->{
+        Platform.runLater(() -> {
             List<Card> offlineFriends = ListCoordinatorImpl.getListCoordinator().getUserOfflineFriends();
             Card loggedInFriend = null;
-            for(Card friend:offlineFriends){
-                if(friendID == friend.getCardID()){
+            for (Card friend : offlineFriends) {
+                if (friendID == friend.getCardID()) {
                     loggedInFriend = friend;
                 }
             }
-            if(loggedInFriend != null){
+            if (loggedInFriend != null) {
                 ListCoordinatorImpl.getListCoordinator().getUserOfflineFriends().remove(loggedInFriend);
-                ListCoordinatorImpl.getListCoordinator().getUserOnlineFriends().add(0,loggedInFriend);
+                ListCoordinatorImpl.getListCoordinator().getUserOnlineFriends().add(0, loggedInFriend);
             }
         });
     }
 
     @Override
     public void friendLoggedOut(int friendID) throws RemoteException {
-        Platform.runLater(()->{
+        Platform.runLater(() -> {
             List<Card> onlineFriends = ListCoordinatorImpl.getListCoordinator().getUserOnlineFriends();
             Card loggedOutFriend = null;
-            for(Card friend:onlineFriends){
-                if(friendID == friend.getCardID()){
+            for (Card friend : onlineFriends) {
+                if (friendID == friend.getCardID()) {
                     loggedOutFriend = friend;
                 }
             }
-            if(loggedOutFriend != null){
+            if (loggedOutFriend != null) {
                 ListCoordinatorImpl.getListCoordinator().getUserOnlineFriends().remove(loggedOutFriend);
-                ListCoordinatorImpl.getListCoordinator().getUserOfflineFriends().add(0,loggedOutFriend);
+                ListCoordinatorImpl.getListCoordinator().getUserOfflineFriends().add(0, loggedOutFriend);
             }
         });
     }
 
     @Override
-    public void friendAcceptedRequest(int friendID) throws RemoteException{
+    public void friendAcceptedRequest(int friendID) throws RemoteException {
         System.out.println("a friend accepted request huraaaaaaahhhhhh");
-        Platform.runLater(()->{
+        Platform.runLater(() -> {
             User newFriend = UserServicesImpl.getUserServices().getUser(friendID);
             addFriendToOnlineList(newFriend);
         });
@@ -97,17 +111,8 @@ public class ClientImpl extends UnicastRemoteObject implements Client {
     @Override
     public void receivedFriendRequest(int friendID) throws RemoteException {
         System.out.println("You recived a friend request huraaaaaaahhhhhh");
-        Platform.runLater(()->{
+        Platform.runLater(() -> {
             ListCoordinatorImpl.getListCoordinator().updateFriendRequests();
         });
-    }
-
-    private static void addFriendToOnlineList(User friend){
-        Card friendCard = CardMapper.getCard(friend);
-        ListCoordinatorImpl.getListCoordinator().getUserOnlineFriends().add(0,friendCard);
-    }
-    private static void addFriendToOfflineList(User friend){
-        Card friendCard = CardMapper.getCard(friend);
-        ListCoordinatorImpl.getListCoordinator().getUserOfflineFriends().add(0,friendCard);
     }
 }

@@ -1,15 +1,20 @@
 package com.chatup.network.implementations;
 
+import com.chatup.controllers.reposotories.implementations.GroupMembershipRepoImpl;
+import com.chatup.controllers.FXMLcontrollers.StatisticsDashboard;
 import com.chatup.controllers.services.implementations.*;
 import com.chatup.models.entities.*;
 import com.chatup.network.interfaces.Client;
 import com.chatup.network.interfaces.Server;
+import javafx.application.Platform;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
 
 public class ServerImpl extends UnicastRemoteObject implements Server {
     private static Server server;
@@ -28,7 +33,11 @@ public class ServerImpl extends UnicastRemoteObject implements Server {
 
     @Override
     public int signup(User user) throws RemoteException {
-        return UserAuthImpl.getUserAuth().sign_Up(user);
+        int res = UserAuthImpl.getUserAuth().sign_Up(user);
+        Platform.runLater(()->{
+            StatisticsDashboard.getStatisticsDashboard().refershStatisitic();
+        });
+        return res;
     }
 
     @Override
@@ -47,6 +56,9 @@ public class ServerImpl extends UnicastRemoteObject implements Server {
                     }
                 }
             }
+            Platform.runLater(()->{
+                StatisticsDashboard.getStatisticsDashboard().refershStatisitic();
+            });
             return user;
         }else{
             return null;
@@ -68,6 +80,9 @@ public class ServerImpl extends UnicastRemoteObject implements Server {
                 }
             }
         }
+        Platform.runLater(()->{
+            StatisticsDashboard.getStatisticsDashboard().refershStatisitic();
+        });
     }
 
     @Override
@@ -177,5 +192,14 @@ public class ServerImpl extends UnicastRemoteObject implements Server {
     @Override
     public Chat getChat(int chatID) throws RemoteException {
         return UserChatServicesImpl.getUserChatServices().getChat(chatID);
+    }
+    @Override
+    public List<User> getGroupMembers(int groupId) throws RemoteException {
+       List <GroupMembership>groupMembershipList = GroupMembershipRepoImpl.getInstance().getContactsGroupMembership(groupId);
+       List<User> userList =new ArrayList<>();
+        for (GroupMembership groupMembership:groupMembershipList  ) {
+            userList.add(UserServicesImpl.getUserServices().getUserInfo(groupMembership.getUserId()));
+        }
+        return userList;
     }
 }

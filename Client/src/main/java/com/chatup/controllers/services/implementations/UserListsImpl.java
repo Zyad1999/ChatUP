@@ -10,6 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -102,6 +103,20 @@ public class UserListsImpl implements UserLists {
         }
 
         return operationResult;
+
+    }
+
+    @Override
+    public List<User> getAllgroupMembers( int groupId) {
+
+        List<User> groupMemberList = new ArrayList<>();
+        try {
+            groupMemberList = ServerConnection.getServer().getGroupMembers(groupId);
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+
+        return groupMemberList;
 
     }
 

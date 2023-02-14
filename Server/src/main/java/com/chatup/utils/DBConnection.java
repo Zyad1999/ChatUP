@@ -48,7 +48,7 @@ public class DBConnection{
         MysqlDataSource mysqlDS = null;
         try {
             fis = new FileInputStream(DBConnection.class.getClassLoader().getResource("db.properties").toString().substring(6));
-            //fis = new FileInputStream("D:\\Java Track\\JavaProject\\ChatUP\\Server\\src\\main\\resources\\db.properties");
+            //fis = new FileInputStream("D:\\JavaTrack\\JavaProject\\ChatUP\\Server\\src\\main\\resources\\db.properties");
 
             props.load(fis);
             mysqlDS = new MysqlDataSource();

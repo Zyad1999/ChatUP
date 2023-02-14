@@ -34,8 +34,8 @@ public class ServerImpl extends UnicastRemoteObject implements Server {
     @Override
     public User login(String phone, String password, Client client) throws RemoteException{
         User user = UserAuthImpl.getUserAuth().sign_In(phone, password);
-        List<User> friends = FriendsServicesImpl.getFriendsServices().getUserFriends(user.getId());
         if(user != null){
+            List<User> friends = FriendsServicesImpl.getFriendsServices().getUserFriends(user.getId());
             clients.put(user.getId(),client);
             for (User friend: friends){
                 if(clients.containsKey(friend.getId())){
@@ -129,17 +129,20 @@ public class ServerImpl extends UnicastRemoteObject implements Server {
     @Override
     public int sendChatMessage(ChatMessage message) throws RemoteException{
         Chat chat = UserChatServicesImpl.getUserChatServices().getChat(message.getChatId());
-        User receiver = UserServicesImpl.getUserServices().getUserInfo((chat.getFirstUserId() == message.getSenderId())?
-                chat.getSecondUserId():chat.getFirstUserId());
-        if(clients.containsKey(receiver.getId())){
-            try{
-                clients.get(receiver.getId()).sendChatMessage(message);
-            } catch (RemoteException e) {
-                System.out.println("Client Disconnected");
-                clients.remove(receiver.getId());
+        if(chat != null){
+            User receiver = UserServicesImpl.getUserServices().getUserInfo((chat.getFirstUserId() == message.getSenderId())?
+                    chat.getSecondUserId():chat.getFirstUserId());
+            if(clients.containsKey(receiver.getId())){
+                try{
+                    clients.get(receiver.getId()).sendChatMessage(message);
+                } catch (RemoteException e) {
+                    System.out.println("Client Disconnected");
+                    clients.remove(receiver.getId());
+                }
             }
+            return UserChatServicesImpl.getUserChatServices().sendChatMessage(message);
         }
-        return UserChatServicesImpl.getUserChatServices().sendChatMessage(message);
+        return -1;
     }
 
     @Override

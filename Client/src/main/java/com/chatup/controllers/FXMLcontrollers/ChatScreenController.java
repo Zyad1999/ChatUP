@@ -190,7 +190,7 @@ public class ChatScreenController implements Initializable {
                         scrollPane.setContent(box);
                         CurrentChat.setCurrentChatSingle(selected.getCardID());
 
-                        friendUser = UserServicesImpl.getUserServices().getUser(selected.getCardID());
+                        friendUser =  UserServicesImpl.getUserServices().getUser(selected.getCardID());
                         friendInfoController friendInfoController = new friendInfoController(friendUser);
                         loader.setController(friendInfoController);
                         try {
@@ -219,7 +219,7 @@ public class ChatScreenController implements Initializable {
                         VBox box = ListCoordinatorImpl.getListCoordinator().getSingleChatVbox(chatID);
                         scrollPane.setContent(box);
                         CurrentChat.setCurrentChatSingle(chatID);
-                        friendUser = UserServicesImpl.getUserServices().getUser(selected.getCardID());
+                        friendUser =  UserServicesImpl.getUserServices().getUser(selected.getCardID());
                         System.out.println(friendUser.getUserName()+ " "+friendUser.getId()+ ""+selected.getCardID() );
                         friendInfoController friendInfoController = new friendInfoController(friendUser);
                         loader.setController(friendInfoController);

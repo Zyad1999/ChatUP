@@ -80,4 +80,18 @@ public class UserServicesImpl implements UserServices {
     public int getNumberAllCountryOfUsers(String country) {
         return UserRepoImpl.getUserRepo().getNumberAllCountryOfUsers(country);
     }
+    @Override
+    public boolean updateUserInfo (User user){
+        return UserRepoImpl.getUserRepo().updateUser(user);
+    }
+
+    @Override
+    public boolean updateUserImage(int userID, String phone, byte[] img) {
+        return UserRepoImpl.getUserRepo().updateUserImg(userID,phone,img);
+    }
+
+    @Override
+    public boolean updateUserPassword(int userID, String password) {
+        return UserRepoImpl.getUserRepo().updateUserPassword(userID,password);
+    }
 }

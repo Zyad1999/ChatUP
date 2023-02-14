@@ -2,6 +2,7 @@ package com.chatup.network.implementations;
 
 import com.chatup.controllers.reposotories.implementations.GroupMembershipRepoImpl;
 import com.chatup.controllers.FXMLcontrollers.StatisticsDashboard;
+import com.chatup.controllers.reposotories.implementations.UserRepoImpl;
 import com.chatup.controllers.services.implementations.*;
 import com.chatup.models.entities.*;
 import com.chatup.network.interfaces.Client;
@@ -201,5 +202,19 @@ public class ServerImpl extends UnicastRemoteObject implements Server {
             userList.add(UserServicesImpl.getUserServices().getUserInfo(groupMembership.getUserId()));
         }
         return userList;
+    }
+
+    @Override
+    public boolean updateUserInfo(User user) throws RemoteException {
+        return UserServicesImpl.getUserServices().updateUserInfo(user);
+    }
+    @Override
+    public boolean updateUserImage(int userID, String phone, byte[] img)throws RemoteException {
+        return UserRepoImpl.getUserRepo().updateUserImg(userID,phone,img);
+    }
+
+    @Override
+    public boolean updateUserPassword(int userID, String password)throws RemoteException {
+        return UserRepoImpl.getUserRepo().updateUserPassword(userID,password);
     }
 }

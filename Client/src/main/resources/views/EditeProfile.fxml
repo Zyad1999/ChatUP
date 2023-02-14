@@ -17,7 +17,7 @@
    <top>
       <BorderPane prefHeight="20.0" prefWidth="500.0" BorderPane.alignment="CENTER">
          <right>
-            <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+            <ImageView fitHeight="22.0" fitWidth="22.0" onMouseClicked="#closeScene" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
                <image>
                   <Image url="@../images/icons8-macos-close-90.png" />
                </image>
@@ -41,7 +41,7 @@
    <center>
       <VBox alignment="TOP_CENTER" blendMode="DARKEN" prefHeight="200.0" prefWidth="500.0" BorderPane.alignment="CENTER">
          <children>
-            <Circle fill="#1f93ff00" radius="60.0" stroke="#0f3d3e" strokeType="INSIDE">
+            <Circle fx:id="chnageimage" fill="#1f93ff00" onMouseClicked="#profileImageHandler" radius="60.0" stroke="#0f3d3e" strokeType="INSIDE">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
@@ -49,7 +49,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Circle>
-            <Label text="Ziad Yasser" textFill="#0f3d3e">
+            <Label fx:id="userHeaderName" text="Ziad Yasser" textFill="#0f3d3e">
                <font>
                   <Font name="System Bold" size="25.0" />
                </font>
@@ -57,7 +57,7 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </Label>
-            <TextArea cacheShape="false" centerShape="false" depthTest="DISABLE" focusTraversable="false" maxHeight="100.0" maxWidth="350.0" pickOnBounds="false" prefRowCount="3" promptText="Bio" scaleShape="false" styleClass="bio-area" wrapText="true" VBox.vgrow="NEVER">
+            <TextArea fx:id="changeBio" cacheShape="false" centerShape="false" depthTest="DISABLE" focusTraversable="false" maxHeight="100.0" maxWidth="350.0" pickOnBounds="false" prefRowCount="3" promptText="Bio" scaleShape="false" styleClass="bio-area" wrapText="true" VBox.vgrow="NEVER">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
@@ -78,7 +78,7 @@
    <bottom>
       <VBox prefHeight="266.0" prefWidth="494.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox alignment="BOTTOM_LEFT" minHeight="35.0" prefWidth="350.0" styleClass="edite-card" VBox.vgrow="NEVER">
+            <HBox alignment="BOTTOM_LEFT" minHeight="35.0" onMouseClicked="#changeUserName" prefWidth="350.0" styleClass="edite-card" VBox.vgrow="NEVER">
                <VBox.margin>
                   <Insets bottom="3.0" top="3.0" />
                </VBox.margin>
@@ -101,7 +101,7 @@
                   </Label>
                   <HBox alignment="CENTER_RIGHT" minHeight="30.0" prefWidth="249.0">
                      <children>
-                        <Label alignment="CENTER_RIGHT" prefWidth="240.0" style="-fx-background-color: transparent;" text="Ziad Yasser">
+                        <Label fx:id="userName" alignment="CENTER_RIGHT" prefWidth="240.0" style="-fx-background-color: transparent;" text="Ziad Yasser">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -124,7 +124,7 @@
                   <Insets />
                </VBox.margin>
             </Separator>
-            <HBox alignment="BOTTOM_LEFT" minHeight="35.0" prefWidth="350.0" styleClass="edite-card">
+            <HBox alignment="BOTTOM_LEFT" minHeight="35.0" onMouseClicked="#changeEmail" prefWidth="350.0" styleClass="edite-card">
                <children>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <HBox.margin>
@@ -144,7 +144,7 @@
                   </Label>
                   <HBox alignment="CENTER_RIGHT" minHeight="30.0" prefHeight="35.0" prefWidth="258.0">
                      <children>
-                        <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="243.0" style="-fx-background-color: transparent;" text="zyadyassr17@gmail.com">
+                        <Label fx:id="useEmail" alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="243.0" style="-fx-background-color: transparent;" text="zyadyassr17@gmail.com">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -166,7 +166,7 @@
                </VBox.margin>
             </HBox>
             <Separator maxWidth="-Infinity" prefWidth="500.0" />
-            <HBox alignment="CENTER_LEFT" minHeight="30.0" prefWidth="350.0" styleClass="edite-card">
+            <HBox alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#changeGender" prefWidth="350.0" styleClass="edite-card">
                <children>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <HBox.margin>
@@ -186,7 +186,7 @@
                   </Label>
                   <HBox alignment="CENTER_RIGHT" minHeight="35.0" prefHeight="35.0" prefWidth="240.0">
                      <children>
-                        <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="218.0" style="-fx-background-color: transparent;" text="Male">
+                        <Label fx:id="userGender" alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="218.0" style="-fx-background-color: transparent;" text="Male">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -208,7 +208,7 @@
                </VBox.margin>
             </HBox>
             <Separator maxWidth="-Infinity" prefWidth="500.0" />
-            <HBox alignment="CENTER_LEFT" minHeight="30.0" prefWidth="350.0" styleClass="edite-card">
+            <HBox alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#changeCountry" prefWidth="350.0" styleClass="edite-card">
                <children>
                   <ImageView fitHeight="34.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                      <HBox.margin>
@@ -228,7 +228,7 @@
                   </Label>
                   <HBox alignment="CENTER_RIGHT" minHeight="35.0" prefHeight="35.0" prefWidth="230.0">
                      <children>
-                        <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="218.0" style="-fx-background-color: transparent;" text="Egypt">
+                        <Label fx:id="usercountry" alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="218.0" style="-fx-background-color: transparent;" text="Egypt">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -250,7 +250,7 @@
                </VBox.margin>
             </HBox>
             <Separator maxWidth="-Infinity" prefWidth="500.0" />
-            <HBox alignment="CENTER_LEFT" minHeight="30.0" prefWidth="350.0" styleClass="edite-card">
+            <HBox alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#changeDateOfBirth" prefWidth="350.0" styleClass="edite-card">
                <children>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <HBox.margin>
@@ -270,7 +270,7 @@
                   </Label>
                   <HBox alignment="CENTER_RIGHT" minHeight="35.0" prefHeight="35.0" prefWidth="199.0">
                      <children>
-                        <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="218.0" style="-fx-background-color: transparent;" text="15/9/1999">
+                        <Label fx:id="userBD" alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="218.0" style="-fx-background-color: transparent;" text="15/9/1999">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -292,7 +292,7 @@
                </VBox.margin>
             </HBox>
             <Separator maxWidth="-Infinity" prefWidth="500.0" />
-            <HBox alignment="CENTER_LEFT" minHeight="35.0" prefWidth="350.0" styleClass="edite-card">
+            <HBox alignment="CENTER_LEFT" minHeight="35.0" onMouseClicked="#ChangePassword" prefWidth="350.0" styleClass="edite-card">
                <children>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <HBox.margin>

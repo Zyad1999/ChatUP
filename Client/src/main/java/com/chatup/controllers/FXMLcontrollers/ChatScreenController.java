@@ -434,7 +434,20 @@ public class ChatScreenController implements Initializable {
 
     @FXML
     void userSettings(ActionEvent event) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/EditeProfile.fxml"));
+        EditeProfileController editeProfileController = new EditeProfileController();
+        loader.setController(editeProfileController);
+        try {
+            Scene scene =new Scene(loader.load());
+            Stage stage = new Stage();
+            stage.initStyle(StageStyle.UNDECORATED);
+            stage.setScene(scene);
+            stage.show();
 
+           // ((Node)(event.getSource())).getScene().getRoot().setDisable(true);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML

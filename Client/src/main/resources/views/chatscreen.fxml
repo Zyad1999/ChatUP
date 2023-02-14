@@ -247,7 +247,7 @@
                            <content>
                               <AnchorPane prefHeight="611.0" prefWidth="345.0" style="-fx-background-color: #F1F1F1;">
                                  <children>
-                                    <ListView fx:id="cardsListView" layoutX="10.0" prefHeight="611.0" prefWidth="296.0" style="-fx-background-color: #F1F1F1;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="49.0" AnchorPane.topAnchor="0.0" />
+                                    <ListView fx:id="cardsListView" layoutX="30.0" prefHeight="611.0" prefWidth="296.0" style="-fx-background-color: #F1F1F1;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="49.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                            </content>

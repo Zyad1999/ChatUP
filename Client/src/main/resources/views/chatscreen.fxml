@@ -91,6 +91,18 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </MFXButton>
+                                    <MFXButton fx:id="chatBot_btn" buttonType="RAISED" contentDisplay="CENTER" onAction="#chatBotButtonHandler" prefHeight="55.0" prefWidth="59.0" styleClass="MFXButton" text=" " textFill="WHITE">
+                                       <graphic>
+                                          <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../images/chatBot.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </MFXButton>
                                     <MFXButton fx:id="settings_btn" buttonType="RAISED" contentDisplay="CENTER" onAction="#userSettings" prefHeight="55.0" prefWidth="59.0" styleClass="MFXButton" text=" " textFill="WHITE">
                                        <graphic>
                                           <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
@@ -196,7 +208,7 @@
                                  <graphic>
                                     <ImageView fitHeight="35.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../images/icons8-online-50 (1).png" />
+                                          <Image url="@../images/online.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -208,7 +220,7 @@
                                  <graphic>
                                     <ImageView fitHeight="30.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../images/icons8-online-50.png" />
+                                          <Image url="@../images/offline.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -220,7 +232,7 @@
                                  <graphic>
                                     <ImageView fitHeight="26.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../images/icons8-add-user-48.png" />
+                                          <Image url="@../images/request.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -232,7 +244,7 @@
                                  <graphic>
                                     <ImageView fitHeight="29.0" fitWidth="62.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../images/icons8-add-50.png" />
+                                          <Image url="@../images/addFriend.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>

@@ -31,7 +31,6 @@ public class OverviewDashboard implements Initializable {
     private Button statisticsButton;
     @FXML
     private Button announcementButton;
-
     @FXML
     private Button signoutButton;
 
@@ -112,6 +111,7 @@ public class OverviewDashboard implements Initializable {
             statisticsButton.setDisable(true);
             announcementButton.setDisable(true);
             stopServerButton.setDisable(true);
+            stopCircle.setFill(Color.web("#FF0000"));
         }
     }
 }

@@ -1,5 +1,7 @@
 package com.chatup.controllers.FXMLcontrollers;
 
+import com.chatup.controllers.services.implementations.AnnouncementServiceImp;
+import com.chatup.models.entities.Announcement;
 import com.chatup.utils.StageManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,18 +17,15 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class AnnouncementDashboard implements Initializable {
+    private Announcement announcement;
     @FXML
     private Button announcementButton;
-
     @FXML
     private TextArea announcementText;
-
     @FXML
     private ImageView closeXButton;
-
     @FXML
     private Button signoutButton;
-
     @FXML
     private Button statisticsButton;
 
@@ -49,7 +48,12 @@ public class AnnouncementDashboard implements Initializable {
 
     @FXML
     void sendButtonHandler(ActionEvent event) {
-
+        String announcementText = this.announcementText.getText();
+        if (!announcementText.equals("")) {
+            // send announcementText
+            AnnouncementServiceImp.getAnnouncementService().addAnnouncement(announcement);
+            this.announcementText.setText("");
+        }
     }
 
     @FXML

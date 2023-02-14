@@ -2,7 +2,6 @@ package com.chatup.controllers.services.implementations;
 
 import com.chatup.controllers.reposotories.implementations.ChatRepoImpl;
 import com.chatup.controllers.reposotories.implementations.UserRepoImpl;
-import com.chatup.controllers.services.interfaces.UserGroupsService;
 import com.chatup.controllers.services.interfaces.UserServices;
 import com.chatup.models.entities.Chat;
 import com.chatup.models.entities.ChatMessage;
@@ -15,18 +14,18 @@ public class UserServicesImpl implements UserServices {
 
     private static UserServices userServices;
 
-    private UserServicesImpl(){}
+    private UserServicesImpl() {
+    }
 
-    public static UserServices getUserServices(){
-        if(userServices == null)
-            userServices = new UserServicesImpl();
+    public static UserServices getUserServices() {
+        if (userServices == null) userServices = new UserServicesImpl();
         return userServices;
     }
 
     @Override
     public User getUserInfo(int userId) {
-        User user= UserRepoImpl.getUserRepo().getUser(userId);
-        if(user == null){
+        User user = UserRepoImpl.getUserRepo().getUser(userId);
+        if (user == null) {
             return null;
         }
         user.setPassword(null);
@@ -35,8 +34,8 @@ public class UserServicesImpl implements UserServices {
 
     @Override
     public User getUserInfo(String phone) {
-        User user= UserRepoImpl.getUserRepo().getUser(phone);
-        if(user == null){
+        User user = UserRepoImpl.getUserRepo().getUser(phone);
+        if (user == null) {
             return null;
         }
         user.setPassword(null);
@@ -44,24 +43,18 @@ public class UserServicesImpl implements UserServices {
     }
 
     @Override
-    public Map<Chat,ChatMessage> getUserchats(int userId) {
-        Map <Chat,ChatMessage> userMessages = new HashMap<>();
+    public Map<Chat, ChatMessage> getUserchats(int userId) {
+        Map<Chat, ChatMessage> userMessages = new HashMap<>();
         ChatMessage chatMessage;
-        for ( Chat chat:  ChatRepoImpl.getInstance().getAllUserChats(userId) ) {
-            System.out.println( chat.getId());
-            chatMessage= ChatRepoImpl.getInstance().getLastMessage(chat.getId());
+        for (Chat chat : ChatRepoImpl.getInstance().getAllUserChats(userId)) {
+            System.out.println(chat.getId());
+            chatMessage = ChatRepoImpl.getInstance().getLastMessage(chat.getId());
             userMessages.put(chat, chatMessage);
-            System.out.println( chatMessage.getContent());
+            System.out.println(chatMessage.getContent());
         }
-        Map<Chat,ChatMessage> resultSet = userMessages.entrySet()
-                .stream()
-                .sorted(Comparator.comparing(e -> e.getValue().getMessageDateTime()))
-                .collect(Collectors.toMap(Map.Entry::getKey,
-                        Map.Entry::getValue,
-                        (left, right) -> left,
-                        LinkedHashMap::new));
+        Map<Chat, ChatMessage> resultSet = userMessages.entrySet().stream().sorted(Comparator.comparing(e -> e.getValue().getMessageDateTime())).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (left, right) -> left, LinkedHashMap::new));
 
-         return resultSet;
+        return resultSet;
     }
 
     @Override
@@ -69,5 +62,23 @@ public class UserServicesImpl implements UserServices {
         return ChatRepoImpl.getInstance().getSingleChatMessages(chatId);
     }
 
+    @Override
+    public int getNumberAllUsers() {
+        return UserRepoImpl.getUserRepo().getNumbersAllUsersOnSystem();
+    }
 
+    @Override
+    public int getNumberAllMaleUsers() {
+        return UserRepoImpl.getUserRepo().getNumberAllMaleUsers();
+    }
+
+    @Override
+    public int getNumberAllOnlineUsers() {
+        return UserRepoImpl.getUserRepo().getNumberAllOnlineUsers();
+    }
+
+    @Override
+    public int getNumberAllCountryOfUsers(String country) {
+        return UserRepoImpl.getUserRepo().getNumberAllCountryOfUsers(country);
+    }
 }

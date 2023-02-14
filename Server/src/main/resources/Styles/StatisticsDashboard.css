@@ -1,5 +1,5 @@
 button {
-    -fx-background-color : none;
+    -fx-background-color : transparent;
     -fx-text-fill : #e7e5e5;
 }
 .button:hover {

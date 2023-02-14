@@ -1,7 +1,9 @@
 package com.chatup.utils;
 
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -13,7 +15,6 @@ public class StageManager {
     private static final StageManager instance = new StageManager();
     private final Map<String, Scene> scenes = new HashMap<>();
     private Stage primaryStage;
-
     public static StageManager getInstance() {
         return instance;
     }
@@ -39,7 +40,6 @@ public class StageManager {
         if (primaryStage == null) {
             throw new RuntimeException("Stage Coordinator should be initialized with a Stage before it could be used");
         }
-
         if (!scenes.containsKey(name)) {
             try {
                 System.out.println("Created New Scene");

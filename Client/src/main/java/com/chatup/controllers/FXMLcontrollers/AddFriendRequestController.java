@@ -11,6 +11,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -20,6 +21,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -31,27 +34,14 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class AddFriendRequestController implements Initializable {
+    public static ObservableList<User> invitationList;
     @FXML
     private TextField friendNumberTxt;
-
     @FXML
     private ListView listview;
-
-    public static ObservableList<User> invitationList;
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        invitationList = FXCollections.observableArrayList();
-        listview.setItems(invitationList);
-        prepareListView(listview);
-    }
     @FXML
-    void addInListView(ActionEvent event) {
-        String FriendPhone = friendNumberTxt.getText().trim();
-        User friendData = UserServicesImpl.getUserServices().getFiendData(FriendPhone);
-        invitationList.add(friendData);
+    private HBox dragBar;
 
-    }
     private static void prepareListView(javafx.scene.control.ListView cardsListView) {
         cardsListView.setCellFactory(new Callback<javafx.scene.control.ListView<User>, ListCell<User>>() {
             public ListCell<User> call(javafx.scene.control.ListView<User> param) {
@@ -64,7 +54,7 @@ public class AddFriendRequestController implements Initializable {
                             if (item != null) {
                                 Image userImage = new Image(new ByteArrayInputStream(item.getImg()), 30, 30, false, true);
                                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/AddFriendCard.fxml"));
-                                AddFriendRequestCardController cardController = new AddFriendRequestCardController( item.getUserName(), item.getPhoneNumber(),userImage, item.getId());
+                                AddFriendRequestCardController cardController = new AddFriendRequestCardController(item.getUserName(), item.getPhoneNumber(), userImage, item.getId());
                                 loader.setController(cardController);
                                 try {
                                     setGraphic(loader.load());
@@ -92,15 +82,30 @@ public class AddFriendRequestController implements Initializable {
         });
     }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        invitationList = FXCollections.observableArrayList();
+        listview.setItems(invitationList);
+        prepareListView(listview);
+    }
+
+    @FXML
+    void addInListView(ActionEvent event) {
+        String FriendPhone = friendNumberTxt.getText().trim();
+        User friendData = UserServicesImpl.getUserServices().getFiendData(FriendPhone);
+        invitationList.add(friendData);
+
+    }
+
     @FXML
     void sendInvitation(ActionEvent event) {
         List<FriendRequest> friendRequestList = new ArrayList<>();
-        for (User user: invitationList) {
+        for (User user : invitationList) {
             friendRequestList.add(new FriendRequest(CurrentUserImp.getCurrentUser().getId(), user.getId(), FriendRequestStatus.PENDING));
         }
-         boolean result = UserServicesImpl.getUserServices().createFriendRequests(friendRequestList);
+        boolean result = UserServicesImpl.getUserServices().createFriendRequests(friendRequestList);
         System.out.println(result);
-        Stage stage =(Stage) ((Node)event.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
     }
 }

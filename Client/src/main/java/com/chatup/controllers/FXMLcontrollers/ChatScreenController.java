@@ -10,7 +10,7 @@ import com.chatup.network.implementations.ClientImpl;
 import com.chatup.utils.RememberSetting;
 import com.chatup.utils.SwitchScenes;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import javafx.animation.TranslateTransition;
+import javafx.animation.*;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
@@ -229,6 +229,10 @@ public class ChatScreenController implements Initializable {
                             throw new RuntimeException(e);
                         }
                     }
+                    Animation animation = new Timeline(
+                            new KeyFrame(Duration.seconds(2),
+                                    new KeyValue(scrollPane.vvalueProperty(), 1)));
+                    animation.play();
                     friendName.set(selected.getCardName());
                     friendImage = new Image(new ByteArrayInputStream((selected.getCardImg())));
                     friendImageOpen.setFill(new ImagePattern(friendImage));
@@ -255,6 +259,10 @@ public class ChatScreenController implements Initializable {
                 ListCoordinatorImpl.getListCoordinator().getGroupChatVbox(id).getChildren().add(ChatServicesImpl.getChatService().sendGroupMessage(message));
                 ChatServicesImpl.getChatService().updateGroupChatList(id,messageText.getText());
             }
+            Animation animation = new Timeline(
+                    new KeyFrame(Duration.seconds(2),
+                            new KeyValue(scrollPane.vvalueProperty(), 1)));
+            animation.play();
             messageText.clear();
         }
     }

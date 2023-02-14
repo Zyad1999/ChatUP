@@ -2,10 +2,7 @@ package com.chatup.controllers.FXMLcontrollers;
 
 import com.chatup.controllers.services.implementations.*;
 
-import com.chatup.models.entities.Card;
-import com.chatup.models.entities.Chat;
-import com.chatup.models.entities.ChatMessage;
-import com.chatup.models.entities.GroupMessage;
+import com.chatup.models.entities.*;
 import com.chatup.models.enums.CardType;
 import com.chatup.models.enums.ChatType;
 import com.chatup.network.ServerConnection;
@@ -46,7 +43,28 @@ import java.util.ResourceBundle;
 public class ChatScreenController implements Initializable {
     private static StringProperty friendName;
     private static StringProperty friendStatus;
+    private static StringProperty friendEmail;
+    private static StringProperty friendPhone;
+    private static StringProperty friendCountry;
+    private static StringProperty friendBio;
     private static Image friendImage;
+    @FXML
+    private Text friendShowDataCountry;
+
+    @FXML
+    private Text friendShowDataEmail;
+
+    @FXML
+    private Circle friendShowDataImage;
+
+    @FXML
+    private Text friendShowDataName;
+
+    @FXML
+    private Text friendShowDataPhone;
+    @FXML
+    private Text friendShowDatabio;
+
     @FXML
     private Circle friendImageClose;
 
@@ -116,7 +134,7 @@ public class ChatScreenController implements Initializable {
     private double lastY = 0.0d;
     private double lastWidth = 0.0d;
     private double lastHeight = 0.0d;
-
+    private User friendUser;
     private  void prepareListView(ListView cardsListView, ScrollPane scrollPane) {
         cardsListView.setCellFactory(new Callback<ListView<Card>, ListCell<Card>>() {
             public ListCell<Card> call(ListView<Card> param) {
@@ -161,6 +179,11 @@ public class ChatScreenController implements Initializable {
                         VBox box = ListCoordinatorImpl.getListCoordinator().getSingleChatVbox(selected.getCardID());
                         scrollPane.setContent(box);
                         CurrentChat.setCurrentChatSingle(selected.getCardID());
+                        friendUser = UserServicesImpl.getUserServices().getUser(selected.getCardID());
+                        friendCountry.set(friendUser.getCountry());
+                        friendPhone.set(friendUser.getPhoneNumber());
+                        friendBio.set(friendUser.getBio());
+                        friendEmail.set(friendUser.getEmail());
 
                     } else if (selected.getCardType() == CardType.GROUP) {
                         VBox box = ListCoordinatorImpl.getListCoordinator().getGroupChatVbox(selected.getCardID());
@@ -172,11 +195,19 @@ public class ChatScreenController implements Initializable {
                         VBox box = ListCoordinatorImpl.getListCoordinator().getSingleChatVbox(chatID);
                         scrollPane.setContent(box);
                         CurrentChat.setCurrentChatSingle(chatID);
+                         friendUser = UserServicesImpl.getUserServices().getUser(selected.getCardID());
+                        friendCountry.set(friendUser.getCountry());
+                        friendPhone.set(friendUser.getPhoneNumber());
+                        friendBio.set(friendUser.getBio());
+                        friendEmail.set(friendUser.getEmail());
+
                     }
                     friendName.set(selected.getCardName());
                     friendImage = new Image(new ByteArrayInputStream((selected.getCardImg())));
                     friendImageOpen.setFill(new ImagePattern(friendImage));
                     friendImageClose.setFill(new ImagePattern(friendImage));
+                    friendShowDataImage.setFill(new ImagePattern(friendImage));
+
                 }
             }
         });
@@ -205,8 +236,17 @@ public class ChatScreenController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
             friendName = new SimpleStringProperty("");
+            friendBio = new SimpleStringProperty("");
+            friendCountry = new SimpleStringProperty("");
+            friendPhone = new SimpleStringProperty("");
+            friendEmail = new SimpleStringProperty("");
             friendNameClose.textProperty().bind(friendName);
             friendNameOpen.textProperty().bind(friendName);
+            friendShowDataName.textProperty().bind(friendName);
+            friendShowDataCountry.textProperty().bind(friendCountry);
+            friendShowDataEmail.textProperty().bind(friendEmail);
+            friendShowDataPhone.textProperty().bind(friendPhone);
+            friendShowDatabio.textProperty().bind(friendBio);
             Image UserImage = new Image(new ByteArrayInputStream(CurrentUserImp.getCurrentUser().getImg()));
             user_image_side_bar.setFill(new ImagePattern(UserImage));
             // sliders

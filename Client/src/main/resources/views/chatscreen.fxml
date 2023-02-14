@@ -388,24 +388,24 @@
                               </BorderPane>
                               <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="space-10">
                                  <children>
-                                    <Circle fill="#f0f4f8" radius="75.0" stroke="BLACK" strokeType="INSIDE">
+                                    <Circle fx:id="friendShowDataImage" fill="#f0f4f8" radius="75.0" stroke="BLACK" strokeType="INSIDE">
                                        <VBox.margin>
                                           <Insets left="45.0" right="45.0" top="30.0" />
                                        </VBox.margin>
                                     </Circle>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="name-font" text="Steve Williams">
+                                    <Text fx:id="friendShowDataName" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="name-font" text="Steve Williams">
                                        <VBox.margin>
                                           <Insets left="70.0" right="70.0" />
                                        </VBox.margin>
                                     </Text>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="normal-font" text="Paris, France">
+                                    <Text fx:id="friendShowDataCountry" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="normal-font" text="Paris, France">
                                        <VBox.margin>
                                           <Insets left="85.0" right="80.0" />
                                        </VBox.margin>
                                     </Text>
                                     <TextFlow prefHeight="0.0" prefWidth="190.0" styleClass="textflow_menu" textAlignment="CENTER">
                                        <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old." textAlignment="JUSTIFY" wrappingWidth="199.419921875" />
+                                          <Text fx:id="friendShowDatabio" strokeType="OUTSIDE" strokeWidth="0.0" text="Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old." textAlignment="JUSTIFY" wrappingWidth="199.419921875" />
                                        </children>
                                        <VBox.margin>
                                           <Insets />
@@ -435,7 +435,7 @@
                                           </ImageView>
                                           <TextFlow maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity">
                                              <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="+201253256558" />
+                                                <Text fx:id="friendShowDataPhone" strokeType="OUTSIDE" strokeWidth="0.0" text="+201253256558" />
                                              </children>
                                              <HBox.margin>
                                                 <Insets top="7.0" />
@@ -458,7 +458,7 @@
                                           </ImageView>
                                           <TextFlow maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity">
                                              <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="example@example.com" />
+                                                <Text fx:id="friendShowDataEmail" strokeType="OUTSIDE" strokeWidth="0.0" text="example@example.com" />
                                              </children>
                                              <HBox.margin>
                                                 <Insets top="7.0" />

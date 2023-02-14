@@ -6,6 +6,7 @@ import com.chatup.controllers.services.implementations.UserServicesImpl;
 import com.chatup.models.entities.User;
 import com.chatup.network.ServerConnection;
 import com.chatup.network.implementations.ClientImpl;
+import com.chatup.utils.NotificationPopups;
 import com.chatup.utils.RememberSetting;
 import com.chatup.utils.SwitchScenes;
 import javafx.application.Application;
@@ -14,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.controlsfx.control.Notifications;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
@@ -56,6 +58,7 @@ public class App extends Application {
             System.out.println(e.getMessage());
         }
     }
+
 
 
     @Override

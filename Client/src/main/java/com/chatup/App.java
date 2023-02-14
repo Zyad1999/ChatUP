@@ -32,7 +32,6 @@ public class App extends Application {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-        NotificationPopups.receiveNotification("Karim \uD83D\uDCAC", "Taha","/images/newMessage.png");
     }
 
 

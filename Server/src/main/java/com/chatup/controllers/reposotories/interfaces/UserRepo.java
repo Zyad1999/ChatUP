@@ -20,4 +20,9 @@ public interface UserRepo {
     public User getUser(String userPhone);
 
     public List<User> getAllUsers();
+
+    int getNumbersAllUsersOnSystem();
+    int getNumberAllMaleUsers();
+    int getNumberAllOnlineUsers();
+    int getNumberAllCountryOfUsers(String country);
 }

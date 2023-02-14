@@ -27,40 +27,36 @@ public class UserAuthImpl implements UserAuth {
                 user.setStatus(UserStatus.ONLINE);
                 UserRepoImpl.getUserRepo().updateUser(user);
                 return user;
-            }
-            else{
+            } else {
                 System.out.println("Password Incorrect");
                 return null;
             }
-        }
-        else{
+        } else {
             System.out.println("User not found Failed");
             return null;
         }
-
     }
 
     @Override
-    public boolean logout(int userID){
+    public boolean logout(int userID) {
         User user = UserRepoImpl.getUserRepo().getUser(userID);
-        if(user != null){
+        if (user != null) {
             user.setStatus(UserStatus.OFFLINE);
             UserRepoImpl.getUserRepo().updateUser(user);
             return true;
-        }else {
+        } else {
             System.out.println("User Not Found");
             return false;
         }
     }
+
     @Override
     public int sign_Up(User user) {
         int id = UserRepoImpl.getUserRepo().createUser(user);
-        if (id!= -1)
-        {
+        if (id != -1) {
             System.out.println("Sign UP Successfully");
             return id;
-        }
-        else{
+        } else {
             System.out.println("Sign Up Failed");
             return id;
         }

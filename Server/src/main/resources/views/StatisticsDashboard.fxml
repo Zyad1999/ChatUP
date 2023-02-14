@@ -2,8 +2,14 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -86,9 +92,9 @@
         </VBox>
         <BorderPane layoutX="260.0" prefHeight="576.0" prefWidth="790.0" styleClass="right-side">
             <top>
-                <HBox alignment="TOP_RIGHT" prefHeight="166.0" prefWidth="790.0" styleClass="right-side" BorderPane.alignment="CENTER">
+                <HBox alignment="TOP_RIGHT" prefHeight="107.0" prefWidth="790.0" styleClass="right-side" BorderPane.alignment="CENTER">
                     <children>
-                        <TextFlow prefHeight="20.0" prefWidth="731.0" textAlignment="CENTER">
+                        <TextFlow prefHeight="101.0" prefWidth="731.0" textAlignment="CENTER">
                             <children>
                                 <Text fill="#0f3d3e" strokeType="OUTSIDE" strokeWidth="0.0" text="Statistics" textAlignment="CENTER">
                                     <font>
@@ -97,7 +103,7 @@
                                 </Text>
                             </children>
                             <padding>
-                                <Insets left="50.0" top="90.0" />
+                                <Insets left="50.0" top="40.0" />
                             </padding>
                         </TextFlow>
                         <ImageView fx:id="closeXButton" fitHeight="49.0" fitWidth="49.0" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#closeButtonHandler" pickOnBounds="true" preserveRatio="true" styleClass="close-button">
@@ -115,8 +121,70 @@
                 </HBox>
             </top>
             <center>
-                <Pane prefHeight="395.0" prefWidth="790.0" BorderPane.alignment="CENTER">
+                <Pane prefHeight="395.0" prefWidth="790.0" stylesheets="@../Styles/StatisticsDashboard.css" BorderPane.alignment="CENTER">
                     <children>
+                  <TabPane layoutX="37.0" layoutY="26.0" prefHeight="424.0" prefWidth="716.0" stylesheets="@../Styles/StatisticsDashboard.css" tabClosingPolicy="UNAVAILABLE">
+                    <tabs>
+                      <Tab styleClass="tab-pane" text="User State">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <PieChart fx:id="userStatePieChart" layoutX="68.0" layoutY="27.0" prefHeight="265.0" prefWidth="590.0" />
+                                    <ImageView fitHeight="49.0" fitWidth="46.0" layoutX="666.0" layoutY="3.0" onMouseClicked="#refershStatisitics" pickOnBounds="true" preserveRatio="true" styleClass="close-button">
+                                       <image>
+                                          <Image url="@../images/refresh.png" />
+                                       </image>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </ImageView>
+                                 </children>
+                              </AnchorPane>
+                        </content>
+                      </Tab>
+                      <Tab text="Gender">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <PieChart fx:id="genderPieChart" labelLineLength="10.0" layoutX="68.0" layoutY="27.0" prefHeight="265.0" prefWidth="590.0" />
+                                    <ImageView fitHeight="49.0" fitWidth="46.0" layoutX="666.0" layoutY="3.0" onMouseClicked="#refershStatisitics" pickOnBounds="true" preserveRatio="true" styleClass="close-button">
+                                       <image>
+                                          <Image url="@../images/refresh.png" />
+                                       </image>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </ImageView>
+                                 </children>
+                              </AnchorPane>
+                        </content>
+                      </Tab>
+                        <Tab text="Country">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" stylesheets="@../Styles/StatisticsDashboard.css">
+                                 <children>
+                                    <LineChart fx:id="countryLineChart" layoutX="133.0" layoutY="19.0" prefHeight="358.0" prefWidth="450.0">
+                                      <xAxis>
+                                        <CategoryAxis side="BOTTOM" />
+                                      </xAxis>
+                                      <yAxis>
+                                        <NumberAxis side="LEFT" />
+                                      </yAxis>
+                                    </LineChart>
+                                    <ImageView fitHeight="49.0" fitWidth="46.0" layoutX="666.0" layoutY="3.0" onMouseClicked="#refershStatisitics" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;" styleClass="close-button">
+                                       <image>
+                                          <Image url="@../images/refresh.png" />
+                                       </image>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </ImageView>
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </Tab>
+                    </tabs>
+                  </TabPane>
                         <Separator layoutX="123.0" layoutY="-8.0" prefHeight="16.0" prefWidth="543.0" styleClass="right-side" />
                     </children>
                 </Pane>

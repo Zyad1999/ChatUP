@@ -1,29 +1,40 @@
 package com.chatup.controllers.FXMLcontrollers;
 
+import com.chatup.controllers.services.implementations.UserServicesImpl;
 import com.chatup.utils.StageManager;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Font;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class StatisticsDashboard implements Initializable {
-
+    @FXML
+    private PieChart userStatePieChart;
+    @FXML
+    private PieChart genderPieChart;
+    @FXML
+    private LineChart<String, Number> countryLineChart;
     @FXML
     private Button announcementButton;
-
     @FXML
     private ImageView closeXButton;
-
     @FXML
     private Button signoutButton;
-
     @FXML
     private Button statisticsButton;
 
@@ -54,8 +65,83 @@ public class StatisticsDashboard implements Initializable {
 
     }
 
+    public void genderPieChartHandler() {
+        if (genderPieChart.getData().size() > 0) {
+            genderPieChart.getData().clear();
+        }
+        int numberOfMale = UserServicesImpl.getUserServices().getNumberAllMaleUsers();
+        int numberOfFemale = UserServicesImpl.getUserServices().getNumberAllUsers() - numberOfMale;
+        pieChartHandler(numberOfMale, numberOfFemale, "Male", "Female", "Gender Statistics", genderPieChart);
+    }
+
+    private void pieChartHandler(int firstTotal, int secondTotal, String firstData, String secondData, String title, PieChart chart) {
+        ObservableList<PieChart.Data> data = FXCollections.observableArrayList();
+        data.addAll(new PieChart.Data(firstData, firstTotal), new PieChart.Data(secondData, secondTotal));
+        chart.setData(data);
+        chart.setTitle(title);
+        chart.setPrefWidth(550);
+        chart.setPrefHeight(350);
+        calculateStatisticsPercentages(chart);
+    }
+
+    private void calculateStatisticsPercentages(PieChart pieChart) {
+        double total = 0;
+        for (PieChart.Data d : pieChart.getData()) {
+            total += d.getPieValue();
+        }
+        if (total <= 0) {
+            System.out.println("Error: Total data is less than or equal to zero.");
+            return;
+        }
+        for (PieChart.Data d : pieChart.getData()) {
+            Node slice = d.getNode();
+            double percent = calculatePercentage(d.getPieValue(), total);
+            String tip = d.getName() + " = " + String.format("%.2f", percent) + "%";
+            Tooltip tooltip = new Tooltip(tip);
+            tooltip.setFont(Font.font(20));
+            Tooltip.install(slice, tooltip);
+        }
+    }
+
+    private double calculatePercentage(double value, double total) {
+        return (value / total) * 100;
+    }
+
+    private void userStatePieChartHandler() {
+        if (userStatePieChart.getData().size() > 0) {
+            userStatePieChart.getData().clear();
+        }
+        int numberOfOnline = UserServicesImpl.getUserServices().getNumberAllOnlineUsers();
+        int numberOfOffline = UserServicesImpl.getUserServices().getNumberAllUsers() - numberOfOnline;
+        pieChartHandler(numberOfOnline, numberOfOffline, "Online", "Offline", "User State Statistics", userStatePieChart);
+    }
+
+    private XYChart.Series<String, Number> xyChart(String country) {
+        XYChart.Series<String, Number> countryChart = new XYChart.Series<>();
+        countryChart.setName(country);
+        countryChart.getData().add(new XYChart.Data<>(country, UserServicesImpl.getUserServices().getNumberAllCountryOfUsers(country)));
+        return countryChart;
+    }
+
+    private void countryBarChartHandler() {
+        countryLineChart.getData().clear();
+        countryLineChart.getXAxis().setLabel("Country");
+        countryLineChart.getYAxis().setLabel("Number of Users");
+        countryLineChart.getData().addAll(xyChart("Egypt"), xyChart("Morocco"), xyChart("Kuwait"), xyChart("Palestinian"), xyChart("Qatar"), xyChart("Other"));
+    }
+
+    @FXML
+    void refershStatisitics(MouseEvent event) {
+        genderPieChartHandler();
+        userStatePieChartHandler();
+        countryBarChartHandler();
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         signoutButton.setDisable(true);
+        genderPieChartHandler();
+        userStatePieChartHandler();
+        countryBarChartHandler();
     }
 }

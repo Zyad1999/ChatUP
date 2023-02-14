@@ -87,5 +87,11 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.31</version>
         </dependency>
+        <dependency>
+            <groupId>org.controlsfx</groupId>
+            <artifactId>controlsfx</artifactId>
+            <version>11.1.2</version>
+        </dependency>
+
     </dependencies>
 </project>

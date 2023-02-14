@@ -9,7 +9,18 @@ import java.util.Map;
 
 public interface UserServices {
     public User getUserInfo(int userId);
+
     public User getUserInfo(String phone);
-    public Map<Chat,ChatMessage> getUserchats(int userId);
+
+    public Map<Chat, ChatMessage> getUserchats(int userId);
+
     public List<ChatMessage> getChatMsg(int chatId);
+
+    int getNumberAllUsers();
+
+    int getNumberAllMaleUsers();
+
+    int getNumberAllOnlineUsers();
+
+    int getNumberAllCountryOfUsers(String country);
 }

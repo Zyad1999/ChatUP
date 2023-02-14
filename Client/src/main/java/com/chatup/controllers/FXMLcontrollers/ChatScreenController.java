@@ -632,5 +632,9 @@ public class ChatScreenController implements Initializable {
         offlineUsersButton.setStyle("-fx-opacity: 1; -fx-background-color: transparent ");
         cardsListView.setItems(ListCoordinatorImpl.getListCoordinator().getUserOfflineFriends());
     }
+    @FXML
+    private void chatBotButtonHandler(ActionEvent event) {
+
+    }
 
 }

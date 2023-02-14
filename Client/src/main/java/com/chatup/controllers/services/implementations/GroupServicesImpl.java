@@ -1,6 +1,5 @@
 package com.chatup.controllers.services.implementations;
 
-import com.chatup.controllers.services.interfaces.ChatService;
 import com.chatup.controllers.services.interfaces.GroupService;
 import com.chatup.models.entities.GroupChat;
 import com.chatup.models.entities.User;
@@ -39,5 +38,15 @@ public class GroupServicesImpl implements GroupService {
         } catch (RemoteException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public GroupChat getGroupChat(int groupID){
+        try {
+            return ServerConnection.getServer().getGroupChat(groupID);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

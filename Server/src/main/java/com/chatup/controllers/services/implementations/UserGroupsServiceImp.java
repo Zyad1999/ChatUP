@@ -83,5 +83,9 @@ public class UserGroupsServiceImp implements UserGroupsService {
         }
     }
 
+    @Override
+    public GroupChat getGroupChat(int groupID){
+        return GroupChatRepoImpl.getInstance().getGroupChat(groupID);
+    }
 
 }

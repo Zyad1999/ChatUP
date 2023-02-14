@@ -68,6 +68,10 @@ public class ListCoordinatorImpl implements ListCoordinator {
         return UserListsImpl.getUserLists().updatesUserFriendRequests(friendRequests);
 
     }
+
+    public void updatesUserGroups() {
+        userGroups = UserListsImpl.getUserLists().getAllUserGroups();
+    }
     @Override
     public ObservableList<Card> getUserOnlineFriends() {
         if(userOnlineFriends==null)

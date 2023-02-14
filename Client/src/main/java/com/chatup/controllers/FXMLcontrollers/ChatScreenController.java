@@ -507,8 +507,8 @@ public class ChatScreenController implements Initializable {
         notification_btn.setStyle("-fx-opacity: 0.3");
         settings_btn.setStyle("-fx-opacity: 1");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/EditeProfile.fxml"));
-        EditeProfileController editeProfileController = new EditeProfileController();
-        loader.setController(editeProfileController);
+        //EditeProfileController editeProfileController = new EditeProfileController();
+        //loader.setController(editeProfileController);
         try {
             Scene scene =new Scene(loader.load());
             Stage stage = new Stage();

@@ -28,4 +28,8 @@ public class CardMapper {
     public static Card getCard(GroupChat group, GroupMessage message){
         return new Card(group.getGroupChatID(),group.getGroupTitle(),message.getContent(),CardType.GROUP, group.getGroupImage());
     }
+
+    public static Card getCard(GroupChat group, String message){
+        return new Card(group.getGroupChatID(),group.getGroupTitle(),message,CardType.GROUP, group.getGroupImage());
+    }
 }

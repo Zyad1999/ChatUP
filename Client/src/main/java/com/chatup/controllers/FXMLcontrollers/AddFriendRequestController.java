@@ -93,8 +93,8 @@ public class AddFriendRequestController implements Initializable {
     void addInListView(ActionEvent event) {
         String FriendPhone = friendNumberTxt.getText().trim();
         User friendData = UserServicesImpl.getUserServices().getFiendData(FriendPhone);
-        invitationList.add(friendData);
-
+        if(friendData!=null && !FriendPhone.equals(CurrentUserImp.getCurrentUser().getPhoneNumber()))
+            invitationList.add(friendData);
     }
 
     @FXML

@@ -2,10 +2,12 @@ package com.chatup.controllers.FXMLcontrollers;
 
 import com.chatup.controllers.services.implementations.CurrentUserImp;
 import com.chatup.controllers.services.implementations.GroupServicesImpl;
+import com.chatup.controllers.services.implementations.ListCoordinatorImpl;
 import com.chatup.controllers.services.implementations.UserServicesImpl;
 import com.chatup.models.entities.Card;
 import com.chatup.models.entities.GroupChat;
 import com.chatup.models.entities.User;
+import com.chatup.utils.CardMapper;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -84,7 +86,17 @@ public class AddGroupController implements Initializable {
     void addButtonClicked(ActionEvent event) {
         String FriendPhone = userNumber.getText().trim();
         User friendData = UserServicesImpl.getUserServices().getFiendData(FriendPhone);
-        groupUsersList.add(friendData);
+        if(friendData!= null && !FriendPhone.equals(CurrentUserImp.getCurrentUser().getPhoneNumber()) && !checkIfInList(FriendPhone,groupUsersList))
+            groupUsersList.add(friendData);
+    }
+
+    public boolean checkIfInList(String phone, List<User> list){
+        for(User user: list){
+            if (user.getPhoneNumber().equals(phone)){
+                return true;
+            }
+        }
+        return false;
     }
 
     @FXML
@@ -120,6 +132,10 @@ public class AddGroupController implements Initializable {
         }
         GroupChat groupChat = new GroupChat(groupName.getText(),image);
         int id= GroupServicesImpl.getGroupService().createGroupChat(groupChat,observableToList(groupUsersList));
+        if(id!=-1){
+            groupChat.setGroupChatID(id);
+            ListCoordinatorImpl.getListCoordinator().getUserGroups().add(CardMapper.getCard(groupChat,""));
+        }
         System.out.println("Created Group Chat With Id: "+ id);
     }
 
@@ -128,6 +144,7 @@ public class AddGroupController implements Initializable {
         for(int i=0 ; i< list.size();i++){
             usersList.add(list.get(i));
         }
+        usersList.add(CurrentUserImp.getCurrentUser());
         return usersList;
     }
 

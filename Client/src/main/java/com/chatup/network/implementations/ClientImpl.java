@@ -1,12 +1,10 @@
 package com.chatup.network.implementations;
 
 import com.chatup.controllers.services.implementations.ChatServicesImpl;
+import com.chatup.controllers.services.implementations.GroupServicesImpl;
 import com.chatup.controllers.services.implementations.ListCoordinatorImpl;
 import com.chatup.controllers.services.implementations.UserServicesImpl;
-import com.chatup.models.entities.Card;
-import com.chatup.models.entities.ChatMessage;
-import com.chatup.models.entities.GroupMessage;
-import com.chatup.models.entities.User;
+import com.chatup.models.entities.*;
 import com.chatup.network.interfaces.Client;
 import com.chatup.utils.CardMapper;
 import com.chatup.utils.NotificationPopups;
@@ -63,6 +61,16 @@ public class ClientImpl extends UnicastRemoteObject implements Client {
             ChatServicesImpl.getChatService().updateChatList(message.getChatId(), message.getContent());
             NotificationPopups.receiveNotification("New message ✉️\uD83E\uDDD1\u200D\uD83E\uDD1D\u200D\uD83E\uDDD1 from " + UserServicesImpl.getUserServices().getUser(message.getSenderId()).getUserName(), message.getContent(), "/images/newMessage.png");
         });
+    }
+
+    @Override
+    public void addedToGroup(int groupID) throws RemoteException{
+        GroupChat group = GroupServicesImpl.getGroupService().getGroupChat(groupID);
+        if(group!=null) {
+            Platform.runLater(() -> {
+                ListCoordinatorImpl.getListCoordinator().getUserGroups().add(CardMapper.getCard(group, ""));
+            });
+        }
     }
 
     @Override

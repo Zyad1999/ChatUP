@@ -3,11 +3,13 @@ package com.chatup;
 import com.chatup.controllers.services.implementations.CurrentUserImp;
 import com.chatup.network.ServerConnection;
 import com.chatup.network.implementations.ClientImpl;
+import com.chatup.utils.NotificationPopups;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.controlsfx.control.Notifications;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
@@ -30,7 +32,9 @@ public class App extends Application {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+        NotificationPopups.receiveNotification("Karim \uD83D\uDCAC", "Taha","/images/newMessage.png");
     }
+
 
 
     @Override

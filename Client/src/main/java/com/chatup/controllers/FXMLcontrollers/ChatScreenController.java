@@ -136,7 +136,7 @@ public class ChatScreenController implements Initializable {
     @FXML
     private MFXButton onlineUsersButton;
 
-
+    @FXML
     private AnchorPane anchorPanWithoutmenu;
     @FXML
     private AnchorPane friendDetailsAnchorPan;
@@ -287,7 +287,10 @@ public class ChatScreenController implements Initializable {
         prepareListView(cardsListView, scrollPane);
         cardsListView.setItems(ListCoordinatorImpl.getListCoordinator().getUserChats());
         ListCoordinatorImpl.currentList=CardType.CHAT;
-        listBox.setVisible(false);
+        addButton.setVisible(false);
+        FriendRequests_id.setVisible(false);
+        onlineUsersButton.setVisible(false);
+        offlineUsersButton.setVisible(false);
     
         dragBar.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
@@ -424,7 +427,10 @@ public class ChatScreenController implements Initializable {
     void setChats(ActionEvent event) {
         cardsListView.setItems(ListCoordinatorImpl.getListCoordinator().getUserChats());
         ListCoordinatorImpl.currentList=CardType.CHAT;
-        listBox.setVisible(false);
+        addButton.setVisible(false);
+        FriendRequests_id.setVisible(false);
+        onlineUsersButton.setVisible(false);
+        offlineUsersButton.setVisible(false);
     }
 
     @FXML
@@ -433,7 +439,6 @@ public class ChatScreenController implements Initializable {
         FriendRequests_id.setVisible(true);
         onlineUsersButton.setVisible(true);
         offlineUsersButton.setVisible(true);
-        listBox.setVisible(true);
         cardsListView.setItems(ListCoordinatorImpl.getListCoordinator().getUserOnlineFriends());
         ListCoordinatorImpl.currentList=CardType.FRIEND;
     }
@@ -445,7 +450,6 @@ public class ChatScreenController implements Initializable {
         //currentList.addAll(ListCoordinatorImpl.getListCoordinator().getUserGroups());
         cardsListView.setItems(ListCoordinatorImpl.getListCoordinator().getUserGroups());
         ListCoordinatorImpl.currentList=CardType.GROUP;
-        listBox.setVisible(true);
         addButton.setVisible(true);
         FriendRequests_id.setVisible(false);
         onlineUsersButton.setVisible(false);

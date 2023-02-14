@@ -272,7 +272,7 @@
                            <children>
                               <Pane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="65.0" prefWidth="66.0">
                                  <children>
-                                    <Circle fill="#f0f4f8" radius="25.0" stroke="BLACK" strokeType="INSIDE" translateX="32.0" translateY="38.0" />
+                                    <Circle fx:id="friendImageOpen" fill="#f0f4f8" radius="25.0" stroke="BLACK" strokeType="INSIDE" translateX="32.0" translateY="38.0" />
                                     <Circle fill="#0bbc3a" radius="6.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="status-circle" translateX="50.0" translateY="20.0" />
                                  </children>
                                  <HBox.margin>
@@ -281,8 +281,8 @@
                               </Pane>
                               <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" spacing="5.0" style="-fx-background-color: transparent;">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="name-font" text="Steve Williams" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="status-font" text="Offline" />
+                                    <Text fx:id="friendNameOpen" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="name-font" text="Steve Williams" />
+                                    <Text fx:id="frieendStatusOpen" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="status-font" text="Offline" />
                                  </children>
                                  <HBox.margin>
                                     <Insets />
@@ -301,7 +301,7 @@
                            <children>
                               <Pane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="65.0" prefWidth="66.0">
                                  <children>
-                                    <Circle fill="#f0f4f8" radius="25.0" stroke="BLACK" strokeType="INSIDE" translateX="32.0" translateY="38.0" />
+                                    <Circle fx:id="friendImageClose" fill="#f0f4f8" radius="25.0" stroke="BLACK" strokeType="INSIDE" translateX="32.0" translateY="38.0" />
                                     <Circle fill="#0bbc3a" radius="6.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="status-circle" translateX="50.0" translateY="20.0" />
                                  </children>
                                  <HBox.margin>
@@ -310,8 +310,8 @@
                               </Pane>
                               <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" spacing="5.0" style="-fx-background-color: transparent;">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="name-font" text="Steve Williams" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="status-font" text="Offline" />
+                                    <Text fx:id="friendNameClose" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="name-font" text="Steve Williams" />
+                                    <Text fx:id="frieendStatusClose" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="status-font" text="Offline" />
                                  </children>
                                  <HBox.margin>
                                     <Insets />

@@ -13,6 +13,8 @@ import com.chatup.network.implementations.ClientImpl;
 import com.chatup.utils.SwitchScenes;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.animation.TranslateTransition;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -25,7 +27,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
@@ -40,6 +44,26 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class ChatScreenController implements Initializable {
+    private static StringProperty friendName;
+    private static StringProperty friendStatus;
+    private static Image friendImage;
+    @FXML
+    private Circle friendImageClose;
+
+    @FXML
+    private Circle friendImageOpen;
+
+    @FXML
+    private Text friendNameClose;
+
+    @FXML
+    private Text friendNameOpen;
+    @FXML
+    private Text frieendStatusClose;
+
+    @FXML
+    private Text frieendStatusOpen;
+
     @FXML
     private MFXButton closeExtraction;
     @FXML
@@ -93,7 +117,7 @@ public class ChatScreenController implements Initializable {
     private double lastWidth = 0.0d;
     private double lastHeight = 0.0d;
 
-    private static void prepareListView(ListView cardsListView, ScrollPane scrollPane) {
+    private  void prepareListView(ListView cardsListView, ScrollPane scrollPane) {
         cardsListView.setCellFactory(new Callback<ListView<Card>, ListCell<Card>>() {
             public ListCell<Card> call(ListView<Card> param) {
                 final Tooltip tooltip = new Tooltip();
@@ -137,6 +161,7 @@ public class ChatScreenController implements Initializable {
                         VBox box = ListCoordinatorImpl.getListCoordinator().getSingleChatVbox(selected.getCardID());
                         scrollPane.setContent(box);
                         CurrentChat.setCurrentChatSingle(selected.getCardID());
+
                     } else if (selected.getCardType() == CardType.GROUP) {
                         VBox box = ListCoordinatorImpl.getListCoordinator().getGroupChatVbox(selected.getCardID());
                         scrollPane.setContent(box);
@@ -148,6 +173,10 @@ public class ChatScreenController implements Initializable {
                         scrollPane.setContent(box);
                         CurrentChat.setCurrentChatSingle(chatID);
                     }
+                    friendName.set(selected.getCardName());
+                    friendImage = new Image(new ByteArrayInputStream((selected.getCardImg())));
+                    friendImageOpen.setFill(new ImagePattern(friendImage));
+                    friendImageClose.setFill(new ImagePattern(friendImage));
                 }
             }
         });
@@ -174,74 +203,79 @@ public class ChatScreenController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        ///slid bar animation
 
-        anchorPanSlider.setTranslateX(-80);
-        friendDetailsAnchorPan.setTranslateX(300);
-        AnchorPane.setRightAnchor(chatAnchorpan,0.0);
-        AnchorPane.setLeftAnchor(chatAnchorpan,0.0);
-        closeFrienDetailsbtn.setVisible(false);
-        closeExtraction.setVisible(false);
+            friendName = new SimpleStringProperty("");
+            friendNameClose.textProperty().bind(friendName);
+            friendNameOpen.textProperty().bind(friendName);
+            Image UserImage = new Image(new ByteArrayInputStream(CurrentUserImp.getCurrentUser().getImg()));
+            user_image_side_bar.setFill(new ImagePattern(UserImage));
+            // sliders
+            anchorPanSlider.setTranslateX(-80);
+            friendDetailsAnchorPan.setTranslateX(300);
+            AnchorPane.setRightAnchor(chatAnchorpan,0.0);
+            AnchorPane.setLeftAnchor(chatAnchorpan,0.0);
+            closeFrienDetailsbtn.setVisible(false);
+            closeExtraction.setVisible(false);
 
-        extract_menu_id.setOnAction(event -> {
-            TranslateTransition slider_tr = new TranslateTransition();
-            slider_tr.setDuration(Duration.seconds(0.4));
-            slider_tr.setNode(anchorPanSlider);
+            extract_menu_id.setOnAction(event -> {
+                TranslateTransition slider_tr = new TranslateTransition();
+                slider_tr.setDuration(Duration.seconds(0.4));
+                slider_tr.setNode(anchorPanSlider);
 
-            slider_tr.setToX(0);
-            slider_tr.play();
-            //anchorPanSlider.setTranslateX(-80);
-            TranslateTransition VBoxslider = new TranslateTransition();
-            VBoxslider.setDuration(Duration.seconds(0.4));
-            VBoxslider.setNode(anchorPanWithoutmenu);
+                slider_tr.setToX(0);
+                slider_tr.play();
+                //anchorPanSlider.setTranslateX(-80);
+                TranslateTransition VBoxslider = new TranslateTransition();
+                VBoxslider.setDuration(Duration.seconds(0.4));
+                VBoxslider.setNode(anchorPanWithoutmenu);
 
-            VBoxslider.setToX(60);
-            VBoxslider.play();
-            TranslateTransition cardListSLider = new TranslateTransition();
-            cardListSLider.setDuration(Duration.seconds(0.4));
-            cardListSLider.setNode(cardsListView);
+                VBoxslider.setToX(66);
+                VBoxslider.play();
+                TranslateTransition cardListSLider = new TranslateTransition();
+                cardListSLider.setDuration(Duration.seconds(0.4));
+                cardListSLider.setNode(cardsListView);
 
-            cardListSLider.setToX(0);
-            cardListSLider.play();
-            slider_tr.setOnFinished((ActionEvent e)->{
-                extract_menu_id.setVisible(false);
-                closeExtraction.setVisible(true);
+                cardListSLider.setToX(0);
+                cardListSLider.play();
+                slider_tr.setOnFinished((ActionEvent e)->{
+                    extract_menu_id.setVisible(false);
+                    closeExtraction.setVisible(true);
 
-            });
-
-        });
-        closeExtraction.setOnAction(event -> {
-            TranslateTransition slider_tr = new TranslateTransition();
-            slider_tr.setDuration(Duration.seconds(0.4));
-            slider_tr.setNode(anchorPanSlider);
-
-            slider_tr.setToX(-80);
-            slider_tr.play();
-            //anchorPanSlider.setTranslateX(-80);
-            TranslateTransition VBoxslider = new TranslateTransition();
-            VBoxslider.setDuration(Duration.seconds(0.4));
-            VBoxslider.setNode(anchorPanWithoutmenu);
-
-            VBoxslider.setToX(0);
-            VBoxslider.play();
-            TranslateTransition cardListSLider = new TranslateTransition();
-            cardListSLider.setDuration(Duration.seconds(0.4));
-            cardListSLider.setNode(cardsListView);
-
-            cardListSLider.setToX(30);
-            cardListSLider.play();
-
-
-            slider_tr.setOnFinished((ActionEvent e)->{
-                extract_menu_id.setVisible(true);
-                closeExtraction.setVisible(false);
+                });
 
             });
+            closeExtraction.setOnAction(event -> {
+                TranslateTransition slider_tr = new TranslateTransition();
+                slider_tr.setDuration(Duration.seconds(0.4));
+                slider_tr.setNode(anchorPanSlider);
 
-        });
-        /////////////////
-        prepareListView(cardsListView, scrollPane);
-        cardsListView.setItems(ListCoordinatorImpl.getListCoordinator().getUserChats());
+                slider_tr.setToX(-80);
+                slider_tr.play();
+                //anchorPanSlider.setTranslateX(-80);
+                TranslateTransition VBoxslider = new TranslateTransition();
+                VBoxslider.setDuration(Duration.seconds(0.4));
+                VBoxslider.setNode(anchorPanWithoutmenu);
+
+                VBoxslider.setToX(0);
+                VBoxslider.play();
+                TranslateTransition cardListSLider = new TranslateTransition();
+                cardListSLider.setDuration(Duration.seconds(0.4));
+                cardListSLider.setNode(cardsListView);
+
+                cardListSLider.setToX(30);
+                cardListSLider.play();
+
+
+                slider_tr.setOnFinished((ActionEvent e)->{
+                    extract_menu_id.setVisible(true);
+                    closeExtraction.setVisible(false);
+
+                });
+
+            });
+            /////////////////
+            prepareListView(cardsListView, scrollPane);
+            cardsListView.setItems(ListCoordinatorImpl.getListCoordinator().getUserChats());
     }
     @FXML
     void showFriendDetails(MouseEvent event) {

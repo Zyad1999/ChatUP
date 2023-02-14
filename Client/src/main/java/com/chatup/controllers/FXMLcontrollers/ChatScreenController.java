@@ -53,7 +53,8 @@ public class ChatScreenController implements Initializable {
     @FXML
     private ListView cardsListView;
 
-
+    @FXML
+    private MFXButton addButton;
     @FXML
     private Button sendButton;
 
@@ -154,17 +155,22 @@ public class ChatScreenController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         prepareListView(cardsListView, scrollPane);
         cardsListView.setItems(ListCoordinatorImpl.getListCoordinator().getUserChats());
+        ListCoordinatorImpl.currentList=CardType.CHAT;
+        addButton.setVisible(false);
     }
 
     @FXML
     void setChats(ActionEvent event) {
         cardsListView.setItems(ListCoordinatorImpl.getListCoordinator().getUserChats());
+        ListCoordinatorImpl.currentList=CardType.CHAT;
+        addButton.setVisible(false);
     }
 
     @FXML
     void setFriends(ActionEvent event) {
-
+        addButton.setVisible(true);
         cardsListView.setItems(ListCoordinatorImpl.getListCoordinator().getUserOnlineFriends());
+        ListCoordinatorImpl.currentList=CardType.FRIEND;
     }
 
     @FXML
@@ -173,6 +179,8 @@ public class ChatScreenController implements Initializable {
         //currentList.clear();
         //currentList.addAll(ListCoordinatorImpl.getListCoordinator().getUserGroups());
         cardsListView.setItems(ListCoordinatorImpl.getListCoordinator().getUserGroups());
+        ListCoordinatorImpl.currentList=CardType.GROUP;
+        addButton.setVisible(true);
     }
 
     @FXML
@@ -255,14 +263,23 @@ public class ChatScreenController implements Initializable {
     }
     @FXML
     void sendInvitation(ActionEvent event) {
-        FXMLLoader friendRequestFXML;
+        FXMLLoader loader ;
+        Scene scene = null;
         try {
-            friendRequestFXML =new FXMLLoader(Objects.requireNonNull(ChatScreenController.class.getResource("/views/AddFriend.fxml")));
-            AddFriendRequestController addFriendRequestController = new AddFriendRequestController();
-            friendRequestFXML.setController(addFriendRequestController);
-            Scene scene =new Scene(friendRequestFXML.load());
+            System.out.println("Current List= "+ListCoordinatorImpl.currentList);
+            if(ListCoordinatorImpl.currentList==CardType.FRIEND) {
+                loader = new FXMLLoader(Objects.requireNonNull(ChatScreenController.class.getResource("/views/AddFriend.fxml")));
+                AddFriendRequestController addFriendRequestController = new AddFriendRequestController();
+                loader.setController(addFriendRequestController);
+                scene = new Scene(loader.load(), 550, 550);
+            }
+            else if(ListCoordinatorImpl.currentList==CardType.GROUP){
+                loader = new FXMLLoader(Objects.requireNonNull(ChatScreenController.class.getResource("/views/AddGroup.fxml")));
+                AddGroupController addGroupController = new AddGroupController();
+                loader.setController(addGroupController);
+                scene = new Scene(loader.load(), 550, 550);
+            }
             Stage stage = new Stage();
-            stage.setMaximized(false);
             stage.setScene(scene);
             stage.show();
 
@@ -272,6 +289,7 @@ public class ChatScreenController implements Initializable {
             e.printStackTrace();
         }
     }
+
 
     @FXML
     void getAllOnlineUsers(ActionEvent event) {

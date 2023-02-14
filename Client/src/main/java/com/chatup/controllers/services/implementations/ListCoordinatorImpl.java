@@ -4,6 +4,7 @@ import com.chatup.controllers.services.interfaces.ListCoordinator;
 import com.chatup.models.entities.Card;
 import com.chatup.models.entities.FriendRequest;
 import com.chatup.models.entities.User;
+import com.chatup.models.enums.CardType;
 import com.chatup.models.enums.UserStatus;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.VBox;
@@ -27,6 +28,8 @@ public class ListCoordinatorImpl implements ListCoordinator {
     private static HashMap<Integer, VBox> groupChatMap = new HashMap<>();
 
     private static List<Boolean> requests = new ArrayList<>();
+
+    public static CardType currentList;
 
     private ListCoordinatorImpl(){}
 
@@ -106,4 +109,5 @@ public class ListCoordinatorImpl implements ListCoordinator {
             return box;
         }
     }
+
 }

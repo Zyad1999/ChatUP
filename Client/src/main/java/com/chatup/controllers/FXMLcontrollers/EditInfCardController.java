@@ -110,6 +110,7 @@ public class EditInfCardController implements Initializable {
         countryComboBox1.getItems().addAll("Egypt", "Morocco", "Kuwait", "Palestinian", "Qatar", "Other");
         if(editBartxt.equals("name") ){
             editBar.setText("Enter your name");
+            editTextField.setPromptText("Name");
             editTextField.setVisible(true);
             genderComboBox.setVisible(false);
             dateOfBirthDP.setVisible(false);
@@ -118,6 +119,8 @@ public class EditInfCardController implements Initializable {
             confirmPasswordPF.setVisible(false);
         }else if(editBartxt.equals("email") ){
             editBar.setText("Enter your Email");
+            editTextField.setPromptText("Email");
+
             editTextField.setVisible(true);
             genderComboBox.setVisible(false);
             dateOfBirthDP.setVisible(false);

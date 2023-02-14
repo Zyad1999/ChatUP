@@ -20,6 +20,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
@@ -61,6 +62,17 @@ public class ChatScreenController implements Initializable {
     @FXML
     private TextField messageText;
 
+    @FXML
+    private HBox listBox;
+
+    @FXML
+    private MFXButton FriendRequests_id;
+
+    @FXML
+    private MFXButton offlineUsersButton;
+
+    @FXML
+    private MFXButton onlineUsersButton;
 
 
 
@@ -156,19 +168,23 @@ public class ChatScreenController implements Initializable {
         prepareListView(cardsListView, scrollPane);
         cardsListView.setItems(ListCoordinatorImpl.getListCoordinator().getUserChats());
         ListCoordinatorImpl.currentList=CardType.CHAT;
-        addButton.setVisible(false);
+        listBox.setVisible(false);
     }
 
     @FXML
     void setChats(ActionEvent event) {
         cardsListView.setItems(ListCoordinatorImpl.getListCoordinator().getUserChats());
         ListCoordinatorImpl.currentList=CardType.CHAT;
-        addButton.setVisible(false);
+        listBox.setVisible(false);
     }
 
     @FXML
     void setFriends(ActionEvent event) {
         addButton.setVisible(true);
+        FriendRequests_id.setVisible(true);
+        onlineUsersButton.setVisible(true);
+        offlineUsersButton.setVisible(true);
+        listBox.setVisible(true);
         cardsListView.setItems(ListCoordinatorImpl.getListCoordinator().getUserOnlineFriends());
         ListCoordinatorImpl.currentList=CardType.FRIEND;
     }
@@ -180,7 +196,11 @@ public class ChatScreenController implements Initializable {
         //currentList.addAll(ListCoordinatorImpl.getListCoordinator().getUserGroups());
         cardsListView.setItems(ListCoordinatorImpl.getListCoordinator().getUserGroups());
         ListCoordinatorImpl.currentList=CardType.GROUP;
+        listBox.setVisible(true);
         addButton.setVisible(true);
+        FriendRequests_id.setVisible(false);
+        onlineUsersButton.setVisible(false);
+        offlineUsersButton.setVisible(false);
     }
 
     @FXML

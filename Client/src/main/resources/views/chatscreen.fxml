@@ -175,9 +175,9 @@
                         <AnchorPane prefHeight="567.0" prefWidth="289.0">
                            <children>
                               <ListView fx:id="cardsListView" prefHeight="572.0" prefWidth="289.0" style="-fx-background-color: #fffffe;" AnchorPane.bottomAnchor="-51.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-                              <HBox alignment="TOP_RIGHT" layoutX="62.0" layoutY="65.0" prefHeight="41.0" prefWidth="289.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <HBox fx:id="listBox" alignment="TOP_RIGHT" layoutX="62.0" layoutY="65.0" prefHeight="41.0" prefWidth="289.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <MFXButton depthLevel="LEVEL5" onAction="#getAllOnlineUsers" prefHeight="41.0" prefWidth="59.0" style="-fx-background-color: none;" text=" " HBox.hgrow="ALWAYS">
+                                    <MFXButton fx:id="onlineUsersButton" depthLevel="LEVEL5" onAction="#getAllOnlineUsers" prefHeight="41.0" prefWidth="59.0" style="-fx-background-color: none;" text=" " HBox.hgrow="ALWAYS">
                                        <graphic>
                                           <ImageView fitHeight="35.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -189,7 +189,7 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </MFXButton>
-                                    <MFXButton depthLevel="LEVEL5" onAction="#getAllofflineUsedrs" prefHeight="41.0" prefWidth="71.0" style="-fx-background-color: none;" text=" " HBox.hgrow="ALWAYS">
+                                    <MFXButton fx:id="offlineUsersButton" depthLevel="LEVEL5" onAction="#getAllofflineUsedrs" prefHeight="41.0" prefWidth="71.0" style="-fx-background-color: none;" text=" " HBox.hgrow="ALWAYS">
                                        <graphic>
                                           <ImageView fitHeight="30.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                                              <image>

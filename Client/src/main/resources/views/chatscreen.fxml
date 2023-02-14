@@ -67,7 +67,7 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </MFXButton>
-                                    <MFXButton buttonType="RAISED" contentDisplay="CENTER" onAction="#setGroups" prefHeight="55.0" prefWidth="59.0" styleClass="MFXButton" text=" " textFill="#041014">
+                                    <MFXButton fx:id="group_btn" buttonType="RAISED" contentDisplay="CENTER" onAction="#setGroups" prefHeight="55.0" prefWidth="59.0" styleClass="MFXButton" text=" " textFill="#041014">
                                        <graphic>
                                           <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: 0.7;">
                                              <image>
@@ -79,7 +79,7 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </MFXButton>
-                                    <MFXButton buttonType="RAISED" contentDisplay="CENTER" onAction="#userNotifications" prefHeight="55.0" prefWidth="59.0" styleClass="MFXButton" text=" " textFill="#041014">
+                                    <MFXButton fx:id="notification_btn" buttonType="RAISED" contentDisplay="CENTER" onAction="#userNotifications" prefHeight="55.0" prefWidth="59.0" styleClass="MFXButton" text=" " textFill="#041014">
                                        <graphic>
                                           <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -91,7 +91,7 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </MFXButton>
-                                    <MFXButton buttonType="RAISED" contentDisplay="CENTER" onAction="#userSettings" prefHeight="55.0" prefWidth="59.0" styleClass="MFXButton" text=" " textFill="WHITE">
+                                    <MFXButton fx:id="settings_btn" buttonType="RAISED" contentDisplay="CENTER" onAction="#userSettings" prefHeight="55.0" prefWidth="59.0" styleClass="MFXButton" text=" " textFill="WHITE">
                                        <graphic>
                                           <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                              <image>

@@ -78,6 +78,7 @@ public class EditInfCardController implements Initializable {
         }else if(editBartxt.equals("email") && validateEmail()){
             CurrentUserImp.getCurrentUser().setEmail(editTextField.getText());
             EditeProfileController.Email.set(editTextField.getText());
+            valid=true;
         }else if(editBartxt.equals("country") ){
             CurrentUserImp.getCurrentUser().setCountry(countryComboBox1.getValue().toString());
             EditeProfileController.Country.set(countryComboBox1.getValue().toString());
@@ -92,7 +93,7 @@ public class EditInfCardController implements Initializable {
             valid =true;
         }else if(editBartxt.equals("password")&&validatePassword()&&validateConfirmPassword()){
             UserServicesImpl.getUserServices().UpdateUserPassword(CurrentUserImp.getCurrentUser().getId(),passwordPF.getText());
-
+            valid=true;
         }
         if(valid) {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -180,17 +181,17 @@ public class EditInfCardController implements Initializable {
         return imageView;
     }
     private boolean validateEmail() {
-        if (editBar.getText().length() == 0) {
-            editBar.setStyle("-fx-border-color: red; -fx-border-width: 1px");
-            editBar.setTooltip(hintText("Phone Number is required", errorImage("/images/question-mark.png")));
+        if (editTextField.getText().length() == 0) {
+            editTextField.setStyle("-fx-border-color: red; -fx-border-width: 1px");
+            editTextField.setTooltip(hintText("Phone Number is required", errorImage("/images/question-mark.png")));
             valid = false;
-        } else if (!editBar.getText().matches("^\\w+[_]?\\w+@[a-z]+\\.[a-z]{2,3}")) {
-            editBar.setStyle("-fx-border-color: red; -fx-border-width: 1px");
-            editBar.setTooltip(hintText("Invalid Email\nExample: example@example.com", errorImage("/images/error.png")));
+        } else if (!editTextField.getText().matches("^\\w+[_]?\\w+@[a-z]+\\.[a-z]{2,3}")) {
+            editTextField.setStyle("-fx-border-color: red; -fx-border-width: 1px");
+            editTextField.setTooltip(hintText("Invalid Email\nExample: example@example.com", errorImage("/images/error.png")));
             valid = false;
         } else {
-            editBar.setStyle("-fx-border-color: -fx-gray-color;");
-//            valid = true;
+            editTextField.setStyle("-fx-border-color: -fx-gray-color;");
+            valid = true;
         }
         return valid;
     }
@@ -206,7 +207,7 @@ public class EditInfCardController implements Initializable {
             valid = false;
         } else {
             passwordPF.setStyle("-fx-border-color: -fx-gray-color;");
-//            valid = true;
+            valid = true;
         }
         return  valid;
     }
@@ -223,7 +224,7 @@ public class EditInfCardController implements Initializable {
             valid = false;
         } else {
             confirmPasswordPF.setStyle("-fx-border-color: -fx-gray-color;");
-//            valid = true;
+           valid = true;
         }
         return  valid;
     }

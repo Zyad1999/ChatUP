@@ -89,32 +89,7 @@ public class GroupInfoController {
 
     }
 
-    @FXML
-    void closeDecoratedButtonHandler(MouseEvent event) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to exit?", ButtonType.YES, ButtonType.NO);
-        alert.setHeaderText(null);
-        alert.showAndWait();
 
-        if (alert.getResult() == ButtonType.YES) {
-            try {
-                ServerConnection.getServer().logout(CurrentUserImp.getCurrentUser().getId(), ClientImpl.getClient());
-                System.out.println("logout successfully");
-            } catch (RemoteException e) {
-                e.printStackTrace();
-            }
-            System.exit(1);
-        }
 
-    }
-
-    @FXML
-    void maximizeDecoratedButtonHandler(MouseEvent event) {
-
-    }
-
-    @FXML
-    void minimizeDecoratedButtonHandler(MouseEvent event) {
-
-    }
 
 }

@@ -52,18 +52,5 @@ public class friendInfoController {
         friendShowDataImage.setFill(new ImagePattern(userImage));
 
     }
-    @FXML
-    void closeDecoratedButtonHandler(MouseEvent event) {
 
-    }
-
-    @FXML
-    void maximizeDecoratedButtonHandler(MouseEvent event) {
-
-    }
-
-    @FXML
-    void minimizeDecoratedButtonHandler(MouseEvent event) {
-
-    }
 }

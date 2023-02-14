@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
@@ -21,29 +20,7 @@
       <Separator maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefWidth="1.0" />
       <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="250.0" prefHeight="650.0" prefWidth="224.0" spacing="10.0" HBox.hgrow="ALWAYS">
          <children>
-            <BorderPane prefHeight="35.0" prefWidth="250.0">
-               <top>
-                  <HBox alignment="CENTER_RIGHT" prefHeight="34.0" prefWidth="250.0" spacing="7.0" style="-fx-padding: 7 20 0 10;" BorderPane.alignment="CENTER">
-                     <children>
-                        <Circle fill="#26a407" onMouseClicked="#minimizeDecoratedButtonHandler" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Circle>
-                        <Circle fill="#bf9113" onMouseClicked="#maximizeDecoratedButtonHandler" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Circle>
-                        <Circle fill="#ff520d" onMouseClicked="#closeDecoratedButtonHandler" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Circle>
-                     </children>
-                  </HBox>
-               </top>
-            </BorderPane>
+            <BorderPane prefHeight="35.0" prefWidth="250.0" />
             <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="194.0" prefWidth="250.0" styleClass="space-10">
                <children>
                   <Circle fx:id="groupShowDataImage" fill="#f0f4f8" radius="75.0" stroke="BLACK" strokeType="INSIDE">

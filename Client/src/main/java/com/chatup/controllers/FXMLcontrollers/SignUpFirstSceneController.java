@@ -23,6 +23,7 @@ import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -71,6 +72,7 @@ public class SignUpFirstSceneController implements Initializable {
         genderComboBox.getItems().addAll("MALE", "FEMALE");
         countryComboBox1.getItems().addAll("Egypt", "Morocco", "Kuwait", "Palestinian", "Qatar", "Other");
         signUpButton.setDisable(true);
+        dateOfBirthDP.setValue(LocalDate.of(LocalDate.now().getYear() - 12, 5, 23));
     }
 
     @FXML
@@ -162,7 +164,7 @@ public class SignUpFirstSceneController implements Initializable {
             userNameTF.setStyle("-fx-border-color: red; -fx-border-width: 1px");
             userNameTF.setTooltip(hintText("Username is required", errorImage("/images/question-mark.png")));
             valid = false;
-        } else if (!userNameTF.getText().matches("^[a-zA-Z]{4,}(?: [a-zA-Z]+){0,2}$")) {
+        } else if (!userNameTF.getText().matches("^[a-zA-Z]{3,}(?: [a-zA-Z]+){0,2}$")) {
             userNameTF.setStyle("-fx-border-color: red; -fx-border-width: 1px");
             userNameTF.setTooltip(hintText("Invalid Name\nExample: Ahmed Mohamed", errorImage("/images/error.png")));
             valid = false;
@@ -240,6 +242,10 @@ public class SignUpFirstSceneController implements Initializable {
         if (dateOfBirthDP.getValue() == null) {
             dateOfBirthDP.setStyle("-fx-border-color: red; -fx-border-width: 1px");
             dateOfBirthDP.setTooltip(hintText("Date is required", errorImage("/images/question-mark.png")));
+            valid = false;
+        } else if (dateOfBirthDP.getValue().getYear() >= 2012) {
+            dateOfBirthDP.setStyle("-fx-border-color: red; -fx-border-width: 1px");
+            dateOfBirthDP.setTooltip(hintText("You must be at least twelve years old.", errorImage("/images/error.png")));
             valid = false;
         } else {
             dateOfBirthDP.setStyle("-fx-border-color: -fx-gray-color;");

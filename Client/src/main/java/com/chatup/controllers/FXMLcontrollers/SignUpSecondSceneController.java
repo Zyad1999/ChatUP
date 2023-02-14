@@ -16,7 +16,6 @@ import javafx.stage.FileChooser;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.util.ResourceBundle;
@@ -37,6 +36,7 @@ public class SignUpSecondSceneController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         userImage = new Image(getClass().getResourceAsStream("/images/default_profile_pic.jpg"));
         profileImage.setFill(new ImagePattern(userImage));
+
     }
 
     @FXML
@@ -50,10 +50,8 @@ public class SignUpSecondSceneController implements Initializable {
                 CurrentUserImp.getCurrentUser().setImg(fileContent);
                 userImage = new Image(file.toURI().toURL().toString());
                 System.out.println("image loaded -> " + file.toPath());
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                e.printStackTrace();
             }
         } else {
             userImage = new Image(SignInSecondSceneController.class.getResourceAsStream("/images/default_profile_pic.jpg"));

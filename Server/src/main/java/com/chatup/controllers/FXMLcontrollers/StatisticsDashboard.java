@@ -45,6 +45,15 @@ public class StatisticsDashboard implements Initializable {
     @FXML
     private Button statisticsButton;
 
+    private static StatisticsDashboard statisticsDashboard;
+
+    private StatisticsDashboard(){}
+
+    public static StatisticsDashboard getStatisticsDashboard(){
+        if (statisticsDashboard == null)
+            statisticsDashboard = new StatisticsDashboard();
+        return statisticsDashboard;
+    }
     @FXML
     void announcementButtonHandler(ActionEvent event) {
         StageManager.getInstance().switchToAnnouncement();
@@ -137,8 +146,7 @@ public class StatisticsDashboard implements Initializable {
         countryLineChart.getData().addAll(xyChart("Egypt"), xyChart("Morocco"), xyChart("Kuwait"), xyChart("Palestinian"), xyChart("Qatar"), xyChart("Other"));
     }
 
-    @FXML
-    void refershStatisitics(MouseEvent event) {
+    public void refershStatisitic(){
         genderPieChartHandler();
         userStatePieChartHandler();
         countryBarChartHandler();

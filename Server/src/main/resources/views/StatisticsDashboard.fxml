@@ -22,7 +22,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="1050.0" styleClass="right-side" stylesheets="@../Styles/OverviewDashboard.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chatup.controllers.FXMLcontrollers.StatisticsDashboard">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="1050.0" styleClass="right-side" stylesheets="@../Styles/OverviewDashboard.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <VBox alignment="TOP_CENTER" prefHeight="576.0" prefWidth="256.0" spacing="10.0" styleClass="left-side" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -92,52 +92,66 @@
         </VBox>
         <BorderPane layoutX="260.0" prefHeight="576.0" prefWidth="790.0" styleClass="right-side">
             <top>
-                <HBox alignment="TOP_RIGHT" prefHeight="107.0" prefWidth="790.0" styleClass="right-side" BorderPane.alignment="CENTER">
-                    <children>
-                        <TextFlow prefHeight="101.0" prefWidth="731.0" textAlignment="CENTER">
-                            <children>
-                                <Text fill="#0f3d3e" strokeType="OUTSIDE" strokeWidth="0.0" text="Statistics" textAlignment="CENTER">
-                                    <font>
-                                        <Font name="Comfortaa Bold" size="48.0" />
-                                    </font>
-                                </Text>
-                            </children>
-                            <padding>
-                                <Insets left="50.0" top="40.0" />
-                            </padding>
-                        </TextFlow>
-                        <ImageView fx:id="closeXButton" fitHeight="49.0" fitWidth="49.0" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#closeButtonHandler" pickOnBounds="true" preserveRatio="true" styleClass="close-button">
-                            <image>
-                                <Image url="@../images/close-window.png" />
-                            </image>
-                            <HBox.margin>
-                                <Insets right="10.0" top="10.0" />
-                            </HBox.margin>
-                            <cursor>
-                                <Cursor fx:constant="HAND" />
-                            </cursor>
+            <VBox BorderPane.alignment="CENTER">
+               <children>
+                  <HBox fx:id="dragBar" alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="790.0" style="-fx-border-color: linear-gradient(to top left, rgba(16,15,15,1) 0%, rgba(15,61,62,1) 20%, rgba(241,241,241,1) 100%);">
+                     <cursor>
+                        <Cursor fx:constant="MOVE" />
+                     </cursor>
+                     <children>
+                        <ImageView fx:id="minimiseButton" fitHeight="30.0" fitWidth="30.0" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#minimiseButtonHandler" pickOnBounds="true" preserveRatio="true" styleClass="close-button">
+                           <image>
+                              <Image url="@../images/Minimize.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
                         </ImageView>
-                    </children>
-                </HBox>
+                        <ImageView fx:id="closeXButton1" fitHeight="30.0" fitWidth="30.0" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#closeButtonHandler" pickOnBounds="true" preserveRatio="true" styleClass="close-button">
+                           <image>
+                              <Image url="@../images/close-window.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </ImageView>
+                     </children>
+                  </HBox>
+                      <HBox alignment="TOP_RIGHT" prefHeight="107.0" prefWidth="790.0" styleClass="right-side">
+                          <children>
+                              <TextFlow prefHeight="101.0" prefWidth="731.0" textAlignment="CENTER">
+                                  <children>
+                                      <Text fill="#0f3d3e" strokeType="OUTSIDE" strokeWidth="0.0" text="Statistics" textAlignment="CENTER">
+                                          <font>
+                                              <Font name="Comfortaa Bold" size="48.0" />
+                                          </font>
+                                      </Text>
+                                  </children>
+                                  <padding>
+                                      <Insets left="120.0" top="40.0" />
+                                  </padding>
+                              </TextFlow>
+                          </children>
+                      </HBox>
+               </children>
+            </VBox>
             </top>
             <center>
                 <Pane prefHeight="395.0" prefWidth="790.0" stylesheets="@../Styles/StatisticsDashboard.css" BorderPane.alignment="CENTER">
                     <children>
-                  <TabPane layoutX="37.0" layoutY="26.0" prefHeight="424.0" prefWidth="716.0" stylesheets="@../Styles/StatisticsDashboard.css" tabClosingPolicy="UNAVAILABLE">
+                  <TabPane layoutX="37.0" layoutY="12.0" prefHeight="438.0" prefWidth="716.0" stylesheets="@../Styles/StatisticsDashboard.css" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
                       <Tab styleClass="tab-pane" text="User State">
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
                                     <PieChart fx:id="userStatePieChart" layoutX="68.0" layoutY="27.0" prefHeight="265.0" prefWidth="590.0" />
-                                    <ImageView fitHeight="49.0" fitWidth="46.0" layoutX="666.0" layoutY="3.0" onMouseClicked="#refershStatisitics" pickOnBounds="true" preserveRatio="true" styleClass="close-button">
-                                       <image>
-                                          <Image url="@../images/refresh.png" />
-                                       </image>
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor>
-                                    </ImageView>
                                  </children>
                               </AnchorPane>
                         </content>
@@ -147,14 +161,6 @@
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
                                     <PieChart fx:id="genderPieChart" labelLineLength="10.0" layoutX="68.0" layoutY="27.0" prefHeight="265.0" prefWidth="590.0" />
-                                    <ImageView fitHeight="49.0" fitWidth="46.0" layoutX="666.0" layoutY="3.0" onMouseClicked="#refershStatisitics" pickOnBounds="true" preserveRatio="true" styleClass="close-button">
-                                       <image>
-                                          <Image url="@../images/refresh.png" />
-                                       </image>
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor>
-                                    </ImageView>
                                  </children>
                               </AnchorPane>
                         </content>
@@ -171,14 +177,6 @@
                                         <NumberAxis side="LEFT" />
                                       </yAxis>
                                     </LineChart>
-                                    <ImageView fitHeight="49.0" fitWidth="46.0" layoutX="666.0" layoutY="3.0" onMouseClicked="#refershStatisitics" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;" styleClass="close-button">
-                                       <image>
-                                          <Image url="@../images/refresh.png" />
-                                       </image>
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor>
-                                    </ImageView>
                                  </children>
                               </AnchorPane>
                            </content>

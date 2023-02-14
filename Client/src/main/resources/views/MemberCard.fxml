@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
+
+<HBox alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" spacing="5.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Circle fx:id="memberImage" fill="WHITE" radius="22.0" stroke="BLACK" strokeType="INSIDE" />
+      <TextFlow maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="18.0" prefWidth="86.0" textAlignment="CENTER" HBox.hgrow="ALWAYS">
+         <children>
+            <Text fx:id="memberPhone" strokeType="OUTSIDE" strokeWidth="0.0" text="+201253256558" textAlignment="CENTER" />
+         </children>
+         <HBox.margin>
+            <Insets bottom="8.0" right="8.0" top="12.0" />
+         </HBox.margin>
+      </TextFlow>
+   </children>
+</HBox>

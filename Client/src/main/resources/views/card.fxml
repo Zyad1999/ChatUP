@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<HBox styleClass="users_menu_card" stylesheets="@../style/MainStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="270.0" styleClass="users_menu_card" stylesheets="@../style/MainStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ImageView fx:id="friend_image_menu" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" styleClass="user-image-menu">
          <image>
@@ -28,9 +28,9 @@
                <font>
                   <Font name="Arial Bold" size="12.0" />
                </font></Text>
-            <TextFlow prefHeight="0.0" prefWidth="190.0" styleClass="textflow_menu">
+            <TextFlow maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="190.0" styleClass="textflow_menu">
                <children>
-                  <Text fx:id="content_id" strokeType="OUTSIDE" strokeWidth="0.0" text="Hello every one that is a dome datat for the example...">
+                  <Text fx:id="content_id" strokeType="OUTSIDE" strokeWidth="0.0" text="Hello every one that is a dome datat for the exampleijsdVLIFSA?DINVl/asfn/'lvinslk/nvl/ksadfnvb" wrappingWidth="187.23046875">
                      <cursor>
                         <Cursor fx:constant="TEXT" />
                      </cursor>

@@ -4,19 +4,25 @@ import com.chatup.models.enums.ServerState;
 import com.chatup.network.ServerConnection;
 import com.chatup.utils.StageManager;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class OverviewDashboard implements Initializable {
+    private static double xOffset = 0;
+    private static double yOffset = 0;
     private ServerConnection serverConnection;
     private ServerState serverState = ServerState.STOPPED;
     @FXML
@@ -33,6 +39,8 @@ public class OverviewDashboard implements Initializable {
     private Button announcementButton;
     @FXML
     private Button signoutButton;
+    @FXML
+    private HBox dragBar;
 
     @FXML
     void announcementButtonHandler(ActionEvent event) {
@@ -113,5 +121,26 @@ public class OverviewDashboard implements Initializable {
             stopServerButton.setDisable(true);
             stopCircle.setFill(Color.web("#FF0000"));
         }
+        dragBar.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                xOffset = event.getSceneX();
+                yOffset = event.getSceneY();
+            }
+        });
+        dragBar.setOnMouseDragged(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                stage.setX(event.getScreenX() - xOffset);
+                stage.setY(event.getScreenY() - yOffset);
+            }
+        });
+    }
+
+    @FXML
+    public void minimiseButtonHandler(MouseEvent event) {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setIconified(true);
     }
 }

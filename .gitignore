@@ -5,6 +5,7 @@ Server/target
 /Server/src/main/resources/auth.properties
 /Server/src/main/resources/files
 /Server/files
+/Client/src/main/resources/remember.properties
 .vscode
 Server/Server.iml
 Client/Client.iml

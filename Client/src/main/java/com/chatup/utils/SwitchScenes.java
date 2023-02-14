@@ -56,9 +56,25 @@ public class SwitchScenes {
         stage.show();
     }
 
+    public  void switchToSignInSecond(Stage stage) throws IOException {
+        Parent root = FXMLLoader.load(SwitchScenes.class.getResource("/views/SignInSecondScene.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
     public  void switchToChatScreen(Event e) throws IOException {
         Parent root = FXMLLoader.load(e.getClass().getResource("/views/chatscreen.fxml"));
         Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+        stage.setX(20);
+        stage.setY(20);
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public  void switchToChatScreen(Stage stage) throws IOException {
+        Parent root = FXMLLoader.load(SwitchScenes.class.getResource("/views/chatscreen.fxml"));
         stage.setX(20);
         stage.setY(20);
         Scene scene = new Scene(root);

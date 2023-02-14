@@ -5,6 +5,7 @@ import com.chatup.utils.StageManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -17,12 +18,18 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class StatisticsDashboard implements Initializable {
+    private static double xOffset = 0;
+    private static double yOffset = 0;
+    @FXML
+    public HBox dragBar;
     @FXML
     private PieChart userStatePieChart;
     @FXML
@@ -38,6 +45,15 @@ public class StatisticsDashboard implements Initializable {
     @FXML
     private Button statisticsButton;
 
+    private static StatisticsDashboard statisticsDashboard;
+
+    private StatisticsDashboard(){}
+
+    public static StatisticsDashboard getStatisticsDashboard(){
+        if (statisticsDashboard == null)
+            statisticsDashboard = new StatisticsDashboard();
+        return statisticsDashboard;
+    }
     @FXML
     void announcementButtonHandler(ActionEvent event) {
         StageManager.getInstance().switchToAnnouncement();
@@ -130,8 +146,7 @@ public class StatisticsDashboard implements Initializable {
         countryLineChart.getData().addAll(xyChart("Egypt"), xyChart("Morocco"), xyChart("Kuwait"), xyChart("Palestinian"), xyChart("Qatar"), xyChart("Other"));
     }
 
-    @FXML
-    void refershStatisitics(MouseEvent event) {
+    public void refershStatisitic(){
         genderPieChartHandler();
         userStatePieChartHandler();
         countryBarChartHandler();
@@ -143,5 +158,26 @@ public class StatisticsDashboard implements Initializable {
         genderPieChartHandler();
         userStatePieChartHandler();
         countryBarChartHandler();
+        dragBar.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                xOffset = event.getSceneX();
+                yOffset = event.getSceneY();
+            }
+        });
+        dragBar.setOnMouseDragged(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                stage.setX(event.getScreenX() - xOffset);
+                stage.setY(event.getScreenY() - yOffset);
+            }
+        });
+    }
+
+    @FXML
+    public void minimiseButtonHandler(MouseEvent event) {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setIconified(true);
     }
 }

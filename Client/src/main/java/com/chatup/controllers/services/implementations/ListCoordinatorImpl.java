@@ -6,6 +6,7 @@ import com.chatup.models.entities.FriendRequest;
 import com.chatup.models.entities.User;
 import com.chatup.models.enums.CardType;
 import com.chatup.models.enums.UserStatus;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.VBox;
 
@@ -22,6 +23,7 @@ public class ListCoordinatorImpl implements ListCoordinator {
     private static ObservableList<Card> userOfflineFriends;
 
     private static ObservableList<User> userFriendRequests;
+    private static ObservableList<User> groupMembers;
 
     private static HashMap<Integer, VBox> singleChatMap = new HashMap<>();
 
@@ -45,7 +47,12 @@ public class ListCoordinatorImpl implements ListCoordinator {
             userChats = UserListsImpl.getUserLists().getAllUserChats();
         return userChats;
     }
+    @Override
+    public ObservableList<User> getGroupMembers(int groupId) {
 
+          return  groupMembers = FXCollections.<User>observableArrayList( UserListsImpl.getUserLists().getAllgroupMembers(groupId));
+
+    }
     @Override
     public ObservableList<Card> getUserGroups() {
         if(userGroups==null)

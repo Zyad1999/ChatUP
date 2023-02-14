@@ -87,33 +87,55 @@
         </VBox>
       <BorderPane layoutX="260.0" prefHeight="576.0" prefWidth="790.0" styleClass="right-side">
          <top>
-            <HBox alignment="TOP_RIGHT" prefHeight="166.0" prefWidth="790.0" styleClass="right-side" BorderPane.alignment="CENTER">
+            <VBox BorderPane.alignment="CENTER">
                <children>
-                  <TextFlow prefHeight="20.0" prefWidth="731.0" textAlignment="CENTER">
-                     <children>
-                        <Text fill="#0f3d3e" strokeType="OUTSIDE" strokeWidth="0.0" text="Admin Dashboard" textAlignment="CENTER">
-                           <font>
-                              <Font name="Comfortaa Bold" size="48.0" />
-                           </font>
-                        </Text>
-                     </children>
-                     <padding>
-                        <Insets left="50.0" top="90.0" />
-                     </padding>
-                  </TextFlow>
-                  <ImageView fx:id="closeXButton" fitHeight="49.0" fitWidth="49.0" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#closeButtonHandler" pickOnBounds="true" preserveRatio="true" styleClass="close-button">
-                     <image>
-                        <Image url="@../images/close-window.png" />
-                     </image>
-                     <HBox.margin>
-                        <Insets right="10.0" top="10.0" />
-                     </HBox.margin>
+                  <HBox fx:id="dragBar" alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="790.0" style="-fx-border-color: linear-gradient(to top left, rgba(16,15,15,1) 0%, rgba(15,61,62,1) 20%, rgba(241,241,241,1) 100%);">
                      <cursor>
-                        <Cursor fx:constant="HAND" />
+                        <Cursor fx:constant="MOVE" />
                      </cursor>
-                  </ImageView>
+                     <children>
+                        <ImageView fx:id="minimiseButton" fitHeight="30.0" fitWidth="30.0" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#minimiseButtonHandler" pickOnBounds="true" preserveRatio="true" styleClass="close-button">
+                           <image>
+                              <Image url="@../images/Minimize.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <ImageView fx:id="closeXButton1" fitHeight="30.0" fitWidth="30.0" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#closeButtonHandler" pickOnBounds="true" preserveRatio="true" styleClass="close-button">
+                           <image>
+                              <Image url="@../images/close-window.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </ImageView>
+                     </children>
+                  </HBox>
+                  <HBox alignment="TOP_RIGHT" prefHeight="166.0" prefWidth="790.0" styleClass="right-side">
+                     <children>
+                        <TextFlow prefHeight="20.0" prefWidth="731.0" textAlignment="CENTER">
+                           <children>
+                              <Text fill="#0f3d3e" strokeType="OUTSIDE" strokeWidth="0.0" text="Admin Dashboard" textAlignment="CENTER">
+                                 <font>
+                                    <Font name="Comfortaa Bold" size="48.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                           <padding>
+                              <Insets left="120.0" top="90.0" />
+                           </padding>
+                        </TextFlow>
+                     </children>
+                  </HBox>
                </children>
-            </HBox>
+            </VBox>
          </top>
          <center>
             <Pane prefHeight="395.0" prefWidth="790.0" BorderPane.alignment="CENTER">

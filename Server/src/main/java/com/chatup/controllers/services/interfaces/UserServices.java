@@ -23,4 +23,7 @@ public interface UserServices {
     int getNumberAllOnlineUsers();
 
     int getNumberAllCountryOfUsers(String country);
+    boolean updateUserInfo (User user);
+    boolean updateUserImage (int userID, String phone, byte[] img);
+    boolean updateUserPassword (int userID, String password);
 }

@@ -156,7 +156,10 @@ public class UserRepoImpl implements UserRepo {
                 System.out.println("User was not updated");
                 return false;
             } else {
+                System.out.println("User was  updated");
+
                 return true;
+
             }
         } catch (SQLException e) {
             e.printStackTrace();

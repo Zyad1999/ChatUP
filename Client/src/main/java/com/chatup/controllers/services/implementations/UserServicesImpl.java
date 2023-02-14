@@ -37,6 +37,33 @@ public class UserServicesImpl implements UserServices {
             return null;
         }
     }
+    @Override
+    public Boolean UpdateUser(User userInfo){
+        try {
+            return ServerConnection.getServer().updateUserInfo(userInfo);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    @Override
+    public Boolean UpdateUserImage(int userID, String phone, byte[] img){
+        try {
+            return ServerConnection.getServer().updateUserImage(userID,phone,img);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    @Override
+    public Boolean UpdateUserPassword(int userID, String password){
+        try {
+            return ServerConnection.getServer().updateUserPassword(userID,password);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
     @Override
     public User getFiendData(String userPhone) {

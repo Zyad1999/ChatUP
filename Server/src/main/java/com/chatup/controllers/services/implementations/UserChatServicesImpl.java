@@ -5,6 +5,9 @@ import com.chatup.controllers.reposotories.implementations.ChatRepoImpl;
 import com.chatup.controllers.services.interfaces.UserChatServices;
 import com.chatup.models.entities.Chat;
 import com.chatup.models.entities.ChatMessage;
+import com.chatup.models.entities.User;
+
+import java.util.List;
 
 public class UserChatServicesImpl implements UserChatServices {
 
@@ -32,4 +35,11 @@ public class UserChatServicesImpl implements UserChatServices {
     public int createChat(Chat chat){
         return ChatRepoImpl.getInstance().createSingleChat(chat);
     }
+
+    @Override
+    public List<User> getSingleChatUsers(int singleChatId) {
+        return ChatRepoImpl.getInstance().getSingleChatUsers(singleChatId);
+    }
+
+
 }

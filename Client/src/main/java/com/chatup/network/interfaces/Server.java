@@ -36,4 +36,5 @@ public interface Server extends Remote {
     public boolean updateUserInfo(User user) throws RemoteException;
     public boolean updateUserImage(int userID, String phone, byte[] img)throws RemoteException;
     public boolean updateUserPassword(int userID, String password)throws RemoteException ;
+    public List<User> getSingleChatUsers(int singleChatId) throws RemoteException;
 }

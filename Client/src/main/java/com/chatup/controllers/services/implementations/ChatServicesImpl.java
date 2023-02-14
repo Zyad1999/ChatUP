@@ -236,4 +236,13 @@ public class ChatServicesImpl implements ChatService {
             return null;
         }
     }
+
+    @Override
+    public List<User> getSingleChatUsers(int singleChatId) {
+        try {
+            return ServerConnection.getServer().getSingleChatUsers(singleChatId);
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

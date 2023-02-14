@@ -3,8 +3,12 @@ package com.chatup.controllers.services.interfaces;
 import com.chatup.models.entities.Chat;
 import com.chatup.models.entities.ChatMessage;
 import com.chatup.models.entities.GroupMessage;
+import com.chatup.models.entities.User;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+
+import java.rmi.RemoteException;
+import java.util.List;
 
 public interface ChatService {
 
@@ -25,6 +29,6 @@ public interface ChatService {
     void updateGroupChatList(int groupChatID, String content);
 
     int createChat(Chat chat);
-
     Chat getChat(int chatID);
+     List<User> getSingleChatUsers(int singleChatId) ;
 }

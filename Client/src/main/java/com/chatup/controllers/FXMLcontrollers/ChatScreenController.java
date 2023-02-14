@@ -13,6 +13,7 @@ import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.animation.*;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -37,6 +38,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -188,8 +190,12 @@ public class ChatScreenController implements Initializable {
                         VBox box = ListCoordinatorImpl.getListCoordinator().getSingleChatVbox(selected.getCardID());
                         scrollPane.setContent(box);
                         CurrentChat.setCurrentChatSingle(selected.getCardID());
-
-                        friendUser =  UserServicesImpl.getUserServices().getUser(selected.getCardID());
+                        List<User> chatUsers = ChatServicesImpl.getChatService().getSingleChatUsers(selected.getCardID());
+                        if(chatUsers.get(0).getId()==CurrentUserImp.getCurrentUser().getId())
+                                friendUser =  chatUsers.get(1);
+                        else {
+                            friendUser = chatUsers.get(0);
+                        }
                         friendInfoController friendInfoController = new friendInfoController(friendUser);
                         loader.setController(friendInfoController);
                         try {
@@ -203,7 +209,6 @@ public class ChatScreenController implements Initializable {
                         VBox box = ListCoordinatorImpl.getListCoordinator().getGroupChatVbox(selected.getCardID());
                         scrollPane.setContent(box);
                         CurrentChat.setCurrentChatGroup(selected.getCardID());
-
                         GroupInfoController groupInfoController = new GroupInfoController(selected);
                         loadergroup.setController(groupInfoController);
                         try {
@@ -284,6 +289,7 @@ public class ChatScreenController implements Initializable {
                 stage.setY(event.getScreenY() - yOffset);
             }
         });
+
             friendName = new SimpleStringProperty("");
 
             friendNameClose.textProperty().bind(friendName);
@@ -358,7 +364,21 @@ public class ChatScreenController implements Initializable {
             });
             /////////////////
             prepareListView(cardsListView, scrollPane);
-            cardsListView.setItems(ListCoordinatorImpl.getListCoordinator().getUserChats());
+
+        FilteredList<Card> filteredList = new FilteredList<>(ListCoordinatorImpl.getListCoordinator().getUserChats());
+
+        cardsListView.setItems(filteredList);
+
+
+        txt_ld_search.textProperty().addListener((observable, oldValue, newValue) ->  {
+            if (newValue.isEmpty()) {
+                filteredList.setPredicate(null);
+            } else {
+                final String searchString = newValue.toUpperCase();
+                filteredList.setPredicate(s -> s.getCardName().toUpperCase().contains(searchString));
+            }
+        });
+
     }
     @FXML
     void showFriendDetails(MouseEvent event) {

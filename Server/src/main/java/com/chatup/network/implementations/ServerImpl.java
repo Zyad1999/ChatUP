@@ -217,4 +217,8 @@ public class ServerImpl extends UnicastRemoteObject implements Server {
     public boolean updateUserPassword(int userID, String password)throws RemoteException {
         return UserRepoImpl.getUserRepo().updateUserPassword(userID,password);
     }
+    @Override
+    public List<User> getSingleChatUsers(int singleChatId) throws RemoteException{
+        return  UserChatServicesImpl.getUserChatServices().getSingleChatUsers(singleChatId);
+    }
 }

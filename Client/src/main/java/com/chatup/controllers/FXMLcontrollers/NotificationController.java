@@ -12,7 +12,7 @@ import java.util.ResourceBundle;
 public class NotificationController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        System.out.println();
     }
 
     @FXML

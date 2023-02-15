@@ -148,6 +148,10 @@ public class ChatScreenController implements Initializable {
     @FXML
     private AnchorPane chatAnchorpan;
     @FXML
+    private AnchorPane headerChat;
+    @FXML
+    private AnchorPane footerChat;
+    @FXML
     private AnchorPane containerAnchorPan;
 
     @FXML
@@ -195,6 +199,8 @@ public class ChatScreenController implements Initializable {
             @Override
             public void handle(MouseEvent mouseEvent)
             {
+                headerChat.setVisible(true);
+                footerChat.setVisible(true);
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/friendInfo.fxml"));
                 FXMLLoader loadergroup = new FXMLLoader(getClass().getResource("/views/GroupInfo.fxml"));
                 Card selected = (Card)cardsListView.getSelectionModel().getSelectedItem();
@@ -307,7 +313,9 @@ public class ChatScreenController implements Initializable {
         settings_btn.setStyle("-fx-opacity: 0.3");
         chatBot_btn.setStyle("-fx-opacity: 0.3");
 
-        chatAnchorpan.setVisible(false);
+//        chatAnchorpan.setVisible(false);
+        headerChat.setVisible(false);
+        footerChat.setVisible(false);
 
         dragBar.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override

@@ -72,10 +72,8 @@ public class ListCoordinatorImpl implements ListCoordinator {
         return userGroups;
     }
     public ObservableList<User> getAllUserFriendRequests() {
-        if(userFriendRequests==null)
-            userFriendRequests = UserListsImpl.getUserLists().getAllUserFriendRequests();
 
-        return userFriendRequests;
+       return UserListsImpl.getUserLists().getAllUserFriendRequests();
     }
     public Boolean updatesUserFriendRequests(FriendRequest friendRequests) {
         return UserListsImpl.getUserLists().updatesUserFriendRequests(friendRequests);
@@ -91,6 +89,10 @@ public class ListCoordinatorImpl implements ListCoordinator {
     public ObservableList<Card> getUserOnlineFriends() {
         if(userOnlineFriends==null)
             userOnlineFriends = UserListsImpl.getUserLists().getUserFriends(UserStatus.ONLINE);
+        else{
+            userOnlineFriends.clear();
+            userOnlineFriends.addAll(UserListsImpl.getUserLists().getUserFriends(UserStatus.ONLINE));
+        }
 
         return userOnlineFriends;
     }
@@ -99,7 +101,10 @@ public class ListCoordinatorImpl implements ListCoordinator {
     public ObservableList<Card> getUserOfflineFriends() {
         if(userOfflineFriends==null)
             userOfflineFriends = UserListsImpl.getUserLists().getUserFriends(UserStatus.OFFLINE);
-
+        else{
+            userOfflineFriends.clear();
+            userOfflineFriends.addAll(UserListsImpl.getUserLists().getUserFriends(UserStatus.OFFLINE));
+        }
         return userOfflineFriends;
     }
 

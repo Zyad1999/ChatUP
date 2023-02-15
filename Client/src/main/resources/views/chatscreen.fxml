@@ -93,7 +93,7 @@
                                     </MFXButton>
                                     <MFXButton fx:id="chatBot_btn" buttonType="RAISED" contentDisplay="CENTER" onAction="#chatBotButtonHandler" prefHeight="55.0" prefWidth="59.0" styleClass="MFXButton" text=" " textFill="WHITE">
                                        <graphic>
-                                          <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="botImg" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../images/chatBot.png" />
                                              </image>

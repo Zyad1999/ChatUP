@@ -145,6 +145,10 @@ public class ChatScreenController implements Initializable {
     @FXML
     private AnchorPane chatAnchorpan;
     @FXML
+    private AnchorPane headerChat;
+    @FXML
+    private AnchorPane footerChat;
+    @FXML
     private AnchorPane containerAnchorPan;
 
     @FXML
@@ -192,6 +196,8 @@ public class ChatScreenController implements Initializable {
             @Override
             public void handle(MouseEvent mouseEvent)
             {
+                headerChat.setVisible(true);
+                footerChat.setVisible(true);
                 FXMLLoader loadergroup = new FXMLLoader(getClass().getResource("/views/GroupInfo.fxml"));
                 Card selected = (Card)cardsListView.getSelectionModel().getSelectedItem();
                 System.out.println(selected.getCardType() );
@@ -308,7 +314,14 @@ public class ChatScreenController implements Initializable {
         settings_btn.setStyle("-fx-opacity: 0.3");
         chatBot_btn.setStyle("-fx-opacity: 0.3");
 
-        //chatAnchorpan.setVisible(false);
+       
+//        chatAnchorpan.setVisible(false);
+        headerChat.setVisible(false);
+        footerChat.setVisible(false);
+
+//        chatAnchorpan.setVisible(false);
+        headerChat.setVisible(false);
+        footerChat.setVisible(false);
 
         dragBar.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
@@ -610,20 +623,20 @@ public class ChatScreenController implements Initializable {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+            Stage stage = new Stage(StageStyle.TRANSPARENT);
+            scene.setFill(Color.TRANSPARENT);
+            scene.getRoot().setStyle("-fx-background-radius: 20;");
+            stage.setScene(scene);
+            stage.show();
+            Scene oldScene = ((Node) event.getSource()).getScene();
+            oldScene.getRoot().setDisable(true);
+
+            stage.setOnHidden(event1 -> {
+                oldScene.getRoot().setDisable(false);
+            });
+        } catch(IOException e) {
+            e.printStackTrace();
         }
-        Stage stage = new Stage(StageStyle.TRANSPARENT);
-        scene.setFill(Color.TRANSPARENT);
-        scene.getRoot().setStyle("-fx-background-radius: 20;");
-        //stage.initStyle(StageStyle.UNDECORATED);
-
-        stage.setScene(scene);
-        stage.show();
-        Scene oldScene = ((Node) event.getSource()).getScene();
-        oldScene.getRoot().setDisable(true);
-
-        stage.setOnHidden(event1 -> {
-            oldScene.getRoot().setDisable(false);
-        });
     }
 
 

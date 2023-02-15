@@ -11,7 +11,6 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -54,8 +53,8 @@ public class AddFriendRequestController implements Initializable {
                             if (item != null) {
                                 Image userImage = new Image(new ByteArrayInputStream(item.getImg()), 30, 30, false, true);
                                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/AddFriendCard.fxml"));
-                                AddFriendRequestCardController cardController = new AddFriendRequestCardController(item.getUserName(), item.getPhoneNumber(), userImage, item.getId());
-                                loader.setController(cardController);
+//                                AddFriendRequestCardController cardController = new AddFriendRequestCardController(item.getUserName(), item.getPhoneNumber(), userImage, item.getId());
+//                                loader.setController(cardController);
                                 try {
                                     setGraphic(loader.load());
                                 } catch (IOException e) {
@@ -93,7 +92,7 @@ public class AddFriendRequestController implements Initializable {
     void addInListView(ActionEvent event) {
         String FriendPhone = friendNumberTxt.getText().trim();
         User friendData = UserServicesImpl.getUserServices().getFiendData(FriendPhone);
-        if(friendData!=null && !FriendPhone.equals(CurrentUserImp.getCurrentUser().getPhoneNumber()))
+        if (friendData != null && !FriendPhone.equals(CurrentUserImp.getCurrentUser().getPhoneNumber()))
             invitationList.add(friendData);
     }
 
@@ -105,6 +104,12 @@ public class AddFriendRequestController implements Initializable {
         }
         boolean result = UserServicesImpl.getUserServices().createFriendRequests(friendRequestList);
         System.out.println(result);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.close();
+    }
+
+    @FXML
+    public void closeButton(MouseEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
     }

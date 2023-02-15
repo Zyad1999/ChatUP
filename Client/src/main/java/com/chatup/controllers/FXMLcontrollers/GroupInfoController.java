@@ -1,35 +1,30 @@
 package com.chatup.controllers.FXMLcontrollers;
 
-import com.chatup.controllers.services.implementations.*;
-import com.chatup.controllers.services.interfaces.ListCoordinator;
+import com.chatup.controllers.services.implementations.CurrentChat;
+import com.chatup.controllers.services.implementations.CurrentUserImp;
+import com.chatup.controllers.services.implementations.GroupServicesImpl;
+import com.chatup.controllers.services.implementations.ListCoordinatorImpl;
 import com.chatup.models.entities.Card;
-import com.chatup.models.entities.Chat;
 import com.chatup.models.entities.User;
-import com.chatup.models.enums.CardType;
-import com.chatup.network.ServerConnection;
-import com.chatup.network.implementations.ClientImpl;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import javafx.application.Platform;
-import javafx.collections.ObservableArray;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Callback;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.rmi.RemoteException;
 import java.util.Objects;
 
 public class GroupInfoController {
@@ -51,10 +46,11 @@ public class GroupInfoController {
     private Card card;
 
 
-    public GroupInfoController(Card card){
+    public GroupInfoController(Card card) {
         this.card = card;
     }
-    public  void initialize(){
+
+    public void initialize() {
         groupShowDataName.setText(card.getCardName());
         Image userImage = new Image(new ByteArrayInputStream(card.getCardImg()));
         groupShowDataImage.setFill(new ImagePattern(userImage));
@@ -62,7 +58,8 @@ public class GroupInfoController {
         groupMembersListView.setItems(ListCoordinatorImpl.getListCoordinator().getGroupMembers(card.getCardID()));
 
     }
-    private  void prepareListView(ListView cardsListView) {
+
+    private void prepareListView(ListView cardsListView) {
         cardsListView.setCellFactory(new Callback<ListView<User>, ListCell<User>>() {
             public ListCell<User> call(ListView<User> param) {
                 final Tooltip tooltip = new Tooltip();
@@ -102,23 +99,27 @@ public class GroupInfoController {
 
     @FXML
     void Addmember(ActionEvent event) {
-        FXMLLoader loader ;
+        FXMLLoader loader;
         Scene scene = null;
         try {
-            System.out.println("Current List= "+ListCoordinatorImpl.currentList);
+            System.out.println("Current List= " + ListCoordinatorImpl.currentList);
 
             loader = new FXMLLoader(Objects.requireNonNull(ChatScreenController.class.getResource("/views/AddFriend.fxml")));
-            AddFriendRequestController addFriendRequestController = new AddFriendRequestController("addmember",CurrentChat.getCurrentChat().getCurrentChatID());
+            AddFriendRequestController addFriendRequestController = new AddFriendRequestController("addmember", CurrentChat.getCurrentChat().getCurrentChatID());
             loader.setController(addFriendRequestController);
             scene = new Scene(loader.load(), 550, 550);
-
-            Stage stage = new Stage();
+            Stage stage = new Stage(StageStyle.TRANSPARENT);
+            scene.setFill(Color.TRANSPARENT);
+            scene.getRoot().setStyle("-fx-background-radius: 20;");
             stage.setScene(scene);
             stage.show();
+            Scene oldScene = ((Node) event.getSource()).getScene();
+            oldScene.getRoot().setDisable(true);
 
-            //((Node)(event.getSource())).getScene().getRoot().setDisable(true);
-        }
-        catch (IOException e) {
+            stage.setOnHidden(event1 -> {
+                oldScene.getRoot().setDisable(false);
+            });
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -130,7 +131,7 @@ public class GroupInfoController {
         alert.showAndWait();
 
         if (alert.getResult() == ButtonType.YES) {
-            boolean res = GroupServicesImpl.getGroupService().deleteMemberfromGroup(CurrentUserImp.getCurrentUser().getId(),CurrentChat.getCurrentChat().getCurrentChatID());
+            boolean res = GroupServicesImpl.getGroupService().deleteMemberfromGroup(CurrentUserImp.getCurrentUser().getId(), CurrentChat.getCurrentChat().getCurrentChatID());
             ListCoordinatorImpl.getListCoordinator().getGroupMembers(CurrentChat.getCurrentChat().getCurrentChatID());
             ListCoordinatorImpl.getListCoordinator().updatesUserGroups();
             System.out.println("leave from group" + res);

@@ -42,19 +42,16 @@ public class AttachmentRepoImp  implements AttachmentRepo {
     @Override
     public int addAttachment(Attachment attachment)  {
         int id =-1;
-
-        String insertSQL = "insert into attachment ( attachment_type ,extension , byte_size , location ) VALUES (?, ?, ?, ?)";
+        String insertSQL = "insert into attachment ( attachment_name ,extension , byte_size) VALUES (?, ?, ?)";
         try (PreparedStatement ps = DBConnection.getConnection().prepareStatement(insertSQL, Statement.RETURN_GENERATED_KEYS)) {
-            ps.setString(1, attachment.getAttachmentType());
+            ps.setString(1, attachment.getAttachmentName());
             ps.setString(2, attachment.getExtension());
             ps.setInt(3, attachment.getByteSize());
-            ps.setString(4,attachment.getLocation());
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
                 id = rs.getInt(1);
             }
-            /* send to all clients */
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -63,14 +60,13 @@ public class AttachmentRepoImp  implements AttachmentRepo {
 
     @Override
     public Attachment getAttachment(int id)  {
-        String getAttachmentQuery =   "select attachment_type , extension , byte_size , location  from attachment where attachment_id  = ?";
+        String getAttachmentQuery =   "select attachment_name , extension , byte_size  from attachment where attachment_id  = ?";
         Attachment attachment = null;
         try(PreparedStatement preparedStatement = DBConnection.getConnection().prepareStatement(getAttachmentQuery)){
             preparedStatement.setInt(1,id);
             ResultSet res = preparedStatement.executeQuery();
             if(res.next()) {
-
-                attachment = new Attachment(id,res.getString("attachment_type"), res.getString("extension"), res.getInt("byte_size"), res.getString("location"));
+                attachment = new Attachment(id,res.getString("attachment_name"), res.getString("extension"), res.getInt("byte_size"));
             }
         }catch (SQLException e) {
             e.printStackTrace();
@@ -80,13 +76,12 @@ public class AttachmentRepoImp  implements AttachmentRepo {
 
     @Override
     public boolean updateAttachmentt(Attachment attachment)  {
-        String updateSQL = "update attachment set attachment_type  = ?, extension  = ?, byte_size  = ? ,location = ? where attachment_id  = ? ";
+        String updateSQL = "update attachment set attachment_name  = ?, extension  = ?, byte_size  = ? where attachment_id  = ? ";
         try (PreparedStatement ps =DBConnection.getConnection().prepareStatement(updateSQL)) {
-            ps.setString(1, attachment.getAttachmentType());
+            ps.setString(1, attachment.getAttachmentName());
             ps.setString(2, attachment.getExtension());
             ps.setInt(3, attachment.getByteSize());
-            ps.setString(4, attachment.getLocation());
-            ps.setInt(5, attachment.getId());
+            ps.setInt(4, attachment.getId());
             if(ps.executeUpdate()==1){
                 return true;
             }
@@ -105,7 +100,7 @@ public class AttachmentRepoImp  implements AttachmentRepo {
             ResultSet resultSet = preparedStatement.executeQuery();
             Attachment newAttachment;
             while (resultSet.next()) {
-                newAttachment = new Attachment(resultSet.getInt("attachment_id"), resultSet.getString("attachment_type"), resultSet.getString("extension"), resultSet.getInt("byte_size"),resultSet.getString("location"));
+                newAttachment = new Attachment(resultSet.getInt("attachment_id"), resultSet.getString("attachment_name"), resultSet.getString("extension"), resultSet.getInt("byte_size"));
                 attachments.add(newAttachment);
             }
         } catch (SQLException e) {

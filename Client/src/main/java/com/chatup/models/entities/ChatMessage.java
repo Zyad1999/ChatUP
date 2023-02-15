@@ -30,7 +30,7 @@ public class ChatMessage implements Serializable {
         this.messageDateTime = messageDateTime;
     }
 
-    public ChatMessage(int chatId, int senderId, String content, LocalDateTime messageDateTime, int attachment_Id) {
+    public ChatMessage(int chatId, int senderId, String content, LocalDateTime messageDateTime) {
         this.chatId = chatId;
         this.senderId = senderId;
         this.content = content;

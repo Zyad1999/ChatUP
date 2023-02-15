@@ -356,7 +356,7 @@
                                     <Cursor fx:constant="TEXT" />
                                  </cursor>
                               </TextField>
-                              <ImageView fitHeight="81.0" fitWidth="28.0" layoutX="295.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" styleClass="attachment-icon" AnchorPane.rightAnchor="80.0">
+                              <ImageView fitHeight="81.0" fitWidth="28.0" layoutX="295.0" layoutY="7.0" onMouseClicked="#sendAttachment" pickOnBounds="true" preserveRatio="true" styleClass="attachment-icon" AnchorPane.rightAnchor="80.0">
                                  <image>
                                     <Image url="@../images/attachmenticon.png" />
                                  </image>

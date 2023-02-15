@@ -1,6 +1,7 @@
 package com.chatup.network.interfaces;
 
 import com.chatup.models.entities.*;
+import com.chatup.models.enums.ChatType;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -38,4 +39,11 @@ public interface Server extends Remote {
     public boolean updateUserInfo(User user) throws RemoteException;
     public boolean updateUserImage(int userID, String phone, byte[] img)throws RemoteException;
     public boolean updateUserPassword(int userID, String password)throws RemoteException ;
+
+    public int uploadChatFileToServer(byte[] file, ChatMessage message, Attachment attach) throws RemoteException;
+    public int uploadGroupFileToServer(byte[] file, GroupMessage message, Attachment attach) throws RemoteException;
+
+    public byte[] downloadAttachment(int attachmentID, int senderID) throws RemoteException ;
+
+    public Attachment getAttachment(int attachmentID) throws RemoteException;
 }

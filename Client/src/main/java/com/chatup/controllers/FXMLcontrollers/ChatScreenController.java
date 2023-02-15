@@ -26,7 +26,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -58,9 +57,9 @@ public class ChatScreenController implements Initializable {
     private static StringProperty friendBio;
     private static double xOffset = 0;
     private static double yOffset = 0;
+    private static Image friendImage;
     @FXML
     private HBox dragBar;
-    private static Image friendImage;
     @FXML
     private Text friendShowDataCountry;
 
@@ -113,7 +112,7 @@ public class ChatScreenController implements Initializable {
     private MFXButton notification_btn;
     @FXML
     private MFXButton settings_btn;
- 
+
     @FXML
     private TextField txt_ld_search;
     @FXML
@@ -159,17 +158,19 @@ public class ChatScreenController implements Initializable {
     @FXML
     private ImageView botImg;
 
-
+    @FXML
+    private VBox defaultVBoxForImage;
 
     @FXML
     private ScrollPane scrollPane;
-   // public static ObservableList<Card> currentList;
+    // public static ObservableList<Card> currentList;
     private double lastX = 0.0d;
     private double lastY = 0.0d;
     private double lastWidth = 0.0d;
     private double lastHeight = 0.0d;
     private User friendUser;
-    private  void prepareListView(ListView cardsListView, ScrollPane scrollPane) {
+
+    private void prepareListView(ListView cardsListView, ScrollPane scrollPane) {
         cardsListView.setCellFactory(new Callback<ListView<Card>, ListCell<Card>>() {
             public ListCell<Card> call(ListView<Card> param) {
                 final Tooltip tooltip = new Tooltip();
@@ -202,15 +203,14 @@ public class ChatScreenController implements Initializable {
                 return cell;
             }
         });
-        cardsListView.setOnMouseClicked(new EventHandler<MouseEvent>(){
+        cardsListView.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent mouseEvent)
-            {
+            public void handle(MouseEvent mouseEvent) {
                 headerChat.setVisible(true);
                 footerChat.setVisible(true);
                 FXMLLoader loadergroup = new FXMLLoader(getClass().getResource("/views/GroupInfo.fxml"));
-                Card selected = (Card)cardsListView.getSelectionModel().getSelectedItem();
-                System.out.println(selected.getCardType() );
+                Card selected = (Card) cardsListView.getSelectionModel().getSelectedItem();
+                System.out.println(selected.getCardType());
                 if (cardsListView.getSelectionModel().getSelectedItem() != null) {
                     System.out.println(selected.getCardID());
                     friendName.set(selected.getCardName());
@@ -225,8 +225,8 @@ public class ChatScreenController implements Initializable {
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/friendInfo.fxml"));
 
                         List<User> chatUsers = ChatServicesImpl.getChatService().getSingleChatUsers(selected.getCardID());
-                        if(chatUsers.get(0).getId()==CurrentUserImp.getCurrentUser().getId())
-                            friendUser =  chatUsers.get(1);
+                        if (chatUsers.get(0).getId() == CurrentUserImp.getCurrentUser().getId())
+                            friendUser = chatUsers.get(1);
                         else {
                             friendUser = chatUsers.get(0);
                         }
@@ -298,19 +298,19 @@ public class ChatScreenController implements Initializable {
 
     @FXML
     void sendAttachment(MouseEvent event) {
-        if(CurrentChat.getCurrentChat() != null){
+        if (CurrentChat.getCurrentChat() != null) {
 
             FileChooser fileChooser = new FileChooser();
             File file = fileChooser.showOpenDialog(null);
             int id = CurrentChat.getCurrentChat().getCurrentChatID();
             String msgText = messageText.getText();
-            if(CurrentChat.getCurrentChat().getCurrentChatType() == ChatType.SINGLE){
-                Thread sendChatAttachment = new Thread(()->{
-                    ChatMessage message = new ChatMessage(id,CurrentUserImp.getCurrentUser().getId(),
+            if (CurrentChat.getCurrentChat().getCurrentChatType() == ChatType.SINGLE) {
+                Thread sendChatAttachment = new Thread(() -> {
+                    ChatMessage message = new ChatMessage(id, CurrentUserImp.getCurrentUser().getId(),
                             msgText, LocalDateTime.now());
                     int attachmentID = FileServicesImpl.getFileServices().sendChatFileToServer(file, message);
-                    Platform.runLater(()->{
-                        if(attachmentID == -1){
+                    Platform.runLater(() -> {
+                        if (attachmentID == -1) {
                             Alert alert = new Alert(Alert.AlertType.ERROR, "File upload failed");
                             alert.setHeaderText(null);
                             alert.showAndWait();
@@ -318,7 +318,7 @@ public class ChatScreenController implements Initializable {
                         }
                         message.setAttachment_Id(attachmentID);
                         ListCoordinatorImpl.getListCoordinator().getSingleChatVbox(id).getChildren().add(ChatServicesImpl.getChatService().sendChatFile(message));
-                        ChatServicesImpl.getChatService().updateChatList(id,msgText);
+                        ChatServicesImpl.getChatService().updateChatList(id, msgText);
                     });
                     Animation animation = new Timeline(
                             new KeyFrame(Duration.seconds(2),
@@ -326,13 +326,13 @@ public class ChatScreenController implements Initializable {
                     animation.play();
                 });
                 sendChatAttachment.start();
-            }else if(CurrentChat.getCurrentChat().getCurrentChatType() == ChatType.GROUP){
-                Thread sendGroupAttach = new Thread(()->{
-                    GroupMessage message = new GroupMessage(CurrentUserImp.getCurrentUser().getId(),msgText,LocalDateTime.now(),
-                            id,0);
+            } else if (CurrentChat.getCurrentChat().getCurrentChatType() == ChatType.GROUP) {
+                Thread sendGroupAttach = new Thread(() -> {
+                    GroupMessage message = new GroupMessage(CurrentUserImp.getCurrentUser().getId(), msgText, LocalDateTime.now(),
+                            id, 0);
                     int attachmentID = FileServicesImpl.getFileServices().sendGroupFileToServer(file, message);
-                    Platform.runLater(()->{
-                        if(attachmentID == -1){
+                    Platform.runLater(() -> {
+                        if (attachmentID == -1) {
                             Alert alert = new Alert(Alert.AlertType.ERROR, "File upload failed");
                             alert.setHeaderText(null);
                             alert.showAndWait();
@@ -340,7 +340,7 @@ public class ChatScreenController implements Initializable {
                         }
                         message.setAttachmentID(attachmentID);
                         ListCoordinatorImpl.getListCoordinator().getGroupChatVbox(id).getChildren().add(ChatServicesImpl.getChatService().sendGroupFile(message));
-                        ChatServicesImpl.getChatService().updateGroupChatList(id,msgText);
+                        ChatServicesImpl.getChatService().updateGroupChatList(id, msgText);
                     });
                     Animation animation = new Timeline(
                             new KeyFrame(Duration.seconds(2),
@@ -357,8 +357,8 @@ public class ChatScreenController implements Initializable {
     void sendMessage(ActionEvent event) {
         if (CurrentChat.getCurrentChat() != null && messageText.getText().length() > 0) {
             int id = CurrentChat.getCurrentChat().getCurrentChatID();
-            if(CurrentChat.getCurrentChat().getCurrentChatType() == ChatType.SINGLE){
-                ChatMessage message = new ChatMessage(id,CurrentUserImp.getCurrentUser().getId(),
+            if (CurrentChat.getCurrentChat().getCurrentChatType() == ChatType.SINGLE) {
+                ChatMessage message = new ChatMessage(id, CurrentUserImp.getCurrentUser().getId(),
                         messageText.getText(), LocalDateTime.now());
                 ListCoordinatorImpl.getListCoordinator().getSingleChatVbox(id).getChildren().add(ChatServicesImpl.getChatService().sendChatMessage(message));
                 ChatServicesImpl.getChatService().updateChatList(id, messageText.getText());
@@ -394,12 +394,9 @@ public class ChatScreenController implements Initializable {
         settings_btn.setStyle("-fx-opacity: 0.3");
         chatBot_btn.setStyle("-fx-opacity: 0.3");
 
-       
-//        chatAnchorpan.setVisible(false);
-        headerChat.setVisible(false);
-        footerChat.setVisible(false);
+        String style = "-fx-background-image:  url(" + ChatScreenController.class.getResource("/images/logo.png") + "); -fx-background-repeat: no-repeat; -fx-background-size: auto; -fx-background-radius: 10; -fx-background-position: center; -fx-opacity: 0.4;";
+        defaultVBoxForImage.setStyle(style);
 
-//        chatAnchorpan.setVisible(false);
         headerChat.setVisible(false);
         footerChat.setVisible(false);
 
@@ -418,7 +415,7 @@ public class ChatScreenController implements Initializable {
                 stage.setY(event.getScreenY() - yOffset);
             }
         });
-            friendName = new SimpleStringProperty("");
+        friendName = new SimpleStringProperty("");
 
         friendNameClose.textProperty().bind(friendName);
         friendNameOpen.textProperty().bind(friendName);
@@ -429,8 +426,8 @@ public class ChatScreenController implements Initializable {
         // sliders
 
         friendDetailsAnchorPan.setTranslateX(300);
-        AnchorPane.setRightAnchor(chatAnchorpan,0.0);
-        AnchorPane.setLeftAnchor(chatAnchorpan,0.0);
+        AnchorPane.setRightAnchor(chatAnchorpan, 0.0);
+        AnchorPane.setLeftAnchor(chatAnchorpan, 0.0);
         closeFrienDetailsbtn.setVisible(false);
 
         prepareListView(cardsListView, scrollPane);
@@ -440,7 +437,7 @@ public class ChatScreenController implements Initializable {
         cardsListView.setItems(filteredList);
 
 
-        txt_ld_search.textProperty().addListener((observable, oldValue, newValue) ->  {
+        txt_ld_search.textProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.isEmpty()) {
                 filteredList.setPredicate(null);
             } else {
@@ -686,8 +683,8 @@ public class ChatScreenController implements Initializable {
         Scene scene = null;
         System.out.println("Current List= " + ListCoordinatorImpl.currentList);
         if (ListCoordinatorImpl.currentList == CardType.FRIEND) {
-           loader = new FXMLLoader(Objects.requireNonNull(ChatScreenController.class.getResource("/views/AddFriend.fxml")));
-            AddFriendRequestController addFriendRequestController = new AddFriendRequestController("addfriend",-1);
+            loader = new FXMLLoader(Objects.requireNonNull(ChatScreenController.class.getResource("/views/AddFriend.fxml")));
+            AddFriendRequestController addFriendRequestController = new AddFriendRequestController("addfriend", -1);
             loader.setController(addFriendRequestController);
             try {
                 scene = new Scene(loader.load(), 550, 550);
@@ -735,14 +732,13 @@ public class ChatScreenController implements Initializable {
 
     @FXML
     private void chatBotButtonHandler(ActionEvent event) {
-        if(ChatterBotService.getChatterBotService().botStatus==true){
-            ChatterBotService.getChatterBotService().botStatus=false;
+        if (ChatterBotService.getChatterBotService().botStatus == true) {
+            ChatterBotService.getChatterBotService().botStatus = false;
             botImg.setImage(new Image(String.valueOf(ChatScreenController.class.getResource("/images/redchatbot.png"))));
             chatBot_btn.setStyle("border-width: 2px; border-color: #ff3300;");
 
-        }
-        else{
-            ChatterBotService.getChatterBotService().botStatus=true;
+        } else {
+            ChatterBotService.getChatterBotService().botStatus = true;
             botImg.setImage(new Image(String.valueOf(ChatScreenController.class.getResource("/images/greenChatBot.png"))));
             chatBot_btn.setStyle("border-width: 2px; border-color: #00ff00;");
         }

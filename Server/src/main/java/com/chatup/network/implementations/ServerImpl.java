@@ -50,6 +50,7 @@ public class ServerImpl extends UnicastRemoteObject implements Server {
         if(user != null){
             List<User> friends = FriendsServicesImpl.getFriendsServices().getUserFriends(user.getId());
             clients.put(user.getId(),client);
+            System.out.println("login iiiiiiiiiiiiidddddddddddddddd " + user.getId());
             for (User friend: friends){
                 if(clients.containsKey(friend.getId())){
                     try {
@@ -74,6 +75,7 @@ public class ServerImpl extends UnicastRemoteObject implements Server {
         List<User> friends = FriendsServicesImpl.getFriendsServices().getUserFriends(id);
         clients.remove(id, client);
         UserAuthImpl.getUserAuth().logout(id);
+        System.out.println("iiiiiiiiiiiiiiiiiiiiiiidddddddddddddddd -> " + id);
         for (User friend: friends){
             if(clients.containsKey(friend.getId())){
                 try {

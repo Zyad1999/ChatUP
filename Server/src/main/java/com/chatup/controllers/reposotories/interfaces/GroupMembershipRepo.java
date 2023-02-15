@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface GroupMembershipRepo {
     public boolean deleteGroupMembership(int id) ;
+    public boolean deleteGroupMembership(int userid, int chatId) ;
     public int createGroupMembership(GroupMembership groupMembership);
 
     GroupMembership getGroupMembership(int userID, int groupID);

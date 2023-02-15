@@ -50,6 +50,7 @@ public class friendInfoController {
         friendShowDataEmail.setText(userInfo.getEmail());
         Image userImage = new Image(new ByteArrayInputStream(userInfo.getImg()));
         friendShowDataImage.setFill(new ImagePattern(userImage));
+        friendShowDataPhone.setText(userInfo.getPhoneNumber());
 
     }
 

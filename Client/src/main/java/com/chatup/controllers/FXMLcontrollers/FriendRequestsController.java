@@ -92,9 +92,9 @@ public class FriendRequestsController  implements Initializable {
     @FXML
     void doneBtn(ActionEvent event) {
         Stage stage =(Stage) ((Node)event.getSource()).getScene().getWindow();
-        ListCoordinatorImpl.getListCoordinator().updateOnlineFriends();
-        ListCoordinatorImpl.getListCoordinator().updateOfflineFriends();
-        ListCoordinatorImpl.getListCoordinator().updateFriendRequests();
+        ListCoordinatorImpl.getListCoordinator().getUserOnlineFriends();
+        ListCoordinatorImpl.getListCoordinator().getAllUserFriendRequests();
+        ListCoordinatorImpl.getListCoordinator().getUserOfflineFriends();
         stage.close();
     }
 

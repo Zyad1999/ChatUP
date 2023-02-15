@@ -230,4 +230,10 @@ public class ServerImpl extends UnicastRemoteObject implements Server {
     public List<User> getSingleChatUsers(int singleChatId) throws RemoteException{
         return  UserChatServicesImpl.getUserChatServices().getSingleChatUsers(singleChatId);
     }
+
+    @Override
+    public boolean deleteUserFromGroup(int userId, int groupId) throws RemoteException {
+        return UserGroupsServiceImp.getUserGroupsService().deleteUserFromGroup(userId, groupId);
+    }
+
 }

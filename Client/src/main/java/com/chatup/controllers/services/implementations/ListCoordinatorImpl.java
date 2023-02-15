@@ -6,6 +6,7 @@ import com.chatup.models.entities.FriendRequest;
 import com.chatup.models.entities.User;
 import com.chatup.models.enums.CardType;
 import com.chatup.models.enums.UserStatus;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.VBox;
@@ -49,10 +50,21 @@ public class ListCoordinatorImpl implements ListCoordinator {
     }
     @Override
     public ObservableList<User> getGroupMembers(int groupId) {
+        if(groupMembers ==null) {
+            groupMembers = FXCollections.<User>observableArrayList(UserListsImpl.getUserLists().getAllgroupMembers(groupId));
+        }else{
+            groupMembers.clear();
+            groupMembers.addAll(UserListsImpl.getUserLists().getAllgroupMembers(groupId));
+        }
+        return groupMembers;
+    }
 
-          return  groupMembers = FXCollections.<User>observableArrayList( UserListsImpl.getUserLists().getAllgroupMembers(groupId));
+    @Override
+    public void updateGroupMembers(int chat_id) {
+
 
     }
+
     @Override
     public ObservableList<Card> getUserGroups() {
         if(userGroups==null)
@@ -62,6 +74,7 @@ public class ListCoordinatorImpl implements ListCoordinator {
     public ObservableList<User> getAllUserFriendRequests() {
         if(userFriendRequests==null)
             userFriendRequests = UserListsImpl.getUserLists().getAllUserFriendRequests();
+
         return userFriendRequests;
     }
     public Boolean updatesUserFriendRequests(FriendRequest friendRequests) {
@@ -70,12 +83,15 @@ public class ListCoordinatorImpl implements ListCoordinator {
     }
 
     public void updatesUserGroups() {
-        userGroups = UserListsImpl.getUserLists().getAllUserGroups();
+        userGroups.clear();
+        userGroups.addAll(UserListsImpl.getUserLists().getAllUserGroups());
+
     }
     @Override
     public ObservableList<Card> getUserOnlineFriends() {
         if(userOnlineFriends==null)
             userOnlineFriends = UserListsImpl.getUserLists().getUserFriends(UserStatus.ONLINE);
+
         return userOnlineFriends;
     }
 
@@ -83,6 +99,7 @@ public class ListCoordinatorImpl implements ListCoordinator {
     public ObservableList<Card> getUserOfflineFriends() {
         if(userOfflineFriends==null)
             userOfflineFriends = UserListsImpl.getUserLists().getUserFriends(UserStatus.OFFLINE);
+
         return userOfflineFriends;
     }
 

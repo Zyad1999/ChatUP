@@ -63,17 +63,21 @@
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
-            <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/icons8-macos-close-90.png" />
-               </image>
+            <MFXButton onAction="#closebtn" prefHeight="33.0" prefWidth="0.0" text=" ">
+               <graphic>
+                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icons8-macos-close-90.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+               </graphic>
                <HBox.margin>
-                  <Insets right="23.0" top="10.0" />
+                  <Insets right="5.0" />
                </HBox.margin>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </ImageView>
+            </MFXButton>
          </children>
       </HBox>
       <ScrollPane hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="269.0" prefWidth="458.0" styleClass="numbers-scroll-pane" vbarPolicy="NEVER" GridPane.halignment="CENTER" GridPane.rowIndex="2">

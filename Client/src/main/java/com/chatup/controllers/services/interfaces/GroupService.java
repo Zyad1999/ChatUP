@@ -11,6 +11,7 @@ public interface GroupService {
      int createGroupChat(GroupChat groupChat , List<User> userList);
 
      void addUsersToGroup(int groupChatId,List<User> userList);
+     boolean deleteMemberfromGroup(int userId,int chatId);
 
     GroupChat getGroupChat(int groupID);
 }

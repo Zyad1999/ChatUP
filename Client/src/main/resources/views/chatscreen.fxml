@@ -141,44 +141,10 @@
                         </VBox>
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="anchorPanWithoutmenu" prefWidth="260.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <AnchorPane fx:id="anchorPanWithoutmenu" prefWidth="260.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="66.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="84.0" prefWidth="287.0" style="-fx-background-color: #F1F1F1;" styleClass="space-20" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <AnchorPane HBox.hgrow="ALWAYS">
-                                 <children>
-                                    <MFXButton fx:id="extract_menu_id" buttonType="RAISED" contentDisplay="CENTER" layoutX="15.0" layoutY="11.0" prefHeight="17.0" prefWidth="46.0" styleClass="MFXButton" text=" " textFill="#979797">
-                                       <graphic>
-                                          <ImageView fitHeight="40.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../images/menu.png" />
-                                             </image>
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor>
-                                          </ImageView>
-                                       </graphic>
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor>
-                                    </MFXButton>
-                                    <MFXButton fx:id="closeExtraction" buttonType="RAISED" contentDisplay="CENTER" layoutX="15.0" layoutY="11.0" prefHeight="17.0" prefWidth="46.0" styleClass="MFXButton" text=" " textFill="#979797">
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor>
-                                       <graphic>
-                                          <ImageView fitHeight="40.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../images/menu.png" />
-                                             </image>
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor>
-                                          </ImageView>
-                                       </graphic>
-                                    </MFXButton>
-                                 </children>
-                              </AnchorPane>
                               <Group>
                                  <children>
                                     <TextField fx:id="txt_ld_search" layoutX="-22.0" layoutY="-10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="197.0" promptText="Search" styleClass="search-text-field" />
@@ -189,7 +155,7 @@
                                     </ImageView>
                                  </children>
                                  <HBox.margin>
-                                    <Insets />
+                                    <Insets bottom="20.0" left="60.0" />
                                  </HBox.margin>
                               </Group>
                               <AnchorPane prefHeight="64.0" prefWidth="44.0">

@@ -17,6 +17,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -27,20 +28,21 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class AddGroupController implements Initializable {
@@ -69,7 +71,7 @@ public class AddGroupController implements Initializable {
     private Image groupUserImage;
 
     private Path groupImagePath;
-
+    private boolean enterImage=false;
     private Image groupImg;
 
     File file;
@@ -116,18 +118,31 @@ public class AddGroupController implements Initializable {
                 throw new RuntimeException(e);
             }
         } else {
-            groupImg = new Image(AddGroupController.class.getResourceAsStream("/images/default_profile_pic.jpg"));
+            groupImg = new Image(Objects.requireNonNull(AddGroupController.class.getResourceAsStream("/images/default_profile_pic.jpg")));
+
+            try {
+                groupImagePath =new File(AddGroupController.class.getResource("/images/default_profile_pic.jpg").toURI()).toPath();
+                System.out.println(groupImagePath);
+            } catch (URISyntaxException e) {
+                throw new RuntimeException(e);
+            }
         }
         groupImage.setFill(new ImagePattern(groupImg));
+        enterImage =true;
     }
 
     @FXML
     void createGroupClicked(ActionEvent event) {
         byte[] image;
         try {
-            image = Files.readAllBytes(file.toPath());
+            if(!enterImage){
+                groupImagePath =new File(AddGroupController.class.getResource("/images/default_profile_pic.jpg").toURI()).toPath();
+            }
+            image = Files.readAllBytes(groupImagePath);
 
-        } catch (IOException e) {
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
         GroupChat groupChat = new GroupChat(groupName.getText(),image);
@@ -137,6 +152,8 @@ public class AddGroupController implements Initializable {
             ListCoordinatorImpl.getListCoordinator().getUserGroups().add(CardMapper.getCard(groupChat,""));
         }
         System.out.println("Created Group Chat With Id: "+ id);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.close();
     }
 
     List<User> observableToList(ObservableList<User> list){

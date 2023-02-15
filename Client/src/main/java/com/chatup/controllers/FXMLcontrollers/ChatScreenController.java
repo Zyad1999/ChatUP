@@ -46,31 +46,12 @@ import java.util.ResourceBundle;
 
 public class ChatScreenController implements Initializable {
     private static StringProperty friendName;
-    private static StringProperty friendStatus;
-    private static StringProperty friendEmail;
-    private static StringProperty friendPhone;
-    private static StringProperty friendCountry;
-    private static StringProperty friendBio;
     private static double xOffset = 0;
     private static double yOffset = 0;
     @FXML
     private HBox dragBar;
     private static Image friendImage;
-    @FXML
-    private Text friendShowDataCountry;
 
-    @FXML
-    private Text friendShowDataEmail;
-
-
-
-    @FXML
-    private Text friendShowDataName;
-
-    @FXML
-    private Text friendShowDataPhone;
-    @FXML
-    private Text friendShowDatabio;
 
     @FXML
     private Circle friendImageClose;
@@ -83,24 +64,13 @@ public class ChatScreenController implements Initializable {
 
     @FXML
     private Text friendNameOpen;
-    @FXML
-    private Text frieendStatusClose;
 
-    @FXML
-    private Text frieendStatusOpen;
-
-    @FXML
-    private MFXButton closeExtraction;
     @FXML
     private HBox closeFrienDetailsbtn;
     @FXML
     private HBox showFriendDetailsbtn;
-    @FXML
-    private  HBox FriendSildeBar;
-    @FXML
-    private VBox slider;
-    @FXML
-    private AnchorPane anchorPanSlider;
+
+
     @FXML
     private MFXButton user_chats_btn;
     @FXML
@@ -111,8 +81,7 @@ public class ChatScreenController implements Initializable {
     private MFXButton notification_btn;
     @FXML
     private MFXButton settings_btn;
-    @FXML
-    private MFXButton extract_menu_id;
+ 
     @FXML
     private TextField txt_ld_search;
     @FXML
@@ -332,70 +301,12 @@ public class ChatScreenController implements Initializable {
         Image UserImage = new Image(new ByteArrayInputStream(CurrentUserImp.getCurrentUser().getImg()));
         user_image_side_bar.setFill(new ImagePattern(UserImage));
         // sliders
-        anchorPanSlider.setTranslateX(-80);
+
         friendDetailsAnchorPan.setTranslateX(300);
         AnchorPane.setRightAnchor(chatAnchorpan,0.0);
         AnchorPane.setLeftAnchor(chatAnchorpan,0.0);
         closeFrienDetailsbtn.setVisible(false);
-        closeExtraction.setVisible(false);
 
-        extract_menu_id.setOnAction(event -> {
-            TranslateTransition slider_tr = new TranslateTransition();
-            slider_tr.setDuration(Duration.seconds(0.4));
-            slider_tr.setNode(anchorPanSlider);
-
-            slider_tr.setToX(0);
-            slider_tr.play();
-            //anchorPanSlider.setTranslateX(-80);
-            TranslateTransition VBoxslider = new TranslateTransition();
-            VBoxslider.setDuration(Duration.seconds(0.4));
-            VBoxslider.setNode(anchorPanWithoutmenu);
-
-            VBoxslider.setToX(66);
-            VBoxslider.play();
-            TranslateTransition cardListSLider = new TranslateTransition();
-            cardListSLider.setDuration(Duration.seconds(0.4));
-            cardListSLider.setNode(cardsListView);
-
-            cardListSLider.setToX(0);
-            cardListSLider.play();
-            slider_tr.setOnFinished((ActionEvent e)->{
-                extract_menu_id.setVisible(false);
-                closeExtraction.setVisible(true);
-
-            });
-
-        });
-        closeExtraction.setOnAction(event -> {
-            TranslateTransition slider_tr = new TranslateTransition();
-            slider_tr.setDuration(Duration.seconds(0.4));
-            slider_tr.setNode(anchorPanSlider);
-
-            slider_tr.setToX(-80);
-            slider_tr.play();
-            //anchorPanSlider.setTranslateX(-80);
-            TranslateTransition VBoxslider = new TranslateTransition();
-            VBoxslider.setDuration(Duration.seconds(0.4));
-            VBoxslider.setNode(anchorPanWithoutmenu);
-
-            VBoxslider.setToX(0);
-            VBoxslider.play();
-            TranslateTransition cardListSLider = new TranslateTransition();
-            cardListSLider.setDuration(Duration.seconds(0.4));
-            cardListSLider.setNode(cardsListView);
-
-            cardListSLider.setToX(30);
-            cardListSLider.play();
-
-
-            slider_tr.setOnFinished((ActionEvent e)->{
-                extract_menu_id.setVisible(true);
-                closeExtraction.setVisible(false);
-
-            });
-
-        });
-        /////////////////
         prepareListView(cardsListView, scrollPane);
 
         FilteredList<Card> filteredList = new FilteredList<>(ListCoordinatorImpl.getListCoordinator().getUserChats());
@@ -617,7 +528,7 @@ public class ChatScreenController implements Initializable {
             System.out.println("Current List= "+ListCoordinatorImpl.currentList);
             if(ListCoordinatorImpl.currentList==CardType.FRIEND) {
                 loader = new FXMLLoader(Objects.requireNonNull(ChatScreenController.class.getResource("/views/AddFriend.fxml")));
-                AddFriendRequestController addFriendRequestController = new AddFriendRequestController();
+                AddFriendRequestController addFriendRequestController = new AddFriendRequestController("addfriend",CurrentChat.getCurrentChat().getCurrentChatID());
                 loader.setController(addFriendRequestController);
                 scene = new Scene(loader.load(), 550, 550);
             }
@@ -628,6 +539,8 @@ public class ChatScreenController implements Initializable {
                 scene = new Scene(loader.load(), 550, 550);
             }
             Stage stage = new Stage();
+            stage.initStyle(StageStyle.UNDECORATED);
+
             stage.setScene(scene);
             stage.show();
 

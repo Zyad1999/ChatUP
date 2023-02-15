@@ -88,4 +88,9 @@ public class UserGroupsServiceImp implements UserGroupsService {
         return GroupChatRepoImpl.getInstance().getGroupChat(groupID);
     }
 
+    @Override
+    public boolean deleteUserFromGroup(int userId, int groupId) {
+        return GroupMembershipRepoImpl.getInstance().deleteGroupMembership(userId,groupId);
+    }
+
 }

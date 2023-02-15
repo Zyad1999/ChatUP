@@ -617,7 +617,7 @@ public class ChatScreenController implements Initializable {
         } else if (ListCoordinatorImpl.currentList == CardType.GROUP) {
             loader = new FXMLLoader(Objects.requireNonNull(ChatScreenController.class.getResource("/views/AddGroup.fxml")));
             AddGroupController addGroupController = new AddGroupController();
-           loader.setController(addGroupController);
+            loader.setController(addGroupController);
             try {
                 scene = new Scene(loader.load(), 550, 550);
             } catch (IOException e) {
@@ -634,8 +634,6 @@ public class ChatScreenController implements Initializable {
             stage.setOnHidden(event1 -> {
                 oldScene.getRoot().setDisable(false);
             });
-        } catch(IOException e) {
-            e.printStackTrace();
         }
     }
 

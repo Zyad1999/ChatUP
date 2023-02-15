@@ -614,7 +614,7 @@ public class ChatScreenController implements Initializable {
         System.out.println("Current List= " + ListCoordinatorImpl.currentList);
         if (ListCoordinatorImpl.currentList == CardType.FRIEND) {
            loader = new FXMLLoader(Objects.requireNonNull(ChatScreenController.class.getResource("/views/AddFriend.fxml")));
-            AddFriendRequestController addFriendRequestController = new AddFriendRequestController("addfriend",CurrentChat.getCurrentChat().getCurrentChatID());
+            AddFriendRequestController addFriendRequestController = new AddFriendRequestController("addfriend",-1);
             loader.setController(addFriendRequestController);
             try {
                 scene = new Scene(loader.load(), 550, 550);

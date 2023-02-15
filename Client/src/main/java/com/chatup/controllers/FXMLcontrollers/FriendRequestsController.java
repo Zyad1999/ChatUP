@@ -41,8 +41,8 @@ public class FriendRequestsController  implements Initializable {
         closeFriendRequestsScrene.setOnAction(event ->{
             System.out.println("close");
             Stage stage =(Stage) ((Node)event.getSource()).getScene().getWindow();
-            ListCoordinatorImpl.getListCoordinator().updateOnlineFriends();
-            ListCoordinatorImpl.getListCoordinator().updateFriendRequests();
+            ListCoordinatorImpl.getListCoordinator().getUserOnlineFriends();
+            ListCoordinatorImpl.getListCoordinator().getUserOfflineFriends();
             stage.close();
         } );
     }

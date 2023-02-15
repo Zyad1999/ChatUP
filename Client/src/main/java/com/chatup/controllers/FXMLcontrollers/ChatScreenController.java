@@ -25,6 +25,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -664,10 +665,13 @@ public class ChatScreenController implements Initializable {
         if(ChatterBotService.getChatterBotService().botStatus==true){
             ChatterBotService.getChatterBotService().botStatus=false;
             botImg.setImage(new Image(String.valueOf(ChatScreenController.class.getResource("/images/redchatbot.png"))));
+            chatBot_btn.setStyle("border-width: 2px; border-color: #ff3300;");
+
         }
         else{
             ChatterBotService.getChatterBotService().botStatus=true;
             botImg.setImage(new Image(String.valueOf(ChatScreenController.class.getResource("/images/greenChatBot.png"))));
+            chatBot_btn.setStyle("border-width: 2px; border-color: #00ff00;");
         }
     }
 

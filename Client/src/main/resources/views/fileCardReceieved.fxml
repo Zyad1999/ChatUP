@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<HBox fx:controller="com.chatup.controllers.FXMLcontrollers.FileMessageRecievedController" fx:id="recieveMessages" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: transparent;" styleClass="hbox-message-card" stylesheets="@../style/MainStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<HBox fx:id="recieveMessages" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: transparent;" styleClass="hbox-message-card" stylesheets="@../style/MainStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <VBox fx:id="recieveMessagesBox" prefWidth="300.0" styleClass="receive-messages-chat-text-flow">
             <children>

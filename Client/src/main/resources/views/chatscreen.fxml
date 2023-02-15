@@ -42,7 +42,7 @@
                                     </Circle>
                                     <MFXButton fx:id="user_chats_btn" buttonType="RAISED" contentDisplay="CENTER" onAction="#setChats" prefHeight="55.0" prefWidth="59.0" styleClass="MFXButton" text=" " textFill="#041014">
                                        <graphic>
-                                          <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: 0.7;">
                                              <image>
                                                 <Image url="@../images/inboxicon.png" />
                                              </image>

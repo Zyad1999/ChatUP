@@ -1,6 +1,7 @@
 package com.chatup.controllers.FXMLcontrollers;
 
 import com.chatup.controllers.services.implementations.CurrentUserImp;
+import com.chatup.controllers.services.implementations.ListCoordinatorImpl;
 import com.chatup.controllers.services.implementations.UserServicesImpl;
 import com.chatup.models.entities.Card;
 import com.chatup.models.entities.FriendRequest;
@@ -105,6 +106,9 @@ public class AddFriendRequestController implements Initializable {
         }
         boolean result = UserServicesImpl.getUserServices().createFriendRequests(friendRequestList);
         System.out.println(result);
+        ListCoordinatorImpl.getListCoordinator().updateOnlineFriends();
+        ListCoordinatorImpl.getListCoordinator().updateOfflineFriends();
+        ListCoordinatorImpl.getListCoordinator().updateFriendRequests();
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
     }

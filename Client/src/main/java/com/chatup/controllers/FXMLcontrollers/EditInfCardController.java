@@ -77,7 +77,7 @@ public class EditInfCardController implements Initializable {
                 valid = true;
             }
         } else if (editBartxt.equals("country")) {
-            if (!editTextField.getText().equals("")) {
+            if (!countryComboBox1.getSelectionModel().isEmpty()) {
                 CurrentUserImp.getCurrentUser().setCountry(countryComboBox1.getValue().toString());
                 EditeProfileController.Country.set(countryComboBox1.getValue().toString());
                 valid = true;

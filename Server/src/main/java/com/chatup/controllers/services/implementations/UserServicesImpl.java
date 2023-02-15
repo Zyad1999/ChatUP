@@ -51,9 +51,13 @@ public class UserServicesImpl implements UserServices {
             if(chatMessage!=null)
                 userMessages.put(chat, chatMessage);
         }
-        Map<Chat, ChatMessage> resultSet = userMessages.entrySet().stream().sorted(Comparator.comparing(e -> e.getValue().getMessageDateTime())).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (left, right) -> left, LinkedHashMap::new));
 
-        return resultSet;
+        Map<Chat, ChatMessage> sortedMapInDescending = userMessages.entrySet()
+                .stream()
+                .sorted(Collections.reverseOrder(Map.Entry.<Chat,ChatMessage>comparingByValue()))
+                .collect(Collectors.toMap(entry -> entry.getKey(), entry -> entry.getValue(),
+                        (entry1, entry2) -> entry2, LinkedHashMap::new));
+        return sortedMapInDescending;
     }
 
     @Override

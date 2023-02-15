@@ -4,7 +4,7 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class GroupMessage implements Serializable {
+public class GroupMessage implements Serializable, Comparable<GroupMessage> {
     @Serial
     private static final long serialVersionUID = -558553967080513797L;
     private int groupMessageId;
@@ -72,5 +72,10 @@ public class GroupMessage implements Serializable {
     @Override
     public String toString() {
         return "GroupMessage{" + groupMessageId + ", " + senderId + ", " + content + ", " + messageDate + ", " + attachmentID + "}";
+    }
+
+    @Override
+    public int compareTo(GroupMessage o) {
+        return  this.getMessageDate().compareTo(o.getMessageDate());
     }
 }

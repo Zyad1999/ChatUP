@@ -623,18 +623,19 @@ public class ChatScreenController implements Initializable {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            Stage stage = new Stage(StageStyle.TRANSPARENT);
-            scene.setFill(Color.TRANSPARENT);
-            scene.getRoot().setStyle("-fx-background-radius: 20;");
-            stage.setScene(scene);
-            stage.show();
-            Scene oldScene = ((Node) event.getSource()).getScene();
-            oldScene.getRoot().setDisable(true);
 
-            stage.setOnHidden(event1 -> {
-                oldScene.getRoot().setDisable(false);
-            });
         }
+        Stage stage = new Stage(StageStyle.TRANSPARENT);
+        scene.setFill(Color.TRANSPARENT);
+        scene.getRoot().setStyle("-fx-background-radius: 20;");
+        stage.setScene(scene);
+        stage.show();
+        Scene oldScene = ((Node) event.getSource()).getScene();
+        oldScene.getRoot().setDisable(true);
+
+        stage.setOnHidden(event1 -> {
+            oldScene.getRoot().setDisable(false);
+        });
     }
 
 

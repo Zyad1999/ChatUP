@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<HBox fx:id="recieveMessages" alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: transparent;" styleClass="hbox-message-card" stylesheets="@../style/MainStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<HBox fx:controller="com.chatup.controllers.FXMLcontrollers.FileMessageController" fx:id="recieveMessages" alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: transparent;" styleClass="hbox-message-card" stylesheets="@../style/MainStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <VBox fx:id="recieveMessagesBox" prefWidth="300.0" styleClass="send-messages-chat-text-flow">
             <children>
@@ -64,6 +64,11 @@
                   <Insets top="5.0" />
                </VBox.margin>
                 </TextFlow>
+            <TextFlow fx:id="messageDateTime" textAlignment="RIGHT">
+               <children>
+                  <Text fx:id="dateTimeText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="WED 03:13 PM " />
+               </children>
+            </TextFlow>
 
             </children>
         </VBox>

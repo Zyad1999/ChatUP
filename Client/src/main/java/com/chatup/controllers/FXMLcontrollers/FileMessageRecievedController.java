@@ -32,15 +32,28 @@ public class FileMessageRecievedController {
     private int senderID;
 
     private String sendName;
+    private String time;
+    @FXML
+    private Text dateTimeText;
+
+    public FileMessageRecievedController(String name, String message, int size, int attachmentID, int senderID, String sendName, String time) {
+        this.name = name;
+        this.message = message;
+        this.size = size;
+        this.attachmentID = attachmentID;
+        this.senderID = senderID;
+        this.sendName = sendName;
+        this.time = time;
+    }
 
     @FXML
     void downloadButtonHandler(MouseEvent event) {
-        Thread downloadThread = new Thread(()->{
-            boolean downloaded = FileServicesImpl.getFileServices().downloadFile(attachmentID,senderID);
-            Platform.runLater(()->{
-                if(downloaded){
+        Thread downloadThread = new Thread(() -> {
+            boolean downloaded = FileServicesImpl.getFileServices().downloadFile(attachmentID, senderID);
+            Platform.runLater(() -> {
+                if (downloaded) {
                     downloadButton.setVisible(false);
-                }else{
+                } else {
                     Alert alert = new Alert(Alert.AlertType.ERROR, "File download failed");
                     alert.setHeaderText(null);
                     alert.showAndWait();
@@ -50,21 +63,13 @@ public class FileMessageRecievedController {
         downloadThread.start();
     }
 
-    public FileMessageRecievedController(String name, String message, int size, int attachmentID, int senderID, String sendName){
-        this.name = name;
-        this.message = message;
-        this.size = size;
-        this.attachmentID = attachmentID;
-        this.senderID = senderID;
-        this.sendName = sendName;
-    }
-
-    public void initialize(){
+    public void initialize() {
         messageText.setText(message);
-        fileSize.setText((size/1024/1024)+"MB");
+        fileSize.setText((size / 1024 / 1024) + "MB");
         fileName.setText(name);
         senderName.setText(sendName);
-        downloadButton.setVisible(!FileServicesImpl.getFileServices().checkIfFileExists(name,senderID));
+        dateTimeText.setText(time);
+        downloadButton.setVisible(!FileServicesImpl.getFileServices().checkIfFileExists(name, senderID));
     }
 
 }

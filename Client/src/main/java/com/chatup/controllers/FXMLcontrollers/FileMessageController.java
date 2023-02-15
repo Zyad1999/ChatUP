@@ -1,7 +1,6 @@
 package com.chatup.controllers.FXMLcontrollers;
 
 import com.chatup.controllers.services.implementations.FileServicesImpl;
-import com.chatup.controllers.services.interfaces.FileServices;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -28,15 +27,27 @@ public class FileMessageController {
     private String message;
     private int attachmentID;
     private int senderID;
+    private String time;
+    @FXML
+    private Text dateTimeText;
+
+    public FileMessageController(String name, String message, int size, int attachmentID, int senderID, String time) {
+        this.name = name;
+        this.message = message;
+        this.size = size;
+        this.attachmentID = attachmentID;
+        this.senderID = senderID;
+        this.time = time;
+    }
 
     @FXML
     void downloadButtonHandler(MouseEvent event) {
-        Thread downloadThread = new Thread(()->{
-            boolean downloaded = FileServicesImpl.getFileServices().downloadFile(attachmentID,senderID);
-            Platform.runLater(()->{
-                if(downloaded){
+        Thread downloadThread = new Thread(() -> {
+            boolean downloaded = FileServicesImpl.getFileServices().downloadFile(attachmentID, senderID);
+            Platform.runLater(() -> {
+                if (downloaded) {
                     downloadButton.setVisible(false);
-                }else{
+                } else {
                     Alert alert = new Alert(Alert.AlertType.ERROR, "File download failed");
                     alert.setHeaderText(null);
                     alert.showAndWait();
@@ -46,19 +57,12 @@ public class FileMessageController {
         downloadThread.start();
     }
 
-    public FileMessageController(String name, String message, int size, int attachmentID, int senderID){
-        this.name = name;
-        this.message = message;
-        this.size = size;
-        this.attachmentID = attachmentID;
-        this.senderID = senderID;
-    }
-
-    public void initialize(){
+    public void initialize() {
         messageText.setText(message);
-        fileSize.setText((size/1024/1024)+"MB");
+        fileSize.setText((size / 1024 / 1024) + "MB");
         fileName.setText(name);
-        downloadButton.setVisible(!FileServicesImpl.getFileServices().checkIfFileExists(name,senderID));
+        downloadButton.setVisible(!FileServicesImpl.getFileServices().checkIfFileExists(name, senderID));
+        dateTimeText.setText(time);
     }
 
 }

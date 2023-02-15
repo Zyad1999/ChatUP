@@ -21,6 +21,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
@@ -164,20 +165,24 @@ public class AddGroupController implements Initializable {
             }
             image = Files.readAllBytes(groupImagePath);
 
-        } catch (IOException ex) {
+        } catch (IOException|URISyntaxException ex) {
             throw new RuntimeException(ex);
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
         }
-        GroupChat groupChat = new GroupChat(groupName.getText(), image);
-        int id = GroupServicesImpl.getGroupService().createGroupChat(groupChat, observableToList(groupUsersList));
-        if (id != -1) {
-            groupChat.setGroupChatID(id);
-            ListCoordinatorImpl.getListCoordinator().getUserGroups().add(CardMapper.getCard(groupChat, ""));
+        if(groupName.getText()==""){
+            groupName.setStyle("-fx-border-color: red; -fx-border-width: 1px");
+            groupName.setTooltip(hintText("Please Provide A Group Title", errorImage("/images/error.png")));
         }
-        System.out.println("Created Group Chat With Id: " + id);
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.close();
+        else {
+            GroupChat groupChat = new GroupChat(groupName.getText(), image);
+            int id = GroupServicesImpl.getGroupService().createGroupChat(groupChat, observableToList(groupUsersList));
+            if (id != -1) {
+                groupChat.setGroupChatID(id);
+                ListCoordinatorImpl.getListCoordinator().getUserGroups().add(CardMapper.getCard(groupChat, ""));
+            }
+            System.out.println("Created Group Chat With Id: " + id);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.close();
+        }
     }
 
     List<User> observableToList(ObservableList<User> list) {
@@ -193,5 +198,22 @@ public class AddGroupController implements Initializable {
     public void closeButton(MouseEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
+    }
+
+    private Tooltip hintText(String text, ImageView image) {
+        Tooltip tooltip = new Tooltip();
+        tooltip.setStyle("-fx-border-color: black; -fx-border-width: 1px; -fx-font: normal reqular 11pt 'Times New Roman'; -fx-background-color: rgba(241,241,241,1); -fx-text-fill: black; -fx-background-radius: 4; -fx-border-radius: 4; -fx-opacity: 1.0;");
+        tooltip.setAutoHide(false);
+        tooltip.setMaxWidth(300);
+        tooltip.setWrapText(true);
+        tooltip.setText(text);
+        tooltip.setGraphic(image);
+        return tooltip;
+    }
+    private ImageView errorImage(String pathImage) {
+        ImageView imageView = new ImageView(new Image(getClass().getResourceAsStream(pathImage)));
+        imageView.setFitWidth(25);
+        imageView.setFitHeight(25);
+        return imageView;
     }
 }

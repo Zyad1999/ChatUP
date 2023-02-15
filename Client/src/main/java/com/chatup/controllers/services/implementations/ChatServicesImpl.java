@@ -259,36 +259,6 @@ public class ChatServicesImpl implements ChatService {
     }
 
     @Override
-    public HBox sendGroupMessage(GroupMessage message) {
-        try {
-            ServerConnection.getServer().sendGroupChatMessage(message);
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
-        return groupMessage(message);
-    }
-
-    @Override
-    public HBox recGroupMessage(GroupMessage message) {
-        return groupMessage(message);
-    }
-
-    @Override
-    public HBox sendChatMessage(ChatMessage message) {
-        try {
-            ServerConnection.getServer().sendChatMessage(message);
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
-        return chatMessage(message);
-    }
-
-    @Override
-    public HBox recChatMessage(ChatMessage message) {
-        return chatMessage(message);
-    }
-
-    @Override
     public void updateChatList(int chatID, String content) {
         ObservableList<Card> chats = ListCoordinatorImpl.getListCoordinator().getUserChats();
         Card curChat = null;

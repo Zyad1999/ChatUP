@@ -22,6 +22,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -150,6 +151,11 @@ public class ChatScreenController implements Initializable {
     private AnchorPane footerChat;
     @FXML
     private AnchorPane containerAnchorPan;
+
+    @FXML
+    private ImageView botImg;
+
+
 
     @FXML
     private ScrollPane scrollPane;
@@ -655,7 +661,14 @@ public class ChatScreenController implements Initializable {
 
     @FXML
     private void chatBotButtonHandler(ActionEvent event) {
-
+        if(ChatterBotService.getChatterBotService().botStatus==true){
+            ChatterBotService.getChatterBotService().botStatus=false;
+            botImg.setImage(new Image(String.valueOf(ChatScreenController.class.getResource("/images/redchatbot.png"))));
+        }
+        else{
+            ChatterBotService.getChatterBotService().botStatus=true;
+            botImg.setImage(new Image(String.valueOf(ChatScreenController.class.getResource("/images/greenChatBot.png"))));
+        }
     }
 
 }

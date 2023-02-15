@@ -28,25 +28,25 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         stage.initStyle(StageStyle.UNDECORATED);
-        User user = null;
-        if(RememberSetting.getPhone() != null){
-            if(RememberSetting.getPassword() != null){
-                user = UserAuthImp.getUserAuth().loginAuth(RememberSetting.getPhone(), RememberSetting.getPassword());
-                if ( user != null) {
-                    CurrentUserImp.setCurrentUser(user);
-                    System.out.println("corrected information");
-                    SwitchScenes.getInstance().switchToChatScreen(stage);
-                    return;
-                }
-            }else {
-                user = UserServicesImpl.getUserServices().getUser(RememberSetting.getPhone());
-                if(user != null){
-                    CurrentUserImp.setCurrentUser(user);
-                    SwitchScenes.getInstance().switchToSignInSecond(stage);
-                    return;
-                }
-            }
-        }
+//        User user = null;
+//        if(RememberSetting.getPhone() != null){
+//            if(RememberSetting.getPassword() != null){
+//                user = UserAuthImp.getUserAuth().loginAuth(RememberSetting.getPhone(), RememberSetting.getPassword());
+//                if ( user != null) {
+//                    CurrentUserImp.setCurrentUser(user);
+//                    System.out.println("corrected information");
+//                    SwitchScenes.getInstance().switchToChatScreen(stage);
+//                    return;
+//                }
+//            }else {
+//                user = UserServicesImpl.getUserServices().getUser(RememberSetting.getPhone());
+//                if(user != null){
+//                    CurrentUserImp.setCurrentUser(user);
+//                    SwitchScenes.getInstance().switchToSignInSecond(stage);
+//                    return;
+//                }
+//            }
+//        }
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/views/SignInFirstScene.fxml"));
         Scene scene = null;
         try {

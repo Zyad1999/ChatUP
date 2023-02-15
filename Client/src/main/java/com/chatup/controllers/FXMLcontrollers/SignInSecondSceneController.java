@@ -11,6 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
@@ -22,6 +23,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
+import javafx.stage.Stage;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -62,7 +64,7 @@ public class SignInSecondSceneController implements Initializable {
 
     @FXML
     void signInClicked(ActionEvent event) {
-       signIn(event);
+        signIn(event);
     }
 
     @FXML
@@ -82,9 +84,10 @@ public class SignInSecondSceneController implements Initializable {
             ex.printStackTrace();
         }
     }
+
     @FXML
     void passwordEnterPressed(KeyEvent event) {
-        if(event.getCode()== KeyCode.ENTER){
+        if (event.getCode() == KeyCode.ENTER) {
             signIn(event);
         }
     }
@@ -122,7 +125,7 @@ public class SignInSecondSceneController implements Initializable {
         phoneNumberTF.setText(phone);
     }
 
-    public void signIn(Event event){
+    public void signIn(Event event) {
         validatePassword();
         if (valid) {
             try {
@@ -140,5 +143,11 @@ public class SignInSecondSceneController implements Initializable {
                 ex.printStackTrace();
             }
         }
+    }
+
+    @FXML
+    void minimizeButtonHandler(MouseEvent event) {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setIconified(true);
     }
 }

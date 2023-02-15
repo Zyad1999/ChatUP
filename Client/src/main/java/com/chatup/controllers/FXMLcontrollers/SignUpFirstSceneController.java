@@ -14,12 +14,14 @@ import io.github.palexdev.materialfx.controls.legacy.MFXLegacyComboBox;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -273,5 +275,11 @@ public class SignUpFirstSceneController implements Initializable {
             countryComboBox1.setStyle("-fx-border-color: -fx-gray-color;");
 //            valid = true;
         }
+    }
+
+    @FXML
+    void minimizeButtonHandler(MouseEvent event) {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setIconified(true);
     }
 }

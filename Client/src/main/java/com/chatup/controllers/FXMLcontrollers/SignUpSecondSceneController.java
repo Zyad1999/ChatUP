@@ -7,12 +7,14 @@ import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
@@ -34,7 +36,7 @@ public class SignUpSecondSceneController implements Initializable {
     private TextArea bioTextArea;
     private Image userImage;
 
-    private boolean enterImage=false;
+    private boolean enterImage = false;
 
     private Path profileImgPath;
 
@@ -63,7 +65,7 @@ public class SignUpSecondSceneController implements Initializable {
             userImage = new Image(SignInSecondSceneController.class.getResourceAsStream("/images/default_profile_pic.jpg"));
         }
         profileImage.setFill(new ImagePattern(userImage));
-        enterImage =true;
+        enterImage = true;
     }
 
     @FXML
@@ -71,17 +73,17 @@ public class SignUpSecondSceneController implements Initializable {
         try {
             byte[] image;
             try {
-                if(!enterImage){
-                    profileImgPath =new File(AddGroupController.class.getResource("/images/default_profile_pic.jpg").toURI()).toPath();
+                if (!enterImage) {
+                    profileImgPath = new File(AddGroupController.class.getResource("/images/default_profile_pic.jpg").toURI()).toPath();
                 }
                 image = Files.readAllBytes(profileImgPath);
                 CurrentUserImp.getCurrentUser().setImg(image);
 
-            } catch (IOException|URISyntaxException ex) {
+            } catch (IOException | URISyntaxException ex) {
                 throw new RuntimeException(ex);
             }
             CurrentUserImp.getCurrentUser().setBio(bioTextArea.getText());
-            System.out.println("img is : "+CurrentUserImp.getCurrentUser().getImg());
+            System.out.println("img is : " + CurrentUserImp.getCurrentUser().getImg());
             ServerConnection.getServer().signup(CurrentUserImp.getCurrentUser());
             SwitchScenes.getInstance().switchToSignInFirst(event);
         } catch (IOException e) {
@@ -101,5 +103,11 @@ public class SignUpSecondSceneController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    void minimizeButtonHandler(MouseEvent event) {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setIconified(true);
     }
 }

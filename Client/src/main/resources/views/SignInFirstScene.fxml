@@ -36,6 +36,14 @@
                 </ImageView>
                 <Button fx:id="SignIn" layoutX="198.0" layoutY="76.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="70.0" mnemonicParsing="false" onAction="#SignIn_Clicked" styleClass="signIn-button" text="Sign In" />
                 <Button fx:id="SignUp" layoutX="268.0" layoutY="76.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="70.0" mnemonicParsing="false" onAction="#SignUp_Clicked" styleClass="signUp-button" text="Sign Up" />
+            <ImageView fitHeight="30.0" fitWidth="50.0" layoutX="457.0" layoutY="15.0" nodeOrientation="INHERIT" onMouseClicked="#minimizeButtonHandler" pickOnBounds="true" preserveRatio="true" styleClass="close-button">
+               <image>
+                  <Image url="@../images/mini.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
             </children>
         </AnchorPane>
         <ImageView fitHeight="77.0" fitWidth="280.0" layoutX="17.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true">

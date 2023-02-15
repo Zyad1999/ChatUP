@@ -1,173 +1,143 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXPasswordField?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import io.github.palexdev.materialfx.controls.legacy.MFXLegacyComboBox?>
-<?import io.github.palexdev.materialfx.controls.*?>
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Separator?>
-<?import javafx.scene.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
-<?import java.lang.*?>
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0"
-            prefWidth="850.0" stylesheets="@../style/SignUpFirstScene.css" xmlns="http://javafx.com/javafx/19"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.chatup.controllers.FXMLcontrollers.SignUpFirstSceneController">
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="850.0" stylesheets="@../style/SignUpFirstScene.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chatup.controllers.FXMLcontrollers.SignUpFirstSceneController">
     <center>
-        <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-                    prefHeight="570.0" prefWidth="534.0" styleClass="right-side" BorderPane.alignment="CENTER">
+        <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="534.0" styleClass="right-side" BorderPane.alignment="CENTER">
             <center>
-                <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-                      BorderPane.alignment="CENTER">
+                <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" BorderPane.alignment="CENTER">
                     <children>
-                        <MFXLegacyComboBox fx:id="genderComboBox" layoutX="250.0" layoutY="66.0" lineStrokeCap="SQUARE"
-                                           lineStrokeWidth="0.0" maxHeight="-Infinity" maxWidth="-Infinity"
-                                           minHeight="-Infinity" minWidth="-Infinity" onAction="#Gender_Options"
-                                           prefHeight="38.0" prefWidth="221.0" promptText="Gender"
-                                           unfocusedLineColor="#0f3d3e" validated="true">
+                        <MFXLegacyComboBox fx:id="genderComboBox" layoutX="250.0" layoutY="66.0" lineStrokeCap="SQUARE" lineStrokeWidth="0.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#Gender_Options" prefHeight="38.0" prefWidth="221.0" promptText="Gender" unfocusedLineColor="#0f3d3e" validated="true">
                             <cursor>
-                                <Cursor fx:constant="HAND"/>
+                                <Cursor fx:constant="HAND" />
                             </cursor>
                             <styleClass>
-                                <String fx:value="text-field"/>
-                                <String fx:value="mfx-date-picker"/>
+                                <String fx:value="text-field" />
+                                <String fx:value="mfx-date-picker" />
                             </styleClass>
                         </MFXLegacyComboBox>
-                        <MFXTextField fx:id="userNameTF" borderGap="50.0" floatMode="DISABLED" layoutY="8.0"
-                                      maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                                      minWidth="-Infinity" prefHeight="38.0" prefWidth="221.0" promptText="Name"
-                                      styleClass="text-field">
+                        <MFXTextField fx:id="userNameTF" borderGap="50.0" floatMode="DISABLED" layoutY="8.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0" prefWidth="221.0" promptText="Name" styleClass="text-field">
                             <textFill>
-                                <Color red="1.0" green="1.0" blue="1.0" opacity="0.8700000047683716"/>
+                                <Color red="1.0" green="1.0" blue="1.0" opacity="0.8700000047683716" />
                             </textFill>
                             <cursor>
-                                <Cursor fx:constant="TEXT"/>
+                                <Cursor fx:constant="TEXT" />
                             </cursor>
                         </MFXTextField>
-                        <MFXTextField fx:id="phoneNumberTF" floatMode="BORDER" layoutX="250.0"
-                                      layoutY="7.650000095367432" maxHeight="-Infinity" maxWidth="-Infinity"
-                                      minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0" prefWidth="221.0"
-                                      promptText="Phone Number" styleClass="text-field">
+                        <MFXTextField fx:id="phoneNumberTF" floatMode="BORDER" layoutX="250.0" layoutY="7.650000095367432" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0" prefWidth="221.0" promptText="Phone Number" styleClass="text-field">
                             <cursor>
-                                <Cursor fx:constant="TEXT"/>
+                                <Cursor fx:constant="TEXT" />
                             </cursor>
                         </MFXTextField>
-                        <MFXTextField fx:id="emailTF" floatMode="BORDER" layoutY="65.65000009536743"
-                                      maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                                      minWidth="-Infinity" prefHeight="38.0" prefWidth="221.0" promptText="Email"
-                                      styleClass="text-field">
+                        <MFXTextField fx:id="emailTF" floatMode="BORDER" layoutY="65.65000009536743" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0" prefWidth="221.0" promptText="Email" styleClass="text-field">
                             <cursor>
-                                <Cursor fx:constant="TEXT"/>
+                                <Cursor fx:constant="TEXT" />
                             </cursor>
                         </MFXTextField>
-                        <MFXPasswordField fx:id="passwordPF" floatMode="BORDER" layoutY="123.65000009536743"
-                                          maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                                          minWidth="-Infinity" prefHeight="38.0" prefWidth="221.0" promptText="Password"
-                                          styleClass="text-field">
+                        <MFXPasswordField fx:id="passwordPF" floatMode="BORDER" layoutY="123.65000009536743" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0" prefWidth="221.0" promptText="Password" styleClass="text-field">
                             <cursor>
-                                <Cursor fx:constant="TEXT"/>
+                                <Cursor fx:constant="TEXT" />
                             </cursor>
                         </MFXPasswordField>
-                        <DatePicker fx:id="dateOfBirthDP" depthTest="ENABLE" editable="false" layoutX="250.0"
-                                    layoutY="123.65000009536743" maxHeight="-Infinity" maxWidth="-Infinity"
-                                    minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0" prefWidth="221.0"
-                                    promptText="Date Of Birth">
+                        <DatePicker fx:id="dateOfBirthDP" depthTest="ENABLE" editable="false" layoutX="250.0" layoutY="123.65000009536743" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0" prefWidth="221.0" promptText="Date Of Birth">
                             <styleClass>
-                                <String fx:value="text-field"/>
-                                <String fx:value="mfx-date-picker"/>
-                                <String fx:value="mfx-icon-wrapper"/>
+                                <String fx:value="text-field" />
+                                <String fx:value="mfx-date-picker" />
+                                <String fx:value="mfx-icon-wrapper" />
                             </styleClass>
                             <cursor>
-                                <Cursor fx:constant="HAND"/>
+                                <Cursor fx:constant="HAND" />
                             </cursor>
                         </DatePicker>
-                        <MFXPasswordField fx:id="confirmPasswordPF" floatMode="BORDER" layoutY="181.65000009536743"
-                                          maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                                          minWidth="-Infinity" prefHeight="38.0" prefWidth="221.0"
-                                          promptText="Confirmation Password" styleClass="text-field">
+                        <MFXPasswordField fx:id="confirmPasswordPF" floatMode="BORDER" layoutY="181.65000009536743" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0" prefWidth="221.0" promptText="Confirmation Password" styleClass="text-field">
                             <cursor>
-                                <Cursor fx:constant="TEXT"/>
+                                <Cursor fx:constant="TEXT" />
                             </cursor>
                         </MFXPasswordField>
-                        <Separator layoutX="233.0" layoutY="14.0" opacity="0.33" orientation="VERTICAL"
-                                   prefHeight="200.0" prefWidth="1.0"/>
-                        <MFXLegacyComboBox fx:id="countryComboBox1" layoutX="250.0" layoutY="182.0"
-                                           lineStrokeCap="SQUARE" lineStrokeWidth="0.0" maxHeight="-Infinity"
-                                           maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-                                           onAction="#Cender_Options" prefHeight="38.0" prefWidth="221.0"
-                                           promptText="Country" unfocusedLineColor="#0f3d3e" validated="true">
+                        <Separator layoutX="233.0" layoutY="14.0" opacity="0.33" orientation="VERTICAL" prefHeight="200.0" prefWidth="1.0" />
+                        <MFXLegacyComboBox fx:id="countryComboBox1" layoutX="250.0" layoutY="182.0" lineStrokeCap="SQUARE" lineStrokeWidth="0.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#Cender_Options" prefHeight="38.0" prefWidth="221.0" promptText="Country" unfocusedLineColor="#0f3d3e" validated="true">
                             <cursor>
-                                <Cursor fx:constant="HAND"/>
+                                <Cursor fx:constant="HAND" />
                             </cursor>
                             <styleClass>
-                                <String fx:value="text-field"/>
-                                <String fx:value="mfx-date-picker"/>
+                                <String fx:value="text-field" />
+                                <String fx:value="mfx-date-picker" />
                             </styleClass>
                         </MFXLegacyComboBox>
                     </children>
                 </Pane>
             </center>
             <top>
-                <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-                      prefWidth="534.0" spacing="40.0" BorderPane.alignment="TOP_RIGHT">
+                <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="534.0" spacing="40.0" BorderPane.alignment="TOP_RIGHT">
                     <BorderPane.margin>
-                        <Insets/>
+                        <Insets />
                     </BorderPane.margin>
                     <children>
-                        <ImageView fx:id="exitButton" fitHeight="30.0" fitWidth="50.0" nodeOrientation="INHERIT"
-                                   onMouseClicked="#Exit_Clicked" pickOnBounds="true" preserveRatio="true"
-                                   styleClass="close-button">
-                            <image>
-                                <Image url="@../images/close-window.png"/>
-                            </image>
-                            <VBox.margin>
-                                <Insets left="480.0"/>
-                            </VBox.margin>
-                            <cursor>
-                                <Cursor fx:constant="HAND"/>
-                            </cursor>
+                  <HBox alignment="TOP_RIGHT" spacing="7.0">
+                     <VBox.margin>
+                        <Insets left="430.0" />
+                     </VBox.margin>
+                     <children>
+                              <ImageView fitHeight="30.0" fitWidth="50.0" nodeOrientation="INHERIT" onMouseClicked="#minimizeButtonHandler" pickOnBounds="true" preserveRatio="true" styleClass="close-button">
+                                  <image>
+                                      <Image url="@../images/mini.png" />
+                                  </image>
+                                  <cursor>
+                                      <Cursor fx:constant="HAND" />
+                                  </cursor>
+                              </ImageView>
+                        <ImageView fx:id="exitButton1" fitHeight="30.0" fitWidth="50.0" nodeOrientation="INHERIT" onMouseClicked="#Exit_Clicked" pickOnBounds="true" preserveRatio="true" styleClass="close-button">
+                           <image>
+                              <Image url="@../images/close-window.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </ImageView>
-                        <HBox alignment="TOP_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                              minWidth="-Infinity" prefWidth="330.0" VBox.vgrow="ALWAYS">
+                     </children>
+                  </HBox>
+                        <HBox alignment="TOP_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="330.0" VBox.vgrow="ALWAYS">
                             <children>
-                                <Button fx:id="signInButton" maxHeight="1.7976931348623157E308"
-                                        maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="70.0"
-                                        mnemonicParsing="false" onAction="#signInButtonHandler"
-                                        styleClass="signIn-button" text="Sign In"/>
-                                <Button fx:id="signUpButton" maxHeight="1.7976931348623157E308"
-                                        maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="70.0"
-                                        mnemonicParsing="false" onAction="#signUpButtonHandler"
-                                        styleClass="signUp-button" text="Sign Up"/>
+                                <Button fx:id="signInButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="70.0" mnemonicParsing="false" onAction="#signInButtonHandler" styleClass="signIn-button" text="Sign In" />
+                                <Button fx:id="signUpButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="70.0" mnemonicParsing="false" onAction="#signUpButtonHandler" styleClass="signUp-button" text="Sign Up" />
                             </children>
                         </HBox>
                     </children>
                     <padding>
-                        <Insets left="10.0" right="10.0" top="10.0"/>
+                        <Insets left="10.0" right="10.0" top="10.0" />
                     </padding>
                 </VBox>
             </top>
             <bottom>
                 <Pane prefHeight="139.0" prefWidth="534.0" BorderPane.alignment="CENTER">
                     <children>
-                        <MFXButton fx:id="nextButton" buttonType="RAISED" computeRadiusMultiplier="false"
-                                   defaultButton="true" depthLevel="LEVEL1" layoutX="176.0" layoutY="3.0"
-                                   maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-                                   onAction="#nextButtonHandler" prefHeight="50.0" prefWidth="182.0"
-                                   rippleAnimateShadow="true" rippleColor="#0f3d3e" rippleRadius="30.0"
-                                   rippleRadiusMultiplier="30.0"
-                                   style="-fx-border-color: #0F3D3E; -fx-border-radius: 30; -fx-background-radius: 30; -fx-background-size: 1;"
-                                   text="Next" textAlignment="CENTER" textFill="#0f3d3e" wrapText="true">
+                        <MFXButton fx:id="nextButton" buttonType="RAISED" computeRadiusMultiplier="false" defaultButton="true" depthLevel="LEVEL1" layoutX="176.0" layoutY="3.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#nextButtonHandler" prefHeight="50.0" prefWidth="182.0" rippleAnimateShadow="true" rippleColor="#0f3d3e" rippleRadius="30.0" rippleRadiusMultiplier="30.0" style="-fx-border-color: #0F3D3E; -fx-border-radius: 30; -fx-background-radius: 30; -fx-background-size: 1;" text="Next" textAlignment="CENTER" textFill="#0f3d3e" wrapText="true">
                             <font>
-                                <Font name="Javanese Text" size="23.0"/>
+                                <Font name="Javanese Text" size="23.0" />
                             </font>
                             <opaqueInsets>
-                                <Insets/>
+                                <Insets />
                             </opaqueInsets>
                             <cursor>
-                                <Cursor fx:constant="HAND"/>
+                                <Cursor fx:constant="HAND" />
                             </cursor>
                         </MFXButton>
                     </children>
@@ -178,16 +148,14 @@
     <left>
         <Pane prefWidth="316.0" BorderPane.alignment="CENTER">
             <children>
-                <ImageView fitHeight="77.0" fitWidth="280.0" layoutX="17.0" layoutY="95.0" pickOnBounds="true"
-                           preserveRatio="true">
+                <ImageView fitHeight="77.0" fitWidth="280.0" layoutX="17.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../images/logo.png"/>
+                        <Image url="@../images/logo.png" />
                     </image>
                 </ImageView>
-                <ImageView fitHeight="215.0" fitWidth="323.0" layoutX="-2.0" layoutY="215.0" pickOnBounds="true"
-                           preserveRatio="true">
+                <ImageView fitHeight="215.0" fitWidth="323.0" layoutX="-2.0" layoutY="215.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../images/illustration.png"/>
+                        <Image url="@../images/illustration.png" />
                     </image>
                 </ImageView>
             </children>

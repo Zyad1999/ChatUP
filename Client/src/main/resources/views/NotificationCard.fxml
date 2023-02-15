@@ -48,7 +48,7 @@
                 <Insets bottom="5.0" />
             </HBox.margin>
         </VBox>
-        <MFXButton onAction="#deleteInvitation" prefWidth="27.0" style="-fx-background-color: none;" text=" ">
+        <MFXButton onAction="#openAnnouncement" prefWidth="27.0" style="-fx-background-color: none;" text=" ">
             <graphic>
                 <ImageView fitHeight="40.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" style="-fx-rotate: 180;">
                     <image>

@@ -11,6 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
@@ -19,6 +20,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -72,7 +74,7 @@ public class SignInFirstSceneController implements Initializable {
 
     @FXML
     void phoneNumberEnterPressed(KeyEvent event) {
-        if(event.getCode()== KeyCode.ENTER){
+        if (event.getCode() == KeyCode.ENTER) {
             next(event);
         }
     }
@@ -110,7 +112,7 @@ public class SignInFirstSceneController implements Initializable {
         }
     }
 
-    private void next(Event event){
+    private void next(Event event) {
         validatePhoneNumber();
         if (valid) {
             try {
@@ -130,5 +132,11 @@ public class SignInFirstSceneController implements Initializable {
                 e.printStackTrace();
             }
         }
+    }
+
+    @FXML
+    void minimizeButtonHandler(MouseEvent event) {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setIconified(true);
     }
 }

@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.TimeUnit;
 
 public class ServerImpl extends UnicastRemoteObject implements Server {
     private static Server server;
@@ -183,6 +182,16 @@ public class ServerImpl extends UnicastRemoteObject implements Server {
     @Override
     public void addUsersToGroup(int groupChatId, List<User> userList) throws RemoteException {
          UserGroupsServiceImp.getUserGroupsService().addUsersToGroup(groupChatId,userList);
+         for (User user:userList){
+             if(clients.containsKey(user.getId())){
+                 clients.get(user.getId()).addedToGroup(groupChatId);
+             }
+         }
+    }
+
+    @Override
+    public GroupChat getGroupChat(int groupID) throws RemoteException{
+        return UserGroupsServiceImp.getUserGroupsService().getGroupChat(groupID);
     }
 
     @Override

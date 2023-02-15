@@ -26,12 +26,14 @@ public class FriendRequestRepoImpl implements FriendRequestRepo {
 
     @Override
     public int createFriendRequest(FriendRequest request) {
-
-        if(FriendRequestRepoImpl.getFriendRequestRepo().getFriendRequest(request.getSenderID(),request.getReceiverID())!=null) {
-            System.out.println("Invitation already exist");
+        FriendRequest requestRev = FriendRequestRepoImpl.getFriendRequestRepo().getFriendRequest(request.getReceiverID(),request.getSenderID());
+        if(requestRev != null && requestRev.getRequestStatus() == FriendRequestStatus.PENDING) {
+            FriendRequestRepoImpl.getFriendRequestRepo().updateFriendRequestStatus(requestRev.getRequestID(),FriendRequestStatus.ACCEPTED);
+            return -1;
+        } else if (requestRev != null || FriendRequestRepoImpl.getFriendRequestRepo().getFriendRequest(request.getSenderID(),request.getReceiverID()) != null) {
+            System.out.println("Request exist");
             return -1;
         }
-
         String query = "INSERT INTO friend_request(sender_id,reciver_id,request_status) VALUES(?,?,?)";
         try(PreparedStatement stmnt = DBConnection.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS)){
             stmnt.setInt(1,request.getSenderID());
@@ -147,7 +149,7 @@ public class FriendRequestRepoImpl implements FriendRequestRepo {
 
     @Override
     public FriendRequest getFriendRequest(int senderID, int receiverID) {
-        String query = "SELECT * FROM friend_request WHERE sender_id = ? AND receiver_id = ?";
+        String query = "SELECT * FROM friend_request WHERE sender_id = ? AND reciver_id = ?";
         try(PreparedStatement stmnt = DBConnection.getConnection().prepareStatement(query)){
             stmnt.setInt(1, senderID);
             stmnt.setInt(2, receiverID);

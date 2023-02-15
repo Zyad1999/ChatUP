@@ -159,7 +159,7 @@ public class GroupChatRepoImpl implements GroupChatRepo {
     public String saveImg(byte[] img,String groupName){
         FileOutputStream fos = null;
         String imgID = UUID.randomUUID().toString();
-        String path = "./src/main/resources/files/imgs/"+groupName;
+        String path = "./files/imgs/"+groupName;
         try {
             File theDir = new File(path);
             if (!theDir.exists()){

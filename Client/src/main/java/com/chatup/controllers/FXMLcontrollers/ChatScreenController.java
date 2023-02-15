@@ -24,6 +24,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.layout.*;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
@@ -106,6 +108,8 @@ public class ChatScreenController implements Initializable {
     @FXML
     private MFXButton group_btn;
     @FXML
+    private MFXButton notification_btn;
+    @FXML
     private MFXButton settings_btn;
     @FXML
     private MFXButton extract_menu_id;
@@ -116,7 +120,8 @@ public class ChatScreenController implements Initializable {
     @FXML
     private ListView cardsListView;
 
-
+    @FXML
+    private MFXButton addButton;
     @FXML
     private Button sendButton;
 
@@ -124,7 +129,21 @@ public class ChatScreenController implements Initializable {
     private TextField messageText;
 
     @FXML
+    private HBox listBox;
+
+    @FXML
+    private MFXButton FriendRequests_id;
+
+    @FXML
+    private MFXButton offlineUsersButton;
+
+    @FXML
+    private MFXButton onlineUsersButton;
+
+    @FXML
     private AnchorPane anchorPanWithoutmenu;
+    @FXML
+    private MFXButton chatBot_btn;
     @FXML
     private AnchorPane friendDetailsAnchorPan;
     @FXML
@@ -274,6 +293,20 @@ public class ChatScreenController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        prepareListView(cardsListView, scrollPane);
+        cardsListView.setItems(ListCoordinatorImpl.getListCoordinator().getUserChats());
+        ListCoordinatorImpl.currentList=CardType.CHAT;
+        addButton.setVisible(false);
+        FriendRequests_id.setVisible(false);
+        onlineUsersButton.setVisible(false);
+        offlineUsersButton.setVisible(false);
+        user_chats_btn.setStyle("-fx-opacity: 1");
+        friends_btn.setStyle("-fx-opacity: 0.3");
+        group_btn.setStyle("-fx-opacity: 0.3");
+        notification_btn.setStyle("-fx-opacity: 0.3");
+        settings_btn.setStyle("-fx-opacity: 0.3");
+        chatBot_btn.setStyle("-fx-opacity: 0.3");
+
         dragBar.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -422,21 +455,52 @@ public class ChatScreenController implements Initializable {
     }
     @FXML
     void setChats(ActionEvent event) {
+        user_chats_btn.setStyle("-fx-opacity: 1");
+        friends_btn.setStyle("-fx-opacity: 0.3");
+        group_btn.setStyle("-fx-opacity: 0.3");
+        notification_btn.setStyle("-fx-opacity: 0.3");
+        settings_btn.setStyle("-fx-opacity: 0.3");
+        chatBot_btn.setStyle("-fx-opacity: 0.3");
         cardsListView.setItems(ListCoordinatorImpl.getListCoordinator().getUserChats());
+        ListCoordinatorImpl.currentList=CardType.CHAT;
+        addButton.setVisible(false);
+        FriendRequests_id.setVisible(false);
+        onlineUsersButton.setVisible(false);
+        offlineUsersButton.setVisible(false);
     }
 
     @FXML
     void setFriends(ActionEvent event) {
-
+        user_chats_btn.setStyle("-fx-opacity: 0.3");
+        friends_btn.setStyle("-fx-opacity: 1");
+        group_btn.setStyle("-fx-opacity: 0.3");
+        notification_btn.setStyle("-fx-opacity: 0.3");
+        settings_btn.setStyle("-fx-opacity: 0.3");
+        chatBot_btn.setStyle("-fx-opacity: 0.3");
+        addButton.setVisible(true);
+        FriendRequests_id.setVisible(true);
+        onlineUsersButton.setVisible(true);
+        offlineUsersButton.setVisible(true);
         cardsListView.setItems(ListCoordinatorImpl.getListCoordinator().getUserOnlineFriends());
+        ListCoordinatorImpl.currentList=CardType.FRIEND;
     }
 
     @FXML
     void setGroups(ActionEvent event) {
-
+        user_chats_btn.setStyle("-fx-opacity: 0.3");
+        friends_btn.setStyle("-fx-opacity: 0.3");
+        group_btn.setStyle("-fx-opacity: 1");
+        notification_btn.setStyle("-fx-opacity: 0.3");
+        settings_btn.setStyle("-fx-opacity: 0.3");
+        chatBot_btn.setStyle("-fx-opacity: 0.3");
         //currentList.clear();
         //currentList.addAll(ListCoordinatorImpl.getListCoordinator().getUserGroups());
         cardsListView.setItems(ListCoordinatorImpl.getListCoordinator().getUserGroups());
+        ListCoordinatorImpl.currentList=CardType.GROUP;
+        addButton.setVisible(true);
+        FriendRequests_id.setVisible(false);
+        onlineUsersButton.setVisible(false);
+        offlineUsersButton.setVisible(false);
     }
 
     @FXML
@@ -459,14 +523,25 @@ public class ChatScreenController implements Initializable {
 
     @FXML
     void userNotifications(ActionEvent event) {
-
+        user_chats_btn.setStyle("-fx-opacity: 0.3");
+        friends_btn.setStyle("-fx-opacity: 0.3");
+        group_btn.setStyle("-fx-opacity: 0.3");
+        notification_btn.setStyle("-fx-opacity: 1");
+        settings_btn.setStyle("-fx-opacity: 0.3");
+        chatBot_btn.setStyle("-fx-opacity: 0.3");
     }
 
     @FXML
     void userSettings(ActionEvent event) {
+        user_chats_btn.setStyle("-fx-opacity: 0.3");
+        friends_btn.setStyle("-fx-opacity: 0.3");
+        group_btn.setStyle("-fx-opacity: 0.3");
+        notification_btn.setStyle("-fx-opacity: 0.3");
+        settings_btn.setStyle("-fx-opacity: 1");
+        chatBot_btn.setStyle("-fx-opacity: 0.3");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/EditeProfile.fxml"));
-        EditeProfileController editeProfileController = new EditeProfileController();
-        loader.setController(editeProfileController);
+//        EditeProfileController editeProfileController = new EditeProfileController();
+//        loader.setController(editeProfileController);
         try {
             Scene scene =new Scene(loader.load());
             Stage stage = new Stage();
@@ -536,14 +611,23 @@ public class ChatScreenController implements Initializable {
     }
     @FXML
     void sendInvitation(ActionEvent event) {
-        FXMLLoader friendRequestFXML;
+        FXMLLoader loader ;
+        Scene scene = null;
         try {
-            friendRequestFXML =new FXMLLoader(Objects.requireNonNull(ChatScreenController.class.getResource("/views/AddFriend.fxml")));
-            AddFriendRequestController addFriendRequestController = new AddFriendRequestController();
-            friendRequestFXML.setController(addFriendRequestController);
-            Scene scene =new Scene(friendRequestFXML.load());
+            System.out.println("Current List= "+ListCoordinatorImpl.currentList);
+            if(ListCoordinatorImpl.currentList==CardType.FRIEND) {
+                loader = new FXMLLoader(Objects.requireNonNull(ChatScreenController.class.getResource("/views/AddFriend.fxml")));
+                AddFriendRequestController addFriendRequestController = new AddFriendRequestController();
+                loader.setController(addFriendRequestController);
+                scene = new Scene(loader.load(), 550, 550);
+            }
+            else if(ListCoordinatorImpl.currentList==CardType.GROUP){
+                loader = new FXMLLoader(Objects.requireNonNull(ChatScreenController.class.getResource("/views/AddGroup.fxml")));
+                AddGroupController addGroupController = new AddGroupController();
+                loader.setController(addGroupController);
+                scene = new Scene(loader.load(), 550, 550);
+            }
             Stage stage = new Stage();
-            stage.setMaximized(false);
             stage.setScene(scene);
             stage.show();
 
@@ -554,14 +638,23 @@ public class ChatScreenController implements Initializable {
         }
     }
 
+
     @FXML
     void getAllOnlineUsers(ActionEvent event) {
+        onlineUsersButton.setStyle("-fx-opacity: 1; -fx-background-color: transparent");
+        offlineUsersButton.setStyle("-fx-opacity: 0.3");
         cardsListView.setItems(ListCoordinatorImpl.getListCoordinator().getUserOnlineFriends());
     }
 
     @FXML
     void getAllofflineUsedrs(ActionEvent event) {
+        onlineUsersButton.setStyle("-fx-opacity: 0.3");
+        offlineUsersButton.setStyle("-fx-opacity: 1; -fx-background-color: transparent ");
         cardsListView.setItems(ListCoordinatorImpl.getListCoordinator().getUserOfflineFriends());
+    }
+    @FXML
+    private void chatBotButtonHandler(ActionEvent event) {
+
     }
 
 }

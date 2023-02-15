@@ -67,7 +67,7 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </MFXButton>
-                                    <MFXButton buttonType="RAISED" contentDisplay="CENTER" onAction="#setGroups" prefHeight="55.0" prefWidth="59.0" styleClass="MFXButton" text=" " textFill="#041014">
+                                    <MFXButton fx:id="group_btn" buttonType="RAISED" contentDisplay="CENTER" onAction="#setGroups" prefHeight="55.0" prefWidth="59.0" styleClass="MFXButton" text=" " textFill="#041014">
                                        <graphic>
                                           <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: 0.7;">
                                              <image>
@@ -79,7 +79,7 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </MFXButton>
-                                    <MFXButton buttonType="RAISED" contentDisplay="CENTER" onAction="#userNotifications" prefHeight="55.0" prefWidth="59.0" styleClass="MFXButton" text=" " textFill="#041014">
+                                    <MFXButton fx:id="notification_btn" buttonType="RAISED" contentDisplay="CENTER" onAction="#userNotifications" prefHeight="55.0" prefWidth="59.0" styleClass="MFXButton" text=" " textFill="#041014">
                                        <graphic>
                                           <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -91,7 +91,19 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </MFXButton>
-                                    <MFXButton buttonType="RAISED" contentDisplay="CENTER" onAction="#userSettings" prefHeight="55.0" prefWidth="59.0" styleClass="MFXButton" text=" " textFill="WHITE">
+                                    <MFXButton fx:id="chatBot_btn" buttonType="RAISED" contentDisplay="CENTER" onAction="#chatBotButtonHandler" prefHeight="55.0" prefWidth="59.0" styleClass="MFXButton" text=" " textFill="WHITE">
+                                       <graphic>
+                                          <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../images/chatBot.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </MFXButton>
+                                    <MFXButton fx:id="settings_btn" buttonType="RAISED" contentDisplay="CENTER" onAction="#userSettings" prefHeight="55.0" prefWidth="59.0" styleClass="MFXButton" text=" " textFill="WHITE">
                                        <graphic>
                                           <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -192,11 +204,11 @@
                         </HBox>
                         <HBox fx:id="HboxBtnsBar" alignment="TOP_RIGHT" layoutX="41.0" layoutY="84.0" prefHeight="43.0" prefWidth="249.0" style="-fx-background-color: #F1F1F1;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="84.0">
                            <children>
-                              <MFXButton depthLevel="LEVEL5" onAction="#getAllOnlineUsers" prefHeight="41.0" prefWidth="59.0" style="-fx-background-color: none;" text=" " HBox.hgrow="ALWAYS">
+                              <MFXButton fx:id="onlineUsersButton" depthLevel="LEVEL5" onAction="#getAllOnlineUsers" prefHeight="41.0" prefWidth="59.0" style="-fx-background-color: none;" text=" " HBox.hgrow="ALWAYS">
                                  <graphic>
                                     <ImageView fitHeight="35.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../images/icons8-online-50 (1).png" />
+                                          <Image url="@../images/online.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -204,11 +216,11 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </MFXButton>
-                              <MFXButton depthLevel="LEVEL5" onAction="#getAllofflineUsedrs" prefHeight="41.0" prefWidth="71.0" style="-fx-background-color: none;" text=" " HBox.hgrow="ALWAYS">
+                              <MFXButton fx:id="offlineUsersButton" depthLevel="LEVEL5" onAction="#getAllofflineUsedrs" prefHeight="41.0" prefWidth="71.0" style="-fx-background-color: none;" text=" " HBox.hgrow="ALWAYS">
                                  <graphic>
                                     <ImageView fitHeight="30.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../images/icons8-online-50.png" />
+                                          <Image url="@../images/offline.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -220,7 +232,7 @@
                                  <graphic>
                                     <ImageView fitHeight="26.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../images/icons8-add-user-48.png" />
+                                          <Image url="@../images/request.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -228,11 +240,11 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </MFXButton>
-                              <MFXButton depthLevel="LEVEL5" onAction="#sendInvitation" prefHeight="46.0" prefWidth="73.0" style="-fx-background-color: none;" text=" " HBox.hgrow="ALWAYS">
+                              <MFXButton fx:id="addButton" depthLevel="LEVEL5" onAction="#sendInvitation" prefHeight="46.0" prefWidth="73.0" style="-fx-background-color: none;" text=" " HBox.hgrow="ALWAYS">
                                  <graphic>
                                     <ImageView fitHeight="29.0" fitWidth="62.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../images/icons8-add-50.png" />
+                                          <Image url="@../images/addFriend.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>

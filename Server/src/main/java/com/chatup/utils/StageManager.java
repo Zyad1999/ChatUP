@@ -24,6 +24,15 @@ public class StageManager {
         if (primaryStage != null) {
             throw new IllegalArgumentException("The Stage Already been initialized");
         }
+        try {
+            StatisticsDashboard statController = StatisticsDashboard.getStatisticsDashboard();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(String.format("/views/%s.fxml", "StatisticsDashboard")));
+            fxmlLoader.setController(statController);
+            Scene dashboardServer = new Scene(fxmlLoader.load());
+            scenes.put("StatisticsDashboard", dashboardServer);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         primaryStage = stage;
     }
 
@@ -45,10 +54,6 @@ public class StageManager {
             try {
                 System.out.println("Created New Scene");
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(String.format("/views/%s.fxml", name)));
-                if(name.equals("StatisticsDashboard")){
-                    StatisticsDashboard statController = StatisticsDashboard.getStatisticsDashboard();
-                    fxmlLoader.setController(statController);
-                }
                 Scene dashboardServer = new Scene(fxmlLoader.load());
                 scenes.put(name, dashboardServer);
                 primaryStage.setScene(dashboardServer);

@@ -4,6 +4,7 @@ import com.chatup.controllers.services.interfaces.ListCoordinator;
 import com.chatup.models.entities.Card;
 import com.chatup.models.entities.FriendRequest;
 import com.chatup.models.entities.User;
+import com.chatup.models.enums.CardType;
 import com.chatup.models.enums.UserStatus;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -29,6 +30,8 @@ public class ListCoordinatorImpl implements ListCoordinator {
     private static HashMap<Integer, VBox> groupChatMap = new HashMap<>();
 
     private static List<Boolean> requests = new ArrayList<>();
+
+    public static CardType currentList;
 
     private ListCoordinatorImpl(){}
 
@@ -65,6 +68,10 @@ public class ListCoordinatorImpl implements ListCoordinator {
         return UserListsImpl.getUserLists().updatesUserFriendRequests(friendRequests);
 
     }
+
+    public void updatesUserGroups() {
+        userGroups = UserListsImpl.getUserLists().getAllUserGroups();
+    }
     @Override
     public ObservableList<Card> getUserOnlineFriends() {
         if(userOnlineFriends==null)
@@ -82,6 +89,11 @@ public class ListCoordinatorImpl implements ListCoordinator {
     @Override
     public void updateOnlineFriends() {
             userOnlineFriends= UserListsImpl.getUserLists().getUserFriends(UserStatus.ONLINE);
+    }
+
+    @Override
+    public void updateOfflineFriends() {
+        userOfflineFriends= UserListsImpl.getUserLists().getUserFriends(UserStatus.OFFLINE);
     }
 
     @Override
@@ -113,4 +125,5 @@ public class ListCoordinatorImpl implements ListCoordinator {
             return box;
         }
     }
+
 }

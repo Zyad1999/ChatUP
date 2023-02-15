@@ -15,6 +15,9 @@ public interface ListCoordinator {
 
     public ObservableList<Card> getUserOfflineFriends();
     public void updateOnlineFriends();
+
+    void updateOfflineFriends();
+
     public void updateFriendRequests();
     VBox getSingleChatVbox(int chatId);
 

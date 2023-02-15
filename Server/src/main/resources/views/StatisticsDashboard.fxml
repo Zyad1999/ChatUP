@@ -31,7 +31,7 @@
                         <Image url="@../images/logo.png" />
                     </image>
                     <VBox.margin>
-                        <Insets bottom="80.0" top="90.0" />
+                        <Insets bottom="40.0" top="90.0" />
                     </VBox.margin>
                 </ImageView>
                 <Button alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#overviewButtonHandler" prefHeight="42.0" prefWidth="259.0" styleClass="increment-button" stylesheets="@../Styles/OverviewDashboard.css" text="Overview">
@@ -125,7 +125,7 @@
                   </HBox>
                       <HBox alignment="TOP_RIGHT" prefHeight="107.0" prefWidth="790.0" styleClass="right-side">
                           <children>
-                              <TextFlow prefHeight="101.0" prefWidth="731.0" textAlignment="CENTER">
+                              <TextFlow prefHeight="107.0" prefWidth="790.0" textAlignment="CENTER">
                                   <children>
                                       <Text fill="#0f3d3e" strokeType="OUTSIDE" strokeWidth="0.0" text="Statistics" textAlignment="CENTER">
                                           <font>
@@ -134,7 +134,7 @@
                                       </Text>
                                   </children>
                                   <padding>
-                                      <Insets left="120.0" top="40.0" />
+                                      <Insets top="40.0" />
                                   </padding>
                               </TextFlow>
                           </children>

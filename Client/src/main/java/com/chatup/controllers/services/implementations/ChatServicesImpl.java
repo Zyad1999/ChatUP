@@ -75,7 +75,8 @@ public class ChatServicesImpl implements ChatService {
             }
 
         }
-        messages.setStyle("-fx-background-color: transparent;-fx-spacing: 25;");
+        String style = "-fx-background-image: url("+ChatServicesImpl.class.getResource("/images/tile1.png").toString()+"); -fx-spacing: 25;";
+        messages.setStyle(style);
         return messages;
     }
 
@@ -103,7 +104,8 @@ public class ChatServicesImpl implements ChatService {
             }
 
         }
-        messages.setStyle("-fx-background-color: transparent;-fx-spacing: 25;");
+        String style = "-fx-background-image: url("+ChatServicesImpl.class.getResource("/images/tile1.png").toString()+"); -fx-spacing: 25;";
+        messages.setStyle(style);
         return messages;
     }
 
@@ -193,10 +195,7 @@ public class ChatServicesImpl implements ChatService {
             chats.remove(curChat);
             chats.add(0, curChat);
         }else{
-            Chat chat = ChatServicesImpl.chatService.getChat(chatID);
-            //int friendID = (chat.getFirstUserId() == CurrentUserImp.getCurrentUser().getId()) ? chat.getSecondUserId() : chat.getFirstUserId();
-            //User friend = UserServicesImpl.getUserServices().getUser(friendID);
-            //chats.add(0,new Card(chatID,friend.getUserName(),content, CardType.CHAT,friend.getImg()));
+            Chat chat = ChatServicesImpl.getChatService().getChat(chatID);
             chats.add(0, CardMapper.getCard(chat,content));
         }
     }
@@ -208,6 +207,7 @@ public class ChatServicesImpl implements ChatService {
         for(Card chat:chats){
             if(chat.getCardID() == groupChatID) {
                 curChat = chat;
+                System.out.println("Found the chat");
             }
         }
         if(curChat != null){

@@ -57,6 +57,10 @@ public class GroupChat implements Serializable {
         this.localDateTime = localDateTime;
     }
 
+    public void setGroupChatID(int groupChatID) {
+        this.groupChatID = groupChatID;
+    }
+
     @Override
     public String toString() {
         return "GroupChat{" + groupChatID + ", " + groupTitle + ", " + groupImage + "}";

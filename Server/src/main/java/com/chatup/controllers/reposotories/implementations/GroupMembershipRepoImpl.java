@@ -47,7 +47,8 @@ public class GroupMembershipRepoImpl  implements GroupMembershipRepo {
     @Override
     public int createGroupMembership(GroupMembership groupMembership){
         int id = -1;
-
+        if(GroupMembershipRepoImpl.getInstance().getGroupMembership(groupMembership.getUserId(),groupMembership.getGroupChatId())!=null)
+            return -1;
         String insertSQL = "insert into group_membership ( user_id , group_chat_id, join_date ) values (?, ?, ?)";
         try (PreparedStatement preparedStatement = DBConnection.getConnection().prepareStatement(insertSQL, Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setInt(1, groupMembership.getUserId());
@@ -93,6 +94,24 @@ public class GroupMembershipRepoImpl  implements GroupMembershipRepo {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 groupMembership = new GroupMembership( membershipId,rs.getInt("group_chat_id"), rs.getInt("user_id"), rs.getTimestamp("join_date").toLocalDateTime());
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return groupMembership;
+    }
+
+    @Override
+    public GroupMembership getGroupMembership(int userID, int groupID) {
+        GroupMembership groupMembership = null;
+        String selectSQL = "select group_chat_id, user_id, join_date from group_membership where user_id = ? AND group_chat_id = ?";
+        try (PreparedStatement ps = DBConnection.getConnection().prepareStatement(selectSQL, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)) {
+
+            ps.setInt(1, userID);
+            ps.setInt(2,groupID);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                groupMembership = new GroupMembership( rs.getInt("membership_id"),rs.getInt("group_chat_id"), rs.getInt("user_id"), rs.getTimestamp("join_date").toLocalDateTime());
             }
         } catch (SQLException ex) {
             ex.printStackTrace();

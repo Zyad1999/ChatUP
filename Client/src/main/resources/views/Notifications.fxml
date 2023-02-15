@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<Pane prefHeight="550.0" prefWidth="550.0" style="-fx-border-color: #0F3D3E; -fx-border-radius: 20; -fx-border-width: 4;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chatup.controllers.FXMLcontrollers.NotificationController">
+   <children>
+          <Label layoutX="208.0" layoutY="28.0" prefHeight="30.0" prefWidth="140.0" text="Notifications" textAlignment="CENTER" textFill="#0f3d3e">
+              <font>
+                  <Font name="System Bold" size="20.0" />
+              </font>
+          </Label>
+          <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="496.0" layoutY="31.0" onMouseClicked="#closeButton" pickOnBounds="true" preserveRatio="true">
+              <image>
+                  <Image url="@../images/icons8-macos-close-90.png" />
+              </image>
+              <cursor>
+                  <Cursor fx:constant="HAND" />
+              </cursor>
+          </ImageView>
+        <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" layoutX="48.0" layoutY="77.0" prefHeight="448.0" prefWidth="460.0" style="-fx-border-color: black;" styleClass="numbers-scroll-pane" stylesheets="@../style/AddFriendStyle.css" vbarPolicy="NEVER">
+            <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </padding>
+         <content>
+            <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="400.0" prefWidth="460.0" styleClass="numbers-scroll-pane" stylesheets="@../style/AddFriendStyle.css" />
+         </content>
+        </ScrollPane>
+   </children>
+</Pane>

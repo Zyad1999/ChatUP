@@ -193,6 +193,7 @@ public class ChatScreenController implements Initializable {
         cardsListView.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                chatAnchorpan.setVisible(true);
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/friendInfo.fxml"));
                 FXMLLoader loadergroup = new FXMLLoader(getClass().getResource("/views/GroupInfo.fxml"));
                 Card selected = (Card) cardsListView.getSelectionModel().getSelectedItem();
@@ -300,6 +301,8 @@ public class ChatScreenController implements Initializable {
         notification_btn.setStyle("-fx-opacity: 0.3");
         settings_btn.setStyle("-fx-opacity: 0.3");
         chatBot_btn.setStyle("-fx-opacity: 0.3");
+
+        chatAnchorpan.setVisible(false);
 
         dragBar.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
@@ -463,6 +466,8 @@ public class ChatScreenController implements Initializable {
         FriendRequests_id.setVisible(true);
         onlineUsersButton.setVisible(true);
         offlineUsersButton.setVisible(true);
+        onlineUsersButton.setStyle("-fx-opacity: 1; -fx-background-color: transparent;");
+        offlineUsersButton.setStyle("-fx-opacity: 0.3;");
         cardsListView.setItems(ListCoordinatorImpl.getListCoordinator().getUserOnlineFriends());
         ListCoordinatorImpl.currentList = CardType.FRIEND;
     }
@@ -511,6 +516,25 @@ public class ChatScreenController implements Initializable {
         notification_btn.setStyle("-fx-opacity: 1");
         settings_btn.setStyle("-fx-opacity: 0.3");
         chatBot_btn.setStyle("-fx-opacity: 0.3");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/Notifications.fxml"));
+        try {
+            Scene newScene = new Scene(loader.load());
+            Stage newStage = new Stage();
+            newScene.setFill(Color.TRANSPARENT);
+            newScene.getRoot().setStyle("-fx-background-radius: 20; -fx-border-radius: 20; -fx-border-color: #0F3D3E; -fx-border-width: 2;");
+            newStage.initStyle(StageStyle.TRANSPARENT);
+            newStage.setScene(newScene);
+            newStage.show();
+
+            Scene oldScene = ((Node) event.getSource()).getScene();
+            oldScene.getRoot().setDisable(true);
+
+            newStage.setOnHidden(event1 -> {
+                oldScene.getRoot().setDisable(false);
+            });
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML

@@ -7,34 +7,28 @@ public class Attachment implements Serializable {
     @Serial
     private static final long serialVersionUID = -558553967080513793L;
     private int id;
-    private String attachmentType;
+    private String attachmentName;
     private String extension;
     private  int byteSize;
-    private String location;
-
-    public Attachment(int id, String attachmentType, String extension, int byteSize, String location) {
+    public Attachment(int id, String attachmentName, String extension, int byteSize) {
         this.id = id;
-        this.attachmentType = attachmentType;
+        this.attachmentName = attachmentName;
         this.extension = extension;
         this.byteSize = byteSize;
-        this.location = location;
     }
-    public Attachment(String attachmentType, String extension, int byteSize, String location) {
-        this.attachmentType = attachmentType;
+    public Attachment(String attachmentName, String extension, int byteSize) {
+        this.attachmentName = attachmentName;
         this.extension = extension;
         this.byteSize = byteSize;
-        this.location = location;
     }
 
-    public String getAttachmentType() {
-        return attachmentType;
+    public String getAttachmentName() {
+        return attachmentName;
     }
 
-    public void setAttachmentType(String attachmentType) {
-        this.attachmentType = attachmentType;
+    public void setAttachmentType(String attachmentName) {
+        this.attachmentName = attachmentName;
     }
-
-
 
     public int getId() {
         return id;
@@ -58,11 +52,4 @@ public class Attachment implements Serializable {
         this.byteSize = byteSize;
     }
 
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
 }

@@ -1,5 +1,6 @@
 package com.chatup.controllers.services.interfaces;
 
+import com.chatup.models.entities.Attachment;
 import com.chatup.models.entities.Chat;
 import com.chatup.models.entities.ChatMessage;
 import com.chatup.models.entities.GroupMessage;
@@ -18,9 +19,13 @@ public interface ChatService {
 
     HBox sendGroupMessage(GroupMessage message);
 
+    HBox sendGroupFile(GroupMessage message);
+
     HBox recGroupMessage(GroupMessage message);
 
     HBox sendChatMessage(ChatMessage message);
+
+    HBox sendChatFile(ChatMessage message);
 
     HBox recChatMessage(ChatMessage message);
 
@@ -30,5 +35,7 @@ public interface ChatService {
 
     int createChat(Chat chat);
     Chat getChat(int chatID);
+
+    Attachment getAttachment(int attachmentID);
      List<User> getSingleChatUsers(int singleChatId) ;
 }

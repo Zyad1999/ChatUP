@@ -4,11 +4,15 @@ import com.chatup.controllers.reposotories.implementations.GroupMembershipRepoIm
 import com.chatup.controllers.FXMLcontrollers.StatisticsDashboard;
 import com.chatup.controllers.reposotories.implementations.UserRepoImpl;
 import com.chatup.controllers.services.implementations.*;
+import com.chatup.controllers.services.interfaces.AttachmentServices;
+import com.chatup.controllers.services.interfaces.UserChatServices;
 import com.chatup.models.entities.*;
+import com.chatup.models.enums.ChatType;
 import com.chatup.network.interfaces.Client;
 import com.chatup.network.interfaces.Server;
 import javafx.application.Platform;
 
+import java.io.*;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
@@ -225,6 +229,114 @@ public class ServerImpl extends UnicastRemoteObject implements Server {
     @Override
     public boolean updateUserPassword(int userID, String password)throws RemoteException {
         return UserRepoImpl.getUserRepo().updateUserPassword(userID,password);
+    }
+
+    @Override
+    public int uploadChatFileToServer(byte[] file, ChatMessage message, Attachment attach) throws RemoteException {
+        try {
+            File theDir = new File("./files/"+message.getSenderId());
+            if (!theDir.exists()) {
+                theDir.mkdirs();
+            }
+            File serverpathfile = new File("./files/"+message.getSenderId()+"/"+attach.getAttachmentName()+"."+attach.getExtension());
+            FileOutputStream out=new FileOutputStream(serverpathfile);
+            byte [] data=file;
+            out.write(data);
+            out.flush();
+            out.close();
+            int attachmentID = AttachmentServicesImpl.getAttachmentService().addAttachment(attach);
+            if(attachmentID==-1)
+                return -1;
+            message.setAttachment_Id(attachmentID);
+            if(UserChatServicesImpl.getUserChatServices().sendChatMessage(message) == -1)
+                return -1;
+            Chat chat = UserChatServicesImpl.getUserChatServices().getChat(message.getChatId());
+            if(chat != null){
+                User receiver = UserServicesImpl.getUserServices().getUserInfo((chat.getFirstUserId() == message.getSenderId())?
+                        chat.getSecondUserId():chat.getFirstUserId());
+                if(clients.containsKey(receiver.getId())){
+                    try{
+                        clients.get(receiver.getId()).sendChatMessage(message);
+                    } catch (RemoteException e) {
+                        System.out.println("Client Disconnected");
+                        clients.remove(receiver.getId());
+                    }
+                }
+            }
+            return attachmentID;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
+    @Override
+    public int uploadGroupFileToServer(byte[] file, GroupMessage message, Attachment attach) throws RemoteException {
+        try {
+            File theDir = new File("./files/"+message.getGroupChatId());
+            if (!theDir.exists()) {
+                theDir.mkdirs();
+            }
+            File serverpathfile = new File("./files/"+message.getGroupChatId()+"/"+attach.getAttachmentName()+"."+attach.getExtension());
+            FileOutputStream out=new FileOutputStream(serverpathfile);
+            byte [] data=file;
+            out.write(data);
+            out.flush();
+            out.close();
+            int attachmentID = AttachmentServicesImpl.getAttachmentService().addAttachment(attach);
+            if(attachmentID==-1)
+                return -1;
+            message.setAttachmentID(attachmentID);
+            if( UserGroupsServiceImp.getUserGroupsService().sendGroupMessage(message) == -1)
+                return -1;
+            List<User> groupMembers = UserGroupsServiceImp.getUserGroupsService().getGroupMembers(message.getGroupChatId());
+            for(User member : groupMembers){
+                if(clients.containsKey(member.getId()) && member.getId() != message.getSenderId()){
+                    try {
+                        clients.get(member.getId()).sendGroupMessage(message);
+                    } catch (RemoteException e) {
+                        System.out.println("Client Disconnected");
+                        clients.remove(member.getId());
+                    }
+                }
+            }
+            return attachmentID;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
+    @Override
+    public byte[] downloadAttachment(int attachmentID, int senderID) throws RemoteException {
+        Attachment attach = AttachmentServicesImpl.getAttachmentService().getAttachment(attachmentID);
+        byte [] file;
+        File serverpathfile = new File("./files/"+senderID+"/"+attach.getAttachmentName()+"."+attach.getExtension());
+        file = new byte[(int) serverpathfile.length()];
+        if(!serverpathfile.exists() || serverpathfile.isDirectory())
+            return null;
+        FileInputStream in;
+        try {
+            in = new FileInputStream(serverpathfile);
+            try {
+                in.read(file, 0, file.length);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                in.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return file;
+    }
+
+    @Override
+    public Attachment getAttachment(int attachmentID) throws RemoteException {
+        return AttachmentServicesImpl.getAttachmentService().getAttachment(attachmentID);
     }
     @Override
     public List<User> getSingleChatUsers(int singleChatId) throws RemoteException{

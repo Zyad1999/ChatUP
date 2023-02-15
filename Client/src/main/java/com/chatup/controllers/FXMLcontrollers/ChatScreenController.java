@@ -10,6 +10,7 @@ import com.chatup.utils.RememberSetting;
 import com.chatup.utils.SwitchScenes;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.animation.*;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.transformation.FilteredList;
@@ -32,12 +33,14 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import javafx.util.Duration;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
@@ -294,12 +297,69 @@ public class ChatScreenController implements Initializable {
     }
 
     @FXML
+    void sendAttachment(MouseEvent event) {
+        if(CurrentChat.getCurrentChat() != null){
+
+            FileChooser fileChooser = new FileChooser();
+            File file = fileChooser.showOpenDialog(null);
+            int id = CurrentChat.getCurrentChat().getCurrentChatID();
+            String msgText = messageText.getText();
+            if(CurrentChat.getCurrentChat().getCurrentChatType() == ChatType.SINGLE){
+                Thread sendChatAttachment = new Thread(()->{
+                    ChatMessage message = new ChatMessage(id,CurrentUserImp.getCurrentUser().getId(),
+                            msgText, LocalDateTime.now());
+                    int attachmentID = FileServicesImpl.getFileServices().sendChatFileToServer(file, message);
+                    Platform.runLater(()->{
+                        if(attachmentID == -1){
+                            Alert alert = new Alert(Alert.AlertType.ERROR, "File upload failed");
+                            alert.setHeaderText(null);
+                            alert.showAndWait();
+                            return;
+                        }
+                        message.setAttachment_Id(attachmentID);
+                        ListCoordinatorImpl.getListCoordinator().getSingleChatVbox(id).getChildren().add(ChatServicesImpl.getChatService().sendChatFile(message));
+                        ChatServicesImpl.getChatService().updateChatList(id,msgText);
+                    });
+                    Animation animation = new Timeline(
+                            new KeyFrame(Duration.seconds(2),
+                                    new KeyValue(scrollPane.vvalueProperty(), 1)));
+                    animation.play();
+                });
+                sendChatAttachment.start();
+            }else if(CurrentChat.getCurrentChat().getCurrentChatType() == ChatType.GROUP){
+                Thread sendGroupAttach = new Thread(()->{
+                    GroupMessage message = new GroupMessage(CurrentUserImp.getCurrentUser().getId(),msgText,LocalDateTime.now(),
+                            id,0);
+                    int attachmentID = FileServicesImpl.getFileServices().sendGroupFileToServer(file, message);
+                    Platform.runLater(()->{
+                        if(attachmentID == -1){
+                            Alert alert = new Alert(Alert.AlertType.ERROR, "File upload failed");
+                            alert.setHeaderText(null);
+                            alert.showAndWait();
+                            return;
+                        }
+                        message.setAttachmentID(attachmentID);
+                        ListCoordinatorImpl.getListCoordinator().getGroupChatVbox(id).getChildren().add(ChatServicesImpl.getChatService().sendGroupFile(message));
+                        ChatServicesImpl.getChatService().updateGroupChatList(id,msgText);
+                    });
+                    Animation animation = new Timeline(
+                            new KeyFrame(Duration.seconds(2),
+                                    new KeyValue(scrollPane.vvalueProperty(), 1)));
+                    animation.play();
+                });
+                sendGroupAttach.start();
+            }
+            messageText.clear();
+        }
+    }
+
+    @FXML
     void sendMessage(ActionEvent event) {
         if (CurrentChat.getCurrentChat() != null && messageText.getText().length() > 0) {
             int id = CurrentChat.getCurrentChat().getCurrentChatID();
-            if (CurrentChat.getCurrentChat().getCurrentChatType() == ChatType.SINGLE) {
-                ChatMessage message = new ChatMessage(id, CurrentUserImp.getCurrentUser().getId(),
-                        messageText.getText(), LocalDateTime.now(), 0);
+            if(CurrentChat.getCurrentChat().getCurrentChatType() == ChatType.SINGLE){
+                ChatMessage message = new ChatMessage(id,CurrentUserImp.getCurrentUser().getId(),
+                        messageText.getText(), LocalDateTime.now());
                 ListCoordinatorImpl.getListCoordinator().getSingleChatVbox(id).getChildren().add(ChatServicesImpl.getChatService().sendChatMessage(message));
                 ChatServicesImpl.getChatService().updateChatList(id, messageText.getText());
             } else if (CurrentChat.getCurrentChat().getCurrentChatType() == ChatType.GROUP) {

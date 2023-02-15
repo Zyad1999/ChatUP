@@ -69,6 +69,10 @@ public class GroupMessage implements Serializable, Comparable<GroupMessage> {
         return attachmentID;
     }
 
+    public void setAttachmentID(int attachmentID) {
+        this.attachmentID = attachmentID;
+    }
+
     @Override
     public String toString() {
         return "GroupMessage{" + groupMessageId + ", " + senderId + ", " + content + ", " + messageDate + ", " + attachmentID + "}";

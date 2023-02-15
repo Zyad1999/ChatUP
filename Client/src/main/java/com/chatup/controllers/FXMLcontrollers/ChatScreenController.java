@@ -12,12 +12,12 @@ import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.animation.*;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -39,6 +39,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -51,9 +52,9 @@ public class ChatScreenController implements Initializable {
     private static StringProperty friendBio;
     private static double xOffset = 0;
     private static double yOffset = 0;
-    private static Image friendImage;
     @FXML
     private HBox dragBar;
+    private static Image friendImage;
     @FXML
     private Text friendShowDataCountry;
 
@@ -150,14 +151,13 @@ public class ChatScreenController implements Initializable {
 
     @FXML
     private ScrollPane scrollPane;
-    // public static ObservableList<Card> currentList;
+   // public static ObservableList<Card> currentList;
     private double lastX = 0.0d;
     private double lastY = 0.0d;
     private double lastWidth = 0.0d;
     private double lastHeight = 0.0d;
     private User friendUser;
-
-    private void prepareListView(ListView cardsListView, ScrollPane scrollPane) {
+    private  void prepareListView(ListView cardsListView, ScrollPane scrollPane) {
         cardsListView.setCellFactory(new Callback<ListView<Card>, ListCell<Card>>() {
             public ListCell<Card> call(ListView<Card> param) {
                 final Tooltip tooltip = new Tooltip();
@@ -190,13 +190,13 @@ public class ChatScreenController implements Initializable {
                 return cell;
             }
         });
-        cardsListView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        cardsListView.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
-            public void handle(MouseEvent mouseEvent) {
-                chatAnchorpan.setVisible(true);
+            public void handle(MouseEvent mouseEvent)
+            {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/friendInfo.fxml"));
                 FXMLLoader loadergroup = new FXMLLoader(getClass().getResource("/views/GroupInfo.fxml"));
-                Card selected = (Card) cardsListView.getSelectionModel().getSelectedItem();
+                Card selected = (Card)cardsListView.getSelectionModel().getSelectedItem();
                 if (cardsListView.getSelectionModel().getSelectedItem() != null) {
                     System.out.println(selected.getCardID());
                     friendName.set(selected.getCardName());
@@ -207,8 +207,12 @@ public class ChatScreenController implements Initializable {
                         VBox box = ListCoordinatorImpl.getListCoordinator().getSingleChatVbox(selected.getCardID());
                         scrollPane.setContent(box);
                         CurrentChat.setCurrentChatSingle(selected.getCardID());
-
-                        friendUser = UserServicesImpl.getUserServices().getUser(selected.getCardID());
+                        List<User> chatUsers = ChatServicesImpl.getChatService().getSingleChatUsers(selected.getCardID());
+                        if(chatUsers.get(0).getId()==CurrentUserImp.getCurrentUser().getId())
+                            friendUser =  chatUsers.get(1);
+                        else {
+                            friendUser = chatUsers.get(0);
+                        }
                         friendInfoController friendInfoController = new friendInfoController(friendUser);
                         loader.setController(friendInfoController);
                         try {
@@ -319,7 +323,7 @@ public class ChatScreenController implements Initializable {
                 stage.setY(event.getScreenY() - yOffset);
             }
         });
-        friendName = new SimpleStringProperty("");
+            friendName = new SimpleStringProperty("");
 
         friendNameClose.textProperty().bind(friendName);
         friendNameOpen.textProperty().bind(friendName);
@@ -330,8 +334,8 @@ public class ChatScreenController implements Initializable {
         // sliders
         anchorPanSlider.setTranslateX(-80);
         friendDetailsAnchorPan.setTranslateX(300);
-        AnchorPane.setRightAnchor(chatAnchorpan, 0.0);
-        AnchorPane.setLeftAnchor(chatAnchorpan, 0.0);
+        AnchorPane.setRightAnchor(chatAnchorpan,0.0);
+        AnchorPane.setLeftAnchor(chatAnchorpan,0.0);
         closeFrienDetailsbtn.setVisible(false);
         closeExtraction.setVisible(false);
 
@@ -355,7 +359,7 @@ public class ChatScreenController implements Initializable {
 
             cardListSLider.setToX(0);
             cardListSLider.play();
-            slider_tr.setOnFinished((ActionEvent e) -> {
+            slider_tr.setOnFinished((ActionEvent e)->{
                 extract_menu_id.setVisible(false);
                 closeExtraction.setVisible(true);
 
@@ -393,7 +397,21 @@ public class ChatScreenController implements Initializable {
         });
         /////////////////
         prepareListView(cardsListView, scrollPane);
-        cardsListView.setItems(ListCoordinatorImpl.getListCoordinator().getUserChats());
+
+        FilteredList<Card> filteredList = new FilteredList<>(ListCoordinatorImpl.getListCoordinator().getUserChats());
+
+        cardsListView.setItems(filteredList);
+
+
+        txt_ld_search.textProperty().addListener((observable, oldValue, newValue) ->  {
+            if (newValue.isEmpty()) {
+                filteredList.setPredicate(null);
+            } else {
+                final String searchString = newValue.toUpperCase();
+                filteredList.setPredicate(s -> s.getCardName().toUpperCase().contains(searchString));
+            }
+        });
+
     }
 
     @FXML

@@ -92,6 +92,11 @@ public class ListCoordinatorImpl implements ListCoordinator {
     }
 
     @Override
+    public void updateOfflineFriends() {
+        userOfflineFriends= UserListsImpl.getUserLists().getUserFriends(UserStatus.OFFLINE);
+    }
+
+    @Override
     public void updateFriendRequests() {
         userFriendRequests = UserListsImpl.getUserLists().getAllUserFriendRequests();
     }

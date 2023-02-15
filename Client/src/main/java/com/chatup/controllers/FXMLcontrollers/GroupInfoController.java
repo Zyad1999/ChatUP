@@ -65,14 +65,14 @@ public class GroupInfoController {
                                 Image userImage = new Image(new ByteArrayInputStream(item.getImg()), 30, 30, false, true);
                                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/MemberCard.fxml"));
 
-                                MemberCardController memberCardController = new MemberCardController(userImage, item.getPhoneNumber());
+                                MemberCardController memberCardController = new MemberCardController(userImage, item.getUserName());
                                 loader.setController(memberCardController);
                                 try {
                                     setGraphic(loader.load());
                                 } catch (IOException e) {
                                     throw new RuntimeException(e);
                                 }
-                                tooltip.setText(item.getUserName());
+                                tooltip.setText(item.getPhoneNumber());
                                 setTooltip(tooltip);
                             }
                         } else {

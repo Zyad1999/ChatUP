@@ -18,7 +18,11 @@ public class ChatterBotService {
             ChatterBotFactory factory = new ChatterBotFactory();
             bot2 = factory.create(ChatterBotType.PANDORABOTS, "b0dafd24ee35a477");
             ChatterBotSession bot2session = bot2.createSession();
-            return bot2session.think(input);
+            String response = bot2session.think(input);
+            if(response==""){
+                response = "Sorry, I don't have answer to that";
+            }
+            return response;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

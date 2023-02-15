@@ -392,7 +392,10 @@ public class ChatScreenController implements Initializable {
         group_btn.setStyle("-fx-opacity: 0.3");
         notification_btn.setStyle("-fx-opacity: 0.3");
         settings_btn.setStyle("-fx-opacity: 0.3");
-        chatBot_btn.setStyle("-fx-opacity: 0.3");
+        chatBot_btn.setStyle("-fx-opacity: 0.7");
+
+        ChatterBotService.getChatterBotService().botStatus=false;
+        botImg.setImage(new Image(String.valueOf(ChatScreenController.class.getResource("/images/redchatbot.png"))));
 
         String style = "-fx-background-image:  url(" + ChatScreenController.class.getResource("/images/logo.png") + "); -fx-background-repeat: no-repeat; -fx-background-size: auto; -fx-background-radius: 10; -fx-background-position: center; -fx-opacity: 0.4;";
         defaultVBoxForImage.setStyle(style);
@@ -497,7 +500,7 @@ public class ChatScreenController implements Initializable {
         group_btn.setStyle("-fx-opacity: 0.3");
         notification_btn.setStyle("-fx-opacity: 0.3");
         settings_btn.setStyle("-fx-opacity: 0.3");
-        chatBot_btn.setStyle("-fx-opacity: 0.3");
+        chatBot_btn.setStyle("-fx-opacity: 0.7");
         cardsListView.setItems(ListCoordinatorImpl.getListCoordinator().getUserChats());
         ListCoordinatorImpl.currentList = CardType.CHAT;
         addButton.setVisible(false);
@@ -513,7 +516,7 @@ public class ChatScreenController implements Initializable {
         group_btn.setStyle("-fx-opacity: 0.3");
         notification_btn.setStyle("-fx-opacity: 0.3");
         settings_btn.setStyle("-fx-opacity: 0.3");
-        chatBot_btn.setStyle("-fx-opacity: 0.3");
+        chatBot_btn.setStyle("-fx-opacity: 0.7");
         addButton.setVisible(true);
         FriendRequests_id.setVisible(true);
         onlineUsersButton.setVisible(true);
@@ -531,7 +534,7 @@ public class ChatScreenController implements Initializable {
         group_btn.setStyle("-fx-opacity: 1");
         notification_btn.setStyle("-fx-opacity: 0.3");
         settings_btn.setStyle("-fx-opacity: 0.3");
-        chatBot_btn.setStyle("-fx-opacity: 0.3");
+        chatBot_btn.setStyle("-fx-opacity: 0.7");
         cardsListView.setItems(ListCoordinatorImpl.getListCoordinator().getUserGroups());
         ListCoordinatorImpl.currentList = CardType.GROUP;
         addButton.setVisible(true);
@@ -565,7 +568,7 @@ public class ChatScreenController implements Initializable {
         group_btn.setStyle("-fx-opacity: 0.3");
         notification_btn.setStyle("-fx-opacity: 1");
         settings_btn.setStyle("-fx-opacity: 0.3");
-        chatBot_btn.setStyle("-fx-opacity: 0.3");
+        chatBot_btn.setStyle("-fx-opacity: 0.7");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/Notifications.fxml"));
         try {
             Scene newScene = new Scene(loader.load());
@@ -594,7 +597,7 @@ public class ChatScreenController implements Initializable {
         group_btn.setStyle("-fx-opacity: 0.3");
         notification_btn.setStyle("-fx-opacity: 0.3");
         settings_btn.setStyle("-fx-opacity: 1");
-        chatBot_btn.setStyle("-fx-opacity: 0.3");
+        chatBot_btn.setStyle("-fx-opacity: 0.7");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/EditeProfile.fxml"));
         try {
             Scene newScene = new Scene(loader.load());
@@ -736,11 +739,13 @@ public class ChatScreenController implements Initializable {
             ChatterBotService.getChatterBotService().botStatus = false;
             botImg.setImage(new Image(String.valueOf(ChatScreenController.class.getResource("/images/redchatbot.png"))));
             chatBot_btn.setStyle("border-width: 2px; border-color: #ff3300;");
+            chatBot_btn.setStyle("-fx-opacity: 1");
 
         } else {
             ChatterBotService.getChatterBotService().botStatus = true;
             botImg.setImage(new Image(String.valueOf(ChatScreenController.class.getResource("/images/greenChatBot.png"))));
             chatBot_btn.setStyle("border-width: 2px; border-color: #00ff00;");
+            chatBot_btn.setStyle("-fx-opacity: 1");
         }
     }
 

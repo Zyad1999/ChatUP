@@ -70,7 +70,7 @@ public class ClientImpl extends UnicastRemoteObject implements Client {
                     msg = new ChatMessage(message.getChatId(), CurrentUserImp.getCurrentUser().getId(),
                             ChatterBotService.getChatterBotService().thinkBot(message.getContent()), LocalDateTime.now());
                     ChatMessage finalMsg = msg;
-                    delay(4000, new Runnable() {
+                    delay(2000, new Runnable() {
                         @Override
                         public void run() {
                             ListCoordinatorImpl.getListCoordinator().getSingleChatVbox(finalMsg.getChatId()).getChildren().add(ChatServicesImpl.getChatService().sendChatMessage(finalMsg));

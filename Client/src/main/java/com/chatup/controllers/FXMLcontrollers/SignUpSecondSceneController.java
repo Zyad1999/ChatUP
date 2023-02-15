@@ -73,17 +73,16 @@ public class SignUpSecondSceneController implements Initializable {
         try {
             byte[] image;
             try {
-                if (!enterImage) {
-                    profileImgPath = new File(AddGroupController.class.getResource("/images/default_profile_pic.jpg").toURI()).toPath();
+                if(!enterImage){
+                    profileImgPath =new File(AddGroupController.class.getResource("/images/default_profile_pic.jpg").toURI()).toPath();
+                    image = Files.readAllBytes(profileImgPath);
+                    CurrentUserImp.getCurrentUser().setImg(image);
                 }
-                image = Files.readAllBytes(profileImgPath);
-                CurrentUserImp.getCurrentUser().setImg(image);
-
-            } catch (IOException | URISyntaxException ex) {
+            } catch (IOException|URISyntaxException ex) {
                 throw new RuntimeException(ex);
             }
             CurrentUserImp.getCurrentUser().setBio(bioTextArea.getText());
-            System.out.println("img is : " + CurrentUserImp.getCurrentUser().getImg());
+            System.out.println("img is : "+CurrentUserImp.getCurrentUser().getImg());
             ServerConnection.getServer().signup(CurrentUserImp.getCurrentUser());
             SwitchScenes.getInstance().switchToSignInFirst(event);
         } catch (IOException e) {

@@ -42,14 +42,14 @@ public class UserGroupsServiceImp implements UserGroupsService {
                 groupsWithMess.put(group, new GroupMessage(0,null,LocalDateTime.now()));
             }
         }
-        Map<GroupChat, GroupMessage> resultSet = groupsWithMess.entrySet()
+
+        Map<GroupChat, GroupMessage> sortedMapInDescending = groupsWithMess.entrySet()
                 .stream()
-                .sorted(Comparator.comparing(e -> e.getValue().getMessageDate()))
-                .collect(Collectors.toMap(Map.Entry::getKey,
-                        Map.Entry::getValue,
-                        (left, right) -> left,
-                        LinkedHashMap::new));
-        return resultSet;
+                .sorted(Collections.reverseOrder(Map.Entry.<GroupChat, GroupMessage>comparingByValue()))
+                .collect(Collectors.toMap(entry -> entry.getKey(), entry -> entry.getValue(),
+                        (entry1, entry2) -> entry2, LinkedHashMap::new));
+        return sortedMapInDescending;
+
     }
 
     @Override

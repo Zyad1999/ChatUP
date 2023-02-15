@@ -14,6 +14,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class SingleChatMessage {
@@ -33,13 +34,13 @@ public class SingleChatMessage {
         for(ChatMessage message: messagesList ){
             if(message.getSenderId()==1){
                 loader = new FXMLLoader(SingleChatMessage.class.getResource("/views/sentMessage.fxml"));
-                sentMessageController sentController = new sentMessageController(message.getContent());
+                sentMessageController sentController = new sentMessageController(message.getContent(), message.getMessageDateTime().format(DateTimeFormatter.ofPattern("E hh:mm a")));
                 loader.setController(sentController);
             }
             else{
                 loader = new FXMLLoader(SingleChatMessage.class.getResource("/views/recievedMessage.fxml"));
                 User user = UserServicesImpl.getUserServices().getUser(message.getSenderId());
-                recievedMessageController recievedController = new recievedMessageController(user.getUserName(),message.getContent());
+                recievedMessageController recievedController = new recievedMessageController(user.getUserName(),message.getContent(), message.getMessageDateTime().format(DateTimeFormatter.ofPattern("E hh:mm a")));
                 loader.setController(recievedController);
             }
             try {

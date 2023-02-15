@@ -3,7 +3,7 @@ package com.chatup.models.entities;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class ChatMessage implements Serializable {
+public class ChatMessage implements Serializable, Comparable<ChatMessage> {
     private static final long serialVersionUID = -2990434115553845364L;
 
     private int id;
@@ -102,5 +102,10 @@ public class ChatMessage implements Serializable {
 
     public void setChatId(int chatId) {
         this.chatId = chatId;
+    }
+
+    @Override
+    public int compareTo(ChatMessage o) {
+        return  this.getMessageDateTime().compareTo(o.getMessageDateTime());
     }
 }

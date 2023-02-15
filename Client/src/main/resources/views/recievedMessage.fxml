@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -23,6 +24,14 @@
                <children>
                   <Text fx:id="recieverMessage" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="recieve-messages-chat-text" text="Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old." />
                </children>
+            </TextFlow>
+            <TextFlow fx:id="recieveMessagesContent1" styleClass="recieve-messages-chat-text">
+               <children>
+                  <Text fx:id="time" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="recieve-messages-chat-text" text="12:45 PM" />
+               </children>
+               <VBox.margin>
+                  <Insets left="180.0" right="5.0" />
+               </VBox.margin>
             </TextFlow>
          </children>
       </VBox>

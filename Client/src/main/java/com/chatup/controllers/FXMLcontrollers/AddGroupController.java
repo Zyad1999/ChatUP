@@ -70,8 +70,8 @@ public class AddGroupController implements Initializable {
                             if (item != null) {
                                 Image userImage = new Image(new ByteArrayInputStream(item.getImg()), 30, 30, false, true);
                                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/addGroupUser.fxml"));
-//                                AddGroupUserController userController = new AddGroupUserController( item.getUserName(), item.getPhoneNumber(),userImage, item.getId());
-//                                loader.setController(userController);
+                                AddGroupUserController userController = new AddGroupUserController( item.getUserName(), item.getPhoneNumber(),userImage, item.getId());
+                                loader.setController(userController);
                                 try {
                                     setGraphic(loader.load());
                                 } catch (IOException e) {

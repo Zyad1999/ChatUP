@@ -54,8 +54,8 @@ public class AddFriendRequestController implements Initializable {
                             if (item != null) {
                                 Image userImage = new Image(new ByteArrayInputStream(item.getImg()), 30, 30, false, true);
                                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/AddFriendCard.fxml"));
-//                                AddFriendRequestCardController cardController = new AddFriendRequestCardController(item.getUserName(), item.getPhoneNumber(), userImage, item.getId());
-//                                loader.setController(cardController);
+                                AddFriendRequestCardController cardController = new AddFriendRequestCardController(item.getUserName(), item.getPhoneNumber(), userImage, item.getId());
+                                loader.setController(cardController);
                                 try {
                                     setGraphic(loader.load());
                                 } catch (IOException e) {

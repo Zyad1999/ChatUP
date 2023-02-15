@@ -1,7 +1,6 @@
 package com.chatup.controllers.FXMLcontrollers;
 
 import com.chatup.controllers.services.implementations.*;
-
 import com.chatup.models.entities.*;
 import com.chatup.models.enums.CardType;
 import com.chatup.models.enums.ChatType;
@@ -14,19 +13,23 @@ import javafx.animation.*;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
@@ -42,6 +45,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -64,7 +68,6 @@ public class ChatScreenController implements Initializable {
     private Text friendShowDataEmail;
 
 
-
     @FXML
     private Text friendShowDataName;
 
@@ -72,6 +75,7 @@ public class ChatScreenController implements Initializable {
     private Text friendShowDataPhone;
     @FXML
     private Text friendShowDatabio;
+
 
     @FXML
     private Circle friendImageClose;
@@ -86,22 +90,19 @@ public class ChatScreenController implements Initializable {
     private Text friendNameOpen;
     @FXML
     private Text frieendStatusClose;
-
     @FXML
     private Text frieendStatusOpen;
-
-    @FXML
-    private MFXButton closeExtraction;
     @FXML
     private HBox closeFrienDetailsbtn;
     @FXML
     private HBox showFriendDetailsbtn;
     @FXML
-    private  HBox FriendSildeBar;
+    private HBox FriendSildeBar;
     @FXML
     private VBox slider;
     @FXML
     private AnchorPane anchorPanSlider;
+
     @FXML
     private MFXButton user_chats_btn;
     @FXML
@@ -112,8 +113,7 @@ public class ChatScreenController implements Initializable {
     private MFXButton notification_btn;
     @FXML
     private MFXButton settings_btn;
-    @FXML
-    private MFXButton extract_menu_id;
+ 
     @FXML
     private TextField txt_ld_search;
     @FXML
@@ -150,7 +150,16 @@ public class ChatScreenController implements Initializable {
     @FXML
     private AnchorPane chatAnchorpan;
     @FXML
+    private AnchorPane headerChat;
+    @FXML
+    private AnchorPane footerChat;
+    @FXML
     private AnchorPane containerAnchorPan;
+
+    @FXML
+    private ImageView botImg;
+
+
 
     @FXML
     private ScrollPane scrollPane;
@@ -197,21 +206,34 @@ public class ChatScreenController implements Initializable {
             @Override
             public void handle(MouseEvent mouseEvent)
             {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/friendInfo.fxml"));
+                headerChat.setVisible(true);
+                footerChat.setVisible(true);
                 FXMLLoader loadergroup = new FXMLLoader(getClass().getResource("/views/GroupInfo.fxml"));
                 Card selected = (Card)cardsListView.getSelectionModel().getSelectedItem();
+                System.out.println(selected.getCardType() );
                 if (cardsListView.getSelectionModel().getSelectedItem() != null) {
                     System.out.println(selected.getCardID());
                     friendName.set(selected.getCardName());
                     friendImage = new Image(new ByteArrayInputStream((selected.getCardImg())));
                     friendImageOpen.setFill(new ImagePattern(friendImage));
                     friendImageClose.setFill(new ImagePattern(friendImage));
+
                     if (selected.getCardType() == CardType.CHAT) {
                         VBox box = ListCoordinatorImpl.getListCoordinator().getSingleChatVbox(selected.getCardID());
                         scrollPane.setContent(box);
                         CurrentChat.setCurrentChatSingle(selected.getCardID());
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/friendInfo.fxml"));
 
-                        friendUser =  UserServicesImpl.getUserServices().getUser(selected.getCardID());
+                        List<User> chatUsers = ChatServicesImpl.getChatService().getSingleChatUsers(selected.getCardID());
+                        if(chatUsers.get(0).getId()==CurrentUserImp.getCurrentUser().getId())
+                            friendUser =  chatUsers.get(1);
+                        else {
+                            friendUser = chatUsers.get(0);
+                        }
+                        frieendStatusClose.setVisible(true);
+                        frieendStatusOpen.setVisible(true);
+                        frieendStatusClose.setText(friendUser.getStatus().toString());
+                        frieendStatusOpen.setText(friendUser.getStatus().toString());
                         friendInfoController friendInfoController = new friendInfoController(friendUser);
                         loader.setController(friendInfoController);
                         try {
@@ -225,8 +247,10 @@ public class ChatScreenController implements Initializable {
                         VBox box = ListCoordinatorImpl.getListCoordinator().getGroupChatVbox(selected.getCardID());
                         scrollPane.setContent(box);
                         CurrentChat.setCurrentChatGroup(selected.getCardID());
-
                         GroupInfoController groupInfoController = new GroupInfoController(selected);
+                        frieendStatusClose.setVisible(false);
+                        frieendStatusOpen.setVisible(false);
+
                         loadergroup.setController(groupInfoController);
                         try {
                             friendDetailsAnchorPan.getChildren().clear();
@@ -234,14 +258,20 @@ public class ChatScreenController implements Initializable {
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
-                    }else if(selected.getCardType() == CardType.FRIEND){
+                    } else if (selected.getCardType() == CardType.FRIEND) {
                         int chatID = ChatServicesImpl.getChatService().createChat(new Chat(CurrentUserImp.getCurrentUser().getId(), selected.getCardID()));
-                        System.out.println(chatID+"The new Chat ID");
+                        System.out.println(chatID + "The new Chat ID");
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/friendInfo.fxml"));
+
                         VBox box = ListCoordinatorImpl.getListCoordinator().getSingleChatVbox(chatID);
                         scrollPane.setContent(box);
                         CurrentChat.setCurrentChatSingle(chatID);
-                        friendUser =  UserServicesImpl.getUserServices().getUser(selected.getCardID());
-                        System.out.println(friendUser.getUserName()+ " "+friendUser.getId()+ ""+selected.getCardID() );
+                        friendUser = UserServicesImpl.getUserServices().getUser(selected.getCardID());
+                        frieendStatusClose.setVisible(true);
+                        frieendStatusOpen.setVisible(true);
+                        frieendStatusClose.setText(friendUser.getStatus().toString());
+                        frieendStatusOpen.setText(friendUser.getStatus().toString());
+                        System.out.println(friendUser.getUserName() + " " + friendUser.getId() + "" + selected.getCardID());
                         friendInfoController friendInfoController = new friendInfoController(friendUser);
                         loader.setController(friendInfoController);
                         try {
@@ -325,23 +355,24 @@ public class ChatScreenController implements Initializable {
 
     @FXML
     void sendMessage(ActionEvent event) {
-        if(CurrentChat.getCurrentChat() != null && messageText.getText().length() > 0){
+        if (CurrentChat.getCurrentChat() != null && messageText.getText().length() > 0) {
             int id = CurrentChat.getCurrentChat().getCurrentChatID();
             if(CurrentChat.getCurrentChat().getCurrentChatType() == ChatType.SINGLE){
                 ChatMessage message = new ChatMessage(id,CurrentUserImp.getCurrentUser().getId(),
                         messageText.getText(), LocalDateTime.now());
                 ListCoordinatorImpl.getListCoordinator().getSingleChatVbox(id).getChildren().add(ChatServicesImpl.getChatService().sendChatMessage(message));
-                ChatServicesImpl.getChatService().updateChatList(id,messageText.getText());
-            }else if(CurrentChat.getCurrentChat().getCurrentChatType() == ChatType.GROUP){
-                GroupMessage message = new GroupMessage(CurrentUserImp.getCurrentUser().getId(),messageText.getText(),LocalDateTime.now(),
-                        id,0);
+                ChatServicesImpl.getChatService().updateChatList(id, messageText.getText());
+            } else if (CurrentChat.getCurrentChat().getCurrentChatType() == ChatType.GROUP) {
+                GroupMessage message = new GroupMessage(CurrentUserImp.getCurrentUser().getId(), messageText.getText(), LocalDateTime.now(),
+                        id, 0);
                 ListCoordinatorImpl.getListCoordinator().getGroupChatVbox(id).getChildren().add(ChatServicesImpl.getChatService().sendGroupMessage(message));
-                ChatServicesImpl.getChatService().updateGroupChatList(id,messageText.getText());
+                ChatServicesImpl.getChatService().updateGroupChatList(id, messageText.getText());
             }
             Animation animation = new Timeline(
                     new KeyFrame(Duration.seconds(2),
                             new KeyValue(scrollPane.vvalueProperty(), 1)));
             animation.play();
+
             messageText.clear();
         }
     }
@@ -350,7 +381,8 @@ public class ChatScreenController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         prepareListView(cardsListView, scrollPane);
         cardsListView.setItems(ListCoordinatorImpl.getListCoordinator().getUserChats());
-        ListCoordinatorImpl.currentList=CardType.CHAT;
+        ListCoordinatorImpl.currentList = CardType.CHAT;
+
         addButton.setVisible(false);
         FriendRequests_id.setVisible(false);
         onlineUsersButton.setVisible(false);
@@ -361,6 +393,15 @@ public class ChatScreenController implements Initializable {
         notification_btn.setStyle("-fx-opacity: 0.3");
         settings_btn.setStyle("-fx-opacity: 0.3");
         chatBot_btn.setStyle("-fx-opacity: 0.3");
+
+       
+//        chatAnchorpan.setVisible(false);
+        headerChat.setVisible(false);
+        footerChat.setVisible(false);
+
+//        chatAnchorpan.setVisible(false);
+        headerChat.setVisible(false);
+        footerChat.setVisible(false);
 
         dragBar.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
@@ -379,80 +420,37 @@ public class ChatScreenController implements Initializable {
         });
             friendName = new SimpleStringProperty("");
 
-            friendNameClose.textProperty().bind(friendName);
-            friendNameOpen.textProperty().bind(friendName);
+        friendNameClose.textProperty().bind(friendName);
+        friendNameOpen.textProperty().bind(friendName);
 
 
-            Image UserImage = new Image(new ByteArrayInputStream(CurrentUserImp.getCurrentUser().getImg()));
-            user_image_side_bar.setFill(new ImagePattern(UserImage));
-            // sliders
-            anchorPanSlider.setTranslateX(-80);
-            friendDetailsAnchorPan.setTranslateX(300);
-            AnchorPane.setRightAnchor(chatAnchorpan,0.0);
-            AnchorPane.setLeftAnchor(chatAnchorpan,0.0);
-            closeFrienDetailsbtn.setVisible(false);
-            closeExtraction.setVisible(false);
+        Image UserImage = new Image(new ByteArrayInputStream(CurrentUserImp.getCurrentUser().getImg()));
+        user_image_side_bar.setFill(new ImagePattern(UserImage));
+        // sliders
 
-            extract_menu_id.setOnAction(event -> {
-                TranslateTransition slider_tr = new TranslateTransition();
-                slider_tr.setDuration(Duration.seconds(0.4));
-                slider_tr.setNode(anchorPanSlider);
+        friendDetailsAnchorPan.setTranslateX(300);
+        AnchorPane.setRightAnchor(chatAnchorpan,0.0);
+        AnchorPane.setLeftAnchor(chatAnchorpan,0.0);
+        closeFrienDetailsbtn.setVisible(false);
 
-                slider_tr.setToX(0);
-                slider_tr.play();
-                //anchorPanSlider.setTranslateX(-80);
-                TranslateTransition VBoxslider = new TranslateTransition();
-                VBoxslider.setDuration(Duration.seconds(0.4));
-                VBoxslider.setNode(anchorPanWithoutmenu);
+        prepareListView(cardsListView, scrollPane);
 
-                VBoxslider.setToX(66);
-                VBoxslider.play();
-                TranslateTransition cardListSLider = new TranslateTransition();
-                cardListSLider.setDuration(Duration.seconds(0.4));
-                cardListSLider.setNode(cardsListView);
+        FilteredList<Card> filteredList = new FilteredList<>(ListCoordinatorImpl.getListCoordinator().getUserChats());
 
-                cardListSLider.setToX(0);
-                cardListSLider.play();
-                slider_tr.setOnFinished((ActionEvent e)->{
-                    extract_menu_id.setVisible(false);
-                    closeExtraction.setVisible(true);
-
-                });
-
-            });
-            closeExtraction.setOnAction(event -> {
-                TranslateTransition slider_tr = new TranslateTransition();
-                slider_tr.setDuration(Duration.seconds(0.4));
-                slider_tr.setNode(anchorPanSlider);
-
-                slider_tr.setToX(-80);
-                slider_tr.play();
-                //anchorPanSlider.setTranslateX(-80);
-                TranslateTransition VBoxslider = new TranslateTransition();
-                VBoxslider.setDuration(Duration.seconds(0.4));
-                VBoxslider.setNode(anchorPanWithoutmenu);
-
-                VBoxslider.setToX(0);
-                VBoxslider.play();
-                TranslateTransition cardListSLider = new TranslateTransition();
-                cardListSLider.setDuration(Duration.seconds(0.4));
-                cardListSLider.setNode(cardsListView);
-
-                cardListSLider.setToX(30);
-                cardListSLider.play();
+        cardsListView.setItems(filteredList);
 
 
-                slider_tr.setOnFinished((ActionEvent e)->{
-                    extract_menu_id.setVisible(true);
-                    closeExtraction.setVisible(false);
+        txt_ld_search.textProperty().addListener((observable, oldValue, newValue) ->  {
+            if (newValue.isEmpty()) {
+                filteredList.setPredicate(null);
+            } else {
+                final String searchString = newValue.toUpperCase();
+                filteredList.setPredicate(s -> s.getCardName().toUpperCase().contains(searchString));
+            }
+        });
 
-                });
-
-            });
-            /////////////////
-            prepareListView(cardsListView, scrollPane);
-            cardsListView.setItems(ListCoordinatorImpl.getListCoordinator().getUserChats());
     }
+
     @FXML
     void showFriendDetails(MouseEvent event) {
         TranslateTransition slider_tr = new TranslateTransition();
@@ -462,17 +460,18 @@ public class ChatScreenController implements Initializable {
         slider_tr.setToX(0);
         slider_tr.play();
 
-        AnchorPane.setRightAnchor(chatAnchorpan,250.0);
-        AnchorPane.setLeftAnchor(chatAnchorpan,0.0);
+        AnchorPane.setRightAnchor(chatAnchorpan, 250.0);
+        AnchorPane.setLeftAnchor(chatAnchorpan, 0.0);
 
 
-        slider_tr.setOnFinished((ActionEvent e)->{
+        slider_tr.setOnFinished((ActionEvent e) -> {
             showFriendDetailsbtn.setVisible(false);
             closeFrienDetailsbtn.setVisible(true);
 
         });
 
     }
+
     @FXML
     void closeFrienDetails(MouseEvent event) {
         TranslateTransition slider_tr = new TranslateTransition();
@@ -482,17 +481,18 @@ public class ChatScreenController implements Initializable {
         slider_tr.setToX(250);
         slider_tr.play();
 
-        AnchorPane.setRightAnchor(chatAnchorpan,0.0);
-        AnchorPane.setLeftAnchor(chatAnchorpan,0.0);
+        AnchorPane.setRightAnchor(chatAnchorpan, 0.0);
+        AnchorPane.setLeftAnchor(chatAnchorpan, 0.0);
 
 
-        slider_tr.setOnFinished((ActionEvent e)->{
+        slider_tr.setOnFinished((ActionEvent e) -> {
             showFriendDetailsbtn.setVisible(true);
             closeFrienDetailsbtn.setVisible(false);
 
         });
 
     }
+
     @FXML
     void setChats(ActionEvent event) {
         user_chats_btn.setStyle("-fx-opacity: 1");
@@ -502,7 +502,7 @@ public class ChatScreenController implements Initializable {
         settings_btn.setStyle("-fx-opacity: 0.3");
         chatBot_btn.setStyle("-fx-opacity: 0.3");
         cardsListView.setItems(ListCoordinatorImpl.getListCoordinator().getUserChats());
-        ListCoordinatorImpl.currentList=CardType.CHAT;
+        ListCoordinatorImpl.currentList = CardType.CHAT;
         addButton.setVisible(false);
         FriendRequests_id.setVisible(false);
         onlineUsersButton.setVisible(false);
@@ -521,8 +521,10 @@ public class ChatScreenController implements Initializable {
         FriendRequests_id.setVisible(true);
         onlineUsersButton.setVisible(true);
         offlineUsersButton.setVisible(true);
+        onlineUsersButton.setStyle("-fx-opacity: 1; -fx-background-color: transparent;");
+        offlineUsersButton.setStyle("-fx-opacity: 0.3;");
         cardsListView.setItems(ListCoordinatorImpl.getListCoordinator().getUserOnlineFriends());
-        ListCoordinatorImpl.currentList=CardType.FRIEND;
+        ListCoordinatorImpl.currentList = CardType.FRIEND;
     }
 
     @FXML
@@ -533,10 +535,8 @@ public class ChatScreenController implements Initializable {
         notification_btn.setStyle("-fx-opacity: 0.3");
         settings_btn.setStyle("-fx-opacity: 0.3");
         chatBot_btn.setStyle("-fx-opacity: 0.3");
-        //currentList.clear();
-        //currentList.addAll(ListCoordinatorImpl.getListCoordinator().getUserGroups());
         cardsListView.setItems(ListCoordinatorImpl.getListCoordinator().getUserGroups());
-        ListCoordinatorImpl.currentList=CardType.GROUP;
+        ListCoordinatorImpl.currentList = CardType.GROUP;
         addButton.setVisible(true);
         FriendRequests_id.setVisible(false);
         onlineUsersButton.setVisible(false);
@@ -550,7 +550,7 @@ public class ChatScreenController implements Initializable {
             System.out.println("logout successfully");
             System.out.println(RememberSetting.getPhone());
             System.out.println(RememberSetting.getPassword());
-            RememberSetting.setProperties(CurrentUserImp.getCurrentUser().getPhoneNumber(),"");
+            RememberSetting.setProperties(CurrentUserImp.getCurrentUser().getPhoneNumber(), "");
             SwitchScenes.getInstance().switchToSignInSecond(event);
         } catch (RemoteException e) {
             e.printStackTrace();
@@ -569,6 +569,25 @@ public class ChatScreenController implements Initializable {
         notification_btn.setStyle("-fx-opacity: 1");
         settings_btn.setStyle("-fx-opacity: 0.3");
         chatBot_btn.setStyle("-fx-opacity: 0.3");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/Notifications.fxml"));
+        try {
+            Scene newScene = new Scene(loader.load());
+            Stage newStage = new Stage();
+            newScene.setFill(Color.TRANSPARENT);
+            newScene.getRoot().setStyle("-fx-background-radius: 20; -fx-border-radius: 20; -fx-border-color: #0F3D3E; -fx-border-width: 2;");
+            newStage.initStyle(StageStyle.TRANSPARENT);
+            newStage.setScene(newScene);
+            newStage.show();
+
+            Scene oldScene = ((Node) event.getSource()).getScene();
+            oldScene.getRoot().setDisable(true);
+
+            newStage.setOnHidden(event1 -> {
+                oldScene.getRoot().setDisable(false);
+            });
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML
@@ -580,16 +599,22 @@ public class ChatScreenController implements Initializable {
         settings_btn.setStyle("-fx-opacity: 1");
         chatBot_btn.setStyle("-fx-opacity: 0.3");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/EditeProfile.fxml"));
-//        EditeProfileController editeProfileController = new EditeProfileController();
-//        loader.setController(editeProfileController);
         try {
-            Scene scene =new Scene(loader.load());
-            Stage stage = new Stage();
-            stage.initStyle(StageStyle.UNDECORATED);
-            stage.setScene(scene);
-            stage.show();
+            Scene newScene = new Scene(loader.load());
+            Stage newStage = new Stage();
+            newScene.setFill(Color.TRANSPARENT);
+            newScene.getRoot().setStyle("-fx-background-radius: 20; -fx-border-radius: 20; -fx-border-color: #0F3D3E; -fx-border-width: 2;");
+            newStage.initStyle(StageStyle.TRANSPARENT);
+            newStage.setScene(newScene);
+            newStage.show();
 
-           // ((Node)(event.getSource())).getScene().getRoot().setDisable(true);
+            Scene oldScene = ((Node) event.getSource()).getScene();
+            oldScene.getRoot().setDisable(true);
+
+            newStage.setOnHidden(event1 -> {
+                oldScene.getRoot().setDisable(false);
+            });
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -633,49 +658,64 @@ public class ChatScreenController implements Initializable {
     void getAllFriendRequests(ActionEvent event) {
         FXMLLoader friendRequestFXML;
         try {
-            friendRequestFXML =new FXMLLoader(Objects.requireNonNull(ChatScreenController.class.getResource("/views/FriendRequests.fxml")));
+            friendRequestFXML = new FXMLLoader(Objects.requireNonNull(ChatScreenController.class.getResource("/views/FriendRequests.fxml")));
             FriendRequestsController friendRequestsController = new FriendRequestsController();
             friendRequestFXML.setController(friendRequestsController);
-            Scene scene =new Scene(friendRequestFXML.load());
-            Stage stage = new Stage();
-            stage.initStyle(StageStyle.UNDECORATED);
+            Scene scene = new Scene(friendRequestFXML.load());
+            Stage stage = new Stage(StageStyle.TRANSPARENT);
+            scene.setFill(Color.TRANSPARENT);
+            scene.getRoot().setStyle("-fx-background-radius: 20;");
             stage.setScene(scene);
             stage.show();
 
-            //((Node)(event.getSource())).getScene().getRoot().setDisable(true);
-        }
-        catch (IOException e) {
+            Scene oldScene = ((Node) event.getSource()).getScene();
+            oldScene.getRoot().setDisable(true);
+
+            stage.setOnHidden(event1 -> {
+                oldScene.getRoot().setDisable(false);
+            });
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
     }
+
     @FXML
     void sendInvitation(ActionEvent event) {
-        FXMLLoader loader ;
+        FXMLLoader loader;
         Scene scene = null;
-        try {
-            System.out.println("Current List= "+ListCoordinatorImpl.currentList);
-            if(ListCoordinatorImpl.currentList==CardType.FRIEND) {
-                loader = new FXMLLoader(Objects.requireNonNull(ChatScreenController.class.getResource("/views/AddFriend.fxml")));
-                AddFriendRequestController addFriendRequestController = new AddFriendRequestController();
-                loader.setController(addFriendRequestController);
+        System.out.println("Current List= " + ListCoordinatorImpl.currentList);
+        if (ListCoordinatorImpl.currentList == CardType.FRIEND) {
+           loader = new FXMLLoader(Objects.requireNonNull(ChatScreenController.class.getResource("/views/AddFriend.fxml")));
+            AddFriendRequestController addFriendRequestController = new AddFriendRequestController("addfriend",-1);
+            loader.setController(addFriendRequestController);
+            try {
                 scene = new Scene(loader.load(), 550, 550);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
-            else if(ListCoordinatorImpl.currentList==CardType.GROUP){
-                loader = new FXMLLoader(Objects.requireNonNull(ChatScreenController.class.getResource("/views/AddGroup.fxml")));
-                AddGroupController addGroupController = new AddGroupController();
-                loader.setController(addGroupController);
+        } else if (ListCoordinatorImpl.currentList == CardType.GROUP) {
+            loader = new FXMLLoader(Objects.requireNonNull(ChatScreenController.class.getResource("/views/AddGroup.fxml")));
+            AddGroupController addGroupController = new AddGroupController();
+            loader.setController(addGroupController);
+            try {
                 scene = new Scene(loader.load(), 550, 550);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
-            Stage stage = new Stage();
-            stage.setScene(scene);
-            stage.show();
 
-            //((Node)(event.getSource())).getScene().getRoot().setDisable(true);
         }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
+        Stage stage = new Stage(StageStyle.TRANSPARENT);
+        scene.setFill(Color.TRANSPARENT);
+        scene.getRoot().setStyle("-fx-background-radius: 20;");
+        stage.setScene(scene);
+        stage.show();
+        Scene oldScene = ((Node) event.getSource()).getScene();
+        oldScene.getRoot().setDisable(true);
+
+        stage.setOnHidden(event1 -> {
+            oldScene.getRoot().setDisable(false);
+        });
     }
 
 
@@ -692,9 +732,20 @@ public class ChatScreenController implements Initializable {
         offlineUsersButton.setStyle("-fx-opacity: 1; -fx-background-color: transparent ");
         cardsListView.setItems(ListCoordinatorImpl.getListCoordinator().getUserOfflineFriends());
     }
+
     @FXML
     private void chatBotButtonHandler(ActionEvent event) {
+        if(ChatterBotService.getChatterBotService().botStatus==true){
+            ChatterBotService.getChatterBotService().botStatus=false;
+            botImg.setImage(new Image(String.valueOf(ChatScreenController.class.getResource("/images/redchatbot.png"))));
+            chatBot_btn.setStyle("border-width: 2px; border-color: #ff3300;");
 
+        }
+        else{
+            ChatterBotService.getChatterBotService().botStatus=true;
+            botImg.setImage(new Image(String.valueOf(ChatScreenController.class.getResource("/images/greenChatBot.png"))));
+            chatBot_btn.setStyle("border-width: 2px; border-color: #00ff00;");
+        }
     }
 
 }

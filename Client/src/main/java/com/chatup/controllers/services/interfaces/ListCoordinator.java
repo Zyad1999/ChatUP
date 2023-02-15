@@ -5,6 +5,8 @@ import com.chatup.models.entities.User;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.VBox;
 
+import java.util.List;
+
 public interface ListCoordinator {
 
     public ObservableList<Card> getUserChats();
@@ -20,7 +22,7 @@ public interface ListCoordinator {
 
     public void updateFriendRequests();
     VBox getSingleChatVbox(int chatId);
-
     VBox getGroupChatVbox(int chatId);
      ObservableList<User> getGroupMembers(int groupId);
+     void updateGroupMembers(int chat_id);
 }

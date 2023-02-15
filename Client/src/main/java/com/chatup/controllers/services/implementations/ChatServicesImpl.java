@@ -16,51 +16,30 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class ChatServicesImpl implements ChatService {
 
     private static ChatService chatService;
 
-    private ChatServicesImpl(){}
+    private ChatServicesImpl() {
+    }
 
-    public static ChatService getChatService(){
-        if (chatService==null)
+    public static ChatService getChatService() {
+        if (chatService == null)
             chatService = new ChatServicesImpl();
         return chatService;
     }
-    @Override
-    public  VBox getSingleChatVbox(int chatId) {
-        Server server = ServerConnection.getServer();
-        try {
-            List<ChatMessage> list = server.getChatMessages(chatId);
-            System.out.println("The lenght of the list is "+list.size());
-            return singleMessages(list);
-        } catch (RemoteException e) {
-            throw new RuntimeException(e);
-        }
 
-    }
-
-    @Override
-    public VBox getGroupChatVbox(int chatId) {
-        Server server = ServerConnection.getServer();
-        try {
-            List<GroupMessage> list = server.getGroupMessages(chatId);
-            return groupMessages(list);
-        } catch (RemoteException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private static VBox singleMessages(List<ChatMessage> messagesList)  {
+    private static VBox singleMessages(List<ChatMessage> messagesList) {
         FXMLLoader loader;
         VBox messages = new VBox();
-        for(ChatMessage message: messagesList ){
-            if(message.getSenderId()== CurrentUserImp.getCurrentUser().getId()){
+        for (ChatMessage message : messagesList) {
+            if (message.getSenderId() == CurrentUserImp.getCurrentUser().getId()) {
                 if(message.getAttachment_Id() == 0) {
                     loader = new FXMLLoader(ChatServicesImpl.class.getResource("/views/sentMessage.fxml"));
-                    sentMessageController sentController = new sentMessageController(message.getContent());
+                    sentMessageController sentController = new sentMessageController(message.getContent(), message.getMessageDateTime().format(DateTimeFormatter.ofPattern("E hh:mm a")));
                     loader.setController(sentController);
                 }else {
                     loader = new FXMLLoader(ChatServicesImpl.class.getResource("/views/fileCardSender.fxml"));
@@ -69,12 +48,11 @@ public class ChatServicesImpl implements ChatService {
                             "."+attachment.getExtension(), message.getContent(), attachment.getByteSize(), attachment.getId(), message.getSenderId());
                     loader.setController(fileMessageController);
                 }
-            }
-            else{
+            } else {
                 if(message.getAttachment_Id() == 0) {
                     loader = new FXMLLoader(ChatServicesImpl.class.getResource("/views/recievedMessage.fxml"));
                     User user = UserServicesImpl.getUserServices().getUser(message.getSenderId());
-                    recievedMessageController recievedController = new recievedMessageController(user.getUserName(), message.getContent());
+                    recievedMessageController recievedController = new recievedMessageController(user.getUserName(),  message.getContent(), message.getMessageDateTime().format(DateTimeFormatter.ofPattern("E hh:mm a")));
                     loader.setController(recievedController);
                 }else {
                     loader = new FXMLLoader(ChatServicesImpl.class.getResource("/views/fileCardReceieved.fxml"));
@@ -92,21 +70,21 @@ public class ChatServicesImpl implements ChatService {
             }
 
         }
-        String style = "-fx-background-image: url("+ChatServicesImpl.class.getResource("/images/tile1.png").toString()+"); -fx-spacing: 25;";
+        String style = "-fx-background-image: url(" + ChatServicesImpl.class.getResource("/images/tile1.png").toString() + "); -fx-spacing: 25;";
         messages.setStyle(style);
         return messages;
     }
 
-    private static VBox groupMessages(List<GroupMessage> messagesList)  {
+    private static VBox groupMessages(List<GroupMessage> messagesList) {
         FXMLLoader loader;
         VBox messages = new VBox();
-        for(GroupMessage message: messagesList ){
+        for (GroupMessage message : messagesList) {
             System.out.println("hi group");
-            System.out.println("group message content"+message.getContent());
-            if(message.getSenderId()==CurrentUserImp.getCurrentUser().getId()){
+            System.out.println("group message content" + message.getContent());
+            if (message.getSenderId() == CurrentUserImp.getCurrentUser().getId()) {
                 if(message.getAttachmentID() == 0) {
                     loader = new FXMLLoader(ChatServicesImpl.class.getResource("/views/sentMessage.fxml"));
-                    sentMessageController sentController = new sentMessageController(message.getContent());
+                    sentMessageController sentController = new sentMessageController(message.getContent(), message.getMessageDate().format(DateTimeFormatter.ofPattern("E hh:mm a")));
                     loader.setController(sentController);
                 }else {
                     loader = new FXMLLoader(ChatServicesImpl.class.getResource("/views/fileCardSender.fxml"));
@@ -115,12 +93,11 @@ public class ChatServicesImpl implements ChatService {
                             "."+attachment.getExtension(), message.getContent(), attachment.getByteSize(), attachment.getId(), message.getGroupChatId());
                     loader.setController(fileMessageController);
                 }
-            }
-            else{
+            } else {
                 if(message.getAttachmentID() == 0) {
                     loader = new FXMLLoader(ChatServicesImpl.class.getResource("/views/recievedMessage.fxml"));
                     User user = UserServicesImpl.getUserServices().getUser(message.getSenderId());
-                    recievedMessageController recievedController = new recievedMessageController(user.getUserName(), message.getContent());
+                    recievedMessageController recievedController = new recievedMessageController(user.getUserName(),  message.getContent(), message.getMessageDate().format(DateTimeFormatter.ofPattern("E hh:mm a")));
                     loader.setController(recievedController);
                 }else {
                     loader = new FXMLLoader(ChatServicesImpl.class.getResource("/views/fileCardReceieved.fxml"));
@@ -138,7 +115,7 @@ public class ChatServicesImpl implements ChatService {
             }
 
         }
-        String style = "-fx-background-image: url("+ChatServicesImpl.class.getResource("/images/tile1.png").toString()+"); -fx-spacing: 25;";
+        String style = "-fx-background-image: url(" + ChatServicesImpl.class.getResource("/images/tile1.png").toString() + "); -fx-spacing: 25;";
         messages.setStyle(style);
         return messages;
     }
@@ -185,10 +162,10 @@ public class ChatServicesImpl implements ChatService {
 
     private static HBox groupMessage(GroupMessage message){
         FXMLLoader loader;
-        if(message.getSenderId()==CurrentUserImp.getCurrentUser().getId()){
+        if (message.getSenderId() == CurrentUserImp.getCurrentUser().getId()) {
             if(message.getAttachmentID() == 0) {
                 loader = new FXMLLoader(ChatServicesImpl.class.getResource("/views/sentMessage.fxml"));
-                sentMessageController sentController = new sentMessageController(message.getContent());
+                sentMessageController sentController = new sentMessageController(message.getContent(), message.getMessageDate().format(DateTimeFormatter.ofPattern("E hh:mm a")));
                 loader.setController(sentController);
             }else {
                 loader = new FXMLLoader(ChatServicesImpl.class.getResource("/views/fileCardSender.fxml"));
@@ -197,12 +174,11 @@ public class ChatServicesImpl implements ChatService {
                         "."+attachment.getExtension(), message.getContent(), attachment.getByteSize(), attachment.getId(), message.getGroupChatId());
                 loader.setController(fileMessageController);
             }
-        }
-        else{
+        } else {
             if(message.getAttachmentID() == 0) {
                 loader = new FXMLLoader(ChatServicesImpl.class.getResource("/views/recievedMessage.fxml"));
                 User user = UserServicesImpl.getUserServices().getUser(message.getSenderId());
-                recievedMessageController recievedController = new recievedMessageController(user.getUserName(), message.getContent());
+                recievedMessageController recievedController = new recievedMessageController(user.getUserName(),  message.getContent(), message.getMessageDate().format(DateTimeFormatter.ofPattern("E hh:mm a")));
                 loader.setController(recievedController);
             }else {
                 loader = new FXMLLoader(ChatServicesImpl.class.getResource("/views/fileCardReceieved.fxml"));
@@ -221,12 +197,12 @@ public class ChatServicesImpl implements ChatService {
         }
     }
 
-    private static HBox chatMessage(ChatMessage message){
+    private static HBox chatMessage(ChatMessage message) {
         FXMLLoader loader;
-        if(message.getSenderId()==CurrentUserImp.getCurrentUser().getId()){
+        if (message.getSenderId() == CurrentUserImp.getCurrentUser().getId()) {
             if(message.getAttachment_Id() == 0) {
                 loader = new FXMLLoader(ChatServicesImpl.class.getResource("/views/sentMessage.fxml"));
-                sentMessageController sentController = new sentMessageController(message.getContent());
+                sentMessageController sentController = new sentMessageController(message.getContent(), message.getMessageDateTime().format(DateTimeFormatter.ofPattern("E hh:mm a")));
                 loader.setController(sentController);
             }else {
                 loader = new FXMLLoader(ChatServicesImpl.class.getResource("/views/fileCardSender.fxml"));
@@ -235,12 +211,11 @@ public class ChatServicesImpl implements ChatService {
                         "."+attachment.getExtension(), message.getContent(), attachment.getByteSize(), attachment.getId(), message.getSenderId());
                 loader.setController(fileMessageController);
             }
-        }
-        else{
+        } else {
             if(message.getAttachment_Id() == 0) {
                 loader = new FXMLLoader(ChatServicesImpl.class.getResource("/views/recievedMessage.fxml"));
                 User user = UserServicesImpl.getUserServices().getUser(message.getSenderId());
-                recievedMessageController recievedController = new recievedMessageController(user.getUserName(), message.getContent());
+                recievedMessageController recievedController = new recievedMessageController(user.getUserName(),  message.getContent(), message.getMessageDateTime().format(DateTimeFormatter.ofPattern("E hh:mm a")));
                 loader.setController(recievedController);
             }else {
                 loader = new FXMLLoader(ChatServicesImpl.class.getResource("/views/fileCardReceieved.fxml"));
@@ -260,35 +235,89 @@ public class ChatServicesImpl implements ChatService {
     }
 
     @Override
-    public void updateChatList(int chatID, String content){
-        ObservableList<Card> chats = ListCoordinatorImpl.getListCoordinator().getUserChats();
-        Card curChat = null;
-        for(Card chat:chats){
-            if(chat.getCardID() == chatID) {
-                curChat = chat;
-            }
+    public VBox getSingleChatVbox(int chatId) {
+        Server server = ServerConnection.getServer();
+        try {
+            List<ChatMessage> list = server.getChatMessages(chatId);
+            System.out.println("The lenght of the list is " + list.size());
+            return singleMessages(list);
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
         }
-        if(curChat != null){
-            curChat.setCardContent(content);
-            chats.remove(curChat);
-            chats.add(0, curChat);
-        }else{
-            Chat chat = ChatServicesImpl.getChatService().getChat(chatID);
-            chats.add(0, CardMapper.getCard(chat,content));
+
+    }
+
+    @Override
+    public VBox getGroupChatVbox(int chatId) {
+        Server server = ServerConnection.getServer();
+        try {
+            List<GroupMessage> list = server.getGroupMessages(chatId);
+            return groupMessages(list);
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
         }
     }
 
     @Override
-    public void updateGroupChatList(int groupChatID, String content){
+    public HBox sendGroupMessage(GroupMessage message) {
+        try {
+            ServerConnection.getServer().sendGroupChatMessage(message);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return groupMessage(message);
+    }
+
+    @Override
+    public HBox recGroupMessage(GroupMessage message) {
+        return groupMessage(message);
+    }
+
+    @Override
+    public HBox sendChatMessage(ChatMessage message) {
+        try {
+            ServerConnection.getServer().sendChatMessage(message);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return chatMessage(message);
+    }
+
+    @Override
+    public HBox recChatMessage(ChatMessage message) {
+        return chatMessage(message);
+    }
+
+    @Override
+    public void updateChatList(int chatID, String content) {
+        ObservableList<Card> chats = ListCoordinatorImpl.getListCoordinator().getUserChats();
+        Card curChat = null;
+        for (Card chat : chats) {
+            if (chat.getCardID() == chatID) {
+                curChat = chat;
+            }
+        }
+        if (curChat != null) {
+            curChat.setCardContent(content);
+            chats.remove(curChat);
+            chats.add(0, curChat);
+        } else {
+            Chat chat = ChatServicesImpl.getChatService().getChat(chatID);
+            chats.add(0, CardMapper.getCard(chat, content));
+        }
+    }
+
+    @Override
+    public void updateGroupChatList(int groupChatID, String content) {
         ObservableList<Card> chats = ListCoordinatorImpl.getListCoordinator().getUserGroups();
         Card curChat = null;
-        for(Card chat:chats){
-            if(chat.getCardID() == groupChatID) {
+        for (Card chat : chats) {
+            if (chat.getCardID() == groupChatID) {
                 curChat = chat;
                 System.out.println("Found the chat");
             }
         }
-        if(curChat != null){
+        if (curChat != null) {
             curChat.setCardContent(content);
             chats.remove(curChat);
             chats.add(0, curChat);
@@ -296,7 +325,7 @@ public class ChatServicesImpl implements ChatService {
     }
 
     @Override
-    public int createChat(Chat chat){
+    public int createChat(Chat chat) {
         try {
             return ServerConnection.getServer().createChat(chat);
         } catch (RemoteException e) {
@@ -306,7 +335,7 @@ public class ChatServicesImpl implements ChatService {
     }
 
     @Override
-    public Chat getChat(int chatID){
+    public Chat getChat(int chatID) {
         try {
             return ServerConnection.getServer().getChat(chatID);
         } catch (RemoteException e) {
@@ -322,6 +351,15 @@ public class ChatServicesImpl implements ChatService {
         } catch (RemoteException e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    @Override
+    public List<User> getSingleChatUsers(int singleChatId) {
+        try {
+            return ServerConnection.getServer().getSingleChatUsers(singleChatId);
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
         }
     }
 }

@@ -49,6 +49,8 @@ public class friendRequestCardController  {
         rejectBtn.setDisable(false);
         FriendRequest friendRequest = new FriendRequest(friendId,CurrentUserImp.getCurrentUser().getId(), FriendRequestStatus.ACCEPTED);
         Boolean result = ListCoordinatorImpl.getListCoordinator().updatesUserFriendRequests(friendRequest);
+        ListCoordinatorImpl.getListCoordinator().getUserOfflineFriends();
+        ListCoordinatorImpl.getListCoordinator().getUserOnlineFriends();
         System.out.println(result);
     }
 

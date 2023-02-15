@@ -8,27 +8,26 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
-import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class AnnouncementDashboard implements Initializable {
     private static double xOffset = 0;
     private static double yOffset = 0;
-    private Announcement announcement;
+    @FXML
+    private TextField title;
     @FXML
     private Button announcementButton;
     @FXML
-    private TextArea announcementText;
+    private TextArea body;
     @FXML
     private ImageView closeXButton;
     @FXML
@@ -57,11 +56,18 @@ public class AnnouncementDashboard implements Initializable {
 
     @FXML
     void sendButtonHandler(ActionEvent event) {
-        String announcementText = this.announcementText.getText();
-        if (!announcementText.equals("")) {
+
+        if (!title.getText().equals("") && !body.getText().equals("")) {
             // send announcementText
+            Announcement announcement = new Announcement(title.getText(), body.getText(), LocalDateTime.now());
             AnnouncementServiceImp.getAnnouncementService().addAnnouncement(announcement);
-            this.announcementText.setText("");
+            System.out.println(title.getText() + " - " + body.getText()+ " - " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("E hh:mm a")));
+            title.setText("");
+            body.setText("");
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Title and body is required", ButtonType.OK);
+            alert.setHeaderText(null);
+            alert.showAndWait();
         }
     }
 

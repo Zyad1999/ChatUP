@@ -338,4 +338,14 @@ public class ServerImpl extends UnicastRemoteObject implements Server {
     public Attachment getAttachment(int attachmentID) throws RemoteException {
         return AttachmentServicesImpl.getAttachmentService().getAttachment(attachmentID);
     }
+    @Override
+    public List<User> getSingleChatUsers(int singleChatId) throws RemoteException{
+        return  UserChatServicesImpl.getUserChatServices().getSingleChatUsers(singleChatId);
+    }
+
+    @Override
+    public boolean deleteUserFromGroup(int userId, int groupId) throws RemoteException {
+        return UserGroupsServiceImp.getUserGroupsService().deleteUserFromGroup(userId, groupId);
+    }
+
 }

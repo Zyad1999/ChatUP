@@ -17,11 +17,8 @@ public interface UserServices {
     public List<ChatMessage> getChatMsg(int chatId);
 
     int getNumberAllUsers();
-
     int getNumberAllMaleUsers();
-
     int getNumberAllOnlineUsers();
-
     int getNumberAllCountryOfUsers(String country);
     boolean updateUserInfo (User user);
     boolean updateUserImage (int userID, String phone, byte[] img);

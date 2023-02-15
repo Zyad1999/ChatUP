@@ -45,6 +45,24 @@ public class GroupMembershipRepoImpl  implements GroupMembershipRepo {
     }
 
     @Override
+    public boolean deleteGroupMembership(int userid, int chatId) {
+        String sql = "delete from group_membership where user_id = ? and group_chat_id = ?";
+
+        try (PreparedStatement preparedStatement = DBConnection.getConnection().prepareStatement(sql)) {
+            preparedStatement.setInt(1, userid);
+            preparedStatement.setInt(2, chatId);
+
+            if (preparedStatement.executeUpdate() == 1) {
+                return true;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return false;
+    }
+
+    @Override
     public int createGroupMembership(GroupMembership groupMembership){
         int id = -1;
         if(GroupMembershipRepoImpl.getInstance().getGroupMembership(groupMembership.getUserId(),groupMembership.getGroupChatId())!=null)

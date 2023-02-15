@@ -19,4 +19,6 @@ public interface UserGroupsService {
     void addUsersToGroup(int groupChatId,List<User> userList);
 
     GroupChat getGroupChat(int groupID);
+    boolean deleteUserFromGroup(int userId,int groupId);
+
 }

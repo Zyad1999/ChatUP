@@ -42,7 +42,7 @@
                                     </Circle>
                                     <MFXButton fx:id="user_chats_btn" buttonType="RAISED" contentDisplay="CENTER" onAction="#setChats" prefHeight="55.0" prefWidth="59.0" styleClass="MFXButton" text=" " textFill="#041014">
                                        <graphic>
-                                          <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: 0.7;">
                                              <image>
                                                 <Image url="@../images/inboxicon.png" />
                                              </image>
@@ -93,7 +93,7 @@
                                     </MFXButton>
                                     <MFXButton fx:id="chatBot_btn" buttonType="RAISED" contentDisplay="CENTER" onAction="#chatBotButtonHandler" prefHeight="55.0" prefWidth="59.0" styleClass="MFXButton" text=" " textFill="WHITE">
                                        <graphic>
-                                          <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="botImg" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../images/chatBot.png" />
                                              </image>
@@ -141,55 +141,30 @@
                         </VBox>
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="anchorPanWithoutmenu" prefWidth="260.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <AnchorPane fx:id="anchorPanWithoutmenu" prefWidth="260.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="66.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="84.0" prefWidth="287.0" style="-fx-background-color: #F1F1F1;" styleClass="space-20" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <children>
-                              <AnchorPane HBox.hgrow="ALWAYS">
+                        <ScrollPane focusTraversable="false" hbarPolicy="NEVER" layoutY="127.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="523.0" prefWidth="330.0" vbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="127.0">
+                           <content>
+                              <AnchorPane prefHeight="611.0" prefWidth="345.0" style="-fx-background-color: #F1F1F1;">
                                  <children>
-                                    <MFXButton fx:id="extract_menu_id" buttonType="RAISED" contentDisplay="CENTER" layoutX="15.0" layoutY="11.0" prefHeight="17.0" prefWidth="46.0" styleClass="MFXButton" text=" " textFill="#979797">
-                                       <graphic>
-                                          <ImageView fitHeight="40.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../images/menu.png" />
-                                             </image>
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor>
-                                          </ImageView>
-                                       </graphic>
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor>
-                                    </MFXButton>
-                                    <MFXButton fx:id="closeExtraction" buttonType="RAISED" contentDisplay="CENTER" layoutX="15.0" layoutY="11.0" prefHeight="17.0" prefWidth="46.0" styleClass="MFXButton" text=" " textFill="#979797">
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor>
-                                       <graphic>
-                                          <ImageView fitHeight="40.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../images/menu.png" />
-                                             </image>
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor>
-                                          </ImageView>
-                                       </graphic>
-                                    </MFXButton>
+                                    <ListView fx:id="cardsListView" layoutX="30.0" prefHeight="611.0" prefWidth="296.0" style="-fx-background-color: #F1F1F1;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="49.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
+                           </content>
+                        </ScrollPane>
+                        <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="84.0" prefWidth="287.0" style="-fx-background-color: #F1F1F1;" styleClass="space-20" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
                               <Group>
                                  <children>
-                                    <TextField fx:id="txt_ld_search" layoutX="-22.0" layoutY="-10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="197.0" promptText="Search" styleClass="search-text-field" />
-                                    <ImageView fitHeight="20.0" fitWidth="56.0" layoutX="148.0" layoutY="-1.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                                    <TextField fx:id="txt_ld_search" layoutX="-22.0" layoutY="-10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="235.0" promptText="Search" styleClass="search-text-field" />
+                                    <ImageView fitHeight="20.0" fitWidth="56.0" layoutX="187.0" layoutY="-4.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../images/searchgray.png" />
                                        </image>
                                     </ImageView>
                                  </children>
                                  <HBox.margin>
-                                    <Insets />
+                                    <Insets bottom="20.0" left="60.0" />
                                  </HBox.margin>
                               </Group>
                               <AnchorPane prefHeight="64.0" prefWidth="44.0">
@@ -255,15 +230,6 @@
                               <AnchorPane prefHeight="64.0" prefWidth="44.0" />
                            </children>
                         </HBox>
-                        <ScrollPane focusTraversable="false" hbarPolicy="NEVER" layoutY="127.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="523.0" prefWidth="330.0" vbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="127.0">
-                           <content>
-                              <AnchorPane prefHeight="611.0" prefWidth="345.0" style="-fx-background-color: #F1F1F1;">
-                                 <children>
-                                    <ListView fx:id="cardsListView" layoutX="30.0" prefHeight="611.0" prefWidth="296.0" style="-fx-background-color: #F1F1F1;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="49.0" AnchorPane.topAnchor="0.0" />
-                                 </children>
-                              </AnchorPane>
-                           </content>
-                        </ScrollPane>
                      </children>
                   </AnchorPane>
                </children>
@@ -277,7 +243,7 @@
                <children>
                   <AnchorPane fx:id="chatAnchorpan" prefHeight="640.0" prefWidth="608.0" style="-fx-background-color: #F1F1F1;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <AnchorPane prefHeight="100.0" prefWidth="608.0" AnchorPane.bottomAnchor="550.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="headerChat" prefHeight="100.0" prefWidth="608.0" AnchorPane.bottomAnchor="550.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <HBox fx:id="showFriendDetailsbtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#showFriendDetails" prefHeight="69.0" prefWidth="608.0" spacing="15.0" styleClass="hbox-chat-information" AnchorPane.bottomAnchor="31.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
@@ -338,7 +304,7 @@
                         </AnchorPane>
                         <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" layoutY="90.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="505.0" prefWidth="601.0" styleClass="scrol-pane" vbarPolicy="NEVER" AnchorPane.bottomAnchor="55.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="90.0">
                            <content>
-                              <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="481.0" prefWidth="606.0" style="-fx-background-image: url(&quot;file:/D:/ITI/Material/ProjectsJava/ChatUP/Client/src/main/resources/images/tile1.png&quot;); -fx-background-radius: 10; -fx-opacity: 0.4;">
+                              <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="481.0" prefWidth="606.0" style="-fx-background-image: url(&quot;file:/D:/ITI/Material/ProjectsJava/ChatUP/Client/src/main/resources/images/logo.png&quot;); -fx-background-repeat: no-repeat; -fx-background-position: center; -fx-background-size: auto; -fx-background-radius: 10; -fx-opacity: 0.4;">
                                  <padding>
                                     <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
                                  </padding>
@@ -349,7 +315,7 @@
                               </VBox>
                            </content>
                         </ScrollPane>
-                        <AnchorPane layoutX="83.0" layoutY="584.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="42.0" prefWidth="392.0" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                        <AnchorPane fx:id="footerChat" layoutX="83.0" layoutY="584.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="42.0" prefWidth="392.0" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                            <children>
                               <TextField fx:id="messageText" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="41.0" minWidth="333.0" onAction="#sendMessage" promptText="send message" styleClass="message-text-field" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="70.0">
                                  <cursor>

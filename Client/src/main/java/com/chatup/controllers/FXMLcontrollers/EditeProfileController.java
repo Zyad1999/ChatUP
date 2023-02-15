@@ -2,7 +2,7 @@ package com.chatup.controllers.FXMLcontrollers;
 
 import com.chatup.controllers.services.implementations.CurrentUserImp;
 import com.chatup.controllers.services.implementations.UserServicesImpl;
-import com.chatup.models.entities.User;
+import com.chatup.controllers.services.interfaces.CurrentUser;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
@@ -27,6 +27,13 @@ import java.nio.file.Files;
 
 public class EditeProfileController {
 
+    public static StringProperty username;
+    public static StringProperty Email;
+    public static StringProperty DB;
+    public static StringProperty Country;
+    public static StringProperty gender;
+    public static StringProperty birthdate;
+    public static StringProperty mode;
     @FXML
     private TextArea changeBio;
     @FXML
@@ -36,19 +43,28 @@ public class EditeProfileController {
     @FXML
     private Label useEmail;
     @FXML
-    private  Label userGender;
+    private Label userGender;
     @FXML
     private Label usercountry;
+    @FXML
+    private Label modeTF;
     @FXML
     private Label userBD;
     @FXML
     private Label userHeaderName;
-    public static StringProperty username;
-    public static StringProperty Email;
-    public static StringProperty DB ;
-    public static  StringProperty Country ;
-    public static  StringProperty gender;
-    public static  StringProperty birthdate;
+
+    public EditeProfileController() {
+
+    }
+
+    private void diableOldScene(MouseEvent event, Stage newStage) {
+        Scene oldScene = ((Node) event.getSource()).getScene();
+        oldScene.getRoot().setDisable(true);
+
+        newStage.setOnHidden(event1 -> {
+            oldScene.getRoot().setDisable(false);
+        });
+    }
 
     @FXML
     void ChangePassword(MouseEvent event) {
@@ -56,17 +72,32 @@ public class EditeProfileController {
         EditInfCardController cardController = new EditInfCardController("password");
         loader.setController(cardController);
         try {
-            Scene scene =new Scene(loader.load());
+            Scene scene = new Scene(loader.load());
             Stage stage = new Stage();
             stage.initStyle(StageStyle.UNDECORATED);
             stage.setScene(scene);
             stage.show();
-
-            // ((Node)(event.getSource())).getScene().getRoot().setDisable(true);
+            diableOldScene(event, stage);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
+    }
+    @FXML
+    void changeUserStatus(MouseEvent event) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/EditInfCard.fxml"));
+        EditInfCardController cardController = new EditInfCardController("mode");
+        loader.setController(cardController);
+        try {
+            Scene scene = new Scene(loader.load());
+            Stage stage = new Stage();
+            stage.initStyle(StageStyle.UNDECORATED);
+            stage.setScene(scene);
+            stage.show();
+            diableOldScene(event, stage);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML
@@ -75,13 +106,12 @@ public class EditeProfileController {
         EditInfCardController cardController = new EditInfCardController("country");
         loader.setController(cardController);
         try {
-            Scene scene =new Scene(loader.load());
+            Scene scene = new Scene(loader.load());
             Stage stage = new Stage();
             stage.initStyle(StageStyle.UNDECORATED);
             stage.setScene(scene);
             stage.show();
-
-            // ((Node)(event.getSource())).getScene().getRoot().setDisable(true);
+            diableOldScene(event, stage);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -93,13 +123,12 @@ public class EditeProfileController {
         EditInfCardController cardController = new EditInfCardController("bd");
         loader.setController(cardController);
         try {
-            Scene scene =new Scene(loader.load());
+            Scene scene = new Scene(loader.load());
             Stage stage = new Stage();
             stage.initStyle(StageStyle.UNDECORATED);
             stage.setScene(scene);
             stage.show();
-
-            // ((Node)(event.getSource())).getScene().getRoot().setDisable(true);
+            diableOldScene(event, stage);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -111,13 +140,12 @@ public class EditeProfileController {
         EditInfCardController cardController = new EditInfCardController("email");
         loader.setController(cardController);
         try {
-            Scene scene =new Scene(loader.load());
+            Scene scene = new Scene(loader.load());
             Stage stage = new Stage();
             stage.initStyle(StageStyle.UNDECORATED);
             stage.setScene(scene);
             stage.show();
-
-            // ((Node)(event.getSource())).getScene().getRoot().setDisable(true);
+            diableOldScene(event, stage);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -129,13 +157,12 @@ public class EditeProfileController {
         EditInfCardController cardController = new EditInfCardController("gender");
         loader.setController(cardController);
         try {
-            Scene scene =new Scene(loader.load());
+            Scene scene = new Scene(loader.load());
             Stage stage = new Stage();
             stage.initStyle(StageStyle.UNDECORATED);
             stage.setScene(scene);
             stage.show();
-
-            // ((Node)(event.getSource())).getScene().getRoot().setDisable(true);
+            diableOldScene(event, stage);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -147,13 +174,12 @@ public class EditeProfileController {
         EditInfCardController cardController = new EditInfCardController("name");
         loader.setController(cardController);
         try {
-            Scene scene =new Scene(loader.load());
+            Scene scene = new Scene(loader.load());
             Stage stage = new Stage();
             stage.initStyle(StageStyle.UNDECORATED);
             stage.setScene(scene);
             stage.show();
-
-            // ((Node)(event.getSource())).getScene().getRoot().setDisable(true);
+            diableOldScene(event, stage);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -162,27 +188,24 @@ public class EditeProfileController {
     @FXML
     void closeScene(MouseEvent event) {
         String bio = changeBio.getText();
-        if(bio.length()>0){
+        if (bio.length() > 0) {
             CurrentUserImp.getCurrentUser().setBio(bio);
         }
         UserServicesImpl.getUserServices().UpdateUser(CurrentUserImp.getCurrentUser());
-
-
-        Stage stage =(Stage) ((Node)event.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
     }
-    public EditeProfileController (){
 
-    }
-    public  void initialize(){
+    public void initialize() {
         System.out.println(CurrentUserImp.getCurrentUser().getUserName());
         changeBio.setText(CurrentUserImp.getCurrentUser().getBio());
-         username = new SimpleStringProperty(CurrentUserImp.getCurrentUser().getUserName());
-         Email = new SimpleStringProperty(CurrentUserImp.getCurrentUser().getEmail());
-         DB = new SimpleStringProperty(CurrentUserImp.getCurrentUser().getBirthDate().toString());
-         Country = new SimpleStringProperty(CurrentUserImp.getCurrentUser().getCountry());
+        username = new SimpleStringProperty(CurrentUserImp.getCurrentUser().getUserName());
+        Email = new SimpleStringProperty(CurrentUserImp.getCurrentUser().getEmail());
+        DB = new SimpleStringProperty(CurrentUserImp.getCurrentUser().getBirthDate().toString());
+        Country = new SimpleStringProperty(CurrentUserImp.getCurrentUser().getCountry());
         gender = new SimpleStringProperty(CurrentUserImp.getCurrentUser().getGender().toString());
         birthdate = new SimpleStringProperty(CurrentUserImp.getCurrentUser().getBirthDate().toString());
+        mode = new SimpleStringProperty(CurrentUserImp.getCurrentUser().getMode().toString());
 
         userName.textProperty().bind(username);
         userHeaderName.textProperty().bind(username);
@@ -190,33 +213,35 @@ public class EditeProfileController {
         userBD.textProperty().bind(birthdate);
         useEmail.textProperty().bind(Email);
         userGender.textProperty().bind(gender);
+        modeTF.textProperty().bind(mode);
         Image userImage = new Image(new ByteArrayInputStream(CurrentUserImp.getCurrentUser().getImg()));
         chnageimage.setFill(new ImagePattern(userImage));
     }
+
     @FXML
     void profileImageHandler(MouseEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
         File file = fileChooser.showOpenDialog(null);
-        Image userImage= null;
+        Image userImage = null;
         if (file != null) {
             try {
                 byte[] fileContent = Files.readAllBytes(file.toPath());
                 CurrentUserImp.getCurrentUser().setImg(fileContent);
-                 userImage = new Image(file.toURI().toURL().toString());
+                userImage = new Image(file.toURI().toURL().toString());
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         } else {
-            userImage =  new Image(new ByteArrayInputStream(CurrentUserImp.getCurrentUser().getImg()));
+            userImage = new Image(new ByteArrayInputStream(CurrentUserImp.getCurrentUser().getImg()));
 
 
         }
         chnageimage.setFill(new ImagePattern(userImage));
-        System.out.println(CurrentUserImp.getCurrentUser().getId()+" "+CurrentUserImp.getCurrentUser().getPhoneNumber()+ " "+CurrentUserImp.getCurrentUser().getImg());
-       boolean result = UserServicesImpl.getUserServices().UpdateUserImage(CurrentUserImp.getCurrentUser().getId(),CurrentUserImp.getCurrentUser().getPhoneNumber(),CurrentUserImp.getCurrentUser().getImg());
-System.out.println(result);
+        System.out.println(CurrentUserImp.getCurrentUser().getId() + " " + CurrentUserImp.getCurrentUser().getPhoneNumber() + " " + CurrentUserImp.getCurrentUser().getImg());
+        boolean result = UserServicesImpl.getUserServices().UpdateUserImage(CurrentUserImp.getCurrentUser().getId(), CurrentUserImp.getCurrentUser().getPhoneNumber(), CurrentUserImp.getCurrentUser().getImg());
+        System.out.println(result);
     }
 }

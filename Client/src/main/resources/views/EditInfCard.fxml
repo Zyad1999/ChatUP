@@ -12,15 +12,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="281.0" prefWidth="410.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="281.0" prefWidth="410.0" stylesheets="@../style/SignUpFirstScene.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label fx:id="editBar" layoutX="35.0" layoutY="27.0" text="Edit your name">
          <font>
             <Font name="Arial" size="18.0" />
          </font>
       </Label>
-      <MFXTextField fx:id="editTextField" floatMode="BORDER" layoutX="80.0" layoutY="120.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#phoneNumberEnterPressed" prefHeight="38.0" prefWidth="250.0" promptText="Enter your phone number" styleClass="text-field" />
+      <MFXTextField fx:id="editTextField" floatMode="BORDER" layoutX="80.0" layoutY="120.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#phoneNumberEnterPressed" prefHeight="38.0" prefWidth="250.0" promptText="Enter your phone number" style="-fx-border-color: #0F3D3E;" styleClass="text-field" stylesheets="@../style/SignUpFirstScene.css" />
       <MFXButton fx:id="cancelbbtn" buttonType="RAISED" computeRadiusMultiplier="false" defaultButton="true" depthLevel="LEVEL1" layoutX="183.0" layoutY="228.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#cancelBtn" prefHeight="31.0" prefWidth="101.0" rippleAnimateShadow="true" rippleColor="#0f3d3e" rippleRadius="30.0" rippleRadiusMultiplier="30.0" style="-fx-border-color: #0F3D3E; -fx-border-radius: 30; -fx-background-radius: 30; -fx-background-size: 1;" text="Cancel" textAlignment="CENTER" textFill="#0f3d3e" wrapText="true">
          <font>
             <Font name="Javanese Text" size="11.0" />
@@ -81,5 +80,14 @@
             <Cursor fx:constant="TEXT" />
          </cursor>
       </MFXPasswordField>
+      <MFXLegacyComboBox fx:id="modeComboBox" layoutX="98.0" layoutY="120.0" lineStrokeCap="SQUARE" lineStrokeWidth="0.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0" prefWidth="221.0" promptText="Mode" unfocusedLineColor="#0f3d3e" validated="true" visible="false">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <styleClass>
+            <String fx:value="text-field" />
+            <String fx:value="mfx-date-picker" />
+         </styleClass>
+      </MFXLegacyComboBox>
    </children>
 </AnchorPane>

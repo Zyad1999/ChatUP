@@ -4,13 +4,18 @@ import com.chatup.controllers.services.implementations.CurrentUserImp;
 import com.chatup.controllers.services.implementations.UserServicesImpl;
 import com.chatup.models.entities.*;
 import com.chatup.models.enums.CardType;
+import com.chatup.models.enums.UserStatus;
 
 public class CardMapper {
 
     private CardMapper(){}
 
-    public static Card getCard(User user){
-        return new Card(user.getId(),user.getUserName(),user.getBio(),CardType.FRIEND,user.getImg());
+    public static Card getCard(User user) {
+        if (user.getStatus().equals(UserStatus.ONLINE)) {
+            return new Card(user.getId(), user.getUserName(), user.getMode().toString(), CardType.FRIEND, user.getImg());
+        }else {
+            return new Card(user.getId(), user.getUserName(), user.getStatus().toString(), CardType.FRIEND, user.getImg());
+        }
     }
 
     public static Card getCard(Chat chat, ChatMessage message){

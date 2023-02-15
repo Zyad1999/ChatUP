@@ -1,17 +1,17 @@
 package com.chatup.network.implementations;
 
-import com.chatup.controllers.services.implementations.ChatServicesImpl;
-import com.chatup.controllers.services.implementations.GroupServicesImpl;
-import com.chatup.controllers.services.implementations.ListCoordinatorImpl;
-import com.chatup.controllers.services.implementations.UserServicesImpl;
+import com.chatup.controllers.services.implementations.*;
 import com.chatup.models.entities.*;
+import com.chatup.models.enums.UserMode;
 import com.chatup.network.interfaces.Client;
 import com.chatup.utils.CardMapper;
 import com.chatup.utils.NotificationPopups;
 import javafx.application.Platform;
+import javafx.concurrent.Task;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class ClientImpl extends UnicastRemoteObject implements Client {
@@ -61,6 +61,27 @@ public class ClientImpl extends UnicastRemoteObject implements Client {
             ChatServicesImpl.getChatService().updateChatList(message.getChatId(), message.getContent());
             NotificationPopups.receiveNotification("New message ✉️\uD83E\uDDD1\u200D\uD83E\uDD1D\u200D\uD83E\uDDD1 from " + UserServicesImpl.getUserServices().getUser(message.getSenderId()).getUserName(), message.getContent(), "/images/newMessage.png");
         });
+        // Check If Client Activated ChatBot Service
+        if(ChatterBotService.getChatterBotService().botStatus==true) {
+            System.out.println(ChatterBotService.getChatterBotService().botStatus);
+            Platform.runLater(() -> {
+                ChatMessage msg = null;
+                try {
+                    msg = new ChatMessage(message.getChatId(), CurrentUserImp.getCurrentUser().getId(),
+                            ChatterBotService.getChatterBotService().thinkBot(message.getContent()), LocalDateTime.now(), 0);
+                    ChatMessage finalMsg = msg;
+                    delay(4000, new Runnable() {
+                        @Override
+                        public void run() {
+                            ListCoordinatorImpl.getListCoordinator().getSingleChatVbox(finalMsg.getChatId()).getChildren().add(ChatServicesImpl.getChatService().sendChatMessage(finalMsg));
+                            ChatServicesImpl.getChatService().updateChatList(finalMsg.getChatId(), ChatterBotService.getChatterBotService().thinkBot(message.getContent()));
+                        }
+                    });
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            });
+        }
     }
 
     @Override
@@ -122,5 +143,19 @@ public class ClientImpl extends UnicastRemoteObject implements Client {
         Platform.runLater(() -> {
             ListCoordinatorImpl.getListCoordinator().updateFriendRequests();
         });
+    }
+
+    // Delay function to delay ChatBot Respone to handle bots talk to each other
+    public static void delay(long millis, Runnable continuation) {
+        Task<Void> sleeper = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                try { Thread.sleep(millis); }
+                catch (InterruptedException e) { }
+                return null;
+            }
+        };
+        sleeper.setOnSucceeded(event -> continuation.run());
+        new Thread(sleeper).start();
     }
 }

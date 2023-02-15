@@ -16,8 +16,10 @@ import javafx.stage.FileChooser;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ResourceBundle;
 
 public class SignUpSecondSceneController implements Initializable {
@@ -31,6 +33,10 @@ public class SignUpSecondSceneController implements Initializable {
     @FXML
     private TextArea bioTextArea;
     private Image userImage;
+
+    private boolean enterImage=false;
+
+    private Path profileImgPath;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -57,12 +63,25 @@ public class SignUpSecondSceneController implements Initializable {
             userImage = new Image(SignInSecondSceneController.class.getResourceAsStream("/images/default_profile_pic.jpg"));
         }
         profileImage.setFill(new ImagePattern(userImage));
+        enterImage =true;
     }
 
     @FXML
     void SignUp_Finish(ActionEvent event) {
         try {
+            byte[] image;
+            try {
+                if(!enterImage){
+                    profileImgPath =new File(AddGroupController.class.getResource("/images/default_profile_pic.jpg").toURI()).toPath();
+                }
+                image = Files.readAllBytes(profileImgPath);
+                CurrentUserImp.getCurrentUser().setImg(image);
+
+            } catch (IOException|URISyntaxException ex) {
+                throw new RuntimeException(ex);
+            }
             CurrentUserImp.getCurrentUser().setBio(bioTextArea.getText());
+            System.out.println("img is : "+CurrentUserImp.getCurrentUser().getImg());
             ServerConnection.getServer().signup(CurrentUserImp.getCurrentUser());
             SwitchScenes.getInstance().switchToSignInFirst(event);
         } catch (IOException e) {

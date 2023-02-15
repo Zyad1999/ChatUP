@@ -41,6 +41,16 @@ public class GroupServicesImpl implements GroupService {
     }
 
     @Override
+    public boolean deleteMemberfromGroup(int userId, int chatId) {
+        try {
+            Server server = ServerConnection.getServer();
+           return server.deleteUserFromGroup(userId,chatId);
+        } catch (RemoteException e) {
+           return false;
+        }
+    }
+
+    @Override
     public GroupChat getGroupChat(int groupID){
         try {
             return ServerConnection.getServer().getGroupChat(groupID);

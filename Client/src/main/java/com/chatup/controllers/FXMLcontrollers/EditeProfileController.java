@@ -2,6 +2,7 @@ package com.chatup.controllers.FXMLcontrollers;
 
 import com.chatup.controllers.services.implementations.CurrentUserImp;
 import com.chatup.controllers.services.implementations.UserServicesImpl;
+import com.chatup.controllers.services.interfaces.CurrentUser;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
@@ -32,6 +33,7 @@ public class EditeProfileController {
     public static StringProperty Country;
     public static StringProperty gender;
     public static StringProperty birthdate;
+    public static StringProperty mode;
     @FXML
     private TextArea changeBio;
     @FXML
@@ -44,6 +46,8 @@ public class EditeProfileController {
     private Label userGender;
     @FXML
     private Label usercountry;
+    @FXML
+    private Label modeTF;
     @FXML
     private Label userBD;
     @FXML
@@ -78,6 +82,22 @@ public class EditeProfileController {
             throw new RuntimeException(e);
         }
 
+    }
+    @FXML
+    void changeUserStatus(MouseEvent event) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/EditInfCard.fxml"));
+        EditInfCardController cardController = new EditInfCardController("mode");
+        loader.setController(cardController);
+        try {
+            Scene scene = new Scene(loader.load());
+            Stage stage = new Stage();
+            stage.initStyle(StageStyle.UNDECORATED);
+            stage.setScene(scene);
+            stage.show();
+            diableOldScene(event, stage);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML
@@ -185,6 +205,7 @@ public class EditeProfileController {
         Country = new SimpleStringProperty(CurrentUserImp.getCurrentUser().getCountry());
         gender = new SimpleStringProperty(CurrentUserImp.getCurrentUser().getGender().toString());
         birthdate = new SimpleStringProperty(CurrentUserImp.getCurrentUser().getBirthDate().toString());
+        mode = new SimpleStringProperty(CurrentUserImp.getCurrentUser().getMode().toString());
 
         userName.textProperty().bind(username);
         userHeaderName.textProperty().bind(username);
@@ -192,6 +213,7 @@ public class EditeProfileController {
         userBD.textProperty().bind(birthdate);
         useEmail.textProperty().bind(Email);
         userGender.textProperty().bind(gender);
+        modeTF.textProperty().bind(mode);
         Image userImage = new Image(new ByteArrayInputStream(CurrentUserImp.getCurrentUser().getImg()));
         chnageimage.setFill(new ImagePattern(userImage));
     }

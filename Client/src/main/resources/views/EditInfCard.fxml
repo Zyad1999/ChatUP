@@ -80,5 +80,14 @@
             <Cursor fx:constant="TEXT" />
          </cursor>
       </MFXPasswordField>
+      <MFXLegacyComboBox fx:id="modeComboBox" layoutX="98.0" layoutY="120.0" lineStrokeCap="SQUARE" lineStrokeWidth="0.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="38.0" prefWidth="221.0" promptText="Mode" unfocusedLineColor="#0f3d3e" validated="true" visible="false">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <styleClass>
+            <String fx:value="text-field" />
+            <String fx:value="mfx-date-picker" />
+         </styleClass>
+      </MFXLegacyComboBox>
    </children>
 </AnchorPane>

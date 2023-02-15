@@ -132,10 +132,7 @@ public class GroupInfoController {
         if (alert.getResult() == ButtonType.YES) {
             boolean res = GroupServicesImpl.getGroupService().deleteMemberfromGroup(CurrentUserImp.getCurrentUser().getId(),CurrentChat.getCurrentChat().getCurrentChatID());
             ListCoordinatorImpl.getListCoordinator().getGroupMembers(CurrentChat.getCurrentChat().getCurrentChatID());
-
-
             ListCoordinatorImpl.getListCoordinator().updatesUserGroups();
-
             System.out.println("leave from group" + res);
 
         }

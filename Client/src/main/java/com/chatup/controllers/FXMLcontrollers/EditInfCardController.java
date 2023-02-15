@@ -3,6 +3,7 @@ package com.chatup.controllers.FXMLcontrollers;
 import com.chatup.controllers.services.implementations.CurrentUserImp;
 import com.chatup.controllers.services.implementations.UserServicesImpl;
 import com.chatup.models.enums.Gender;
+import com.chatup.models.enums.UserMode;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXPasswordField;
 import io.github.palexdev.materialfx.controls.MFXTextField;
@@ -36,6 +37,8 @@ public class EditInfCardController implements Initializable {
     private MFXLegacyComboBox genderComboBox;
     @FXML
     private MFXLegacyComboBox countryComboBox1;
+    @FXML
+    private MFXLegacyComboBox modeComboBox;
     @FXML
     private DatePicker dateOfBirthDP;
     @FXML
@@ -88,7 +91,13 @@ public class EditInfCardController implements Initializable {
                 EditeProfileController.gender.set(genderComboBox.getValue().toString());
                 valid = true;
             }
-        } else if (editBartxt.equals("bd")) {
+        }  else if (editBartxt.equals("mode") ) {
+            if (!modeComboBox.getSelectionModel().isEmpty()) {
+                CurrentUserImp.getCurrentUser().setMode(UserMode.valueOf(modeComboBox.getValue().toString()));
+                EditeProfileController.mode.set(modeComboBox.getValue().toString());
+                valid = true;
+            }
+        }else if (editBartxt.equals("bd")) {
             if (dateOfBirthDP.getValue().getYear() <= 2012 && dateOfBirthDP.getValue() != null) {
                 CurrentUserImp.getCurrentUser().setBirthDate(Date.from((dateOfBirthDP.getValue()).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
                 EditeProfileController.birthdate.set(((dateOfBirthDP.getValue())).toString());
@@ -111,6 +120,7 @@ public class EditInfCardController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        modeComboBox.getItems().addAll("AWAY", "AVAILABLE","BUSY");
         genderComboBox.getItems().addAll("MALE", "FEMALE");
         countryComboBox1.getItems().addAll("Egypt", "Morocco", "Kuwait", "Palestinian", "Qatar", "Other");
         if (editBartxt.equals("name")) {
@@ -122,10 +132,11 @@ public class EditInfCardController implements Initializable {
             countryComboBox1.setVisible(false);
             passwordPF.setVisible(false);
             confirmPasswordPF.setVisible(false);
+            modeComboBox.setVisible(false);
         } else if (editBartxt.equals("email")) {
             editBar.setText("Enter your Email");
             editTextField.setPromptText("Email");
-
+            modeComboBox.setVisible(false);
             editTextField.setVisible(true);
             genderComboBox.setVisible(false);
             dateOfBirthDP.setVisible(false);
@@ -139,6 +150,7 @@ public class EditInfCardController implements Initializable {
             dateOfBirthDP.setVisible(false);
             countryComboBox1.setVisible(true);
             passwordPF.setVisible(false);
+            modeComboBox.setVisible(false);
             confirmPasswordPF.setVisible(false);
         } else if (editBartxt.equals("gender")) {
             editTextField.setVisible(false);
@@ -146,6 +158,7 @@ public class EditInfCardController implements Initializable {
             dateOfBirthDP.setVisible(false);
             countryComboBox1.setVisible(false);
             passwordPF.setVisible(false);
+            modeComboBox.setVisible(false);
             confirmPasswordPF.setVisible(false);
             editBar.setText("Select Gender");
         } else if (editBartxt.equals("bd")) {
@@ -156,7 +169,7 @@ public class EditInfCardController implements Initializable {
             passwordPF.setVisible(false);
             confirmPasswordPF.setVisible(false);
             editBar.setText("Select your BirthDate");
-
+            modeComboBox.setVisible(false);
         } else if (editBartxt.equals("password")) {
             editTextField.setVisible(false);
             genderComboBox.setVisible(false);
@@ -165,6 +178,16 @@ public class EditInfCardController implements Initializable {
             passwordPF.setVisible(true);
             confirmPasswordPF.setVisible(true);
             editBar.setText("Enter new password");
+            modeComboBox.setVisible(false);
+        } else if (editBartxt.equals("mode")) {
+            editTextField.setVisible(false);
+            genderComboBox.setVisible(false);
+            dateOfBirthDP.setVisible(false);
+            countryComboBox1.setVisible(false);
+            passwordPF.setVisible(false);
+            modeComboBox.setVisible(true);
+            confirmPasswordPF.setVisible(false);
+            editBar.setText("Select Your Mode");
         }
 
 

@@ -143,12 +143,21 @@
                   </AnchorPane>
                   <AnchorPane fx:id="anchorPanWithoutmenu" prefWidth="260.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="66.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
+                        <ScrollPane focusTraversable="false" hbarPolicy="NEVER" layoutY="127.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="523.0" prefWidth="330.0" vbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="127.0">
+                           <content>
+                              <AnchorPane prefHeight="611.0" prefWidth="345.0" style="-fx-background-color: #F1F1F1;">
+                                 <children>
+                                    <ListView fx:id="cardsListView" layoutX="30.0" prefHeight="611.0" prefWidth="296.0" style="-fx-background-color: #F1F1F1;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="49.0" AnchorPane.topAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </ScrollPane>
                         <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="84.0" prefWidth="287.0" style="-fx-background-color: #F1F1F1;" styleClass="space-20" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <Group>
                                  <children>
-                                    <TextField fx:id="txt_ld_search" layoutX="-22.0" layoutY="-10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="197.0" promptText="Search" styleClass="search-text-field" />
-                                    <ImageView fitHeight="20.0" fitWidth="56.0" layoutX="148.0" layoutY="-1.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                                    <TextField fx:id="txt_ld_search" layoutX="-22.0" layoutY="-10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="235.0" promptText="Search" styleClass="search-text-field" />
+                                    <ImageView fitHeight="20.0" fitWidth="56.0" layoutX="187.0" layoutY="-4.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../images/searchgray.png" />
                                        </image>
@@ -221,15 +230,6 @@
                               <AnchorPane prefHeight="64.0" prefWidth="44.0" />
                            </children>
                         </HBox>
-                        <ScrollPane focusTraversable="false" hbarPolicy="NEVER" layoutY="127.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="523.0" prefWidth="330.0" vbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="127.0">
-                           <content>
-                              <AnchorPane prefHeight="611.0" prefWidth="345.0" style="-fx-background-color: #F1F1F1;">
-                                 <children>
-                                    <ListView fx:id="cardsListView" layoutX="30.0" prefHeight="611.0" prefWidth="296.0" style="-fx-background-color: #F1F1F1;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="49.0" AnchorPane.topAnchor="0.0" />
-                                 </children>
-                              </AnchorPane>
-                           </content>
-                        </ScrollPane>
                      </children>
                   </AnchorPane>
                </children>

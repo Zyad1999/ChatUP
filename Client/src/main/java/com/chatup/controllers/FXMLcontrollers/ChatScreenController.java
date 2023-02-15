@@ -214,6 +214,7 @@ public class ChatScreenController implements Initializable {
                     friendImage = new Image(new ByteArrayInputStream((selected.getCardImg())));
                     friendImageOpen.setFill(new ImagePattern(friendImage));
                     friendImageClose.setFill(new ImagePattern(friendImage));
+
                     if (selected.getCardType() == CardType.CHAT) {
                         VBox box = ListCoordinatorImpl.getListCoordinator().getSingleChatVbox(selected.getCardID());
                         scrollPane.setContent(box);
@@ -226,6 +227,10 @@ public class ChatScreenController implements Initializable {
                         else {
                             friendUser = chatUsers.get(0);
                         }
+                        frieendStatusClose.setVisible(true);
+                        frieendStatusOpen.setVisible(true);
+                        frieendStatusClose.setText(friendUser.getStatus().toString());
+                        frieendStatusOpen.setText(friendUser.getStatus().toString());
                         friendInfoController friendInfoController = new friendInfoController(friendUser);
                         loader.setController(friendInfoController);
                         try {
@@ -239,8 +244,10 @@ public class ChatScreenController implements Initializable {
                         VBox box = ListCoordinatorImpl.getListCoordinator().getGroupChatVbox(selected.getCardID());
                         scrollPane.setContent(box);
                         CurrentChat.setCurrentChatGroup(selected.getCardID());
-
                         GroupInfoController groupInfoController = new GroupInfoController(selected);
+                        frieendStatusClose.setVisible(false);
+                        frieendStatusOpen.setVisible(false);
+
                         loadergroup.setController(groupInfoController);
                         try {
                             friendDetailsAnchorPan.getChildren().clear();
@@ -257,6 +264,10 @@ public class ChatScreenController implements Initializable {
                         scrollPane.setContent(box);
                         CurrentChat.setCurrentChatSingle(chatID);
                         friendUser = UserServicesImpl.getUserServices().getUser(selected.getCardID());
+                        frieendStatusClose.setVisible(true);
+                        frieendStatusOpen.setVisible(true);
+                        frieendStatusClose.setText(friendUser.getStatus().toString());
+                        frieendStatusOpen.setText(friendUser.getStatus().toString());
                         System.out.println(friendUser.getUserName() + " " + friendUser.getId() + "" + selected.getCardID());
                         friendInfoController friendInfoController = new friendInfoController(friendUser);
                         loader.setController(friendInfoController);
@@ -301,6 +312,7 @@ public class ChatScreenController implements Initializable {
                     new KeyFrame(Duration.seconds(2),
                             new KeyValue(scrollPane.vvalueProperty(), 1)));
             animation.play();
+
             messageText.clear();
         }
     }
@@ -310,6 +322,7 @@ public class ChatScreenController implements Initializable {
         prepareListView(cardsListView, scrollPane);
         cardsListView.setItems(ListCoordinatorImpl.getListCoordinator().getUserChats());
         ListCoordinatorImpl.currentList = CardType.CHAT;
+
         addButton.setVisible(false);
         FriendRequests_id.setVisible(false);
         onlineUsersButton.setVisible(false);

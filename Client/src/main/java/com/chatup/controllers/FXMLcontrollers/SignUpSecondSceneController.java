@@ -73,10 +73,9 @@ public class SignUpSecondSceneController implements Initializable {
             try {
                 if(!enterImage){
                     profileImgPath =new File(AddGroupController.class.getResource("/images/default_profile_pic.jpg").toURI()).toPath();
+                    image = Files.readAllBytes(profileImgPath);
+                    CurrentUserImp.getCurrentUser().setImg(image);
                 }
-                image = Files.readAllBytes(profileImgPath);
-                CurrentUserImp.getCurrentUser().setImg(image);
-
             } catch (IOException|URISyntaxException ex) {
                 throw new RuntimeException(ex);
             }

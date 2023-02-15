@@ -1,15 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<HBox fx:id="sendMessages" alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: transparent;" styleClass="hbox-message-card" stylesheets="@../style/MainStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<HBox alignment="CENTER_RIGHT" style="-fx-background-color: transparent;" stylesheets="@../style/MainStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TextFlow fx:id="sendMessagesContent" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="send-messages-chat-text-flow">
+      <VBox fx:id="recieveMessagesBox" prefWidth="300.0" styleClass="send-messages-chat-text-flow">
          <children>
-            <Text fx:id="sentMessageContent" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="send-messages-chat-text" text="Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old." wrappingWidth="297.296875" />
+            <TextFlow fx:id="sentMessageContentFlow" styleClass="recieve-messages-chat-text">
+               <children>
+                  <Text fx:id="sentMessageContent" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="send-messages-chat-text" text="Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old." />
+               </children>
+            </TextFlow>
+            <TextFlow fx:id="timeFlow" styleClass="recieve-messages-chat-text">
+               <children>
+                  <Text fx:id="time" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Wed 12:45 PM" />
+               </children>
+               <VBox.margin>
+                  <Insets left="180.0" right="5.0" />
+               </VBox.margin>
+            </TextFlow>
          </children>
-      </TextFlow>
+      </VBox>
    </children>
 </HBox>

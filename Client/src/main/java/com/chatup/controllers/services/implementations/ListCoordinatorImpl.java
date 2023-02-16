@@ -69,9 +69,11 @@ public class ListCoordinatorImpl implements ListCoordinator {
         }
         return announcemets;
     }
+    
     public void refershAnnouncmentVBox() {
         announcemets = AnnouncementServicesImp.getAnnouncementService().getAnnouncementVBox();
     }
+    
     @Override
     public ObservableList<Card> getUserGroups() {
         if (userGroups == null)
@@ -92,7 +94,6 @@ public class ListCoordinatorImpl implements ListCoordinator {
     public void updatesUserGroups() {
         userGroups.clear();
         userGroups.addAll(UserListsImpl.getUserLists().getAllUserGroups());
-
     }
 
     @Override
@@ -160,6 +161,20 @@ public class ListCoordinatorImpl implements ListCoordinator {
         if (announcemets == null) {
             return true;
         }
+        return false;
+    }
+
+    public boolean chatNull(int chatID){
+        return singleChatMap.containsKey(chatID);
+    }
+
+    public boolean groupChatNull(int groupID){
+        return groupChatMap.containsKey(groupID);
+    }
+
+    public boolean groupChatsNull(){
+        if(userGroups == null)
+            return true;
         return false;
     }
 }

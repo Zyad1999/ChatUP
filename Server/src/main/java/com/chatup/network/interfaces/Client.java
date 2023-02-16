@@ -1,5 +1,6 @@
 package com.chatup.network.interfaces;
 
+import com.chatup.models.entities.Announcement;
 import com.chatup.models.entities.ChatMessage;
 import com.chatup.models.entities.GroupMessage;
 
@@ -17,4 +18,5 @@ public interface Client extends Remote {
     public void friendLoggedOut(int friendID) throws RemoteException;
     public void friendAcceptedRequest(int friendID) throws RemoteException;
     public void receivedFriendRequest(int friendID) throws RemoteException;
+    public void receiveAnnouncement(Announcement announcement) throws RemoteException;
 }

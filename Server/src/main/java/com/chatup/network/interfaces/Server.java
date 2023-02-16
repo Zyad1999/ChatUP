@@ -48,4 +48,5 @@ public interface Server extends Remote {
     public Attachment getAttachment(int attachmentID) throws RemoteException;
     public List<User> getSingleChatUsers(int singleChatId) throws RemoteException;
     public boolean deleteUserFromGroup(int userId, int groupId) throws RemoteException;
+    public List<Announcement> getAllAnnouncememts() throws RemoteException;
 }

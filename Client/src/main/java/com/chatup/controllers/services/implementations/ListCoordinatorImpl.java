@@ -83,7 +83,6 @@ public class ListCoordinatorImpl implements ListCoordinator {
     public void updatesUserGroups() {
         userGroups.clear();
         userGroups.addAll(UserListsImpl.getUserLists().getAllUserGroups());
-
     }
     @Override
     public ObservableList<Card> getUserOnlineFriends() {
@@ -148,4 +147,17 @@ public class ListCoordinatorImpl implements ListCoordinator {
         }
     }
 
+    public boolean chatNull(int chatID){
+        return singleChatMap.containsKey(chatID);
+    }
+
+    public boolean groupChatNull(int groupID){
+        return groupChatMap.containsKey(groupID);
+    }
+
+    public boolean groupChatsNull(){
+        if(userGroups == null)
+            return true;
+        return false;
+    }
 }

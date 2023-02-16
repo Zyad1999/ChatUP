@@ -45,8 +45,10 @@ public class ClientImpl extends UnicastRemoteObject implements Client {
     public void sendGroupMessage(GroupMessage message) throws RemoteException {
         System.out.println("Recived Group Message");
         Platform.runLater(() -> {
-            ListCoordinatorImpl.getListCoordinator().getGroupChatVbox(message.getGroupChatId()).getChildren()
-                    .add(ChatServicesImpl.getChatService().recGroupMessage(message));
+            if(ListCoordinatorImpl.getListCoordinator().groupChatNull(message.getGroupChatId())){
+                ListCoordinatorImpl.getListCoordinator().getGroupChatVbox(message.getGroupChatId()).getChildren()
+                        .add(ChatServicesImpl.getChatService().recGroupMessage(message));
+            }
             ChatServicesImpl.getChatService().updateGroupChatList(message.getGroupMessageId(), message.getContent());
             NotificationPopups.receiveNotification("New message ✉️\uD83D\uDC68\u200D\uD83D\uDC69\u200D\uD83D\uDC66\u200D\uD83D\uDC66 from " + UserServicesImpl.getUserServices().getUser(message.getSenderId()).getUserName(), message.getContent(), "/images/newMessage.png");
         });
@@ -56,8 +58,10 @@ public class ClientImpl extends UnicastRemoteObject implements Client {
     public void sendChatMessage(ChatMessage message) throws RemoteException {
         System.out.println("Received Chat message");
         Platform.runLater(() -> {
-            ListCoordinatorImpl.getListCoordinator().getSingleChatVbox(message.getChatId()).getChildren()
-                    .add(ChatServicesImpl.getChatService().recChatMessage(message));
+            if(ListCoordinatorImpl.getListCoordinator().chatNull(message.getChatId())){
+                ListCoordinatorImpl.getListCoordinator().getSingleChatVbox(message.getChatId()).getChildren()
+                        .add(ChatServicesImpl.getChatService().recChatMessage(message));
+            }
             ChatServicesImpl.getChatService().updateChatList(message.getChatId(), message.getContent());
             NotificationPopups.receiveNotification("New message ✉️\uD83E\uDDD1\u200D\uD83E\uDD1D\u200D\uD83E\uDDD1 from " + UserServicesImpl.getUserServices().getUser(message.getSenderId()).getUserName(), message.getContent(), "/images/newMessage.png");
         });
@@ -86,10 +90,15 @@ public class ClientImpl extends UnicastRemoteObject implements Client {
 
     @Override
     public void addedToGroup(int groupID) throws RemoteException{
+        System.out.println(groupID+"The Group ID is");
         GroupChat group = GroupServicesImpl.getGroupService().getGroupChat(groupID);
+        System.out.println("passed");
+       // System.out.println("Added to "+group.getGroupTitle());
         if(group!=null) {
             Platform.runLater(() -> {
-                ListCoordinatorImpl.getListCoordinator().getUserGroups().add(CardMapper.getCard(group, ""));
+                if(!ListCoordinatorImpl.getListCoordinator().groupChatsNull()){
+                    ListCoordinatorImpl.getListCoordinator().getUserGroups().add(CardMapper.getCard(group, ""));
+                }
             });
         }
     }

@@ -175,10 +175,6 @@ public class AddGroupController implements Initializable {
         else {
             GroupChat groupChat = new GroupChat(groupName.getText(), image);
             int id = GroupServicesImpl.getGroupService().createGroupChat(groupChat, observableToList(groupUsersList));
-            if (id != -1) {
-                groupChat.setGroupChatID(id);
-                ListCoordinatorImpl.getListCoordinator().getUserGroups().add(CardMapper.getCard(groupChat, ""));
-            }
             System.out.println("Created Group Chat With Id: " + id);
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.close();

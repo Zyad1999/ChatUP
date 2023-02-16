@@ -268,7 +268,11 @@ public class ChatServicesImpl implements ChatService {
             }
         }
         if (curChat != null) {
-            curChat.setCardContent(content);
+            String newContent = "";
+            if (content.length() > 100) {
+                newContent = content.substring(0, 100) + "....";
+            }
+            curChat.setCardContent(newContent);
             chats.remove(curChat);
             chats.add(0, curChat);
         } else {
@@ -288,7 +292,11 @@ public class ChatServicesImpl implements ChatService {
             }
         }
         if (curChat != null) {
-            curChat.setCardContent(content);
+            String newContent = "";
+            if (content.length() > 100) {
+                newContent = content.substring(0, 100) + "....";
+            }
+            curChat.setCardContent(newContent);
             chats.remove(curChat);
             chats.add(0, curChat);
         }

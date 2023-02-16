@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="270.0" styleClass="users_menu_card" stylesheets="@../style/MainStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="104.0" prefWidth="270.0" styleClass="users_menu_card" stylesheets="@../style/MainStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ImageView fx:id="friend_image_menu" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" styleClass="user-image-menu">
          <image>
@@ -22,13 +22,13 @@
             <Insets top="10.0" />
          </HBox.margin>
       </ImageView>
-      <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="user-data-menu" HBox.hgrow="ALWAYS">
+      <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" styleClass="user-data-menu" HBox.hgrow="ALWAYS">
          <children>
             <Text fx:id="User_name_imenu" fill="#116f61" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-search-container" text="Mohga Yasser">
                <font>
                   <Font name="Arial Bold" size="12.0" />
                </font></Text>
-            <TextFlow maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="190.0" styleClass="textflow_menu">
+            <TextFlow maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="64.0" prefWidth="190.0" style="-fx-max-height: 60;" styleClass="textflow_menu">
                <children>
                   <Text fx:id="content_id" strokeType="OUTSIDE" strokeWidth="0.0" text="Hello every one that is a dome datat for the exampleijsdVLIFSA?DINVl/asfn/'lvinslk/nvl/ksadfnvb" wrappingWidth="187.23046875">
                      <cursor>

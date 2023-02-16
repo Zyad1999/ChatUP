@@ -6,7 +6,6 @@ import com.chatup.models.entities.FriendRequest;
 import com.chatup.models.entities.User;
 import com.chatup.models.enums.CardType;
 import com.chatup.models.enums.UserStatus;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.VBox;
@@ -17,42 +16,40 @@ import java.util.List;
 
 public class ListCoordinatorImpl implements ListCoordinator {
 
+    public static CardType currentList;
     private static ListCoordinatorImpl listCoordinatorImpl;
     private static ObservableList<Card> userChats;
     private static ObservableList<Card> userGroups;
     private static ObservableList<Card> userOnlineFriends;
     private static ObservableList<Card> userOfflineFriends;
-
     private static ObservableList<User> userFriendRequests;
     private static ObservableList<User> groupMembers;
-
     private static HashMap<Integer, VBox> singleChatMap = new HashMap<>();
-
     private static HashMap<Integer, VBox> groupChatMap = new HashMap<>();
-
     private static List<Boolean> requests = new ArrayList<>();
+    private static VBox announcemets;
 
-    public static CardType currentList;
+    private ListCoordinatorImpl() {
+    }
 
-    private ListCoordinatorImpl(){}
-
-    public static ListCoordinatorImpl getListCoordinator(){
-        if(listCoordinatorImpl == null)
+    public static ListCoordinatorImpl getListCoordinator() {
+        if (listCoordinatorImpl == null)
             listCoordinatorImpl = new ListCoordinatorImpl();
         return listCoordinatorImpl;
     }
 
     @Override
     public ObservableList<Card> getUserChats() {
-        if(userChats==null)
+        if (userChats == null)
             userChats = UserListsImpl.getUserLists().getAllUserChats();
         return userChats;
     }
+
     @Override
     public ObservableList<User> getGroupMembers(int groupId) {
-        if(groupMembers ==null) {
+        if (groupMembers == null) {
             groupMembers = FXCollections.<User>observableArrayList(UserListsImpl.getUserLists().getAllgroupMembers(groupId));
-        }else{
+        } else {
             groupMembers.clear();
             groupMembers.addAll(UserListsImpl.getUserLists().getAllgroupMembers(groupId));
         }
@@ -66,15 +63,27 @@ public class ListCoordinatorImpl implements ListCoordinator {
     }
 
     @Override
+    public VBox getAnnouncement() {
+        if (announcemets == null) {
+            announcemets = AnnouncementServicesImp.getAnnouncementService().getAnnouncementVBox();
+        }
+        return announcemets;
+    }
+    public void refershAnnouncmentVBox() {
+        announcemets = AnnouncementServicesImp.getAnnouncementService().getAnnouncementVBox();
+    }
+    @Override
     public ObservableList<Card> getUserGroups() {
-        if(userGroups==null)
+        if (userGroups == null)
             userGroups = UserListsImpl.getUserLists().getAllUserGroups();
         return userGroups;
     }
+
     public ObservableList<User> getAllUserFriendRequests() {
 
-       return UserListsImpl.getUserLists().getAllUserFriendRequests();
+        return UserListsImpl.getUserLists().getAllUserFriendRequests();
     }
+
     public Boolean updatesUserFriendRequests(FriendRequest friendRequests) {
         return UserListsImpl.getUserLists().updatesUserFriendRequests(friendRequests);
 
@@ -85,11 +94,12 @@ public class ListCoordinatorImpl implements ListCoordinator {
         userGroups.addAll(UserListsImpl.getUserLists().getAllUserGroups());
 
     }
+
     @Override
     public ObservableList<Card> getUserOnlineFriends() {
-        if(userOnlineFriends==null)
+        if (userOnlineFriends == null)
             userOnlineFriends = UserListsImpl.getUserLists().getUserFriends(UserStatus.ONLINE);
-        else{
+        else {
             userOnlineFriends.clear();
             userOnlineFriends.addAll(UserListsImpl.getUserLists().getUserFriends(UserStatus.ONLINE));
         }
@@ -99,9 +109,9 @@ public class ListCoordinatorImpl implements ListCoordinator {
 
     @Override
     public ObservableList<Card> getUserOfflineFriends() {
-        if(userOfflineFriends==null)
+        if (userOfflineFriends == null)
             userOfflineFriends = UserListsImpl.getUserLists().getUserFriends(UserStatus.OFFLINE);
-        else{
+        else {
             userOfflineFriends.clear();
             userOfflineFriends.addAll(UserListsImpl.getUserLists().getUserFriends(UserStatus.OFFLINE));
         }
@@ -110,12 +120,12 @@ public class ListCoordinatorImpl implements ListCoordinator {
 
     @Override
     public void updateOnlineFriends() {
-            userOnlineFriends= UserListsImpl.getUserLists().getUserFriends(UserStatus.ONLINE);
+        userOnlineFriends = UserListsImpl.getUserLists().getUserFriends(UserStatus.ONLINE);
     }
 
     @Override
     public void updateOfflineFriends() {
-        userOfflineFriends= UserListsImpl.getUserLists().getUserFriends(UserStatus.OFFLINE);
+        userOfflineFriends = UserListsImpl.getUserLists().getUserFriends(UserStatus.OFFLINE);
     }
 
     @Override
@@ -124,28 +134,32 @@ public class ListCoordinatorImpl implements ListCoordinator {
     }
 
     @Override
-    public VBox getSingleChatVbox(int chatId){
-        if(singleChatMap.containsKey(chatId)){
+    public VBox getSingleChatVbox(int chatId) {
+        if (singleChatMap.containsKey(chatId)) {
             System.out.println("get old VBOX");
             return singleChatMap.get(chatId);
-        }
-        else{
+        } else {
             System.out.println("Create new VBOX");
             VBox box = ChatServicesImpl.getChatService().getSingleChatVbox(chatId);
-            singleChatMap.put(chatId,box);
-            return box;
-        }
-    }
-    @Override
-    public VBox getGroupChatVbox(int chatId){
-        if(groupChatMap.containsKey(chatId)){
-            return groupChatMap.get(chatId);
-        }
-        else{
-            VBox box = ChatServicesImpl.getChatService().getGroupChatVbox(chatId);
-            groupChatMap.put(chatId,box);
+            singleChatMap.put(chatId, box);
             return box;
         }
     }
 
+    @Override
+    public VBox getGroupChatVbox(int chatId) {
+        if (groupChatMap.containsKey(chatId)) {
+            return groupChatMap.get(chatId);
+        } else {
+            VBox box = ChatServicesImpl.getChatService().getGroupChatVbox(chatId);
+            groupChatMap.put(chatId, box);
+            return box;
+        }
+    }
+    public boolean annoncementNull() {
+        if (announcemets == null) {
+            return true;
+        }
+        return false;
+    }
 }

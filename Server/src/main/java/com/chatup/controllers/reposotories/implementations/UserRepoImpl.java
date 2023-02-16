@@ -302,4 +302,14 @@ public class UserRepoImpl implements UserRepo {
         }
         return path + "/" + imgID + ".jpg";
     }
+
+    @Override
+    public void allOffline(){
+        String sql = "UPDATE chat_user SET user_status='OFFLINE'";
+        try (PreparedStatement statement = DBConnection.getConnection().prepareStatement(sql)) {
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

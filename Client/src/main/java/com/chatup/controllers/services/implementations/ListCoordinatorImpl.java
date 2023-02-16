@@ -6,6 +6,7 @@ import com.chatup.models.entities.FriendRequest;
 import com.chatup.models.entities.User;
 import com.chatup.models.enums.CardType;
 import com.chatup.models.enums.UserStatus;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.VBox;
@@ -176,5 +177,39 @@ public class ListCoordinatorImpl implements ListCoordinator {
         if(userGroups == null)
             return true;
         return false;
+    }
+
+    public void flushLists(){
+        Platform.runLater(()->{
+            currentList = null;
+            listCoordinatorImpl= null;
+            if(userChats!=null){
+                userChats.clear();
+                userChats= null;
+            }
+            if(userGroups!=null){
+                userGroups.clear();
+                userGroups= null;
+            }
+            if(userOnlineFriends!=null){
+                userOnlineFriends.clear();
+                userOnlineFriends= null;
+            }
+            if(userOfflineFriends!=null){
+                userOfflineFriends.clear();
+                userOfflineFriends= null;
+            }
+            if(userFriendRequests!=null){
+                userFriendRequests.clear();
+                userFriendRequests= null;
+            }
+            if(groupMembers!=null){
+                groupMembers.clear();
+                groupMembers= null;
+            }
+            singleChatMap = new HashMap<>();
+            groupChatMap = new HashMap<>();
+            requests = new ArrayList<>();
+        });
     }
 }

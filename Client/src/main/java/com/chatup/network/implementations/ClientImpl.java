@@ -2,6 +2,7 @@ package com.chatup.network.implementations;
 
 import com.chatup.controllers.services.implementations.*;
 import com.chatup.models.entities.*;
+import com.chatup.network.ServerConnection;
 import com.chatup.network.interfaces.Client;
 import com.chatup.utils.CardMapper;
 import com.chatup.utils.NotificationPopups;
@@ -78,6 +79,11 @@ public class ClientImpl extends UnicastRemoteObject implements Client {
             }
             NotificationPopups.receiveNotification("New Annoncement " + announcement.getTitle(), announcement.getContent(), "/images/announcement.png");
         });
+    }
+
+    @Override
+    public void disconnect() throws RemoteException {
+        ServerConnection.disconnect();
     }
 
     @Override

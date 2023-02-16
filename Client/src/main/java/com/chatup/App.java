@@ -1,6 +1,7 @@
 package com.chatup;
 
 import com.chatup.controllers.services.implementations.CurrentUserImp;
+import com.chatup.controllers.services.implementations.PrimaryStage;
 import com.chatup.controllers.services.implementations.UserAuthImp;
 import com.chatup.controllers.services.implementations.UserServicesImpl;
 import com.chatup.models.entities.User;
@@ -28,6 +29,7 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         stage.initStyle(StageStyle.UNDECORATED);
+        PrimaryStage.getInstance().setPrimaryStage(stage);
         User user = null;
         if(RememberSetting.getPhone() != null){
             if(RememberSetting.getPassword() != null){

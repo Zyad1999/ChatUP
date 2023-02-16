@@ -11,6 +11,7 @@ public interface Client extends Remote {
 
     public void sendGroupMessage(GroupMessage message) throws RemoteException;
     public void sendChatMessage(ChatMessage message) throws RemoteException;
+
     void addedToGroup(int groupID) throws RemoteException;
 
     public void friendLoggedIn(int friendID) throws RemoteException;
@@ -18,4 +19,6 @@ public interface Client extends Remote {
     public void friendAcceptedRequest(int friendID) throws RemoteException;
     public void receivedFriendRequest(int friendID) throws RemoteException;
     public void receiveAnnouncement(Announcement announcement) throws RemoteException;
+
+    public void disconnect() throws RemoteException;
 }

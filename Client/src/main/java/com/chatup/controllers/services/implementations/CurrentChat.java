@@ -16,6 +16,10 @@ public class CurrentChat {
         return currentChat;
     }
 
+    public static void setCurrentChat(CurrentChat currentCha){
+        currentChat = currentCha;
+    }
+
     public static void setCurrentChatGroup(int groupID){
         if(currentChat == null)
             currentChat = new CurrentChat();

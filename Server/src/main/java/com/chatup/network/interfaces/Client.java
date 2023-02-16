@@ -19,4 +19,6 @@ public interface Client extends Remote {
     public void friendAcceptedRequest(int friendID) throws RemoteException;
     public void receivedFriendRequest(int friendID) throws RemoteException;
     public void receiveAnnouncement(Announcement announcement) throws RemoteException;
+
+    public void disconnect() throws RemoteException;
 }

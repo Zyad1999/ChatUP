@@ -25,4 +25,6 @@ public interface UserRepo {
     int getNumberAllMaleUsers();
     int getNumberAllOnlineUsers();
     int getNumberAllCountryOfUsers(String country);
+
+    void allOffline();
 }

@@ -27,7 +27,6 @@ public interface Server extends Remote {
     public int sendChatMessage(ChatMessage message) throws RemoteException;
 
     public int sendGroupChatMessage(GroupMessage message) throws RemoteException;
-    public int sendAnnouncement(Announcement announcement) throws RemoteException;
     public int createGroupChat(GroupChat groupChat , List<User> userList) throws RemoteException;
 
     public void addUsersToGroup(int groupChatId,List<User> userList) throws RemoteException;
@@ -50,4 +49,6 @@ public interface Server extends Remote {
     public List<User> getSingleChatUsers(int singleChatId) throws RemoteException;
     public boolean deleteUserFromGroup(int userId, int groupId) throws RemoteException;
     public List<Announcement> getAllAnnouncememts() throws RemoteException;
+
+    public void ping() throws RemoteException;
 }

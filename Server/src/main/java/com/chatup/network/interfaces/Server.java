@@ -49,4 +49,6 @@ public interface Server extends Remote {
     public List<User> getSingleChatUsers(int singleChatId) throws RemoteException;
     public boolean deleteUserFromGroup(int userId, int groupId) throws RemoteException;
     public List<Announcement> getAllAnnouncememts() throws RemoteException;
+
+    public void ping() throws RemoteException;
 }

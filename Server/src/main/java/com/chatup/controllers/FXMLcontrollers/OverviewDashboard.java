@@ -1,7 +1,10 @@
 package com.chatup.controllers.FXMLcontrollers;
 
+import com.chatup.controllers.reposotories.implementations.UserRepoImpl;
 import com.chatup.models.enums.ServerState;
 import com.chatup.network.ServerConnection;
+import com.chatup.network.implementations.ServerImpl;
+import com.chatup.network.interfaces.Client;
 import com.chatup.utils.StageManager;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -18,7 +21,9 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ResourceBundle;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class OverviewDashboard implements Initializable {
     private static double xOffset = 0;
@@ -91,6 +96,7 @@ public class OverviewDashboard implements Initializable {
         stopServerButton.setDisable(false);
         startCircle.setFill(Color.web("#00FF00"));
         stopCircle.setFill(Color.WHITE);
+        UserRepoImpl.getUserRepo().allOffline();
     }
 
     @FXML
@@ -111,6 +117,14 @@ public class OverviewDashboard implements Initializable {
         signoutButton.setDisable(false);
         stopCircle.setFill(Color.web("#FF0000"));
         startCircle.setFill(Color.WHITE);
+        ConcurrentHashMap<Integer, Client> clients = ServerImpl.getOnlineClients();
+        for (Client client : clients.values()) {
+            try {
+                client.disconnect();
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override

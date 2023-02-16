@@ -1,5 +1,6 @@
 package com.chatup.controllers.FXMLcontrollers;
 
+import com.chatup.App;
 import com.chatup.controllers.services.implementations.*;
 import com.chatup.models.entities.*;
 import com.chatup.models.enums.CardType;
@@ -551,6 +552,8 @@ public class ChatScreenController implements Initializable {
             System.out.println(RememberSetting.getPhone());
             System.out.println(RememberSetting.getPassword());
             RememberSetting.setProperties(CurrentUserImp.getCurrentUser().getPhoneNumber(), "");
+            CurrentChat.setCurrentChat(null);
+            ListCoordinatorImpl.getListCoordinator().flushLists();
             SwitchScenes.getInstance().switchToSignInSecond(event);
         } catch (RemoteException e) {
             e.printStackTrace();

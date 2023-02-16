@@ -366,4 +366,8 @@ public class ServerImpl extends UnicastRemoteObject implements Server {
     public List<Announcement> getAllAnnouncememts() throws RemoteException {
         return AnnouncementServiceImp.getAnnouncementService().getAllAnnouncement();
     }
+
+    @Override
+    public void ping() throws RemoteException {
+    }
 }

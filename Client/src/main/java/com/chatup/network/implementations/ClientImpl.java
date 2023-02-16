@@ -2,7 +2,6 @@ package com.chatup.network.implementations;
 
 import com.chatup.controllers.services.implementations.*;
 import com.chatup.models.entities.*;
-import com.chatup.models.enums.UserMode;
 import com.chatup.network.interfaces.Client;
 import com.chatup.utils.CardMapper;
 import com.chatup.utils.NotificationPopups;
@@ -41,6 +40,22 @@ public class ClientImpl extends UnicastRemoteObject implements Client {
         ListCoordinatorImpl.getListCoordinator().getUserOfflineFriends().add(0, friendCard);
     }
 
+    // Delay function to delay ChatBot Respone to handle bots talk to each other
+    public static void delay(long millis, Runnable continuation) {
+        Task<Void> sleeper = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                try {
+                    Thread.sleep(millis);
+                } catch (InterruptedException e) {
+                }
+                return null;
+            }
+        };
+        sleeper.setOnSucceeded(event -> continuation.run());
+        new Thread(sleeper).start();
+    }
+
     @Override
     public void sendGroupMessage(GroupMessage message) throws RemoteException {
         System.out.println("Recived Group Message");
@@ -49,6 +64,17 @@ public class ClientImpl extends UnicastRemoteObject implements Client {
                     .add(ChatServicesImpl.getChatService().recGroupMessage(message));
             ChatServicesImpl.getChatService().updateGroupChatList(message.getGroupMessageId(), message.getContent());
             NotificationPopups.receiveNotification("New message ✉️\uD83D\uDC68\u200D\uD83D\uDC69\u200D\uD83D\uDC66\u200D\uD83D\uDC66 from " + UserServicesImpl.getUserServices().getUser(message.getSenderId()).getUserName(), message.getContent(), "/images/newMessage.png");
+        });
+    }
+
+    @Override
+    public void receiveAnnouncement(Announcement announcement) throws RemoteException {
+        System.out.println("new announcment");
+        Platform.runLater(() -> {
+            if (!ListCoordinatorImpl.getListCoordinator().annoncementNull()) {
+                ListCoordinatorImpl.getListCoordinator().getAnnouncement().getChildren().add(AnnouncementServicesImp.getAnnouncementService().getAnnouncementHBox(announcement));
+            }
+            NotificationPopups.receiveNotification("New Annoncement " + announcement.getTitle(), announcement.getContent(), "/images/announcement.png");
         });
     }
 
@@ -62,7 +88,7 @@ public class ClientImpl extends UnicastRemoteObject implements Client {
             NotificationPopups.receiveNotification("New message ✉️\uD83E\uDDD1\u200D\uD83E\uDD1D\u200D\uD83E\uDDD1 from " + UserServicesImpl.getUserServices().getUser(message.getSenderId()).getUserName(), message.getContent(), "/images/newMessage.png");
         });
         // Check If Client Activated ChatBot Service
-        if(ChatterBotService.getChatterBotService().botStatus==true) {
+        if (ChatterBotService.getChatterBotService().botStatus == true) {
             System.out.println(ChatterBotService.getChatterBotService().botStatus);
             Platform.runLater(() -> {
                 ChatMessage msg = null;
@@ -85,9 +111,9 @@ public class ClientImpl extends UnicastRemoteObject implements Client {
     }
 
     @Override
-    public void addedToGroup(int groupID) throws RemoteException{
+    public void addedToGroup(int groupID) throws RemoteException {
         GroupChat group = GroupServicesImpl.getGroupService().getGroupChat(groupID);
-        if(group!=null) {
+        if (group != null) {
             Platform.runLater(() -> {
                 ListCoordinatorImpl.getListCoordinator().getUserGroups().add(CardMapper.getCard(group, ""));
             });
@@ -143,19 +169,5 @@ public class ClientImpl extends UnicastRemoteObject implements Client {
         Platform.runLater(() -> {
             ListCoordinatorImpl.getListCoordinator().updateFriendRequests();
         });
-    }
-
-    // Delay function to delay ChatBot Respone to handle bots talk to each other
-    public static void delay(long millis, Runnable continuation) {
-        Task<Void> sleeper = new Task<Void>() {
-            @Override
-            protected Void call() throws Exception {
-                try { Thread.sleep(millis); }
-                catch (InterruptedException e) { }
-                return null;
-            }
-        };
-        sleeper.setOnSucceeded(event -> continuation.run());
-        new Thread(sleeper).start();
     }
 }

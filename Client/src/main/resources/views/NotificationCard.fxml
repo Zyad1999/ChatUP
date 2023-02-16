@@ -13,7 +13,7 @@
 
 <HBox alignment="CENTER" prefHeight="82.0" prefWidth="333.0" styleClass="number-card" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <ImageView fx:id="friendImage" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
             <HBox.margin>
                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
             </HBox.margin>
@@ -28,7 +28,7 @@
                   <Insets bottom="5.0" left="5.0" right="10.0" top="20.0" />
                </VBox.margin>
                <children>
-                  <Text fill="#0f3d3e" strokeType="OUTSIDE" strokeWidth="0.0" text="Annoncement Title">
+                  <Text fx:id="announcementTitle" fill="#0f3d3e" strokeType="OUTSIDE" strokeWidth="0.0" text="Annoncement Title">
                      <font>
                         <Font name="Arial Bold" size="14.0" />
                      </font>
@@ -37,7 +37,7 @@
             </TextFlow>
             <TextFlow maxHeight="-Infinity" prefHeight="30.0">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Body" />
+                  <Text fx:id="announcementBody" strokeType="OUTSIDE" strokeWidth="0.0" text="Body" />
                </children>
                <VBox.margin>
                   <Insets left="5.0" />

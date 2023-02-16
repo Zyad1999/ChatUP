@@ -1,5 +1,6 @@
 package com.chatup.controllers.services.interfaces;
 
+import com.chatup.models.entities.Announcement;
 import com.chatup.models.entities.Card;
 import com.chatup.models.entities.User;
 import javafx.collections.ObservableList;
@@ -25,4 +26,5 @@ public interface ListCoordinator {
     VBox getGroupChatVbox(int chatId);
      ObservableList<User> getGroupMembers(int groupId);
      void updateGroupMembers(int chat_id);
+     VBox getAnnouncement();
 }

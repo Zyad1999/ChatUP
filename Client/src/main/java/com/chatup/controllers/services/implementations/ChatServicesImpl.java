@@ -268,11 +268,11 @@ public class ChatServicesImpl implements ChatService {
             }
         }
         if (curChat != null) {
-            String newContent = "";
-            if (content.length() > 100) {
-                newContent = content.substring(0, 100) + "....";
-            }
-            curChat.setCardContent(newContent);
+//            String newContent = "";
+//            if (content.length() > 100) {
+//                newContent = content.substring(0, 100) + "....";
+//            }
+            curChat.setCardContent(content);
             chats.remove(curChat);
             chats.add(0, curChat);
         } else {
@@ -292,11 +292,11 @@ public class ChatServicesImpl implements ChatService {
             }
         }
         if (curChat != null) {
-            String newContent = "";
-            if (content.length() > 100) {
-                newContent = content.substring(0, 100) + "....";
-            }
-            curChat.setCardContent(newContent);
+//            String newContent = "";
+//            if (content.length() > 100) {
+//                newContent = content.substring(0, 100) + "....";
+//            }
+            curChat.setCardContent(content);
             chats.remove(curChat);
             chats.add(0, curChat);
         }

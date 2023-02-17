@@ -1,5 +1,30 @@
 package com.chatup.controllers.reposotories.interfaces;
 
-public class UserRepo {
-    
+import com.chatup.models.entities.User;
+
+import java.util.List;
+
+public interface UserRepo {
+    public int createUser(User user);
+
+    public boolean deleteUser(int userID);
+
+    public boolean updateUser(User user);
+
+    boolean updateUserPassword(int userID, String password);
+
+    boolean updateUserImg(int userID, String phone, byte[] img);
+
+    public User getUser(int userID);
+
+    public User getUser(String userPhone);
+
+    public List<User> getAllUsers();
+
+    int getNumbersAllUsersOnSystem();
+    int getNumberAllMaleUsers();
+    int getNumberAllOnlineUsers();
+    int getNumberAllCountryOfUsers(String country);
+
+    void allOffline();
 }

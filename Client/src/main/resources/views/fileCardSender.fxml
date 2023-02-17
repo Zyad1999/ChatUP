@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
+
+<HBox fx:id="recieveMessages" alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: transparent;" styleClass="hbox-message-card" stylesheets="@../style/MainStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <VBox fx:id="recieveMessagesBox" prefWidth="300.0" styleClass="send-messages-chat-text-flow">
+            <children>
+                <HBox>
+                    <children>
+                        <ImageView fitHeight="45.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/fileIconSender.png" />
+                            </image>
+                     <HBox.margin>
+                        <Insets bottom="5.0" right="5.0" />
+                     </HBox.margin>
+                        </ImageView>
+                        <Pane>
+                            <children>
+                                <TextFlow fx:id="recieveMessagesContent" layoutY="4.0" styleClass="recieve-messages-chat-text">
+                                    <children>
+                                        <Text fx:id="fileName" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="file name.extension" />
+                                    </children>
+                                </TextFlow>
+                                <TextFlow layoutY="31.0">
+                                    <children>
+                                        <Text fx:id="fileSize" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="3KB" />
+                                    </children>
+                                </TextFlow>
+                            </children>
+                     <HBox.margin>
+                        <Insets bottom="5.0" />
+                     </HBox.margin>
+                        </Pane>
+                        <ImageView fx:id="downloadButton" fitHeight="45.0" fitWidth="60.0" onMouseClicked="#downloadButtonHandler" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/downloadSender.png" />
+                            </image>
+                            <HBox.margin>
+                                <Insets bottom="5.0" left="50.0" />
+                            </HBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                        </ImageView>
+                    </children>
+                </HBox>
+                <Separator prefWidth="200.0" />
+                <TextFlow>
+                    <children>
+                        <Text fx:id="messageText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old." />
+                    </children>
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+                </TextFlow>
+            <TextFlow fx:id="messageDateTime" textAlignment="RIGHT">
+               <children>
+                  <Text fx:id="dateTimeText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="WED 03:13 PM " />
+               </children>
+            </TextFlow>
+
+            </children>
+        </VBox>
+    </children>
+</HBox>

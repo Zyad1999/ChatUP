@@ -2,3 +2,11 @@
 Client/target
 Server/target
 /Server/src/main/resources/db.properties
+/Server/src/main/resources/auth.properties
+/Server/src/main/resources/files
+/Server/files
+/Client/src/main/resources/remember.properties
+/Client/files
+.vscode
+Server/Server.iml
+Client/Client.iml

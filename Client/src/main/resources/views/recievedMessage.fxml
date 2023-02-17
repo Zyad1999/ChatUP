@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
+
+<HBox fx:id="recieveMessages" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: transparent;" styleClass="hbox-message-card" stylesheets="@../style/MainStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox fx:id="recieveMessagesBox" prefWidth="300.0" styleClass="receive-messages-chat-text-flow">
+         <children>
+            <TextFlow fx:id="recieveMessagesName" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity">
+               <children>
+                  <Text fx:id="recieverName" fill="#116f61" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sender-name-text" text="Karim Taha">
+                     <font>
+                        <Font name="Calibri Bold" size="14.0" />
+                     </font>
+                  </Text>
+               </children>
+            </TextFlow>
+            <TextFlow fx:id="recieveMessagesContent" styleClass="recieve-messages-chat-text">
+               <children>
+                  <Text fx:id="recieverMessage" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="recieve-messages-chat-text" text="Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old." />
+               </children>
+            </TextFlow>
+            <TextFlow fx:id="recieveMessagesContent1" styleClass="recieve-messages-chat-text">
+               <children>
+                  <Text fx:id="time" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="recieve-messages-chat-text" text="12:45 PM" />
+               </children>
+               <VBox.margin>
+                  <Insets left="180.0" right="5.0" />
+               </VBox.margin>
+            </TextFlow>
+         </children>
+      </VBox>
+   </children>
+</HBox>

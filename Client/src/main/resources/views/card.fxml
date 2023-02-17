@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="76.0" prefWidth="270.0" styleClass="users_menu_card" stylesheets="@../style/MainStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fx:id="friend_image_menu" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" styleClass="user-image-menu">
+         <image>
+            <Image url="@../images/user.png" />
+         </image>
+         <HBox.margin>
+            <Insets top="10.0" />
+         </HBox.margin>
+      </ImageView>
+      <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" styleClass="user-data-menu" HBox.hgrow="ALWAYS">
+         <children>
+            <Text fx:id="User_name_imenu" fill="#116f61" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-search-container" text="Mohga Yasser">
+               <font>
+                  <Font name="Arial Bold" size="12.0" />
+               </font></Text>
+            <TextFlow maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="64.0" prefWidth="190.0" style="-fx-max-height: 60;" styleClass="textflow_menu">
+               <children>
+                  <Text fx:id="content_id" strokeType="OUTSIDE" strokeWidth="0.0" text="Hello every one that is a dome datat for the exampleijsdVLIFSA?DINVl/asfn/'lvinslk/nvl/ksadfnvb" wrappingWidth="187.23046875">
+                     <cursor>
+                        <Cursor fx:constant="TEXT" />
+                     </cursor>
+                  </Text>
+               </children>
+            </TextFlow>
+         </children>
+      </VBox>
+   </children>
+   <effect>
+      <DropShadow blurType="ONE_PASS_BOX" height="18.07" radius="8.535" width="18.07">
+         <color>
+            <Color red="0.658823549747467" green="0.6352941393852234" blue="0.6352941393852234" />
+         </color>
+      </DropShadow>
+   </effect>
+   <cursor>
+      <Cursor fx:constant="HAND" />
+   </cursor>
+</HBox>

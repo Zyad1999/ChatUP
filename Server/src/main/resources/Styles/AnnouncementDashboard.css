@@ -1,0 +1,105 @@
+button {
+    -fx-background-color : none;
+    -fx-text-fill : #e7e5e5;
+}
+.button:hover {
+    -fx-background-color : #0F3D3E;
+    -fx-text-fill : #e7e5e5;
+}
+.button:pressed {
+    -fx-background-color : #100F0F;
+    -fx-text-fill : #e7e5e5;
+    -fx-scale-y: 0.99;
+}
+.announcementButton {
+    -fx-background-color : #0F3D3E;
+    -fx-text-fill : #e7e5e5;
+    -fx-border-color: transparent;
+    -fx-font-size: 19;
+    -fx-font-weight: 700;
+    -fx-cursor: hand;
+}
+
+.scroll-pane {
+    -fx-background-color: #02030A;
+}
+
+.scroll-bar:horizontal, .scroll-bar:vertical{
+    -fx-background-color:transparent;
+}
+
+.increment-button, .decrement-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-font-size: 19;
+    -fx-font-weight: 700;
+    -fx-cursor: hand;
+}
+
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0em;
+}
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #10165F;
+    -fx-background-radius: 5em;
+}
+
+.scroll-pane > .corner {
+    -fx-background-color: black;
+}
+
+.left-side {
+    -fx-background-color: linear-gradient(to top right, rgba(16,15,15,1) 0%, rgba(15,61,62,1) 20%, rgba(241,241,241,1) 100%);
+    -fx-background-radius: 0 40 40 0;
+}
+
+.icons-left-side {
+    -fx-opacity: 0.5
+}
+.right-side {
+    -fx-background-color: rgba(234,238,235,1);
+}
+.close-button:pressed {
+    -fx-background-color: -fx-gray-color;
+    -fx-text-fill: -fx-background-color-green;
+	-fx-scale-y: 0.9;
+	-fx-scale-x: 0.9;
+}
+
+.start-stop-buttons {
+    -fx-background-color: rgba(234,238,235,1);
+    -fx-border-color: #0f3d3e;
+    -fx-border-width: 2;
+    -fx-border-radius: 20;
+    -fx-cursor: hand;
+    -fx-font-size: 20;
+    -fx-font-weight: 700;
+}
+.start-stop-buttons:hover {
+    -fx-background-color : #0F3D3E;
+    -fx-background-radius : 20;
+    -fx-text-fill : #e7e5e5;
+}
+.start-stop-buttons:pressed {
+    -fx-background-color : #100F0F;
+    -fx-text-fill : #e7e5e5;
+    -fx-scale-y: 0.9;
+    -fx-scale-x: 0.9;
+}
+
+.text-field {
+	-fx-background-color: white;
+	-fx-border-color: -fx-gray-color;
+	-fx-background-radius: 10;
+	-fx-text-fill: black;
+    -fx-border-radius: 10;
+}
+
+.text-field:focused {
+	-fx-background-color: -fx-gray-color;
+}

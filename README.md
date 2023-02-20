@@ -27,13 +27,13 @@ ChatUP is a descktop messaging application built using Java,  MySQL, RMI, FXML, 
 
 ![App Screenshot](https://i.ibb.co/cX9SJPd/Screenshot-2023-02-21-010106.png)
 
-![App Screenshot](https://i.ibb.co/hL92mQW/Screenshot-2023-02-21-010048.png)
+![App Screenshot](https://i.ibb.co/DzWwRcC/Screenshot-2023-02-21-010048.png)
 
 ![App Screenshot](https://i.ibb.co/tZ3Zmgq/Screenshot-2023-02-21-005824.png)
 
-![App Screenshot](https://i.ibb.co/X4R2LH6/Screenshot-2023-02-21-005730.png)
+![App Screenshot](https://i.ibb.co/KGv0hnB/Screenshot-2023-02-21-005730.png)
 
-![App Screenshot](https://i.ibb.co/NV4PW1n/Screenshot-2023-02-21-005911.png)
+![App Screenshot](https://i.ibb.co/K01kVNz/Screenshot-2023-02-21-005911.png)
 
 ![App Screenshot](https://i.ibb.co/G35sQqW/Screenshot-2023-02-21-005936.png)
 

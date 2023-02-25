@@ -2,7 +2,7 @@
 ![Logo](https://i.ibb.co/WBGpZ4p/Screenshot-2023-01-24-172543-removebg-preview-1.png)
 
 
-ChatUP is a descktop messaging application built using Java,  MySQL, RMI, FXML, CSS and managed using Maven.
+ChatUP is a desktop messaging application built using Java, JDBC, MySQL, RMI, FXML, CSS and managed using Maven.
 
 ## Features
 

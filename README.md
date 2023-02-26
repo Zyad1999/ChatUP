@@ -10,7 +10,7 @@ ChatUP is a desktop messaging application built using Java, JDBC, MySQL, RMI, FX
 - Group Chats
 - Media Sharing
 - Chatbot
-- Notifcation
+- Notification
 - Admin Dashboard
 - System Statistics
 - Admin Announcements
@@ -27,7 +27,7 @@ ChatUP is a desktop messaging application built using Java, JDBC, MySQL, RMI, FX
 
 ![App Screenshot](https://i.ibb.co/cX9SJPd/Screenshot-2023-02-21-010106.png)
 
-![App Screenshot](https://i.ibb.co/DzWwRcC/Screenshot-2023-02-21-010048.png)
+![App Screenshot](https://i.ibb.co/dPj3m4f/d042f1ac-d2f6-4aa7-b747-06dfad22e873.jpg)
 
 ![App Screenshot](https://i.ibb.co/tZ3Zmgq/Screenshot-2023-02-21-005824.png)
 
